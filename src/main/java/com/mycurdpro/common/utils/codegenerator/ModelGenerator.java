@@ -1,51 +1,191 @@
 package com.mycurdpro.common.utils.codegenerator;
 
 import com.jfinal.kit.PathKit;
-import com.jfinal.plugin.activerecord.dialect.OracleDialect;
-import com.jfinal.plugin.activerecord.generator.Generator;
+import com.jfinal.kit.StrKit;
+import com.mycurdpro.common.utils.FileUtils;
+import com.mycurdpro.common.utils.freemarker.FreemarkerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * jfinal官方 Model 代码生成器
- * maven 项目
- * oracle下存在bug，表字段如设置默认值 生成字典文件时报错 java.sql.SQLException: 流已被关闭
+ * Model BaseModel MappingKit 数据字典 等代码生成器，相对 Jfinal 官方 代码生成器功能更强
+ *
+ * @author zhangchuang
  */
 public class ModelGenerator {
+    private final static Logger LOG = LoggerFactory.getLogger(ModelGenerator.class);
+
+    // 生成文件基础路径 (class 相关目录下)
+    private final static String outBasePath = PathKit.getWebRootPath().replaceAll("\\\\", "/")
+            + "/src/main/java/" + GeneratorConfig.basePackageName.replaceAll("\\.", "/") + "/" + GeneratorConfig.moduleName + "/";
+
+    //生成 baseModel model
+    private final static boolean genModel = true;                                                     // 是否生成
+    private final static boolean modelOverwriteIfExist = true;                                        // 是否覆盖
+    private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
+    private final static String baseModelOutPath = outBasePath + "model/base/";                       // baseModel 渲染文件输出路径
+    private final static String modelTplPath = GeneratorConfig.tplBasePath + "model.ftl";             // Model 模板 路径
+    private final static String modelOutPath = outBasePath + "model/";                                // Model 渲染文件输出路径
+
+    // 生成 MappingKit
+    private final static boolean genMappingKit = true;                                                // 是否生成
+    private final static boolean mappingKitOverwriteIfExist = true;                                   // 是否覆盖代码
+    private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "MappingKit.ftl";   // 模板文件路径
+    private final static String mappingKitOutPath = modelOutPath;                                     // 渲染文件输出路径
 
 
-    // base model 包名
-    private static String baseModelPkg = "com.mycurdpro.testModule.model.base";
-    // base 路径
-    private static String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/com/mycurdpro/testModule/model/base";
-    // model 包名
-    private static String modelPkg = "com.mycurdpro.testModule.model";
-    // model 路径
-    private static String modelDir = baseModelDir + "/..";
+    // 数据表字典
+    private final static boolean genDict = true;                                                // 是否生成
+    private final static boolean dictOverwriteIfExist = true;                                   // 是否覆盖
+    private final static boolean genSingleFile = true;                                          // 字典是否单一文件
+    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";           // 字典 模板文件路径
+    private final static String dictOutDirPath = baseModelOutPath;                               // 字典 渲染文件输出目录
 
 
-    public static void main(String[] args) {
-        Generator generator = new Generator(DataSouceUtils.getDataSource(), baseModelPkg, baseModelDir, modelPkg, modelDir);
+    /**
+     * 生成字典
+     *
+     * @param tableMetas 表元数据集合
+     * @throws IOException 文件读写异常
+     */
+    private static void generateDict(List<TableMeta> tableMetas) throws IOException {
+        String tplContent = FileUtils.readFile(dictTplPath);  // 模板内容
+        String renderContent;        // 渲染后文本
+        Map<String, Object> params;  // 模板渲染参数
+        String outPath;              // 文件输出路径
 
-        // oracle 数据库方言
-        generator.setDialect(new OracleDialect());
-        // 生成链式调用 代码
-        generator.setGenerateChainSetter(true);
-        // model 中生成 dao 对象
-        generator.setGenerateDaoInModel(true);
+        if (genSingleFile) {
+            // 生成单个文件
+            outPath = dictOutDirPath + "DICT.md";
+            if (dictOverwriteIfExist || !new File(outPath).exists()) {
+                params = new HashMap<>();
+                params.put("tableMetas", tableMetas);
+                params.put("author",GeneratorConfig.author);
 
+                renderContent = FreemarkerUtils.renderAsText(tplContent, params);
+                FileUtils.writeFile(renderContent, outPath);
+                LOG.info(outPath);
+            }
+        } else {
+            // 生成多个文件
+            List<TableMeta> tableMetasTemp;
+            for (TableMeta tableMeta : tableMetas) {
+                outPath = dictOutDirPath +"DICT_"+tableMeta.name + ".md";
+                if (!dictOverwriteIfExist && new File(outPath).exists()) {
+                    continue;
+                }
 
-        // 生成数据字典
-        generator.setGenerateDataDictionary(true);
-        generator.setDataDictionaryFileName("dict.txt");
-        generator.setDataDictionaryOutputDir(baseModelDir); // base 包下
+                tableMetasTemp = new ArrayList<>();
+                tableMetasTemp.add(tableMeta);
+                params = new HashMap<>();
+                params.put("tableMetas", tableMetasTemp);
+                params.put("author",GeneratorConfig.author);
 
-        // 添加不需要生成的表名
-        // generator.addExcludedTable("adv");
-        // 设置需要被移除的表名前缀用于生成modelName。例如表名 "osc_user"，移除前缀 "osc_"后生成的model名为 "User"而非 OscUser
-        // generator.setRemovedTableNamePrefixes("t_");
-
-        generator.addExcludedTable("SYS_USER_BAK");
-        generator.generate();
+                renderContent = FreemarkerUtils.renderAsText(tplContent, params);
+                FileUtils.writeFile(renderContent, outPath);
+                LOG.info(outPath);
+            }
+        }
     }
 
+
+    /**
+     * 生成 model
+     *
+     * @param tableMetas 表元数据集合
+     * @throws IOException 文件读写异常
+     */
+    private static void generateModel(List<TableMeta> tableMetas) throws IOException {
+        // 模板文件内容
+        String baseModelContent = FileUtils.readFile(baseModelTplPath);
+        String modelContent = FileUtils.readFile(modelTplPath);
+
+        String renderBaseModelContent;  // 渲染后BaseModel文本
+        String renderModelContent;      // 渲染后 Model 文本
+        String outPath;                 // 文件输出路径
+
+        // 渲染并生成文件
+        Map<String, Object> params;
+        for (TableMeta tableMeta : tableMetas) {
+            params = new HashMap<>();
+            params.put("basePackageName", GeneratorConfig.basePackageName);
+            params.put("moduleName", GeneratorConfig.moduleName);
+            params.put("tableMeta", tableMeta);
+            params.put("author",GeneratorConfig.author);
+
+            outPath = baseModelOutPath + "Base" + tableMeta.nameCamelFirstUp + ".java";
+            if (modelOverwriteIfExist || !new File(outPath).exists()) {
+                renderBaseModelContent = FreemarkerUtils.renderAsText(baseModelContent, params);
+                FileUtils.writeFile(renderBaseModelContent, outPath);
+                LOG.info(outPath);
+            }
+
+            outPath = modelOutPath + tableMeta.nameCamelFirstUp + ".java";
+            if (modelOverwriteIfExist || !new File(outPath).exists()) {
+                renderModelContent = FreemarkerUtils.renderAsText(modelContent, params);
+                FileUtils.writeFile(renderModelContent, outPath);
+                LOG.info(outPath);
+            }
+        }
+    }
+
+    /**
+     * 生成 MappingKit
+     *
+     * @param tableMetas 表元数据集合
+     * @throws IOException 文件读写异常
+     */
+    private static void generateMappingKit(List<TableMeta> tableMetas) throws IOException {
+        String outPath = mappingKitOutPath + StrKit.firstCharToUpperCase(GeneratorConfig.moduleName) + "MappingKit.java";
+        if (mappingKitOverwriteIfExist || !new File(outPath).exists()) {
+            String mappingKitContent = FileUtils.readFile(mappingKitTplPath);
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("basePackageName", GeneratorConfig.basePackageName);
+            params.put("moduleName", GeneratorConfig.moduleName);
+            params.put("tableMetas", tableMetas);
+            params.put("author",GeneratorConfig.author);
+
+            String renderMappingKitContent = FreemarkerUtils.renderAsText(mappingKitContent, params);
+            FileUtils.writeFile(renderMappingKitContent, outPath);
+            LOG.info(outPath);
+        }
+    }
+
+
+    private static void generate() {
+        try {
+            OracleMetaUtils.dataSource = GeneratorConfig.getDataSource();
+            List<TableMeta> tableMetas = OracleMetaUtils.loadTables(GeneratorConfig.schemaPattern, GeneratorConfig.tableNames, true);
+            if (genDict) {
+                LOG.info("(*^▽^*) start generate dict");
+                generateDict(tableMetas);
+                LOG.info("(*^▽^*) generate dict over");
+            }
+            if (genModel) {
+                LOG.info("(*^▽^*) start generate Model");
+                generateModel(tableMetas);
+                LOG.info("(*^▽^*) generate Model over");
+            }
+            if (genMappingKit) {
+                LOG.info("(*^▽^*) start generate MappingKit");
+                generateMappingKit(tableMetas);
+                LOG.info("(*^▽^*) generate MappingKit over");
+            }
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    public static void main(String[] args) {
+        generate();
+    }
 
 }

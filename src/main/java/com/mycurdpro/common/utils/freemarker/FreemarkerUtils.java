@@ -13,14 +13,15 @@ import java.util.Map;
 
 /**
  * FreeMarker工具类
+ * @author zhangchuang
  */
 public abstract class FreemarkerUtils {
     private final static Logger LOG = LoggerFactory.getLogger(FreemarkerUtils.class);
 
     /**
-     * 通过模板文本 和 数据 得到 渲染后的内容
+     * 通过模板文本字符串和数据获得渲染后的文本
      *
-     * @param templateContent 模板文件文本内容
+     * @param templateContent 模板文本内容
      * @param paramMap        数据
      * @return
      */
@@ -39,24 +40,24 @@ public abstract class FreemarkerUtils {
     }
 
     /**
-     * 通过模板和参数生成HTML文件
+     * 通过模板和数据生成渲染过文件
      *
-     * @param tplDirectory 模板文件目录
-     * @param tlName       模板文件名字
-     * @param paramMap     数据
-     * @param filePath     生成存放路径
+     * @param templateDirectory  模板文件目录
+     * @param templateName       模板文件名字
+     * @param paramMap           数据
+     * @param saveFilePath       生成存放路径
      */
-    public static void renderToFile(String tplDirectory, String tlName, Map<String, Object> paramMap, String filePath) {
+    public static void renderToFile(String templateDirectory, String templateName, Map<String, Object> paramMap, String saveFilePath) {
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter outputStreamWriter = null;
         try {
             Configuration configuration = new Configuration(Configuration.VERSION_2_3_22);
-            File file = new File(tplDirectory);// 模板目录
+            File file = new File(templateDirectory);
             configuration.setDirectoryForTemplateLoading(file);
             configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_22));
-            Template template = configuration.getTemplate(tlName, Constant.DEFAULT_ENCODEING);
+            Template template = configuration.getTemplate(templateName, Constant.DEFAULT_ENCODEING);
 
-            File saveFile = new File(filePath); // 生成 的文件
+            File saveFile = new File(saveFilePath);
             fileOutputStream = new FileOutputStream(saveFile);
             outputStreamWriter = new OutputStreamWriter(fileOutputStream, Constant.DEFAULT_ENCODEING);
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -87,26 +88,21 @@ public abstract class FreemarkerUtils {
 
 class StringTemplateLoader implements TemplateLoader {
     private String template;
-
     public StringTemplateLoader(String template) {
         this.template = template;
         if (template == null) {
             this.template = "";
         }
     }
-
     public void closeTemplateSource(Object templateSource) {
         ((StringReader) templateSource).close();
     }
-
     public Object findTemplateSource(String name) {
         return new StringReader(template);
     }
-
     public long getLastModified(Object templateSource) {
         return 0;
     }
-
     public Reader getReader(Object templateSource, String encoding) {
         return (Reader) templateSource;
     }

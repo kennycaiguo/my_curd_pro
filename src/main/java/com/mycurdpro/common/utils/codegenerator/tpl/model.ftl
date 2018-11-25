@@ -5,7 +5,7 @@ import ${(basePackageName)!}.${(moduleName)!}.model.base.Base${(tableMeta.nameCa
 /**
  * Generated model
  * DB: ${(tableMeta.name)!}  ${(tableMeta.remark)!}
- * @author zhangchuang
+ * @author ${(author)!'Generator'}
  */
 @SuppressWarnings("serial")
 public class ${(tableMeta.nameCamelFirstUp)!} extends Base${(tableMeta.nameCamelFirstUp)!}<${(tableMeta.nameCamelFirstUp)!}> {

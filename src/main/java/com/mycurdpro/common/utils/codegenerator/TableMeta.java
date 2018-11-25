@@ -3,10 +3,12 @@ package com.mycurdpro.common.utils.codegenerator;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
- * TableMeta
+ * TableMeta, 用于代码生成器
  */
 public class TableMeta implements Serializable {
 
@@ -35,30 +37,46 @@ public class TableMeta implements Serializable {
     public List<ColumnMeta> columnMetas;
 
 
+    // base model 中必须 import 的包
+    private Set<String> necessaryImport = new HashSet<>();
+
+    public void setColumnMetas(List<ColumnMeta> columnMetas) {
+        this.columnMetas = columnMetas;
+        final HashSet<String> excludeTypes = new HashSet<String>() {{
+            add("String");
+            add("Double");
+            add("Integer");
+            add("Float");
+            add("Long");
+        }};
+        for (ColumnMeta columnMeta : columnMetas) {
+            if (columnMeta.getJavaTypeShortName() == null || excludeTypes.contains(columnMeta.getJavaTypeShortName())) {
+                continue;
+            }
+            this.necessaryImport.add(columnMeta.javaType);
+        }
+    }
     public String getName() {
         return name;
     }
-
     public String getNameCamel() {
         return nameCamel;
     }
-
     public String getNameCamelFirstUp() {
         return nameCamelFirstUp;
     }
-
     public String getRemark() {
         return remark;
     }
-
     public List<String> getPrimaryKeys() {
         return primaryKeys;
     }
-
     public List<ColumnMeta> getColumnMetas() {
         return columnMetas;
     }
-
+    public Set<String> getNecessaryImport() {
+        return necessaryImport;
+    }
 
     @Override
     public String toString() {
@@ -69,6 +87,7 @@ public class TableMeta implements Serializable {
                 ", remark='" + remark + '\'' +
                 ", primaryKeys=" + primaryKeys +
                 ", columnMetas=" + columnMetas +
+                ", necessaryImport=" + necessaryImport +
                 '}';
     }
 }

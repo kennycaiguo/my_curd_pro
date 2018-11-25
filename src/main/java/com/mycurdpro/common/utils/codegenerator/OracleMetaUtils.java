@@ -23,9 +23,9 @@ public class OracleMetaUtils {
     private final static Logger LOG = LoggerFactory.getLogger(OracleMetaUtils.class);
 
 
-    public static DataSource dataSource;                      //  数据源
+    static DataSource dataSource;                      //  数据源
     // （Jfinal 特色)
-    public static TypeMapping typeMapping = new TypeMapping();// 数据类型 java类型映射
+    private static final TypeMapping typeMapping = new TypeMapping();// 数据类型 java类型映射
 
 
     /**
@@ -137,13 +137,14 @@ public class OracleMetaUtils {
 
                 columnMeta.nameCamel = StrKit.toCamelCase(columnMeta.name.toLowerCase());
                 columnMeta.nameCamelFirstUp = StrKit.firstCharToUpperCase(columnMeta.nameCamel);
-                columnMeta.javaType = nameJavaTypeMap.get(columnMeta.name);
+                columnMeta.setJavaType(nameJavaTypeMap.get(columnMeta.name));
                 columnMeta.isPrimaryKey = tableMeta.primaryKeys.contains(columnMeta.name);
 
                 columnMetas.add(columnMeta);
             }
-            tableMeta.columnMetas = columnMetas;
+            tableMeta.setColumnMetas(columnMetas);
         }
+
         LOG.debug(JSON.toJSONString(tableMeta));
         return tableMeta;
     }

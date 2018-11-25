@@ -23,6 +23,8 @@
         <cron4j.version>2.2.5</cron4j.version>
         <google-guava.version>27.0-jre</google-guava.version>
         <google-zxing.version>3.3.2</google-zxing.version>
+        <cors-filter.version>2.5</cors-filter.version>
+        <beanutils.version>1.9.3</beanutils.version>
 
     </properties>
 
@@ -99,6 +101,17 @@
             <artifactId>javase</artifactId>
             <version>${google-zxing.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>${cors-filter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${beanutils.version}</version>
+        </dependency>
+
 
 
         <!--日志-->

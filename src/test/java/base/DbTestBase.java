@@ -22,7 +22,7 @@ public class DbTestBase {
         arp.setDialect(new OracleDialect());
         arp.setContainerFactory(new CaseInsensitiveContainerFactory());
         arp.setShowSql(true);
-        //MappingKit.mapping(arp);
+        //SysMappingKit.mapping(arp);
         dp.start();
         arp.start();
     }
