@@ -1,13 +1,14 @@
-package com.mycurdpro.system.model;
+package com.mycurdpro.system;
 
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.mycurdpro.system.model.*;
 
 /**
  * Generated MappingKit
  * system 模块数据表  MappingKit
  * @author zhangchuang
  */
-public class SystemMappingKit {
+public class SystemModelMapping {
 
 	public static void mapping(ActiveRecordPlugin arp) {
         // 系统用户表

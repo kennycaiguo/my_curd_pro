@@ -37,16 +37,16 @@ public class ModelGenerator {
     // 生成 MappingKit
     private final static boolean genMappingKit = true;                                                // 是否生成
     private final static boolean mappingKitOverwriteIfExist = true;                                   // 是否覆盖代码
-    private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "MappingKit.ftl";   // 模板文件路径
-    private final static String mappingKitOutPath = modelOutPath;                                     // 渲染文件输出路径
+    private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "ModelMapping.ftl";   // 模板文件路径
+    private final static String mappingKitOutPath = outBasePath;                                      // 渲染文件输出路径
 
 
     // 数据表字典
     private final static boolean genDict = true;                                                // 是否生成
     private final static boolean dictOverwriteIfExist = true;                                   // 是否覆盖
-    private final static boolean genSingleFile = true;                                          // 字典是否单一文件
-    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";           // 字典 模板文件路径
-    private final static String dictOutDirPath = baseModelOutPath;                               // 字典 渲染文件输出目录
+    private final static boolean genSingleFile = false;                                         // 字典是否单一文件
+    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";          // 字典 模板文件路径
+    private final static String dictOutDirPath = outBasePath+"doc/model/";                      // 字典 渲染文件输出目录
 
 
     /**
@@ -63,7 +63,7 @@ public class ModelGenerator {
 
         if (genSingleFile) {
             // 生成单个文件
-            outPath = dictOutDirPath + "DICT.md";
+            outPath = dictOutDirPath + "model_dict.md";
             if (dictOverwriteIfExist || !new File(outPath).exists()) {
                 params = new HashMap<>();
                 params.put("tableMetas", tableMetas);
@@ -77,7 +77,7 @@ public class ModelGenerator {
             // 生成多个文件
             List<TableMeta> tableMetasTemp;
             for (TableMeta tableMeta : tableMetas) {
-                outPath = dictOutDirPath +"DICT_"+tableMeta.name + ".md";
+                outPath = dictOutDirPath +tableMeta.name + ".md";
                 if (!dictOverwriteIfExist && new File(outPath).exists()) {
                     continue;
                 }
@@ -137,13 +137,13 @@ public class ModelGenerator {
     }
 
     /**
-     * 生成 MappingKit
+     * 生成 ModelMapping
      *
      * @param tableMetas 表元数据集合
      * @throws IOException 文件读写异常
      */
-    private static void generateMappingKit(List<TableMeta> tableMetas) throws IOException {
-        String outPath = mappingKitOutPath + StrKit.firstCharToUpperCase(GeneratorConfig.moduleName) + "MappingKit.java";
+    private static void generateModelMapping(List<TableMeta> tableMetas) throws IOException {
+        String outPath = mappingKitOutPath + StrKit.firstCharToUpperCase(GeneratorConfig.moduleName) + "ModelMapping.java";
         if (mappingKitOverwriteIfExist || !new File(outPath).exists()) {
             String mappingKitContent = FileUtils.readFile(mappingKitTplPath);
 
@@ -176,7 +176,7 @@ public class ModelGenerator {
             }
             if (genMappingKit) {
                 LOG.info("(*^▽^*) start generate MappingKit");
-                generateMappingKit(tableMetas);
+                generateModelMapping(tableMetas);
                 LOG.info("(*^▽^*) generate MappingKit over");
             }
         } catch (IOException e) {

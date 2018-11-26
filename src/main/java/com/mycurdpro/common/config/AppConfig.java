@@ -16,8 +16,9 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
+import com.mycurdpro.system.SystemModelMapping;
+import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
-import com.mycurdpro.system.model.SystemMappingKit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,7 +52,7 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configRoute(Routes me) {
-
+        me.add(new SystemRoute());
     }
 
     @Override
@@ -74,7 +75,7 @@ public class AppConfig  extends JFinalConfig {
         activeRecordPlugin.setDialect(new OracleDialect());
         activeRecordPlugin.setContainerFactory(new CaseInsensitiveContainerFactory()); // 表字段大小写不敏感
         activeRecordPlugin.setShowSql(jdbcProp.getBoolean("devMode"));
-        SystemMappingKit.mapping(activeRecordPlugin);                                     // system 模块 表映射
+        SystemModelMapping.mapping(activeRecordPlugin);                                // system 模块 表映射
         me.add(activeRecordPlugin);
 
     }
