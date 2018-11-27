@@ -1,9 +1,8 @@
 package com.mycurdpro.system.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
+import com.jfinal.plugin.activerecord.Model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -86,11 +85,20 @@ public abstract class BaseSysDict<M extends BaseSysDict<M>> extends Model<M> imp
      }
 
      // 排序号
-     public BigDecimal getDictSort() {
+     public Integer getDictSort() {
         return get("DICT_SORT");
      }
-     public M setDictSort(BigDecimal dictSort) {
+     public M setDictSort(Integer dictSort) {
         set("DICT_SORT", dictSort);
+        return (M)this;
+     }
+
+     // 删除标志，0未删除 1已删除
+     public String getDelFlag() {
+        return get("DEL_FLAG");
+     }
+     public M setDelFlag(String delFlag) {
+        set("DEL_FLAG", delFlag);
         return (M)this;
      }
 

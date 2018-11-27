@@ -1,7 +1,7 @@
 package com.mycurdpro.system.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
+import com.jfinal.plugin.activerecord.Model;
 
 import java.util.Date;
 
@@ -72,6 +72,15 @@ public abstract class BaseSysDictGroup<M extends BaseSysDictGroup<M>> extends Mo
      }
      public M setUpdateTime(Date updateTime) {
         set("UPDATE_TIME", updateTime);
+        return (M)this;
+     }
+
+     // 删除标志，0未删除 1已删除
+     public String getDelFlag() {
+        return get("DEL_FLAG");
+     }
+     public M setDelFlag(String delFlag) {
+        set("DEL_FLAG", delFlag);
         return (M)this;
      }
 

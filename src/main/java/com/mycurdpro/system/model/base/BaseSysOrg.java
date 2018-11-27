@@ -1,9 +1,8 @@
 package com.mycurdpro.system.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
+import com.jfinal.plugin.activerecord.Model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -50,10 +49,10 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
      }
 
      // 排序号
-     public BigDecimal getSort() {
+     public Integer getSort() {
         return get("SORT");
      }
-     public M setSort(BigDecimal sort) {
+     public M setSort(Integer sort) {
         set("SORT", sort);
         return (M)this;
      }
@@ -113,10 +112,10 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
      }
 
      // 层级
-     public BigDecimal getLevel() {
+     public Integer getLevel() {
         return get("LEVEL");
      }
-     public M setLevel(BigDecimal level) {
+     public M setLevel(Integer level) {
         set("LEVEL", level);
         return (M)this;
      }

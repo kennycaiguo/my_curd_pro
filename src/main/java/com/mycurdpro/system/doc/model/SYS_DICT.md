@@ -9,6 +9,7 @@
 | 6 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 7 | UPDATER |  VARCHAR2(30) | ✔  |   |   | 最后修改人  |
 | 8 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
-| 9 | DICT_SORT |  NUMBER(22) | ✔  |   |   | 排序号  |
+| 9 | DICT_SORT |  NUMBER(9) | ✔  |   |   | 排序号  |
+| 10 | DEL_FLAG |  VARCHAR2(2) | ✘  |   |   | 删除标志，0未删除 1已删除  |
 
 

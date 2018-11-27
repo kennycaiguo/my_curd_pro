@@ -5,7 +5,7 @@
 | 2 | NAME |  VARCHAR2(50) | ✘  |   |   | 角色名称  |
 | 3 | CODE |  VARCHAR2(50) | ✘  |   |   | 角色编码  |
 | 4 | DESCRIPTION |  VARCHAR2(200) | ✔  |   |   | 角色描述  |
-| 5 | SORT |  NUMBER(22) | ✔  |   |   | 排序号  |
+| 5 | SORT |  NUMBER(9) | ✔  |   |   | 排序号  |
 | 6 | CREATER |  VARCHAR2(50) | ✘  |   |   | 创建人  |
 | 7 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 8 | UPDATER |  VARCHAR2(50) | ✔  |   |   | 最后修改人  |

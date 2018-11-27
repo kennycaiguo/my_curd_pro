@@ -8,5 +8,6 @@
 | 5 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 6 | UPDATER |  VARCHAR2(50) | ✔  |   |   | 最后修改人  |
 | 7 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
+| 8 | DEL_FLAG |  VARCHAR2(2) | ✘  |   |   | 删除标志，0未删除 1已删除  |
 
 

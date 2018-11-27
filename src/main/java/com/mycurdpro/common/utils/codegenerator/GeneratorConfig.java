@@ -6,8 +6,8 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.druid.DruidPlugin;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 /**
@@ -31,7 +31,7 @@ public class GeneratorConfig {
     // 模块名
     final static String moduleName = "system";
     // 要生成代码的表名
-    final static List<String> tableNames = new ArrayList<String>() {{
+    final static Set<String> tableNames = new LinkedHashSet<String>() {{
         add("SYS_USER");
         add("SYS_USER_ROLE");
         add("SYS_ROLE");

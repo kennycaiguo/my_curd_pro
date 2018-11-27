@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * controller 基类，封装一些Controller 中使用的公共方法
+ * @author zhangchuang
  */
 public abstract class BaseController extends Controller {
 

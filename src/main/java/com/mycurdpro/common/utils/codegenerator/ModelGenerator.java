@@ -27,8 +27,10 @@ public class ModelGenerator {
             + "/src/main/java/" + GeneratorConfig.basePackageName.replaceAll("\\.", "/") + "/" + GeneratorConfig.moduleName + "/";
 
     //生成 baseModel model
-    private final static boolean genModel = true;                                                     // 是否生成
-    private final static boolean modelOverwriteIfExist = true;                                        // 是否覆盖
+    private final static boolean genModel = true;                                                     // 是否生成Model
+    private final static boolean genBaseModel=true;                                                   // 是否生成baseModel
+    private final static boolean modelOverwriteIfExist = false;                                        // 是否覆盖Model
+    private final static boolean baseModelOverwriteIfExist=true;                                     // 是否覆盖BaseModel
     private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
     private final static String baseModelOutPath = outBasePath + "model/base/";                       // baseModel 渲染文件输出路径
     private final static String modelTplPath = GeneratorConfig.tplBasePath + "model.ftl";             // Model 模板 路径
@@ -103,6 +105,9 @@ public class ModelGenerator {
      * @throws IOException 文件读写异常
      */
     private static void generateModel(List<TableMeta> tableMetas) throws IOException {
+        if(!genBaseModel && genModel){
+            return ;
+        }
         // 模板文件内容
         String baseModelContent = FileUtils.readFile(baseModelTplPath);
         String modelContent = FileUtils.readFile(modelTplPath);
@@ -120,15 +125,17 @@ public class ModelGenerator {
             params.put("tableMeta", tableMeta);
             params.put("author",GeneratorConfig.author);
 
+            // 生成 baseModel
             outPath = baseModelOutPath + "Base" + tableMeta.nameCamelFirstUp + ".java";
-            if (modelOverwriteIfExist || !new File(outPath).exists()) {
+            if (genBaseModel && (baseModelOverwriteIfExist || !new File(outPath).exists())) {
                 renderBaseModelContent = FreemarkerUtils.renderAsText(baseModelContent, params);
                 FileUtils.writeFile(renderBaseModelContent, outPath);
                 LOG.info(outPath);
             }
 
+            // 生成Model
             outPath = modelOutPath + tableMeta.nameCamelFirstUp + ".java";
-            if (modelOverwriteIfExist || !new File(outPath).exists()) {
+            if (genModel && (modelOverwriteIfExist || !new File(outPath).exists())) {
                 renderModelContent = FreemarkerUtils.renderAsText(modelContent, params);
                 FileUtils.writeFile(renderModelContent, outPath);
                 LOG.info(outPath);

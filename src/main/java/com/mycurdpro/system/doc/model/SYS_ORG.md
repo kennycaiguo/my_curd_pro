@@ -5,13 +5,13 @@
 | 2 | NAME |  VARCHAR2(50) | ✘  |   |   | 名称  |
 | 3 | ADDRESS |  VARCHAR2(100) | ✘  |   |   | 地址  |
 | 4 | MARK |  VARCHAR2(200) | ✔  |   |   | 备注  |
-| 5 | SORT |  NUMBER(22) | ✔  |   |   | 排序号  |
+| 5 | SORT |  NUMBER(9) | ✔  |   |   | 排序号  |
 | 6 | CREATER |  VARCHAR2(50) | ✘  |   |   | 创建人  |
 | 7 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 8 | UPDATER |  VARCHAR2(50) | ✔  |   |   | 最后修改人  |
 | 9 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
 | 10 | PID |  VARCHAR2(30) | ✘  |   |   | 父ID  |
 | 11 | DIRECTOR |  VARCHAR2(50) | ✔  |   |   | 主管人  |
-| 12 | LEVEL |  NUMBER(22) | ✘  |   |   | 层级  |
+| 12 | LEVEL |  NUMBER(9) | ✘  |   |   | 层级  |
 
 

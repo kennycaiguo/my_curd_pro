@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Oracle 元数据 工具
@@ -36,7 +33,7 @@ public class OracleMetaUtils {
      * @param hasColumn     是否包含列信息
      * @return 表元数据
      */
-    public static List<TableMeta> loadTables(String schemaPattern, List<String> tableNames, Boolean hasColumn) {
+    public static List<TableMeta> loadTables(String schemaPattern, Set<String> tableNames, Boolean hasColumn) {
         Preconditions.checkNotNull(dataSource, " dataSource 不可为 null");
 
         List<TableMeta> tables = new ArrayList<>();
@@ -99,47 +96,70 @@ public class OracleMetaUtils {
             ResultSet rs4 = stm.executeQuery(sql);
             ResultSetMetaData rsmd = rs4.getMetaData();
 
-            // Jfinal 特色
+            // Jfinal 特色 （针对 oracle)
             for (int i = 1; i <= rsmd.getColumnCount(); ++i) {
                 String columnName = rsmd.getColumnName(i);
-                String colClassName = rsmd.getColumnClassName(i);        // java sql 类型
-                String typeStr = typeMapping.getType(colClassName); // 适合jfinal 的 java 类型
-                if (typeStr != null) {
-                    nameJavaTypeMap.put(columnName, typeStr);
-                } else {
-                    int type = rsmd.getColumnType(i);
-                    if (type != -2 && type != -3 && type != 2004) {
-                        if (type != 2005 && type != 2011) {
-                            nameJavaTypeMap.put(columnName, "java.lang.String");
-                        } else {
-                            nameJavaTypeMap.put(columnName, "java.lang.String");
-                        }
-                    } else {
-                        nameJavaTypeMap.put(columnName, "byte[]");
+                int type = rsmd.getColumnType(i);
+                String typeStr = null;
+                if (type == Types.TINYINT) {
+                    typeStr = "java.lang.Byte";
+                } else if (type == Types.SMALLINT) {
+                    typeStr = "java.lang.Short";
+                }
+                if (typeStr == null) {
+                    String colClassName = rsmd.getColumnClassName(i);
+                    typeStr = typeMapping.getType(colClassName);
+                }
+                if (typeStr == null) {
+                    type = rsmd.getColumnType(i);
+                    if (type == Types.BINARY || type == Types.VARBINARY || type == Types.LONGVARBINARY || type == Types.BLOB) {
+                        typeStr = "byte[]";
+                    } else if (type == Types.CLOB || type == Types.NCLOB) {
+                        typeStr = "java.lang.String";
+                    }
+                    else if (type == Types.TIMESTAMP || type == Types.DATE) {
+                        typeStr = "java.util.Date";
+                    }
+                    else {
+                        typeStr = "java.lang.String";
                     }
                 }
+
+                if ("java.math.BigDecimal".equals(typeStr)) {
+                    int scale = rsmd.getScale(i);			// 小数点右边的位数，值为 0 表示整数
+                    int precision = rsmd.getPrecision(i);	// 最大精度
+                    LOG.debug("typeStr {},scale {}, precision {}",typeStr,scale,precision);
+                    if (scale == 0) {
+                        if (precision <= 9) {
+                            typeStr = "java.lang.Integer";
+                        } else if (precision <= 18) {
+                            typeStr = "java.lang.Long";
+                        } else {
+                            typeStr = "java.math.BigDecimal";
+                        }
+                    } else {
+                        typeStr = "java.math.BigDecimal";
+                    }
+                }
+                nameJavaTypeMap.put(columnName, typeStr);
             }
+
 
             List<ColumnMeta> columnMetas = new ArrayList<>();
             rs = dbMeta.getColumns(conn.getCatalog(), schemaPattern, tableMeta.name, null);
             while (rs.next()) {
                 ColumnMeta columnMeta = new ColumnMeta();
-
                 columnMeta.name = rs.getString("COLUMN_NAME");
                 columnMeta.remark = rs.getString("REMARKS");
                 columnMeta.dbType = rs.getString("TYPE_NAME");
-
                 columnMeta.defaultValue = rs.getString("COLUMN_DEF");
-
                 columnMeta.isNullable = "YES".equals(rs.getString("IS_NULLABLE"));
                 columnMeta.size = rs.getInt("COLUMN_SIZE");
                 columnMeta.decimalDigits = rs.getInt("DECIMAL_DIGITS");
-
                 columnMeta.nameCamel = StrKit.toCamelCase(columnMeta.name.toLowerCase());
                 columnMeta.nameCamelFirstUp = StrKit.firstCharToUpperCase(columnMeta.nameCamel);
                 columnMeta.setJavaType(nameJavaTypeMap.get(columnMeta.name));
                 columnMeta.isPrimaryKey = tableMeta.primaryKeys.contains(columnMeta.name);
-
                 columnMetas.add(columnMeta);
             }
             tableMeta.setColumnMetas(columnMetas);

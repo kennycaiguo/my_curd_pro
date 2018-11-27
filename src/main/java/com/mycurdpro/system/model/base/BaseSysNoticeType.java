@@ -1,9 +1,8 @@
 package com.mycurdpro.system.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
+import com.jfinal.plugin.activerecord.Model;
 
-import java.math.BigDecimal;
 
 /**
  * Generated baseModel
@@ -76,19 +75,19 @@ public abstract class BaseSysNoticeType<M extends BaseSysNoticeType<M>> extends 
      }
 
      // 过期天数
-     public BigDecimal getUntilExpiryDay() {
+     public Integer getUntilExpiryDay() {
         return get("UNTIL_EXPIRY_DAY");
      }
-     public M setUntilExpiryDay(BigDecimal untilExpiryDay) {
+     public M setUntilExpiryDay(Integer untilExpiryDay) {
         set("UNTIL_EXPIRY_DAY", untilExpiryDay);
         return (M)this;
      }
 
      // 存活天数
-     public BigDecimal getUntilDeadDay() {
+     public Integer getUntilDeadDay() {
         return get("UNTIL_DEAD_DAY");
      }
-     public M setUntilDeadDay(BigDecimal untilDeadDay) {
+     public M setUntilDeadDay(Integer untilDeadDay) {
         set("UNTIL_DEAD_DAY", untilDeadDay);
         return (M)this;
      }

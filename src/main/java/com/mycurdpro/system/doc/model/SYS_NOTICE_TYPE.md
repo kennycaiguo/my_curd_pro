@@ -8,7 +8,7 @@
 | 5 | LOGO |  VARCHAR2(200) | ✘  |   |   | LOGO图标  |
 | 6 | TEMPLATE |  VARCHAR2(500) | ✘  |   |   | 消息模板  |
 | 7 | REMARK |  VARCHAR2(100) | ✔  |   |   | 备注  |
-| 8 | UNTIL_EXPIRY_DAY |  NUMBER(22) | ✘  |   |   | 过期天数  |
-| 9 | UNTIL_DEAD_DAY |  NUMBER(22) | ✘  |   |   | 存活天数  |
+| 8 | UNTIL_EXPIRY_DAY |  NUMBER(9) | ✘  |   |   | 过期天数  |
+| 9 | UNTIL_DEAD_DAY |  NUMBER(9) | ✘  |   |   | 存活天数  |
 
 
