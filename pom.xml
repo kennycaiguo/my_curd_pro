@@ -7,6 +7,7 @@
     <artifactId>my_curd_pro</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>my_curd_pro Maven Webapp</name>
+    <packaging>war</packaging>
     <url>https://gitee.com/godchuang/my_curd_pro</url>
 
     <properties>
@@ -122,5 +123,22 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>my_curd</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgument>-parameters</compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -2,10 +2,13 @@ package com.mycurdpro.system.controller;
 
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.base.BaseController;
+import com.mycurdpro.common.config.Constant;
+import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
-import com.mycurdpro.common.validator.IdRequiredValidator;
+import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.system.model.SysDict;
 import com.mycurdpro.system.model.SysDictGroup;
 
@@ -17,20 +20,24 @@ import java.util.Date;
  */
 public class SysDictController extends BaseController {
 
-
     /**
      * 页面
      */
     public void index(){
-
+        render("system/sysDict.ftl");
     }
 
 
     /**
      * sysDictGroup datagrid
      */
+    @Before(SearchSql.class)
     public void  queryGroup(){
-
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+        Page<SysDictGroup> sysDictGroupPage = SysDictGroup.dao.page(pageNumber,pageSize,where);
+        renderDatagrid(sysDictGroupPage);
     }
 
 
@@ -81,7 +88,7 @@ public class SysDictController extends BaseController {
     /**
      * 删除 sysDictGroup
      */
-    @Before(IdRequiredValidator.class)
+    @Before(IdRequired.class)
     public void  deleteGroupAction(){
         // 更新主从表 (设置删除标志)
         String ids = getPara("ids").replaceAll(",","','");
@@ -158,7 +165,7 @@ public class SysDictController extends BaseController {
     /**
      * 删除 sysDict
      */
-    @Before(IdRequiredValidator.class)
+    @Before(IdRequired.class)
     public void deleteDictAction(){
         // 设置删除标志
         String ids = getPara("ids").replaceAll(",","','");

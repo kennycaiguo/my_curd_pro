@@ -12,8 +12,8 @@
 
         <link rel="shortcut icon" href="${ctx!}/static/image/favicon.ico"/>
         <title>你好！ ${(session.auth_user.name)!}</title>
-        <#include "/WEB-INF/views/common/easyui.ftl"/>
-        <#include "/WEB-INF/views/common/custom.ftl"/>
+        <#include "easyui.ftl"/>
+        <#include "custom.ftl"/>
         <#-- 页面 -->
         <#nested>
     </body>

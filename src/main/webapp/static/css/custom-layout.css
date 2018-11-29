@@ -1,0 +1,7 @@
+/*一些控件布局*/
+
+/* datagrid toolbar 中 输入框 位置*/
+.searchInputArea {
+    position: absolute;
+    right: 20px;
+}

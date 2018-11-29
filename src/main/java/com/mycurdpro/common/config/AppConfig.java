@@ -5,7 +5,7 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
 import com.jfinal.ext.handler.ContextPathHandler;
-import com.jfinal.json.MixedJsonFactory;
+import com.jfinal.json.FastJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -27,26 +27,27 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhangchuang
  */
 public class AppConfig  extends JFinalConfig {
+    Prop configProp = PropKit.use("config.properties");
 
     @Override
     public void configConstant(Constants me) {
-        Prop configProp = PropKit.use("config.properties");
         // 开发模式
         me.setDevMode(configProp.getBoolean("devMode"));
-
         // 上传下载
-        me.setBaseUploadPath(prop.get("upload"));
-        me.setMaxPostSize(prop.getInt("maxPostSize"));
-        me.setBaseDownloadPath(prop.get("download"));
+        me.setBaseUploadPath(configProp.get("upload"));
+        me.setMaxPostSize(configProp.getInt("maxPostSize"));
+        me.setBaseDownloadPath(configProp.get("download"));
 
         // 视图
         me.setViewType(ViewType.FREE_MARKER);
-        me.setError403View(Constant.VIEW_PATH + "common/403.html");
-        me.setError404View(Constant.VIEW_PATH + "common/404.html");
-        me.setError500View(Constant.VIEW_PATH + "common/500.html");
+        me.setError403View(Constant.VIEW_PATH + "common/403.ftl");
+        me.setError404View(Constant.VIEW_PATH + "common/404.ftl");
+        me.setError500View(Constant.VIEW_PATH + "common/500.ftl");
 
         // json (jfinaljson 和 fastjson 混合)
-        me.setJsonFactory(MixedJsonFactory.me());
+        //me.setJsonFactory(MixedJsonFactory.me());  // toJson 用 JfinalJson , Parse 用 Fastjson, model 转json 使用数据库字段名
+
+        me.setJsonFactory(FastJsonFactory.me()); // 使用 Fastjson ,Model 转 json 使用 驼峰命名
         me.setJsonDatePattern("yyyy-MM-dd HH:mm:ss");
     }
 
@@ -74,7 +75,7 @@ public class AppConfig  extends JFinalConfig {
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin(druidPlugin);
         activeRecordPlugin.setDialect(new OracleDialect());
         activeRecordPlugin.setContainerFactory(new CaseInsensitiveContainerFactory()); // 表字段大小写不敏感
-        activeRecordPlugin.setShowSql(jdbcProp.getBoolean("devMode"));
+        activeRecordPlugin.setShowSql(configProp.getBoolean("devMode"));
         SystemModelMapping.mapping(activeRecordPlugin);                                // system 模块 表映射
         me.add(activeRecordPlugin);
 
