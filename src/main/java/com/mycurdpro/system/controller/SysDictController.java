@@ -8,9 +8,11 @@ import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
-import com.mycurdpro.common.validator.IdRequired;
+import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysDict;
 import com.mycurdpro.system.model.SysDictGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
@@ -19,6 +21,8 @@ import java.util.Date;
  * @author  zhangchuang
  */
 public class SysDictController extends BaseController {
+
+    private final static Logger LOG = LoggerFactory.getLogger(SysDictController.class);
 
     /**
      * 页面
@@ -50,7 +54,7 @@ public class SysDictController extends BaseController {
             SysDictGroup sysDictGroup = SysDictGroup.dao.findById(id);
             setAttr("sysDictGroup",sysDictGroup);
         }
-        render("");
+        render("system/sysDictGroup_form.ftl");
     }
 
 
@@ -88,18 +92,21 @@ public class SysDictController extends BaseController {
     /**
      * 删除 sysDictGroup
      */
-    @Before(IdRequired.class)
+    @Before(IdsRequired.class)
     public void  deleteGroupAction(){
         // 更新主从表 (设置删除标志)
         String ids = getPara("ids").replaceAll(",","','");
-        final Boolean[] flag = new Boolean[1];
+        final Boolean[] flag = {false};
         Db.tx(() -> {
-            int rows1,rows2;
-            String sql = "update sys_dict set del_flag = '1' where group_code in (select group_code from sys_dict_group where id in ('"+ids+"'))";
-            rows1 = Db.update(sql);
-            sql = "update sys_dict_group set del_flag = '1' where id in ('"+ids+"')";
-            rows2 = Db.update(sql);
-            flag[0] = (rows1 != 0) && (rows2 != 0);
+            try{
+                String sql = "update sys_dict set del_flag = '1' where group_code in (select group_code from sys_dict_group where id in ('"+ids+"'))";
+                Db.update(sql);
+                sql = "update sys_dict_group set del_flag = '1' where id in ('"+ids+"')";
+                Db.update(sql);
+                flag[0] = true;
+            }catch(Exception e){
+                LOG.error(e.getMessage(),e);
+            }
             return flag[0];
         });
         if(flag[0]){
@@ -165,7 +172,7 @@ public class SysDictController extends BaseController {
     /**
      * 删除 sysDict
      */
-    @Before(IdRequired.class)
+    @Before(IdsRequired.class)
     public void deleteDictAction(){
         // 设置删除标志
         String ids = getPara("ids").replaceAll(",","','");

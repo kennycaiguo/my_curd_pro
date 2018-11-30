@@ -8,7 +8,7 @@ import com.mycurdpro.common.config.Constant;
 /**
  * ids 参数不可为空, 使用 json 返回错误信息
  */
-public class IdRequired extends Validator {
+public class IdsRequired extends Validator {
     @Override
     protected void validate(Controller c) {
         validateRequired("ids","ids", "ids"+Constant.PARAM_IS_EMPTY);
