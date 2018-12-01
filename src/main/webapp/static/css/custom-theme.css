@@ -1,0 +1,17 @@
+/*主题配色等*/
+
+
+/*easyui linkbutton 按钮字体图标*/
+.l-btn-icon.iconfont{
+    font-size: 16px;
+    font-weight: 500;
+    color: #1E9FFF;
+}
+/*主体按钮样式*/
+.pure-button{
+    border-radius: 0px !important;
+}
+
+.pure-button-primary{
+    /*background-color:red !important;*/
+}

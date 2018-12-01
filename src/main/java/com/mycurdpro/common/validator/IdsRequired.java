@@ -11,12 +11,12 @@ import com.mycurdpro.common.config.Constant;
 public class IdsRequired extends Validator {
     @Override
     protected void validate(Controller c) {
-        validateRequired("ids","ids", "ids"+Constant.PARAM_IS_EMPTY);
+        validateRequired("ids","ids", "ids 参数为空");
     }
 
     @Override
     protected void handleError(Controller c) {
-        Ret ret = Ret.create().setFail().set("msg","ids"+Constant.PARAM_IS_EMPTY);
+        Ret ret = Ret.create().setFail().set("msg","ids 参数为空");
         c.renderJson(ret);
         return;
     }

@@ -19,7 +19,7 @@ var popup = {
         var index = layer.open({
             skin: skin || layerSkin.lan,
             type: 2,
-            title: [title, 'line-height:30px;height:30px;padding: 0 10px'],
+            title: title,
             maxmin: true,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
@@ -36,16 +36,18 @@ var popup = {
             shadeClose: true,
             area: [width || '80%', height || '90%'],
             offset: top.location==self.location || width=="100%" ? 'auto':'30px',
-            title: [title, 'line-height:30px;height:30px;padding: 0 10px'],
+            title: title,
             closeBtn: 1, /*显示关闭按钮*/
             content: content
         });
     },
-    openConfirm:function(icon, title, msg, yesFun, noFun){
+    openConfirm:function(skin,icon, title, msg, yesFun, noFun){
         layer.confirm(msg, {
+            skin: skin || layerSkin.lan,
             icon: icon,
             offset:top.location==self.location ? 'auto':['30px','200px'],
-            title: [title, 'line-height:30px;height:30px;padding: 0 10px'],
+            title: title,
+            resize:false,
             btn: ['确定', '取消']
         }, function () {
             if (typeof yesFun=="function") {
@@ -66,7 +68,16 @@ var popup = {
             that.errMsg();
             return;
         }
-        layer.msg(msg, {time: 1000}, cbk);
+
+        var setting = {
+            time: 1500
+        };
+        if(msg.indexOf('成功')>=0){
+            setting.icon=1;
+        }else if(msg.indexOf('失败')>=0){
+            setting.icon=2;
+        }
+        layer.msg(msg, setting, cbk);
     },
     /*错误提示*/
     errMsg: function (title, msg) {

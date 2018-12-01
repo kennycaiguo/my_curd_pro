@@ -339,9 +339,9 @@ html #layuicss-layer {
 }
 
 .layui-layer-title {
-    padding: 0 80px 0 20px;
-    height: 42px;
-    line-height: 42px;
+    line-height:30px;
+    height:30px;
+    padding: 0 10px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     color: #333;
@@ -381,25 +381,25 @@ html #layuicss-layer {
     _overflow: hidden
 }
 
-.layui-layer-setwin .layui-layer-min:hover cite {
-    background-color: #2D93CA
-}
+/*.layui-layer-setwin .layui-layer-min:hover cite {*/
+    /*background-color: #2D93CA*/
+/*}*/
 
 .layui-layer-setwin .layui-layer-max {
     background-position: -32px -40px
 }
 
-.layui-layer-setwin .layui-layer-max:hover {
-    background-position: -16px -40px
-}
+/*.layui-layer-setwin .layui-layer-max:hover {*/
+    /*background-position: -16px -40px*/
+/*}*/
 
 .layui-layer-setwin .layui-layer-maxmin {
     background-position: -65px -40px
 }
 
-.layui-layer-setwin .layui-layer-maxmin:hover {
-    background-position: -49px -40px
-}
+/*.layui-layer-setwin .layui-layer-maxmin:hover {*/
+    /*background-position: -49px -40px*/
+/*}*/
 
 .layui-layer-setwin .layui-layer-close1 {
     background-position: 1px -40px;
@@ -662,31 +662,38 @@ html #layuicss-layer {
 
 .layui-layer-lan .layui-layer-title {
     /*background: #4476A7;*/
-    background:#398dee;
+    background:#1E9FFF;
     color: #fff;
-    border: none
+    border: none;
+    line-height:30px;
+    height:30px;
+    padding: 0 10px;
 }
 
 .layui-layer-lan .layui-layer-btn {
     padding: 5px 10px 10px;
     text-align: right;
-    border-top: 1px solid #E9E7E7
+    /*border-top: 1px solid #E9E7E7*/
 }
 
 .layui-layer-lan .layui-layer-btn a {
-    background: #fff;
+    background:#1E9FFF;
     border-color: #E9E7E7;
-    color: #333
+    color: #fff;
 }
 
 .layui-layer-lan .layui-layer-btn .layui-layer-btn1 {
-    background: #C9C5C5
+    background: #fff;
+    color: #333;
 }
 
 .layui-layer-molv .layui-layer-title {
     background: #009f95;
     color: #fff;
-    border: none
+    border: none;
+    line-height:30px;
+    height:30px;
+    padding: 0 10px;
 }
 
 .layui-layer-molv .layui-layer-btn a {

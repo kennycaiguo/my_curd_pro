@@ -21,12 +21,12 @@ public class Constant {
     public final static String VIEW_PATH = "/WEB-INF/views/";
 
     // 操作提示信息
-    public final static String ADD_SUCCESS = "添加成功";
-    public final static String ADD_FAIL = "添加失败";
-    public final static String DELETE_SUCCESS = "删除成功";
-    public final static String DELETE_FAIL = "删除失败";
-    public final static String UPDATE_SUCCESS = "修改成功";
-    public final static String UPDATE_FAIL = "修改失败";
-    public final static String AUDIT_OVER="审批完成";
-    public final static String PARAM_IS_EMPTY="参数为空";
+//    public final static String ADD_SUCCESS = "添加成功";
+//    public final static String ADD_FAIL = "添加失败";
+//    public final static String DELETE_SUCCESS = "删除成功";
+//    public final static String DELETE_FAIL = "删除失败";
+//    public final static String UPDATE_SUCCESS = "修改成功";
+//    public final static String UPDATE_FAIL = "修改失败";
+//    public final static String AUDIT_OVER="审批完成";
+//    public final static String PARAM_IS_EMPTY="参数为空";
 }

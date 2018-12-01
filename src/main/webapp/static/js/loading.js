@@ -1,5 +1,5 @@
 var loadingMask = {
-    loadingImg: "/static/image/loading.gif",
+    loadingImg: "/static/image/loading-blue.gif",
     loadingTxt:'加载中...',
     /*创建遮罩*/
     createMask:function(){var
@@ -9,8 +9,8 @@ var loadingMask = {
         var loadingTop = clientHeight > 61 ? (clientHeight - 61) / 2 : 0;
         var loadingLeft= clientWidth > 215 ? (clientWidth - 215) / 2 : 0;
         var html =  '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:'
-        + clientHeight + 'px;top:0;background:white;opacity:1;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: '
-        + loadingLeft + 'px; top:' + loadingTop + 'px; width:100px;height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px;' +
+        + clientHeight + 'px;top:0;font-size:13px;background:white;opacity:1;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: '
+        + loadingLeft + 'px; top:' + loadingTop + 'px; width:115px;height: 49px; line-height: 49px; padding-left: 50px; padding-right: 5px;' +
         ' background:  url(' + that.loadingImg + ') no-repeat scroll 5px 8px;  color: #696969 ; "> '+that.loadingTxt+'</div></div>';
         //console.log("----maskhtml:\n"+html);
         document.write(html);

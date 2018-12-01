@@ -1,0 +1,52 @@
+/*一些控件布局, 轻易不要修改原有代码，除非明确了解*/
+
+/*iconfont easyui 图标冲突问题*/
+.iconfont{
+    background: none;
+}
+
+/* datagrid toolbar 中 输入框 位置*/
+.searchInputArea {
+    position: absolute;
+    right: 20px;
+}
+
+/* 表单提交页 按钮*/
+.formBtnsDiv{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    /*text-align:center;*/
+    /*margin-top: 20px;*/
+}
+
+
+/* 表单页表格样式 */
+table.centerTable{
+    margin: 10px auto;
+}
+table.labelInputTable  tr>td:nth-child(odd){
+    background-color:#fafafa;
+}
+
+
+/* 仅 chrome webkit 内核 滚动条 样式*/
+::-webkit-scrollbar {
+    width: 4px; /*纵向滚动条*/
+    height: 6px; /*横向滚动条*/
+}
+
+::-webkit-scrollbar-track {
+    /* 滚动槽 */
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+    /* 滚动条滑块 */
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0, 0, 0, 0.1);
+}
