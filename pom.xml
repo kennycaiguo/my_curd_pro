@@ -125,7 +125,7 @@
     </dependencies>
 
     <build>
-        <finalName>my_curd</finalName>
+        <finalName>my_curd_pro</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
