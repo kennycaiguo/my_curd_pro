@@ -6,7 +6,9 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.druid.DruidPlugin;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -54,6 +56,17 @@ public class GeneratorConfig {
 
     // 模板文件基础路径
     final static String tplBasePath = PathKit.getWebRootPath().replaceAll("\\\\", "/") + "/src/main/java/com/mycurdpro/common/utils/codegenerator/tpl/";
+
+    // baseModel 中生成 getter 方法增强
+    final static HashMap<String,String> getterTypeMap = new HashMap<String,String>(){{
+        put("String", "getStr");
+        put("Integer", "getInt");
+        put("Long", "getLong");
+        put("Double", "getDouble");
+        put("Float", "getFloat");
+        put("Short", "getShort");
+        put("Byte", "getByte");
+    }};
 
     /**
      * 获得数据库数据源，用于代码生成器

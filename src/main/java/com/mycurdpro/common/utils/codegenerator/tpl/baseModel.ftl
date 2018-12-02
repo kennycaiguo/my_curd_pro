@@ -20,15 +20,24 @@ public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tabl
 <#-- get set 方法 -->
 <#if (tableMeta.columnMetas)??>
     <#list tableMeta.columnMetas as column>
+
+        <#if (getterTypeMap["${(column.javaTypeShortName)!}"])?? >
+            <#assign getterOfModel = getterTypeMap["${(column.javaTypeShortName)!}"] >
+        <#else>
+            <#assign getterOfModel = 'get'>
+        </#if>
+
      // ${(column.remark)!}
      public ${(column.javaTypeShortName)!} get${(column.nameCamelFirstUp)!}() {
-        return get("${(column.name)!}");
-     }
-     public M set${(column.nameCamelFirstUp)!}(${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
-        set("${(column.name)!}", ${(column.nameCamel)!});
-        return (M)this;
+        return ${(getterOfModel)!}("${(column.name)!}");
      }
 
+     public ${chainSetter?string( 'M','void')} set${(column.nameCamelFirstUp)!}(${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
+        set("${(column.name)!}", ${(column.nameCamel)!});
+        <#if chainSetter >
+        return (M)this;
+        </#if>
+     }
     </#list>
 </#if>
 }

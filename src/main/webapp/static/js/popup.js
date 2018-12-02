@@ -70,6 +70,8 @@ var popup = {
             setting.icon=1;
         }else if(msg.indexOf('失败')>=0){
             setting.icon=2;
+        }else{
+            setting.icon=0; // 感叹号，代表提示框
         }
         layer.msg(msg, setting, cbk);
     },

@@ -1,5 +1,6 @@
 package com.mycurdpro.system.model;
 
+import com.google.common.base.Joiner;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.system.model.base.BaseSysDictGroup;
@@ -28,4 +29,15 @@ public class SysDictGroup extends BaseSysDictGroup<SysDictGroup> {
         sqlExceptSelect += " order by create_time desc ";
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
+
+
+    /**
+     * 根据 编码查询
+     * @param groupCode
+     * @return
+     */
+   public SysDictGroup findByGroupCode(String groupCode){
+        String sql = "select * from sys_dict_group where  group_code = ?";
+        return findFirst(sql,groupCode);
+   }
 }

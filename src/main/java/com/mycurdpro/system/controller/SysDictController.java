@@ -1,5 +1,6 @@
 package com.mycurdpro.system.controller;
 
+import com.google.common.base.Preconditions;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -111,8 +112,13 @@ public class SysDictController extends BaseController {
     /**
      * sysDict datagrid
      */
+    @Before(SearchSql.class)
     public void queryDict(){
-
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+        Page<SysDict> sysDictPage = SysDict.dao.page(pageNumber,pageSize,where);
+        renderDatagrid(sysDictPage);
     }
 
 
@@ -121,11 +127,23 @@ public class SysDictController extends BaseController {
      */
     public void newDictModel(){
         String id = getPara("id");
+        String groupCode;
         if(StringUtils.notEmpty(id)){
+            // 编辑页面
             SysDict sysDict = SysDict.dao.findById(id);
             setAttr("sysDict",sysDict);
+            groupCode = sysDict.getGroupCode();
+        }else{
+            // 新增页面
+            groupCode = getPara("groupCode");
         }
-        render("");
+        Preconditions.checkNotNull(groupCode,"groupCode 参数不可为空");
+
+        SysDictGroup sysDictGroup = SysDictGroup.dao.findByGroupCode(groupCode);
+        setAttr("groupName",sysDictGroup.getGroupName());
+        setAttr("groupCode",sysDictGroup.getGroupCode());
+
+        render("system/sysDict_form.ftl");
     }
 
 
@@ -165,7 +183,6 @@ public class SysDictController extends BaseController {
      */
     @Before(IdsRequired.class)
     public void deleteDictAction(){
-        // 设置删除标志
         String ids = getPara("ids").replaceAll(",","','");
         String sql = "update sys_dict set del_flag = '1' where id in ('"+ids+"')";
         Db.update(sql);

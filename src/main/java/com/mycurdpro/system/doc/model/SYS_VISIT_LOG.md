@@ -7,7 +7,7 @@
 | 4 | URL |  VARCHAR2(500) | ✘  |   |   | 访问地址  |
 | 5 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 6 | TYPE |  VARCHAR2(20) | ✘  |   |   | 访问类型  |
-| 7 | PARAM |  VARCHAR2(255) | ✔  |   |   | 参数  |
-| 8 | ERROR |  VARCHAR2(500) | ✔  |   |   | 异常  |
+| 7 | PARAM |  VARCHAR2(2,000) | ✔  |   |   | 参数  |
+| 8 | ERROR |  VARCHAR2(200) | ✔  |   |   | 异常  |
 
 

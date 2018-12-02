@@ -15,7 +15,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <jfinal.version>3.5</jfinal.version>
-        <oracle.jdbc.version>10.2.0.2</oracle.jdbc.version>
         <druid.version>1.0.29</druid.version>
         <jfinal-cos.version>2017.5</jfinal-cos.version>
         <freemarker.version>2.3.28</freemarker.version>
@@ -63,9 +62,9 @@
             <version>${jfinal.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle.jdbc</groupId>
-            <artifactId>com.springsource.oracle.jdbc</artifactId>
-            <version>10.2.0.2</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

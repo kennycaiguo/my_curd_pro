@@ -29,8 +29,9 @@ public class ModelGenerator {
     //生成 baseModel model
     private final static boolean genModel = false;                                                     // 是否生成Model
     private final static boolean genBaseModel=true;                                                   // 是否生成baseModel
-    private final static boolean modelOverwriteIfExist = false;                                        // 是否覆盖Model
-    private final static boolean baseModelOverwriteIfExist=true;                                     // 是否覆盖BaseModel
+    private final static boolean chainSetter=true;                                                    // 是否生成链式 setter 方法
+    private final static boolean modelOverwriteIfExist = true;                                        // 是否覆盖Model
+    private final static boolean baseModelOverwriteIfExist=true;                                      // 是否覆盖BaseModel
     private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
     private final static String baseModelOutPath = outBasePath + "model/base/";                       // baseModel 渲染文件输出路径
     private final static String modelTplPath = GeneratorConfig.tplBasePath + "model.ftl";             // Model 模板 路径
@@ -122,6 +123,8 @@ public class ModelGenerator {
             params = new HashMap<>();
             params.put("basePackageName", GeneratorConfig.basePackageName);
             params.put("moduleName", GeneratorConfig.moduleName);
+            params.put("getterTypeMap",GeneratorConfig.getterTypeMap);
+            params.put("chainSetter",chainSetter);
             params.put("tableMeta", tableMeta);
             params.put("author",GeneratorConfig.author);
 
@@ -176,7 +179,7 @@ public class ModelGenerator {
                 generateDict(tableMetas);
                 LOG.info("(*^▽^*) generate dict over");
             }
-            if (genModel) {
+            if (genModel || genBaseModel) {
                 LOG.info("(*^▽^*) start generate Model");
                 generateModel(tableMetas);
                 LOG.info("(*^▽^*) generate Model over");
