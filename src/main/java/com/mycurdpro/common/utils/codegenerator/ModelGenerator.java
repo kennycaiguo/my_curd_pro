@@ -27,7 +27,7 @@ public class ModelGenerator {
             + "/src/main/java/" + GeneratorConfig.basePackageName.replaceAll("\\.", "/") + "/" + GeneratorConfig.moduleName + "/";
 
     //生成 baseModel model
-    private final static boolean genModel = true;                                                     // 是否生成Model
+    private final static boolean genModel = false;                                                     // 是否生成Model
     private final static boolean genBaseModel=true;                                                   // 是否生成baseModel
     private final static boolean modelOverwriteIfExist = false;                                        // 是否覆盖Model
     private final static boolean baseModelOverwriteIfExist=true;                                     // 是否覆盖BaseModel

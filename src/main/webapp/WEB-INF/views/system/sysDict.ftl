@@ -21,9 +21,9 @@
                 </thead>
             </table>
             <div id="tb">
-                <a onclick="newModel('${ctx!}/sysDict/newGroupModel', '500px', '300px')" href="#" class="easyui-linkbutton"
+                <a onclick="newModel('${ctx!}/sysDict/newGroupModel', '500px', '250px')" href="#" class="easyui-linkbutton"
                    iconCls="iconfont icon-add" plain="true">新增</a>
-                <a onclick="editModel('dg','${ctx!}/sysDict/newGroupModel', '500px', '300px')" href="#"
+                <a onclick="editModel('dg','${ctx!}/sysDict/newGroupModel', '500px', '250px')" href="#"
                    class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
                 <a onclick="deleteModel('dg','${ctx!}/sysDict/deleteGroupAction')" href="#" class="easyui-linkbutton  "
                    iconCls="iconfont icon-delete" plain="true">删除</a>

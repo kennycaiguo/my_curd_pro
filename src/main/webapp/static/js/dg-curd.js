@@ -42,11 +42,14 @@ function deleteModel(dgid,url) {
             });
             $.post(url+'?ids=' + ids.join(','), function (data) {
                 if(data.state=='ok'){
-                    popup.msg('删除成功', function () {
+                    popup.msg(data.msg, function () {
                         $('#'+dgid).datagrid('reload');
                     });
+                }else if(data.state=='error'){
+                    // 异常
+                    popup.errMsg('系统异常',data.msg);
                 }else{
-                    popup.msg('删除失败');
+                    popup.msg(data.msg);
                 }
             }, "json").error(function(){ popup.errMsg(); });
         });
@@ -82,3 +85,40 @@ $(".searchInputArea").on("keydown", function (e) {
         $(".searchBtn",that).first().trigger('click');
     }
 });
+
+/**
+ * 提交保存或者修改表单
+ * @param formId 表单id
+ * @param type 页面刷新方式  reload 父窗口 datagrid, refresh刷新父窗口页面
+ * @param dgId   表单提交成功后  如果refreshType =1, 此为 父窗口 datagrid id
+ */
+function saveAction(formId,type,dgId){
+    $('#'+formId).form('submit', {
+        onSubmit: function () {
+            return $(this).form('validate');
+        },
+        success: function (data) {
+            if(typeof data =='string'){
+                data = JSON.parse(data);
+            }
+            if(data.state == 'ok'){
+                // 成功信息
+                parent.popup.msg(data.msg, function () {
+                    if(type=='reload'){
+                        parent.$("#"+dgId).datagrid("reload");
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    }
+                    if(type=='refresh'){
+                        parent.window.location.reload();
+                    }
+                });
+            }else if(data.state == 'error'){
+                // 系统异常
+                parent.popup.errMsg('系统异常',data.msg);
+            }else{
+                // 非成功信息
+                parent.popup.msg(data.msg);
+            }
+        }
+    });
+}

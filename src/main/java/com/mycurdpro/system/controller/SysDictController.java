@@ -8,6 +8,7 @@ import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
+import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysDict;
 import com.mycurdpro.system.model.SysDictGroup;
@@ -64,13 +65,13 @@ public class SysDictController extends BaseController {
     public void addGroupAction(){
          SysDictGroup sysDictGroup = getBean(SysDictGroup.class,"");
          sysDictGroup.setId(IdUtils.id());
-         sysDictGroup.setCreater(getSysUsername())
+         sysDictGroup.setCreater(WebUtils.getSessionUsername(this))
                  .setCreateTime(new Date())
                  .setDelFlag("0");
          if(sysDictGroup.save()){
-             renderSuccess();
+             renderSuccess(Constant.ADD_SUCCESS);
          }else{
-             renderFail();
+             renderFail(Constant.ADD_FAIL);
          }
     }
 
@@ -80,11 +81,11 @@ public class SysDictController extends BaseController {
      */
     public void  updateGroupAction(){
         SysDictGroup sysDictGroup = getBean(SysDictGroup.class,"");
-        sysDictGroup.setUpdater(getSysUsername()).setUpdateTime(new Date());
+        sysDictGroup.setUpdater(WebUtils.getSessionUsername(this)).setUpdateTime(new Date());
         if(sysDictGroup.update()){
-           renderSuccess();
+           renderSuccess(Constant.UPDATE_SUCCESS);
         }else{
-           renderFail();
+           renderFail(Constant.UPDATE_FAIL);
         }
     }
 
@@ -96,24 +97,14 @@ public class SysDictController extends BaseController {
     public void  deleteGroupAction(){
         // 更新主从表 (设置删除标志)
         String ids = getPara("ids").replaceAll(",","','");
-        final Boolean[] flag = {false};
         Db.tx(() -> {
-            try{
-                String sql = "update sys_dict set del_flag = '1' where group_code in (select group_code from sys_dict_group where id in ('"+ids+"'))";
-                Db.update(sql);
-                sql = "update sys_dict_group set del_flag = '1' where id in ('"+ids+"')";
-                Db.update(sql);
-                flag[0] = true;
-            }catch(Exception e){
-                LOG.error(e.getMessage(),e);
-            }
-            return flag[0];
+            String sql = "update sys_dict set del_flag = '1' where group_code in (select group_code from sys_dict_group where id in ('"+ids+"'))";
+            Db.update(sql);
+            sql = "update sys_dict_group set del_flag = '1' where id in ('"+ids+"')";
+            Db.update(sql);
+            return true;
         });
-        if(flag[0]){
-            renderSuccess();
-        }else{
-            renderFail();
-        }
+        renderSuccess(Constant.DELETE_SUCCESS);
     }
 
 
@@ -145,13 +136,13 @@ public class SysDictController extends BaseController {
         SysDict sysDict = getBean(SysDict.class,"");
         boolean flag = sysDict.setId(IdUtils.id())
                 .setDelFlag("0")
-                .setCreater(getSysUsername())
+                .setCreater(WebUtils.getSessionUsername(this))
                 .setCreateTime(new Date())
                 .save();
         if(flag){
-            renderSuccess();
+            renderSuccess(Constant.ADD_SUCCESS);
         }else{
-            renderFail();
+            renderFail(Constant.ADD_FAIL);
         }
     }
 
@@ -161,11 +152,11 @@ public class SysDictController extends BaseController {
      */
     public void updateDictAction(){
         SysDict sysDict  = getBean(SysDict.class,"");
-        boolean flag = sysDict.setUpdater(getSysUsername()).setUpdateTime(new Date()).update();
+        boolean flag = sysDict.setUpdater(WebUtils.getSessionUsername(this)).setUpdateTime(new Date()).update();
         if(flag){
-            renderSuccess();
+            renderSuccess(Constant.UPDATE_SUCCESS);
         }else{
-            renderFail();
+            renderFail(Constant.UPDATE_FAIL);
         }
     }
 
@@ -177,12 +168,8 @@ public class SysDictController extends BaseController {
         // 设置删除标志
         String ids = getPara("ids").replaceAll(",","','");
         String sql = "update sys_dict set del_flag = '1' where id in ('"+ids+"')";
-        int row = Db.update(sql);
-        if(row==0){
-            renderFail();
-        }else{
-            renderSuccess();
-        }
+        Db.update(sql);
+        renderSuccess(Constant.DELETE_SUCCESS);
     }
 }
 

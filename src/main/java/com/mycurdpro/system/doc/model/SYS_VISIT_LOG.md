@@ -8,5 +8,6 @@
 | 5 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 6 | TYPE |  VARCHAR2(20) | ✘  |   |   | 访问类型  |
 | 7 | PARAM |  VARCHAR2(255) | ✔  |   |   | 参数  |
+| 8 | ERROR |  VARCHAR2(500) | ✔  |   |   | 异常  |
 
 

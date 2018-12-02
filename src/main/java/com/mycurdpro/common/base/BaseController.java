@@ -141,48 +141,6 @@ public abstract class BaseController extends Controller {
     }
 
     /**
-     * 当前登录的系统用户
-     * @return
-     */
-    protected SysUser getSysUser() {
-        return getSessionAttr(Constant.SYS_USER);
-    }
-
-    /**
-     * 当前登录系统用户名
-     * @return
-     */
-    protected String getSysUsername(){
-        return ((SysUser)getSessionAttr(Constant.SYS_USER)).getUsername();
-    }
-
-
-    /**
-     * 获得当前路径
-     * @return
-     */
-    protected String getRequestURI(){
-        return getRequest().getRequestURI();
-    }
-
-    /**
-     * 获取 http请求  ip地址
-     */
-    protected String getRemoteAddress() {
-        String ip = getRequest().getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {
-            ip = getRequest().getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {
-            ip = getRequest().getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {
-            ip = getRequest().getRemoteAddr();
-        }
-        return ip;
-    }
-
-    /**
      * 获取 http 请求 body json 数据
      */
     protected JSONObject readRawDataAsJson(){

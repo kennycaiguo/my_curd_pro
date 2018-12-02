@@ -63,12 +63,6 @@ var popup = {
     /*普通提示*/
     msg: function (msg,cbk) {
         var that = this;
-        /*easyui form submit 没有 error500 监听，后台发生500 错误会跳转到500.html页面，此处判断包含html标签认为发生500错误*/
-        if (msg.indexOf('<') >= 0) {
-            that.errMsg();
-            return;
-        }
-
         var setting = {
             time: 1500
         };
@@ -94,7 +88,7 @@ var popup = {
             title: [title, 'background:#e74b3b; color:white; line-height:30px;height:30px;padding: 0 10px'],
             btn: [],
             shadeClose: true,
-            resize: false,
+            resize: true,
         });
     }
 }

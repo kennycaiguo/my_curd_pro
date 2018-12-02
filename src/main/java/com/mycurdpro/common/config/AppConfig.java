@@ -16,6 +16,7 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
+import com.mycurdpro.common.interceptor.VisitLogInterceptor;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
