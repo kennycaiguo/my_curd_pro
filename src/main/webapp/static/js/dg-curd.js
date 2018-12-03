@@ -20,7 +20,7 @@ function newModel(url,width,height) {
 function editModel(dgId,url,width,height){
     var rows= $("#"+dgId).datagrid("getSelections");
     if (rows.length==1) {
-        popup.openIframe('编辑', url+'?id=' + rows[0].id, width,height);
+        popup.openIframe('编辑', url+'?id=' + rows[0].ID, width,height);
     } else {
         popup.msg('请选择一行数据进行编辑');
     }
@@ -38,7 +38,7 @@ function deleteModel(dgid,url) {
         popup.openConfirm(null,3, '删除', '您确定要删除选中的'+rows.length+'条记录吗?', function () {
             var ids = [];
             rows.forEach(function(row){
-                ids.push(row.id);
+                ids.push(row.ID);
             });
             $.post(url+'?ids=' + ids.join(','), function (data) {
                 if(data.state=='ok'){

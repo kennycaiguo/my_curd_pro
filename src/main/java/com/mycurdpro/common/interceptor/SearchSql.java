@@ -160,19 +160,19 @@ public class SearchSql implements Interceptor {
                         break;
                     case GTD:
                         // 日期 大于
-                        sb.append(" > to_date(").append(filter.fieldValue).append(",'yyyy-MM-dd')");
+                        sb.append(" > to_date('").append(filter.fieldValue).append("','yyyy-MM-dd')");
                         break;
                     case LTD:
                         // 日期 小于
-                        sb.append(" < to_date(").append(filter.fieldValue).append(",'yyyy-MM-dd')");
+                        sb.append(" < to_date('").append(filter.fieldValue).append("','yyyy-MM-dd')");
                         break;
                     case GTED:
                         // 日期 大于等于
-                        sb.append(" >= to_date(").append(filter.fieldValue).append(",'yyyy-MM-dd')");
+                        sb.append(" >= to_date('").append(filter.fieldValue).append("','yyyy-MM-dd')");
                         break;
                     case LTED:
                         // 日期 小于等于
-                        sb.append(" <= to_date(").append(filter.fieldValue).append(",'yyyy-MM-dd')");
+                        sb.append(" <= to_date('").append(filter.fieldValue).append("','yyyy-MM-dd')");
                         break;
                     case NEQ:
                         sb.append(" !='").append(filter.fieldValue).append("'");
@@ -184,6 +184,22 @@ public class SearchSql implements Interceptor {
                     case INN:
                         // in 数字
                         sb.append(" in (").append(filter.fieldValue).append(")");
+                        break;
+                    case GTDT:
+                        // 日期时间 大于
+                        sb.append(" > to_date('").append(filter.fieldValue).append("','yyyy-mm-dd hh24:mi:ss')");
+                        break;
+                    case LTDT:
+                        // 日期时间 小于
+                        sb.append(" < to_date('").append(filter.fieldValue).append("','yyyy-mm-dd hh24:mi:ss')");
+                        break;
+                    case GTEDT:
+                        // 日期时间 大于等于
+                        sb.append(" >= to_date('").append(filter.fieldValue).append("','yyyy-mm-dd hh24:mi:ss')");
+                        break;
+                    case LTEDT:
+                        // 日期时间 小于等于
+                        sb.append(" <= to_date('").append(filter.fieldValue).append("','yyyy-mm-dd hh24:mi:ss')");
                         break;
                     default:
                         LOG.warn("找不到预定义设置,{},请自己扩展。",filter.operator);
@@ -210,6 +226,6 @@ class SearchFilter {
     }
 
     public enum Operator {
-        EQS,EQN, LIKE, GTN, LTN, GTEN, LTEN,GTD,LTD, GTED, LTED, NEQ, INS,INN
+        EQS,EQN, LIKE, GTN, LTN, GTEN, LTEN,GTD,LTD, GTED, LTED, NEQ, INS,INN,GTDT,LTDT,GTEDT,LTEDT
     }
 }

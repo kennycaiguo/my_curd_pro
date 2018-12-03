@@ -1,6 +1,8 @@
 package com.mycurdpro.common.utils;
 
 
+import com.google.common.base.Strings;
+
 /**
  * 字符串工具
  */
@@ -12,10 +14,7 @@ public class StringUtils {
      * @return true 是，false 否
      */
     public  static  boolean isEmpty(String str){
-        if (str == null ||  str.length()==0) {
-            return true;
-        }
-        return false;
+        return Strings.isNullOrEmpty(str);
     }
 
     /**

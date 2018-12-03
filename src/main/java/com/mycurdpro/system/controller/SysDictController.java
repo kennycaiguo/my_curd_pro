@@ -2,10 +2,12 @@ package com.mycurdpro.system.controller;
 
 import com.google.common.base.Preconditions;
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
+import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
@@ -187,6 +189,13 @@ public class SysDictController extends BaseController {
         String sql = "update sys_dict set del_flag = '1' where id in ('"+ids+"')";
         Db.update(sql);
         renderSuccess(Constant.DELETE_SUCCESS);
+    }
+
+
+    @Clear(PermissionInterceptor.class)
+    public void  combobox(){
+        String groupCode = getPara("groupCode","");
+        renderJson(SysDict.dao.findListByGroupCode(groupCode));
     }
 }
 

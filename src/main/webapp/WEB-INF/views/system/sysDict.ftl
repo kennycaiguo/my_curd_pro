@@ -15,10 +15,10 @@
                    pageSize="40" pageList="[20,40]">
                 <thead>
                 <tr>
-                    <th data-options="field:'id',checkbox:true"></th>
-                    <th field="groupName" width="150">名称</th>
-                    <th field="groupCode" width="200">编码</th>
-                    <th field="createTime" width="200">创建时间</th>
+                    <th data-options="field:'ID',checkbox:true"></th>
+                    <th field="GROUP_NAME" width="150">名称</th>
+                    <th field="GROUP_CODE" width="200">编码</th>
+                    <th field="CREATE_TIME" width="200">创建时间</th>
                 </tr>
                 </thead>
             </table>
@@ -49,11 +49,11 @@
                    pageSize="40" pageList="[20,40]">
                 <thead>
                 <tr>
-                    <th data-options="field:'id',checkbox:true"></th>
-                    <th field="dictLabel" width="150">名称</th>
-                    <th field="dictValue" width="200">编码</th>
-                    <th field="dictSort" width="100">排序号</th>
-                    <th field="createTime" width="200">创建时间</th>
+                    <th data-options="field:'ID',checkbox:true"></th>
+                    <th field="DICT_LABEL" width="150">名称</th>
+                    <th field="DICT_VALUE" width="200">编码</th>
+                    <th field="DICT_SORT" width="100">排序号</th>
+                    <th field="CREATE_TIME" width="200">创建时间</th>
                 </tr>
                 </thead>
             </table>
@@ -85,7 +85,7 @@
         /*左侧分组选中*/
         function groupSelect(index,row){
             var queryParams = {};
-            queryParams.search_EQS_group_code = row.groupCode;
+            queryParams.search_EQS_group_code = row.GROUP_CODE;
             $('#dg2').datagrid('load', queryParams);
         };
     </script>

@@ -5,7 +5,7 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
 import com.jfinal.ext.handler.ContextPathHandler;
-import com.jfinal.json.FastJsonFactory;
+import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -16,7 +16,6 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
-import com.mycurdpro.common.interceptor.VisitLogInterceptor;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
@@ -46,9 +45,9 @@ public class AppConfig  extends JFinalConfig {
         me.setError500View(Constant.VIEW_PATH + "common/500.ftl");
 
         // json (jfinaljson 和 fastjson 混合)
-        //me.setJsonFactory(MixedJsonFactory.me());  // toJson 用 JfinalJson , Parse 用 Fastjson, model 转json 使用数据库字段名
+        me.setJsonFactory(MixedJsonFactory.me());  // toJson 用 JfinalJson , Parse 用 Fastjson, model 转json 使用数据库字段名
 
-        me.setJsonFactory(FastJsonFactory.me()); // 使用 Fastjson ,Model 转 json 使用 驼峰命名
+        //me.setJsonFactory(FastJsonFactory.me()); // 使用 Fastjson ,Model 转 json 使用 驼峰命名， 依赖 getter 方法
         me.setJsonDatePattern("yyyy-MM-dd HH:mm:ss");
     }
 
