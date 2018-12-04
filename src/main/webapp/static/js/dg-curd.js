@@ -86,6 +86,8 @@ $(".searchInputArea").on("keydown", function (e) {
     }
 });
 
+
+
 /**
  * 提交保存或者修改表单
  * @param formId 表单id
@@ -122,3 +124,60 @@ function saveAction(formId,type,dgId){
         }
     });
 }
+
+
+
+
+/**
+ * 通过ID 查看单条
+ * @param dgId
+ * @param url
+ * @param width
+ * @param height
+ */
+function viewModel(title,dgId,url,width,height){
+    var rows= $("#"+dgId).datagrid("getSelections");
+    if (rows.length==1) {
+        popup.openIframe(title, url+'?id=' + rows[0].ID, width,height);
+    } else {
+        popup.msg('请选择一行数据进行'+title);
+    }
+}
+
+/**
+ * 通过ID 查看多条
+ * @param title 弹窗标题
+ * @param dgId
+ * @param url
+ * @param width
+ * @param height
+ */
+function viewModels(title,dgId,url,width,height) {
+    var rows= $("#"+dgId).datagrid("getSelections");
+    if(rows.length==0){
+        popup.msg('请至少选择一条数据');
+        return;
+    }
+
+    var ids = [];
+    rows.forEach(function(row){
+        ids.push(row.ID);
+    });
+    popup.openIframe(title, url+'?ids=' + ids, width,height);
+}
+
+/**
+ * 通过完整的url 查看，可单条 可多条
+ * @param title
+ * @param url
+ * @param width
+ * @param height
+ */
+function viewModelsByLink(title,url,width,height){
+    if (isEmpty(url)){
+        console.log('url 参数不可为空');
+        return;
+    }
+    popup.openIframe(title, url, width,height);
+}
+

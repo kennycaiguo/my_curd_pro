@@ -40,7 +40,7 @@ public class VisitLogInterceptor implements Interceptor {
             sysVisitLog.save();
         } catch (Exception e) {
             LOG.error(e.getMessage(),e);
-            sysVisitLog.setError(e.toString());
+            sysVisitLog.setError(e.getMessage());
             sysVisitLog.save();
             Ret ret = Ret.create().set("state","error").set("msg",e.getMessage());
             inv.getController().renderJson(ret);
