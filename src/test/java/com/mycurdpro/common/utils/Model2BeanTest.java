@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class ModelBeanUtilsTest {
+public class Model2BeanTest {
 
-    ModelBeanUtils<SysUser, User> utils = new ModelBeanUtils<>();
+    Model2Bean<SysUser, User> m2b = new Model2Bean<>();
 
     @Test
     public void modelToBean() {
@@ -30,7 +30,7 @@ public class ModelBeanUtilsTest {
             put("CREATE_TIME", "lastLoginTime");
         }};
 
-        User user = utils.modelToBean(sysUser, User.class, mapping);
+        User user = m2b.toBean(sysUser, User.class, mapping);
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
         System.out.println(new DateTime(user.getLastLoginTime()).toString("yyyy-MM-dd HH:mm:ss.S"));
@@ -53,7 +53,7 @@ public class ModelBeanUtilsTest {
             put("CREATE_TIME", "lastLoginTime");
         }};
 
-        List<User> users = utils.modelsToBeans(sysUsers, User.class, mapping);
+        List<User> users = m2b.toBeans(sysUsers, User.class, mapping);
         Assert.assertEquals(3,users.size());
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("计算机一班学生", "学生"), User.class, users);
         try {
