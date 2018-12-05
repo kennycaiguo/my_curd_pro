@@ -21,11 +21,12 @@
         <fastjson.version>1.2.43</fastjson.version>
         <slf4j.version>1.7.25</slf4j.version>
         <cron4j.version>2.2.5</cron4j.version>
-        <google-guava.version>27.0-jre</google-guava.version>
+        <google-guava.version>27.0.1-jre</google-guava.version>
         <google-zxing.version>3.3.2</google-zxing.version>
         <cors-filter.version>2.5</cors-filter.version>
         <beanutils.version>1.9.3</beanutils.version>
-
+        <jodd-time.version>2.10.1</jodd-time.version>
+        <easypoi.version>3.2.0</easypoi.version>
     </properties>
 
     <dependencies>
@@ -111,8 +112,28 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${beanutils.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${jodd-time.version}</version>
+        </dependency>
+        <!-- easypoi excel 导入导出 -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-base</artifactId>
+            <version>${easypoi.version}</version>
+            <!-- 排除版本  guava16 slf4j1.6.1-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!--日志-->
         <dependency>
@@ -120,7 +141,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
