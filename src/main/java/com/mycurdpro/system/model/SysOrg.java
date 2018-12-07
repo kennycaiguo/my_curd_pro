@@ -1,5 +1,8 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysOrg;
 
 import java.util.List;
@@ -14,34 +17,42 @@ public class SysOrg extends BaseSysOrg<SysOrg> {
     public static final SysOrg dao = new SysOrg().dao();
 
     /**
-     * 根据 pid 字段查询
-     * @param pid
+     * 查询完整子孙的 org
      * @return
      */
-    public List<SysOrg> findByPid(String pid){
-      String sql = " SELECT ID,PID,NAME,CODE,ADDRESS,MARK,SORT, connect_by_isleaf AS IS_LEAF " +
-              " FROM SYS_ORG WHERE PID = ? START WITH PID = ? CONNECT BY PID = PRIOR ID ORDER BY SORT";
-      return  find(sql,pid,pid);
+    public List<SysOrg> findAll(){
+        String sql = "SELECT ID,PID,NAME,ADDRESS,CODE,SORT,MARK, connect_by_isleaf AS IS_LEAF  FROM SYS_ORG   START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY SORT,IS_LEAF";
+        return find(sql);
     }
 
     /**
-     * 根据name 查询
-     * @param name
-     * @return
-     */
-    public List<SysOrg> findByName(String name){
-        String sql = " SELECT ID,NAME,CODE,ADDRESS,MARK,SORT, connect_by_isleaf AS IS_LEAF " +
-                " FROM SYS_ORG WHERE NAME LIKE '%"+name+"%' START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY SORT";
-        return  find(sql);
-    }
-
-    /**
-     * 查询完整的 org tree
+     * 查询完整子孙 org tree
      * @return
      */
     public List<SysOrg> findAllForTree(){
-        String sql = " SELECT ID,PID,NAME, connect_by_isleaf AS IS_LEAF  FROM SYS_ORG   START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY IS_LEAF,SORT";
+        String sql = " SELECT ID,PID,NAME, connect_by_isleaf AS IS_LEAF  FROM SYS_ORG   START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY SORT,IS_LEAF";
         return find(sql);
+    }
+
+    /**
+     * 通过ids 查询完整子孙 org
+     * @param ids
+     * @return
+     */
+    public List<SysOrg> findInIds(String ids){
+        String sql = "select UNIQUE ID,PID,NAME,ADDRESS,CODE,SORT,MARK, connect_by_isleaf AS IS_LEAF from SYS_ORG START WITH ID in ('"+ids+"') CONNECT BY PID = PRIOR ID ORDER BY SORT,IS_LEAF";
+        return find(sql);
+    }
+
+    /**
+     * 根据name 查询 到 ids
+     * @param name
+     * @return
+     */
+    public String  findIdsByName(String name){
+        String sql = "SELECT WM_CONCAT(ID) as IDS FROM SYS_ORG WHERE NAME LIKE '%"+name+"%' ";
+        Record record = Db.findFirst(sql);
+        return record.getStr("IDS");
     }
 
 

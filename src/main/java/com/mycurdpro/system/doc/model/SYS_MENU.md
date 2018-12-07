@@ -10,7 +10,6 @@
 | 7 | CREATER |  VARCHAR2(50) | ✘  |   |   | 创建人  |
 | 8 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 | 9 | UPDATER |  VARCHAR2(50) | ✔  |   |   | 最后修改人  |
-| 10 | EDIT_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
-| 11 | LEVEL |  NUMBER(9) | ✘  |   |   | 层级  |
+| 10 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
 
 

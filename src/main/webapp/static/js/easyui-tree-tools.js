@@ -24,12 +24,12 @@ var EasyTree = function() {
     var treeDataBuild = function(rows, idFieldName, pidFieldName, fileds) {
         var nodes = [];
         // get the top level nodes
+        console.log(rows.length);
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
             if (!exists(rows, idFieldName, row[pidFieldName])) {
-                var data = {
-                    id: row[idFieldName]
-                }
+                var data  = {};
+                data[idFieldName] = row[idFieldName];
                 var arrFiled = fileds.split(",");
                 for (var j = 0; j < arrFiled.length; j++) {
                     if (arrFiled[j] != idFieldName) data[arrFiled[j]] = row[arrFiled[j]];
@@ -49,9 +49,10 @@ var EasyTree = function() {
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 if (row[pidFieldName] == node[idFieldName]) {
-                    var child = {
-                        id: row[idFieldName]
-                    };
+                    var child = {};
+                    child[idFieldName] = row[idFieldName];
+
+
                     var arrFiled = fileds.split(",");
                     for (var j = 0; j < arrFiled.length; j++) {
                         if (arrFiled[j] != idFieldName) {

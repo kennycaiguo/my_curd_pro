@@ -114,23 +114,12 @@ public abstract class BaseSysMenu<M extends BaseSysMenu<M>> extends Model<M> imp
 
 
      // 最后修改时间
-     public Date getEditTime() {
-        return get("EDIT_TIME");
+     public Date getUpdateTime() {
+        return get("UPDATE_TIME");
      }
 
-     public M setEditTime(Date editTime) {
-        set("EDIT_TIME", editTime);
-        return (M)this;
-     }
-
-
-     // 层级
-     public Integer getLevel() {
-        return getInt("LEVEL");
-     }
-
-     public M setLevel(Integer level) {
-        set("LEVEL", level);
+     public M setUpdateTime(Date updateTime) {
+        set("UPDATE_TIME", updateTime);
         return (M)this;
      }
 }

@@ -64,7 +64,8 @@ var popup = {
     msg: function (msg,cbk) {
         var that = this;
         var setting = {
-            time: 1500
+            time: 1500,
+            // offset:'t'
         };
         if(msg.indexOf('成功')>=0){
             setting.icon=1;

@@ -44,7 +44,7 @@
     <script>
         function urlFmt(val,row){
             return '<a href="javascript:viewModelsByLink(\'查看\',\'${ctx!}/sysVisitLog/view?id='
-                    +row.ID+'\',\'800px\',\'600px\')"  >'+val+'</a>';
+                    +row.ID+'\',\'800px\',\'400px\')"  >'+val+'</a>';
         }
     </script>
 </@layout>

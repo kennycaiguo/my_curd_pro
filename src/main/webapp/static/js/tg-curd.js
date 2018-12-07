@@ -32,6 +32,34 @@ function editModel(tgId,url,width,height){
 }
 
 
+/**
+ * 删除 Model
+ * @param tgid
+ * @param url
+ */
+function deleteModel(tgid,url) {
+    var node = $("#"+tgid).treegrid("getSelected");
+    if (node!=0) {
+        popup.openConfirm(null,3, '删除', '您确定要删除选中的记录吗?', function () {
+            $.post(url+'?id=' + node.ID, function (data) {
+                if(data.state=='ok'){
+                    popup.msg(data.msg, function () {
+                        $('#'+tgid).treegrid('reload');
+                    });
+                }else if(data.state=='error'){
+                    // 异常
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            }, "json").error(function(){ popup.errMsg(); });
+        });
+    } else {
+        popup.msg('请选择一行进行删除');
+    }
+}
+
+
 
 /**
  * datagird 过滤
@@ -61,4 +89,43 @@ $(".searchInputArea,.searchInputAreaDiv").on("keydown", function (e) {
         $(".searchBtn",that).first().trigger('click');
     }
 });
+
+
+/**
+ * 提交保存或者修改表单
+ * @param formId 表单id
+ * @param type 页面刷新方式  reload 父窗口 datagrid, refresh刷新父窗口页面
+ * @param tgId     表单提交成功后  父窗口 treegrid id
+ */
+function saveAction(formId,type,tgId){
+    $('#'+formId).form('submit', {
+        onSubmit: function () {
+            return $(this).form('validate');
+        },
+        success: function (data) {
+            if(typeof data =='string'){
+                data = JSON.parse(data);
+            }
+            if(data.state == 'ok'){
+                // 成功信息
+                parent.popup.msg(data.msg, function () {
+                    if(type=='reload'){
+                        // 展开全部节点
+                        parent.$("#"+tgId).treegrid("reload");
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    }
+                    if(type=='refresh'){
+                        parent.window.location.reload();
+                    }
+                });
+            }else if(data.state == 'error'){
+                // 系统异常
+                parent.popup.errMsg('系统异常',data.msg);
+            }else{
+                // 非成功信息
+                parent.popup.msg(data.msg);
+            }
+        }
+    });
+}
 

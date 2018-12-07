@@ -4,28 +4,11 @@
 <#include "../common/popup.ftl"/>
 <div class="easyui-layout" fit="true" border="false">
     <div data-options="region:'west',split:true" style="width:30%;" collapsible="false">
-        <table id="tg" class="easyui-treegrid"
-               url="${ctx!}/sysOrg/query"
-               toolbar="#tb" rownumbers="true" border="false"
-               <#--data-options="onSelect:groupSelect"-->
-               fitColumns="true"
-               fit="true"   idField="ID" treeField="NAME" >
-            <thead>
-            <tr>
-                <th field="NAME" width="300">名称</th>
-                <th field="CODE" width="150">编码</th>
-                <th field="SORT" width="50">排序号</th>
-               <#--
-                <th field="ADDRESS" width="150">地址</th>
-                <th field="MARK" width="150">备注</th>
-                -->
-            </tr>
-            </thead>
-        </table>
+        <table id="tg" border="false"  ></table>
         <div id="tb">
             <a onclick="newModel('tg','${ctx!}/sysOrg/newModel', '700px', '500px')" href="#" class="easyui-linkbutton"  iconCls="iconfont icon-add" plain="true">新增</a>
             <a onclick="editModel('tg','${ctx!}/sysOrg/newModel', '700px', '400px')" href="#" class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
-            <a onclick="deleteModel('dg','${ctx!}/sysRole/deleteAction')" href="#" class="easyui-linkbutton  "  iconCls="iconfont icon-delete" plain="true">删除</a>
+            <a onclick="deleteModel('tg','${ctx!}/sysOrg/deleteAction')" href="#" class="easyui-linkbutton  "  iconCls="iconfont icon-delete" plain="true">删除</a>
             <span id="searchSpan" class="searchInputArea">
                     <input name="search_LIKE_NAME" prompt="名称" class="easyui-textbox" style="width:120px; ">
                     <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true"
@@ -64,12 +47,54 @@
     </div>
 </div>
 <script src="${ctx!}/static/js/tg-curd.js"></script>
+<script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script>
-    /*左侧分组选中*/
-    function groupSelect(index,row){
-        var queryParams = {};
-        queryParams.search_EQS_group_code = row.GROUP_CODE;
-        $('#dg2').datagrid('load', queryParams);
-    };
+
+    ;(function () {
+        var easyTree = new EasyTree();
+        $("#tg").treegrid({
+            url: '${ctx!}/sysOrg/query',
+            method: 'POST',
+            idField: 'ID',
+            treeField: 'NAME',
+            fit: true,
+            lines:true,
+            fitColumns:true,
+            rownumbers: true,
+            toolbar: '#tb',
+            loadFilter: function (data) {
+                data = easyTree.treeDataBuild(data, 'ID', 'PID', 'ID,PID,NAME,ADDRESS,MARK,IS_LEAF,SORT,CODE,state');
+                return data;
+            },
+            columns: [[
+                {field: 'NAME', title: '机构名', width: 300},
+                {field: 'SORT', title: '排序', width: 80}
+            ]],
+            onSelect: function (row) {
+              /*  if (row.address == undefined) {
+                    $('#orgAddressTd').text("");
+                } else {
+                    $('#orgAddressTd').text(row.address);
+                }
+
+                if (row.mark == undefined) {
+                    $('#orgRemarkTd').text("");
+                } else {
+                    $('#orgRemarkTd').text(row.mark);
+                }
+
+                var queryParams = {};
+                if ($('#cascadeSearch').prop('checked')) {
+                    /!* 后台处理 查询 orgid 子孙 的相关用户 *!/
+                    queryParams.orgId = row.id;
+                } else {
+                    /!* 只查询用户orgid 的用户 *!/
+                    queryParams.search_EQ_org_id = row.id;
+                }
+                $('#dg').datagrid('load', queryParams);*/
+            }
+        });
+
+    })();
 </script>
 </@layout>

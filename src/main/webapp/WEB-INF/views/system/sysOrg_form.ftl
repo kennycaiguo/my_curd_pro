@@ -1,7 +1,6 @@
 <#--机构 表单-->
 <#include "../common/common.ftl"/>
 <@layout>
-${idPath!}
 <form id="modelForm" method="POST" action="<#if sysOrg?? >${ctx!}/sysOrg/updateAction<#else>${ctx!}/sysOrg/addAction</#if>">
     <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysOrg.id)!}">
@@ -29,7 +28,7 @@ ${idPath!}
         <tr>
             <td>地址：</td>
             <td  colspan="3">
-                <input name="address" value="${(sysOrg.address)!}"   class="easyui-textbox" data-options="multiline:true" style="height: 70px; width: 100%;">
+                <input name="address" value="${(sysOrg.address)!}"   class="easyui-textbox" data-options="required:true,multiline:true" style="height: 70px; width: 100%;">
             </td>
         </tr>
         <tr>
@@ -45,11 +44,11 @@ ${idPath!}
     <button  class=" pure-button button-small" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));" >
         <i class="iconfont icon-cancel"></i> 取消
     </button>
-    <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction('modelForm','reload','dg2')" >
+    <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction('modelForm','reload','tg')" >
         <i class="iconfont icon-save"></i> 确定
     </button>
 </div>
-<script src="${ctx!}/static/js/dg-curd.js"></script>
+<script src="${ctx!}/static/js/tg-curd.js"></script>
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script src="${ctx!}/static/js/input2combotree.js"></script>
 <script>

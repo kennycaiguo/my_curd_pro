@@ -30,20 +30,25 @@ public class SysOrgController  extends BaseController {
      */
     public void query(){
         // 初始传递pid 为 0
-        String pid = getPara("id", "0");
         String name = getPara("search_LIKE_NAME"); // 根据名曾查询
         List<SysOrg> sysOrgs;
-        if(StringUtils.isEmpty(name) || !"0".equals(pid) ){
-            // 点开树形菜单
-            sysOrgs = SysOrg.dao.findByPid(pid);
+        if(StringUtils.isEmpty(name) ){
+            // 查所有
+            sysOrgs = SysOrg.dao.findAll();
         }else{
-            // 根据名称搜索
-            sysOrgs = SysOrg.dao.findByName(name);
-        }
-        for(SysOrg sysOrg : sysOrgs){
-            if (sysOrg.getInt("IS_LEAF")==0) {
-                sysOrg.put("state", "closed");
-            }
+            // 根据名字查询
+           String ids = SysOrg.dao.findIdsByName(name);
+           if(StringUtils.notEmpty(ids)){
+               ids = ids.replaceAll(",","','");
+               sysOrgs = SysOrg.dao.findInIds(ids);
+           }else{
+               sysOrgs = new ArrayList<>();
+           }
+           for(SysOrg sysOrg : sysOrgs){
+               if(sysOrg.getInt("IS_LEAF")==0){
+                   sysOrg.put("state","closed");
+               }
+           }
         }
         renderJson(sysOrgs);
     }
@@ -104,17 +109,20 @@ public class SysOrgController  extends BaseController {
     public void deleteAction(){
         String id = getPara("id");
         Db.tx(() -> {
-            // 本身 子孙id，逗号分隔 TODO
-            String sql = "select wm_concat(ID) as IDS from SYS_ORG where PID = ? or ID = ? ";
+            // 本身 子孙id，
+            String sql = "select wm_concat(ID) as IDS from SYS_ORG START WITH ID  = ? CONNECT BY PID = PRIOR ID";
             Record record = Db.findFirst(sql,id);
-            String ids = record.getStr("IDS");
+            if(record.getStr("IDS")==null){
+                return true;
+            }
 
+            String ids = record.getStr("IDS").replaceAll(",","','");
             // 删除机构
             sql = "delete from SYS_ORG where ID in ('"+ids+"')";
             Db.update(sql);
 
             // 相关 人员 机构字段 置空
-            sql = "update SYS_USER set ORG_ID = null where ORG_ID  in ('"+id+"')";
+            sql = "update SYS_USER set ORG_ID = null where ORG_ID  in ('"+ids+"')";
             Db.update(sql);
             return true;
         });
@@ -135,14 +143,13 @@ public class SysOrgController  extends BaseController {
         root.put("id","0");
         root.put("pid","-1");
         root.put("text","根机构");
-        root.put("state","closed");
+        root.put("state",sysOrgs.size()>0?"closed":"open");
         maps.add(root);
         for (SysOrg sysOrg : sysOrgs) {
             Map<String, Object> map = new HashMap<>();
             map.put("id", sysOrg.getId());
             map.put("pid", sysOrg.getPid());
             map.put("text", sysOrg.getName());
-            System.err.println(sysOrg.getInt("IS_LEAF"));
             if (sysOrg.getInt("IS_LEAF")==0) {
                 map.put("state", "closed");
             }

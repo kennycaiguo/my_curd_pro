@@ -135,17 +135,6 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
      }
 
 
-     // 层级
-     public Integer getLevel() {
-        return getInt("LEVEL");
-     }
-
-     public M setLevel(Integer level) {
-        set("LEVEL", level);
-        return (M)this;
-     }
-
-
      // 编码
      public String getCode() {
         return getStr("CODE");

@@ -12,7 +12,6 @@
 | 9 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
 | 10 | PID |  VARCHAR2(30) | ✘  |   |   | 父ID  |
 | 11 | DIRECTOR |  VARCHAR2(50) | ✔  |   |   | 主管人  |
-| 12 | LEVEL |  NUMBER(9) | ✘  |   |   | 层级  |
-| 13 | CODE |  VARCHAR2(50) | ✘  |   |   | 编码  |
+| 12 | CODE |  VARCHAR2(50) | ✘  |   |   | 编码  |
 
 
