@@ -7,9 +7,15 @@
 
 /* datagrid toolbar 中 输入框 位置*/
 .searchInputArea {
+    /*有按钮 有搜索框*/
     position: absolute;
     right: 20px;
 }
+.searchInputAreaDiv{
+    /*无按钮 搜索框*/
+    text-align: right;
+}
+
 
 /* 表单提交页 按钮*/
 .formBtnsDiv{

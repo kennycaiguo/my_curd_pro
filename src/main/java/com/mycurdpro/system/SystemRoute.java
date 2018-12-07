@@ -5,6 +5,8 @@ import com.jfinal.config.Routes;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.VisitLogInterceptor;
 import com.mycurdpro.system.controller.SysDictController;
+import com.mycurdpro.system.controller.SysOrgController;
+import com.mycurdpro.system.controller.SysRoleController;
 import com.mycurdpro.system.controller.SysVisitLogController;
 
 /**
@@ -20,5 +22,11 @@ public class SystemRoute extends Routes {
         add("/sysDict", SysDictController.class, Constant.VIEW_PATH);
         // 访问日志
         add("/sysVisitLog", SysVisitLogController.class,Constant.VIEW_PATH);
+
+        // 角色管理
+        add("sysRole", SysRoleController.class,Constant.VIEW_PATH);
+
+        // 机构管理
+        add("sysOrg", SysOrgController.class,Constant.VIEW_PATH);
     }
 }

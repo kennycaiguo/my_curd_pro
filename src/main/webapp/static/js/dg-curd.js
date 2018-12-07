@@ -1,4 +1,4 @@
-/* datagrid 页面中 通用 的 增删改查 */
+/* datagrid curd 通用*/
 
 /**
 * 打开新增弹窗
@@ -79,7 +79,7 @@ function queryModel(dgId,inputsSpanId){
 }
 
 // datagrid 筛选框 enter 监听
-$(".searchInputArea").on("keydown", function (e) {
+$(".searchInputArea,.searchInputAreaDiv").on("keydown", function (e) {
     var that = this;
     if (e.keyCode == 13) {
         $(".searchBtn",that).first().trigger('click');

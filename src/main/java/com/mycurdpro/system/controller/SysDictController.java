@@ -142,9 +142,10 @@ public class SysDictController extends BaseController {
         Preconditions.checkNotNull(groupCode,"groupCode 参数不可为空");
 
         SysDictGroup sysDictGroup = SysDictGroup.dao.findByGroupCode(groupCode);
-        setAttr("groupName",sysDictGroup.getGroupName());
-        setAttr("groupCode",sysDictGroup.getGroupCode());
-
+        if(sysDictGroup!=null){
+            setAttr("groupName",sysDictGroup.getGroupName());
+            setAttr("groupCode",sysDictGroup.getGroupCode());
+        }
         render("system/sysDict_form.ftl");
     }
 

@@ -79,7 +79,7 @@
                popup.msg('请选中一条字典分组');
                return;
             }
-            popup.openIframe('新建','${ctx!}/sysDict/newDictModel?groupCode='+rows[0].groupCode, '500px', '320px')
+            popup.openIframe('新建','${ctx!}/sysDict/newDictModel?groupCode='+rows[0].GROUP_CODE, '500px', '320px')
         };
 
         /*左侧分组选中*/

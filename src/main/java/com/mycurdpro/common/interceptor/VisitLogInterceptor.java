@@ -9,6 +9,7 @@ import com.jfinal.kit.Ret;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.model.SysVisitLog;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 /**
  * 后台 访问路径 log 拦截器, 在 模块 route 中配置
+ * 全局异常 json
  */
 public class VisitLogInterceptor implements Interceptor {
     private final static Logger LOG = LoggerFactory.getLogger(VisitLogInterceptor.class);
@@ -40,9 +42,9 @@ public class VisitLogInterceptor implements Interceptor {
             sysVisitLog.save();
         } catch (Exception e) {
             LOG.error(e.getMessage(),e);
-            sysVisitLog.setError(e.getMessage());
+            sysVisitLog.setError(ExceptionUtils.getMessage(e));
             sysVisitLog.save();
-            Ret ret = Ret.create().set("state","error").set("msg",e.getMessage());
+            Ret ret = Ret.create().set("state","error").set("msg", ExceptionUtils.getMessage(e));
             inv.getController().renderJson(ret);
         }
 

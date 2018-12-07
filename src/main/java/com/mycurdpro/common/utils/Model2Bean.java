@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * Jfinal model 转 bean 工具 ，M 为 入参（Model 或 其字类)，B 为方法返回值(Bean)
- * easypoi excel 等使用
+ * easypoi excel 等使用, 通过调整 bean 适配 Jfinal model
  * @author  zhangchuang
  */
 public class Model2Bean<M,B> {
@@ -68,6 +68,57 @@ public class Model2Bean<M,B> {
         }
         for(M model : models){
             B t = toBean(model,beanClass,mapping);
+            list.add(t);
+        }
+        return list;
+    }
+
+
+    /**
+     * model 转 bean,  , bean 字段为驼峰， Model为 下划线格式
+     *
+     * @param model
+     * @param beanClass
+     * @param modelKeyUpper true model 的 key 为 大写下划线，false 不强制大写
+     * @return
+     */
+    public B toBean(@NotNull M model, @NotNull Class<B> beanClass,boolean modelKeyUpper) {
+        // 初始化
+        Model m = (Model) model;
+        B o;
+        try {
+            o = beanClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            LOG.error(e.getMessage(), e);
+            throw new RuntimeException(" bean 初始化失败");
+        }
+        Field[] fields = beanClass.getDeclaredFields();
+        String fieldName;
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+            fieldName = modelKeyUpper? StringUtils.toUnderline(field.getName()).toUpperCase():StringUtils.toUnderline(field.getName());
+            try {
+                field.set(o, m.get(fieldName));
+            } catch (IllegalAccessException e) {
+                LOG.error(e.getMessage(), e);
+//                throw new  RuntimeException(e);
+            }
+        }
+        return o;
+    }
+
+    /**
+     * model list 转 bean list , bean 字段为驼峰， Model为 下划线格式
+     * @param models
+     * @param beanClass
+     * @param modelKeyUpper true model 的 key 为 大写下划线，false 不强制大写
+     * @return
+     */
+    public List<B> toBeans(List<M> models, Class<B> beanClass,boolean modelKeyUpper){
+        List<B> list = new ArrayList<>();
+        for(M model : models){
+            B t = toBean(model,beanClass,modelKeyUpper);
             list.add(t);
         }
         return list;

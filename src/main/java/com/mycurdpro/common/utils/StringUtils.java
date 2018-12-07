@@ -25,4 +25,30 @@ public class StringUtils {
     public static  boolean notEmpty(String str){
         return  !isEmpty(str);
     }
+
+
+
+    /**
+     * 驼峰转下划线
+     * @param camelCaseStr 驼峰格式字符串
+     * @return 下划线格式字符串
+     */
+    public static String toUnderline(String camelCaseStr) {
+        if (camelCaseStr == null || "".equals(camelCaseStr.trim())) {
+            return "";
+        }
+        int len = camelCaseStr.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = camelCaseStr.charAt(i);
+            if (Character.isUpperCase(c)) {
+                sb.append("_");
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 }

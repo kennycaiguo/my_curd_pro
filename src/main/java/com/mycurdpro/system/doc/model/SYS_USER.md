@@ -7,7 +7,7 @@
 | 4 | NAME |  VARCHAR2(50) | ✘  |   |   | 姓名  |
 | 5 | AVATAR |  VARCHAR2(200) | ✔  |   |   | 头像  |
 | 6 | GENDER |  VARCHAR2(1) | ✘  |   |   | 性别M男F女  |
-| 7 | ORG_ID |  VARCHAR2(30) | ✘  |   |   | 部门  |
+| 7 | ORG_ID |  VARCHAR2(30) | ✔  |   |   | 部门  |
 | 8 | EMAIL |  VARCHAR2(100) | ✘  |   |   | 电子邮箱  |
 | 9 | PHONE |  VARCHAR2(20) | ✘  |   |   | 电话  |
 | 10 | JOB |  VARCHAR2(50) | ✘  |   |   | 职位  |

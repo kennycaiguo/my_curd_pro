@@ -144,4 +144,15 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
         set("LEVEL", level);
         return (M)this;
      }
+
+
+     // 编码
+     public String getCode() {
+        return getStr("CODE");
+     }
+
+     public M setCode(String code) {
+        set("CODE", code);
+        return (M)this;
+     }
 }

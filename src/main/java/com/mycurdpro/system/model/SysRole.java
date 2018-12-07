@@ -1,5 +1,7 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.plugin.activerecord.Page;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysRole;
 
 /**
@@ -10,4 +12,22 @@ import com.mycurdpro.system.model.base.BaseSysRole;
 @SuppressWarnings("serial")
 public class SysRole extends BaseSysRole<SysRole> {
     public static final SysRole dao = new SysRole().dao();
+
+    /**
+     * 角色分页查询，根据排序号正序排序
+     * @param pageNumber 第几页
+     * @param pageSize   每页条数
+     * @param where      查询条件
+     * @return           分页数据
+     */
+    public Page<SysRole> page(int pageNumber, int pageSize, String where){
+        String sqlSelect = " select * ";
+        String sqlExceptSelect = " from sys_role  ";
+        if (StringUtils.notEmpty(where)) {
+            sqlExceptSelect += " where " + where;
+        }
+        sqlExceptSelect += " order by sort asc ";
+        return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
+
 }
