@@ -45,7 +45,7 @@ public class ModelGenerator {
 
 
     // 数据表字典
-    private final static boolean genDict = true;                                                // 是否生成
+    private final static boolean genDict = false;                                                // 是否生成
     private final static boolean dictOverwriteIfExist = true;                                   // 是否覆盖
     private final static boolean genSingleFile = false;                                         // 字典是否单一文件
     private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";          // 字典 模板文件路径

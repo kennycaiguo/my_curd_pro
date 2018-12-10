@@ -50,6 +50,11 @@ public class SysOrgController  extends BaseController {
                }
            }
         }
+
+        // 图标
+        for(SysOrg sysOrg : sysOrgs){
+            sysOrg.put("iconCls","iconfont icon-orgtree");
+        }
         renderJson(sysOrgs);
     }
 
@@ -144,12 +149,16 @@ public class SysOrgController  extends BaseController {
         root.put("pid","-1");
         root.put("text","根机构");
         root.put("state",sysOrgs.size()>0?"closed":"open");
+        root.put("iconCls","iconfont icon-orgtree");
         maps.add(root);
+
         for (SysOrg sysOrg : sysOrgs) {
             Map<String, Object> map = new HashMap<>();
             map.put("id", sysOrg.getId());
             map.put("pid", sysOrg.getPid());
             map.put("text", sysOrg.getName());
+            map.put("iconCls","iconfont icon-orgtree");
+
             if (sysOrg.getInt("IS_LEAF")==0) {
                 map.put("state", "closed");
             }

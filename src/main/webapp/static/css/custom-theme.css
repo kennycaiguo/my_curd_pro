@@ -3,10 +3,15 @@
 
 /*easyui linkbutton 按钮字体图标*/
 .l-btn-icon.iconfont{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: #1E9FFF;
 }
+
+.tree-icon.iconfont{
+    color: #1E9FFF;
+}
+
 /*主体按钮样式*/
 .pure-button{
     border-radius: 0px !important;

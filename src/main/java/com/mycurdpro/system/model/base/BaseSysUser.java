@@ -221,4 +221,15 @@ public abstract class BaseSysUser<M extends BaseSysUser<M>> extends Model<M> imp
         set("UPDATER", updater);
         return (M)this;
      }
+
+
+     // 删除标志 null 未删除，x 已删除
+     public String getDelFlag() {
+        return getStr("DEL_FLAG");
+     }
+
+     public M setDelFlag(String delFlag) {
+        set("DEL_FLAG", delFlag);
+        return (M)this;
+     }
 }

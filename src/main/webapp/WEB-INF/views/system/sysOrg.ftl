@@ -63,7 +63,7 @@
             rownumbers: true,
             toolbar: '#tb',
             loadFilter: function (data) {
-                data = easyTree.treeDataBuild(data, 'ID', 'PID', 'ID,PID,NAME,ADDRESS,MARK,IS_LEAF,SORT,CODE,state');
+                data = easyTree.treeDataBuild(data, 'ID', 'PID', 'ID,PID,NAME,ADDRESS,MARK,IS_LEAF,SORT,CODE,state,iconCls');
                 return data;
             },
             columns: [[

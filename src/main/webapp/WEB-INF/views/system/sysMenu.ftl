@@ -29,7 +29,7 @@
             rownumbers: true,
             toolbar: '#tb',
             loadFilter: function (data) {
-                data = easyTree.treeDataBuild(data, 'ID', 'PID', 'ID,PID,SORT,NAME,URL,ICON,IS_LEAF,state');
+                data = easyTree.treeDataBuild(data, 'ID', 'PID', 'ID,PID,SORT,NAME,URL,ICON,IS_LEAF,state,iconCls');
                 return data;
             },
             columns: [[

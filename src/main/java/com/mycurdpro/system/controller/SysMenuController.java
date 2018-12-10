@@ -49,6 +49,12 @@ public class SysMenuController extends BaseController {
                 }
             }
         }
+
+        // easyui 图标
+        for(SysMenu sysMenu: sysMenus){
+            sysMenu.put("iconCls",sysMenu.getIcon());
+        }
+
         renderJson(sysMenus);
     }
 
@@ -142,6 +148,7 @@ public class SysMenuController extends BaseController {
         root.put("id","0");
         root.put("pid","-1");
         root.put("text","根菜单");
+        root.put("iconCls","iconfont icon-root");
         root.put("state",sysMenus.size()>0?"closed":"open");
         maps.add(root);
         for (SysMenu sysMenu : sysMenus) {
@@ -149,6 +156,7 @@ public class SysMenuController extends BaseController {
             map.put("id", sysMenu.getId());
             map.put("text", sysMenu.getName());
             map.put("pid", sysMenu.getPid());
+            map.put("iconCls",sysMenu.getIcon());
             if (sysMenu.getInt("IS_LEAF")==0) {
                 map.put("state", "closed");
             }

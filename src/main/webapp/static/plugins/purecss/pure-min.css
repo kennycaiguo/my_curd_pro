@@ -438,20 +438,6 @@ legend {
 .button-xlarge {
     font-size: 125% !important;
 }
-.button-xsmall>i.iconfont {
-    font-size: 70%;
-}
-.button-small>i.iconfont {
-    font-size: 85%;
-}
-.button-largel>i.iconfont {
-    font-size: 110%;
-}
-.button-xlarge>i.iconfont {
-    font-size: 125%;
-}
-
-
 
 
 .pure-button-group .pure-button {

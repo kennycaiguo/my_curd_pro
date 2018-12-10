@@ -15,7 +15,7 @@ function initFormCombotree(selector,selectorValue,excludeNodeId,dataUrl){
         required:true,
         loadFilter: function (data, parent) {
             /*数据处理*/
-            data = easyTree.treeDataBuild(data, "id", "pid", "text,state");
+            data = easyTree.treeDataBuild(data, "id", "pid", "text,iconCls,state");
             return data;
         },
         onLoadSuccess:function(){

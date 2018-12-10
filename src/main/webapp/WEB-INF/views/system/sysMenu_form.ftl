@@ -42,7 +42,7 @@
     <button  class=" pure-button button-small" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));" >
         <i class="iconfont icon-cancel"></i> 取消
     </button>
-    <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction('modelForm','reload','tg')" >
+    <button  class="button-small pure-button pure-button-primary" onclick="saveAction('modelForm','reload','tg')" >
         <i class="iconfont icon-save"></i> 确定
     </button>
 </div>
