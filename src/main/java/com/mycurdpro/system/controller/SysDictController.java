@@ -1,5 +1,6 @@
 package com.mycurdpro.system.controller;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 数据字典
@@ -83,13 +85,36 @@ public class SysDictController extends BaseController {
      * 修改 sysDictGroup
      */
     public void  updateGroupAction(){
-        SysDictGroup sysDictGroup = getBean(SysDictGroup.class,"");
-        sysDictGroup.setUpdater(WebUtils.getSessionUsername(this)).setUpdateTime(new Date());
-        if(sysDictGroup.update()){
-           renderSuccess(Constant.UPDATE_SUCCESS);
-        }else{
-           renderFail(Constant.UPDATE_FAIL);
+        // 已存数据
+        SysDictGroup sysDictGroupOld = SysDictGroup.dao.findById(getPara("id"));
+        if(sysDictGroupOld==null){
+            renderSuccess(Constant.UPDATE_FAIL);
+            return;
         }
+        // 修改后的数据
+        SysDictGroup sysDictGroup = getBean(SysDictGroup.class,"");
+        sysDictGroup.setUpdater(WebUtils.getSessionUsername(this))
+                .setUpdateTime(new Date());
+
+        if(!Objects.equal(sysDictGroup.getGroupCode(),sysDictGroupOld.getGroupCode())){
+            // 编码不一致
+            List<SysDict> sysDictList  = SysDict.dao.findListByGroupCode(sysDictGroupOld.getGroupCode());
+            if(sysDictList.size()>0 ){
+                // 子表存在记录
+                Db.tx(()->{
+                    String sql = "update sys_dict set group_code = ? where group_code = ?";
+                    Db.update(sql,sysDictGroup.getGroupCode(),sysDictGroupOld.getGroupCode());
+                    sysDictGroup.update();
+                    return  true;
+                });
+            }else{
+                // 子表 不存在记录
+                sysDictGroup.update();
+            }
+        }else{
+            sysDictGroup.update();
+        }
+        renderSuccess(Constant.UPDATE_SUCCESS);
     }
 
 

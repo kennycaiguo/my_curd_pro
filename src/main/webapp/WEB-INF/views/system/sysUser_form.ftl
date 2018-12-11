@@ -6,13 +6,13 @@
         <input id="id" name="id" type="hidden" value="${(sysUser.id)!}">
         <tbody>
         <tr>
-            <td>用户名：</td>
-            <td>
-                <input name="username" value="${(sysUser.username)!}"   class="easyui-textbox"  data-options="required:true"    >
+            <td>部门：</td>
+            <td >
+                <input id="orgId" name="orgId" value="${(sysUser.orgId)!}"    >
             </td>
-            <td>密码：</td>
-            <td>
-                <input name="password" value="${(sysUser.password)!}"   class="easyui-textbox"  data-options="required:true"    >
+            <td>用户名：</td>
+            <td >
+                <input name="username" value="${(sysUser.username)!}"   class="easyui-textbox"  data-options="required:true"    >
             </td>
         </tr>
         <tr>
@@ -20,19 +20,21 @@
             <td>
                 <input name="name" value="${(sysUser.name)!}"   class="easyui-textbox"  data-options="required:true"    >
             </td>
-            <td>部门：</td>
+            <td>性别：</td>
             <td>
-            <input id="orgId" name="orgId" value="${(sysUser.orgId)!}"     >
+                <input name="gender" value="${(sysUser.gender)!}"   class="easyui-combobox"
+                       data-options="required:true,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=gender'"       >
             </td>
         </tr>
         <tr>
-            <td>状态：</td>
+            <td>职位：</td>
             <td>
-                <input name="disable" value="${(sysUser.disable)!}"   class="easyui-textbox"  data-options="required:true"    >
+                <input name="job" value="${(sysUser.job)!}"   class="easyui-textbox"  data-options="required:true"    >
             </td>
-            <td>头像：</td>
-            <td >
-                <input name="avatar" value="${(sysUser.avatar)!}"   class="easyui-textbox" data-options="required:true"   >
+            <td>级别：</td>
+            <td>
+                <input name="jobLevel" value="${(sysUser.jobLevel)!}"  class="easyui-combobox"
+                       data-options="required:true,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=jobLevel'"   >
             </td>
         </tr>
         <tr>
@@ -46,15 +48,18 @@
             </td>
         </tr>
         <tr>
-            <td>职位：</td>
-            <td>
-                <input name="job" value="${(sysUser.job)!}"   class="easyui-textbox"  data-options="required:true"    >
-            </td>
-            <td>级别：</td>
-            <td>
-                <input name="jobLevel" value="${(sysUser.jobLevel)!}"   class="easyui-textbox"  data-options="required:true"    >
+            <td>状态：</td>
+            <td colspan="3">
+                <input name="userState" value="${(sysUser.userState)!}"  class="easyui-combobox"
+                       data-options="required:true,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=userState'"  >
             </td>
         </tr>
+        <#--<tr>-->
+            <#--<td>头像：</td>-->
+            <#--<td colspan="3">-->
+                <#--<input name="avatar" value="${(sysUser.avatar)!}"   class="easyui-textbox"  style="width: 100%;" >-->
+            <#--</td>-->
+        <#--</tr>-->
 
         </tbody>
     </table>
@@ -71,6 +76,6 @@
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script src="${ctx!}/static/js/input2combotree.js"></script>
 <script>
-    initFormCombotree('#orgId','${pid!}','${(sysOrg.id)!}','${ctx!}/sysOrg/orgComboTree');
+    initFormCombotree('#orgId','${(sysUser.orgId)!}','','${ctx!}/sysOrg/orgComboTree?withRoot=false',false);
 </script>
 </@layout>

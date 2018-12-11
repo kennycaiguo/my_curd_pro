@@ -24,7 +24,7 @@ var EasyTree = function() {
     var treeDataBuild = function(rows, idFieldName, pidFieldName, fileds) {
         var nodes = [];
         // get the top level nodes
-        console.log(rows.length);
+        //console.log(rows.length);
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
             if (!exists(rows, idFieldName, row[pidFieldName])) {

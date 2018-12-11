@@ -6,20 +6,21 @@
  * @param selectorValue  input 输入框值
  * @param excludeNodeId   需要排除的Node id, 新增表单 为空字符串，编辑表单为 对象id
  * @param dataUrl        combotree 数据接口，数据接口要返回完整的数据,不支持动态加载
+ * @param required      true 必须，false 非必需
  */
-function initFormCombotree(selector,selectorValue,excludeNodeId,dataUrl){
+function initFormCombotree(selector,selectorValue,excludeNodeId,dataUrl,required){
     var easyTree = new EasyTree();
     $(selector).combotree({
         url: dataUrl,
         value: selectorValue,
-        required:true,
+        required:required,
         loadFilter: function (data, parent) {
             /*数据处理*/
             data = easyTree.treeDataBuild(data, "id", "pid", "text,iconCls,state");
             return data;
         },
         onLoadSuccess:function(){
-            var t = $("#pid").combotree('tree');
+            var t = $(selector).combotree('tree');
             var pNode;
             // 排除 当前 node
             if(excludeNodeId!=null &&  $.trim(excludeNodeId)!=""){

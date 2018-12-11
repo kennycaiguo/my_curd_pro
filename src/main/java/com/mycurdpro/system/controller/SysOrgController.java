@@ -140,17 +140,21 @@ public class SysOrgController  extends BaseController {
      */
     @Clear(PermissionInterceptor.class)
     public void  orgComboTree(){
+        Boolean withRoot = getParaToBoolean("withRoot",true);
 
         List<SysOrg> sysOrgs = SysOrg.dao.findAllForTree();
         List<Map<String, Object>> maps = new ArrayList<>();
 
-        Map<String,Object> root = new HashMap<>();
-        root.put("id","0");
-        root.put("pid","-1");
-        root.put("text","根机构");
-        root.put("state",sysOrgs.size()>0?"closed":"open");
-        root.put("iconCls","iconfont icon-orgtree");
-        maps.add(root);
+        // 编辑机构时需要
+        if(withRoot){
+            Map<String,Object> root = new HashMap<>();
+            root.put("id","0");
+            root.put("pid","-1");
+            root.put("text","根机构");
+            root.put("state",sysOrgs.size()>0?"closed":"open");
+            root.put("iconCls","iconfont icon-orgtree");
+            maps.add(root);
+        }
 
         for (SysOrg sysOrg : sysOrgs) {
             Map<String, Object> map = new HashMap<>();

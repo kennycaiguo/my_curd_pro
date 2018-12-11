@@ -28,6 +28,21 @@ var popup = {
         });
         return index;
     },
+    /*iframe 弹窗，不能调整大小*/
+    openIframeNoResize:function(title,url,width,height,skin){
+        var index = layer.open({
+            skin: skin || layerSkin.lan,
+            type: 2,
+            title: title,
+            maxmin: false,
+            resize:false,
+            shadeClose: true,
+            area: [width || '80%', height || '90%'],
+            offset: top.location==self.location || width=="100%"  ? 'auto':'30px',
+            content: [url]
+        });
+        return index;
+    },
     /*页面层*/
     openDOM: function (title, content, width, height, skin) {
         layer.open({
@@ -45,7 +60,7 @@ var popup = {
         layer.confirm(msg, {
             skin: skin || layerSkin.lan,
             icon: icon,
-            offset:top.location==self.location ? 'auto':['30px','200px'],
+            offset:top.location==self.location ? 'auto':'30px',
             title: title,
             resize:false,
             btn: ['确定', '取消']

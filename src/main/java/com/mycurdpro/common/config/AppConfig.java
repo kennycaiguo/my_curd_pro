@@ -16,6 +16,7 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
+import com.mycurdpro.common.utils.UtilsController;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
@@ -53,6 +54,8 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configRoute(Routes me) {
+        me.add("/utils", UtilsController.class,Constant.VIEW_PATH); // 页面工具
+
         me.add(new SystemRoute());
     }
 

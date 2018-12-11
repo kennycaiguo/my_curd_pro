@@ -33,6 +33,7 @@ table.centerTable{
 }
 table.labelInputTable  tr>td:nth-child(odd){
     background-color:#fafafa;
+/*    background-color: #eee;*/
 }
 
 

@@ -135,13 +135,13 @@ public abstract class BaseSysUser<M extends BaseSysUser<M>> extends Model<M> imp
      }
 
 
-     // 是否禁用0未禁用1禁用
-     public String getDisable() {
-        return getStr("DISABLE");
+     // 用户状态 0正常1禁用
+     public String getUserState() {
+        return getStr("USER_STATE");
      }
 
-     public M setDisable(String disable) {
-        set("DISABLE", disable);
+     public M setUserState(String userState) {
+        set("USER_STATE", userState);
         return (M)this;
      }
 

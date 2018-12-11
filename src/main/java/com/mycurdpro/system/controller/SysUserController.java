@@ -1,16 +1,17 @@
 package com.mycurdpro.system.controller;
 
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
+import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
-import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysUser;
 
@@ -57,8 +58,7 @@ public class SysUserController extends BaseController {
     public void addAction(){
         SysUser sysUser = getBean(SysUser.class,"");
         sysUser.setId(IdUtils.id()).setCreater(WebUtils.getSessionUsername(this)).setCreateTime(new Date());
-        sysUser.setPassword(HashKit.sha1(sysUser.getPassword()));
-
+        sysUser.setPassword(HashKit.sha1(Constant.USER_DEFAULT_PASSWORD));
         if(sysUser.save()){
             renderSuccess(Constant.ADD_SUCCESS);
         }else{
@@ -80,6 +80,8 @@ public class SysUserController extends BaseController {
         }
     }
 
+
+
     /**
      * delete
      */
@@ -98,41 +100,17 @@ public class SysUserController extends BaseController {
 
 
     /**
-     * 修改密码页面
+     * 重置密码
      */
-    @Before(IdRequired.class)
-    public void goChangePwd(){
-        setAttr("id",getPara("id"));
-        render("system/sysUser_changePwd.ftl");
+    @Before(IdsRequired.class)
+    public void resetPwd(){
+        String ids = getPara("ids").replaceAll(",","','");
+        String sha1Pwd = HashKit.sha1(Constant.USER_DEFAULT_PASSWORD);
+        String sql = "update sys_user set password = ? where id in ('"+ids+"')";
+        Db.update(sql,sha1Pwd);
+        renderSuccess("重置密码成功。新密码: "+Constant.USER_DEFAULT_PASSWORD);
     }
 
 
-    /**
-     * 修改密码
-     */
-    public void changePwdAction(){
-        String id = getPara("id");
-        String pwd = getPara("pwd");
-        String rePwd = getPara("rePwd");
-        if(StringUtils.isEmpty(id) || StringUtils.isEmpty(pwd) || StringUtils.isEmpty(rePwd)){
-            renderFail("参数不可为空");
-            return;
-        }
-        SysUser sysUser = SysUser.dao.findById(id);
-        if(sysUser==null){
-            renderFail("id 参数错误");
-            return;
-        }
-        if(!pwd.equals(rePwd)){
-            renderFail("两次密码不一致");
-            return;
-        }
 
-        sysUser.setPassword(HashKit.sha1(pwd));
-        if(sysUser.update()){
-            renderSuccess("重置密码成功");
-        }else{
-            renderFail("重置密码失败");
-        }
-    }
 }

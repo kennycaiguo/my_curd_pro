@@ -16,6 +16,9 @@ public class Constant {
     // 查询 过滤器 使用
     public final static String SEARCH_SQL = "search_sql";
 
+    // 用户默认密码(添加用户时)
+    public final static String USER_DEFAULT_PASSWORD ="123456";
+
 
     // views 视图路径
     public final static String VIEW_PATH = "/WEB-INF/views/";

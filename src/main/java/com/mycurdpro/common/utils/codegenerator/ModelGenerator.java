@@ -38,7 +38,7 @@ public class ModelGenerator {
     private final static String modelOutPath = outBasePath + "model/";                                // Model 渲染文件输出路径
 
     // 生成 MappingKit
-    private final static boolean genMappingKit = true;                                                // 是否生成
+    private final static boolean genMappingKit = false;                                                // 是否生成
     private final static boolean mappingKitOverwriteIfExist = true;                                   // 是否覆盖代码
     private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "ModelMapping.ftl";   // 模板文件路径
     private final static String mappingKitOutPath = outBasePath;                                      // 渲染文件输出路径
