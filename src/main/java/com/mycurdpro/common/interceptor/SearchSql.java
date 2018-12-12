@@ -201,6 +201,14 @@ public class SearchSql implements Interceptor {
                         // 日期时间 小于等于
                         sb.append(" <= to_date('").append(filter.fieldValue).append("','yyyy-mm-dd hh24:mi:ss')");
                         break;
+                    case IS:
+                        // is null
+                        sb.append("  is null ");
+                        break;
+                    case ISNOT:
+                        // not is null
+                        sb.append("  is not null ");
+                        break;
                     default:
                         LOG.warn("找不到预定义设置,{},请自己扩展。",filter.operator);
                 }
@@ -226,6 +234,6 @@ class SearchFilter {
     }
 
     public enum Operator {
-        EQS,EQN, LIKE, GTN, LTN, GTEN, LTEN,GTD,LTD, GTED, LTED, NEQ, INS,INN,GTDT,LTDT,GTEDT,LTEDT
+        EQS,EQN, LIKE, GTN, LTN, GTEN, LTEN,GTD,LTD, GTED, LTED, NEQ, INS,INN,GTDT,LTDT,GTEDT,LTEDT,IS,ISNOT
     }
 }

@@ -29,7 +29,7 @@ var popup = {
         return index;
     },
     /*iframe 弹窗，不能调整大小*/
-    openIframeNoResize:function(title,url,width,height,skin){
+    openIframeNoResize:function(title,url,width,height,autoHeight,skin){
         var index = layer.open({
             skin: skin || layerSkin.lan,
             type: 2,
@@ -39,14 +39,14 @@ var popup = {
             shadeClose: true,
             area: [width || '80%', height || '90%'],
             offset: top.location==self.location || width=="100%"  ? 'auto':'30px',
-            content: [url]
+            content: [url],
+            success:function(dom,i){
+                // 根据内容高度 自适应
+                if(autoHeight){
+                    layer.iframeAuto(i);
+                }
+            }
         });
-        /*
-        setTimeout(function(){
-            layer.iframeAuto(index);
-            console.log('auto height');
-        },500);
-        */
         return index;
     },
     /*页面层*/

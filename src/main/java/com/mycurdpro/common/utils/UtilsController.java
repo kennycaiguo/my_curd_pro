@@ -1,8 +1,10 @@
 package com.mycurdpro.common.utils;
 
+import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
+import com.mycurdpro.common.interceptor.VisitLogInterceptor;
 import com.mycurdpro.system.model.SysOrg;
 import com.mycurdpro.system.model.SysUser;
 
@@ -10,6 +12,7 @@ import com.mycurdpro.system.model.SysUser;
  * 工具controller
  */
 @Clear(PermissionInterceptor.class)
+@Before(VisitLogInterceptor.class)
 public class UtilsController extends BaseController {
     /**
      * 系统用户信息

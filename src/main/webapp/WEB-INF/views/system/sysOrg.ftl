@@ -3,7 +3,7 @@
 <@layout>
 <#include "../common/popup.ftl"/>
 <div class="easyui-layout" fit="true" border="false">
-    <div data-options="region:'west',split:true" style="width:30%;" collapsible="false">
+    <div data-options="region:'west',split:true" style="width:30%;" collapsible="false" >
         <table id="tg" border="false"  ></table>
         <div id="tb">
             <a onclick="newModel('tg','${ctx!}/sysOrg/newModel', '700px', '500px')" href="#" class="easyui-linkbutton"  iconCls="iconfont icon-add" plain="true">新增</a>

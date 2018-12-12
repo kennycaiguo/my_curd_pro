@@ -10,6 +10,7 @@ import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.interceptor.SearchSql;
+import com.mycurdpro.common.interceptor.VisitLogInterceptor;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
@@ -218,7 +219,7 @@ public class SysDictController extends BaseController {
     }
 
 
-    @Clear(PermissionInterceptor.class)
+    @Clear({PermissionInterceptor.class, VisitLogInterceptor.class})
     public void  combobox(){
         String groupCode = getPara("groupCode","");
         renderJson(SysDict.dao.findListByGroupCode(groupCode));
