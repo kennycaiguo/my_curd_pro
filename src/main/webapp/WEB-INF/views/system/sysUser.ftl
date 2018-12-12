@@ -13,7 +13,7 @@
  <thead>
  <tr>
      <th data-options="field:'ID',checkbox:true"></th>
-     <th field="USERNAME" width="100">用户名</th>
+     <th field="USERNAME" width="100" formatter="usernameFmt">用户名</th>
      <th field="ORG_NAME" width="200">部门</th>
  <#--<th field="EMAIL" width="100">邮箱</th>-->
  <#--<th field="PHONE" width="100">电话</th>-->
@@ -68,6 +68,10 @@
         } else {
             popup.msg('请至少选择一条数据');
         }
+    }
+
+    function usernameFmt(val,row) {
+        return '<a title="点击查看人员信息" href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
     }
 </script>
 </@layout>

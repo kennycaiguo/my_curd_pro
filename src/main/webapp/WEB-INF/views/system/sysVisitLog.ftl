@@ -43,11 +43,11 @@
     <script src="${ctx!}/static/js/dg-curd.js"></script>
     <script>
         function urlFmt(val,row){
-            return '<a href="javascript:viewModelsByLink(\'查看\',\'${ctx!}/sysVisitLog/view?id='
+            return '<a title="点击查看请求信息" href="javascript:viewModelsByLink(\'查看\',\'${ctx!}/sysVisitLog/view?id='
                     +row.ID+'\',\'800px\',\'400px\')"  >'+val+'</a>';
         }
         function usernameFmt(val,row) {
-            return '<a href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
+            return '<a title="点击查看人员信息" href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
         }
     </script>
 </@layout>

@@ -56,4 +56,15 @@ public class SysOrg extends BaseSysOrg<SysOrg> {
     }
 
 
+    /**
+     * 通过id 查询 子孙节点 ids, 包括自身
+     * @param id
+     * @return
+     */
+    public String findSonIdsById(String id){
+        String sql = "SELECT WM_CONCAT (ID) AS IDS  FROM SYS_ORG START WITH id = ? CONNECT BY PID = PRIOR ID";
+        Record record = Db.findFirst(sql,id);
+        return record.getStr("IDS");
+    }
+
 }

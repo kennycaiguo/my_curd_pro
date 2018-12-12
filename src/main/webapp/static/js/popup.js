@@ -41,6 +41,12 @@ var popup = {
             offset: top.location==self.location || width=="100%"  ? 'auto':'30px',
             content: [url]
         });
+        /*
+        setTimeout(function(){
+            layer.iframeAuto(index);
+            console.log('auto height');
+        },500);
+        */
         return index;
     },
     /*页面层*/

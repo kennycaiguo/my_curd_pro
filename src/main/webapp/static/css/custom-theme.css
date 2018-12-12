@@ -20,3 +20,14 @@
 .pure-button-primary{
     /*background-color:red !important;*/
 }
+
+
+/*链接颜色设置*/
+a{
+    color:#333;
+    text-decoration:none;
+}
+a:hover{
+    color:#CC3300;
+    text-decoration:underline;
+}

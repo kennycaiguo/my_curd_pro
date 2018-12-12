@@ -3,6 +3,7 @@ package com.mycurdpro.common.utils;
 import com.jfinal.aop.Clear;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
+import com.mycurdpro.system.model.SysOrg;
 import com.mycurdpro.system.model.SysUser;
 
 /**
@@ -22,5 +23,15 @@ public class UtilsController extends BaseController {
         setAttr("username",username);
 
         render("common/utils/userInfo.ftl");
+    }
+
+    public void orgInfo(){
+        String orgId = getPara("id");
+        if(StringUtils.notEmpty(orgId)){
+            SysOrg sysOrg = SysOrg.dao.findById(orgId);
+            setAttr("sysOrg",sysOrg);
+        }
+        setAttr("orgId",orgId);
+        render("common/utils/orgInfo.ftl");
     }
 }

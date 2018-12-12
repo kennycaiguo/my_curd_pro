@@ -65,7 +65,7 @@ function deleteModel(dgid,url) {
  */
 function queryModel(dgId,inputsSpanId){
     var queryParams = {};
-    var inputDomAry = $("#"+inputsSpanId+" input[name*=search_]");
+    var inputDomAry = $("#"+inputsSpanId+" input[name*=search_],#"+inputsSpanId+" input[name*=extra_]");
     console.log(inputDomAry.length);
     var val;
     for(var i = 0,len = inputDomAry.length; i < len; i++){
@@ -180,4 +180,3 @@ function viewModelsByLink(title,url,width,height){
     }
     popup.openIframe(title, url, width,height);
 }
-

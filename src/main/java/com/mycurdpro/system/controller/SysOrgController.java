@@ -3,15 +3,18 @@ package com.mycurdpro.system.controller;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
+import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.system.model.SysOrg;
+import com.mycurdpro.system.model.SysUser;
 
 import java.util.*;
 
@@ -169,6 +172,45 @@ public class SysOrgController  extends BaseController {
             maps.add(map);
         }
         renderJson(maps);
+    }
+
+
+    /**
+     * 通过组织机构查询用户 datagrid 数据
+     */
+    @Before(SearchSql.class)
+    public void  queryUser(){
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+
+        // 组织机构查询
+        String orgId = getPara("extra_orgId");
+        if(StringUtils.notEmpty(orgId)){
+            // 机构查询
+            Boolean cascadeOrg = getParaToBoolean("extra_cascadeOrg",false);
+            String whereSeg="";
+            if(cascadeOrg){
+                // 级联查询
+                String ids = SysOrg.dao.findSonIdsById(orgId);
+                if(StringUtils.notEmpty(ids)){
+                    ids = ids.replaceAll(",","','");
+                }else{
+                    ids="unknow";  // 查不到的
+                }
+                whereSeg = " a.ORG_ID in ('"+ids+"')";
+            }else{
+                whereSeg=" a.ORG_ID ='"+orgId+"' ";
+            }
+            if(StringUtils.isEmpty(where)){
+                where +=whereSeg;
+            }else{
+                where +=(" and "+whereSeg);
+            }
+        }
+
+        Page<SysUser> sysUserPage = SysUser.dao.page(pageNumber,pageSize,where);
+        renderDatagrid(sysUserPage);
     }
 
 }

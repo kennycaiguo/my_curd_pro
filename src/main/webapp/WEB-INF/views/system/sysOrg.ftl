@@ -19,7 +19,7 @@
 
     <div data-options="region:'center'">
         <table id="dg2" class="easyui-datagrid"
-               url="${ctx!}/sysDict/queryDict?search_EQS_del_flag=0"
+               url="${ctx!}/sysOrg/queryUser"
                toolbar="#tb2" rownumbers="true" border="false"
                fit="true" pagination="true"
                fitColumns="true"
@@ -29,26 +29,49 @@
             <thead>
             <tr>
                 <th data-options="field:'ID',checkbox:true"></th>
-                <th field="DICT_LABEL" width="150">名称</th>
-                <th field="DICT_VALUE" width="200">编码</th>
-                <th field="DICT_SORT" width="100">排序号</th>
-                <th field="CREATE_TIME" width="200">创建时间</th>
+                <th field="ORG_NAME" width="100">部门</th>
+                <th field="NAME" width="100">姓名</th>
+                <th field="JOB" width="150">职位</th>
+                <th field="GENDER_TEXT" width="50">性别</th>
+                <th field="USERNAME" width="100" formatter="usernameFmt">用户名</th>
             </tr>
             </thead>
         </table>
         <div id="tb2">
-            <div id="searchSpan2" class="searchInputAreaDiv"   >
-                <input name="search_LIKE_dict_label" prompt="名称" class="easyui-textbox" style="width:120px; ">
-                <input name="search_LIKE_dict_value" prompt="编码" class="easyui-textbox" style="width:120px; ">
+            <span style="display: inline-block;height: 30px;padding: 4px 10px;">
+                  <input class="easyui-checkbox" id="cascadeSearch" checked="true" value="cascadeOrg" label="级联查询"  data-options="onChange:cascadeOrgChange" >
+            </span>
+            <span id="searchSpan2" class="searchInputArea"   >
+                <#-- 前台传递 手动处理的 参数-->
+                <input id="cascadeOrg" type="hidden" name="extra_cascadeOrg">
+                <input id="orgId" type="hidden" name="extra_orgId">
+                <#-- 拦截器 拼装sql-->
+                <input name="search_LIKE_a.NAME" prompt="姓名" class="easyui-textbox" style="width:120px; ">
+                <input name="search_LIKE_a.JOB" prompt="职位" class="easyui-textbox" style="width:120px; ">
                 <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true"
                    onclick="queryModel('dg2','searchSpan2')">搜索</a>
-            </div>
+            </span>
         </div>
     </div>
 </div>
 <script src="${ctx!}/static/js/tg-curd.js"></script>
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script>
+    function usernameFmt(val,row) {
+        return '<a title="点击查看用户信息"  href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
+    }
+    function orgNameFmt(val,row) {
+      return '<a href="javascript:orgInfo(\'${ctx!}\',\''+row.ID+'\')" title="点击查看机构信息" >'+val+'</a>';
+    }
+
+    <#--级联机构查询 onChange 事件-->
+    function cascadeOrgChange(checked){
+        $("#cascadeOrg").val(checked);
+
+        if(notEmpty($("#orgId").val())){
+            $(".searchBtn","#searchSpan2").first().trigger('click');
+        }
+    }
 
     ;(function () {
         var easyTree = new EasyTree();
@@ -67,31 +90,13 @@
                 return data;
             },
             columns: [[
-                {field: 'NAME', title: '机构名', width: 300},
+                {field: 'NAME', title: '机构名', width: 300,formatter:orgNameFmt},
                 {field: 'SORT', title: '排序', width: 80}
             ]],
             onSelect: function (row) {
-              /*  if (row.address == undefined) {
-                    $('#orgAddressTd').text("");
-                } else {
-                    $('#orgAddressTd').text(row.address);
-                }
-
-                if (row.mark == undefined) {
-                    $('#orgRemarkTd').text("");
-                } else {
-                    $('#orgRemarkTd').text(row.mark);
-                }
-
-                var queryParams = {};
-                if ($('#cascadeSearch').prop('checked')) {
-                    /!* 后台处理 查询 orgid 子孙 的相关用户 *!/
-                    queryParams.orgId = row.id;
-                } else {
-                    /!* 只查询用户orgid 的用户 *!/
-                    queryParams.search_EQ_org_id = row.id;
-                }
-                $('#dg').datagrid('load', queryParams);*/
+                $('#orgId').val(row.ID);
+                $("#cascadeOrg").val($('#cascadeSearch').checkbox('options').checked);
+                $(".searchBtn","#searchSpan2").first().trigger('click');
             }
         });
 

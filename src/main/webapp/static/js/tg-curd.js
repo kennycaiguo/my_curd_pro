@@ -68,8 +68,10 @@ function deleteModel(tgid,url) {
  */
 function queryModel(tgId,inputsSpanId){
     var queryParams = {};
-    var inputDomAry = $("#"+inputsSpanId+" input[name*=search_]");
-    console.log(inputDomAry.length);
+    // search_ 过滤器拼装sql
+    // extra   controller手动处理的参数
+    var inputDomAry = $("#"+inputsSpanId+" input[name*=search_],#"+inputsSpanId+" input[name*=extra_]");
+    console.log(inputDomAry.length+' 个 查询条件.');
     var val;
     for(var i = 0,len = inputDomAry.length; i < len; i++){
         val = $(inputDomAry[i]).val();
@@ -78,7 +80,11 @@ function queryModel(tgId,inputsSpanId){
         }
         queryParams[$(inputDomAry[i]).attr("name")]=val;
     }
-    $('#'+tgId).treegrid('load', queryParams);
+    if(tgId.indexOf('dg')>=0){
+        $('#'+tgId).datagrid('load', queryParams);
+    }else{
+        $('#'+tgId).treegrid('load', queryParams);
+    }
 }
 
 
