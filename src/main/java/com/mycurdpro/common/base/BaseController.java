@@ -7,7 +7,9 @@ import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.config.Constant;
+import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.model.SysUser;
+import com.mycurdpro.system.service.SysServiceLogService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +148,17 @@ public abstract class BaseController extends Controller {
     protected JSONObject readRawDataAsJson(){
         String rawData = getRawData();
         return JSON.parseObject(rawData);
+    }
+
+
+    /**
+     * 添加业务日志
+     * @param content
+     */
+    public void addServiceLog(String content){
+        SysServiceLogService.addServiceLog(WebUtils.getSessionUsername(this)
+                ,WebUtils.getRemoteAddress(getRequest())
+                ,getRequest().getRequestURI(),content);
     }
 }
 

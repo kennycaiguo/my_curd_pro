@@ -57,7 +57,7 @@ public class SysUserController extends BaseController {
      */
     public void addAction(){
         SysUser sysUser = getBean(SysUser.class,"");
-        sysUser.setId(IdUtils.id()).setCreater(WebUtils.getSessionUsername(this)).setCreateTime(new Date());
+        sysUser.setId(IdUtils.id()).setCreater(WebUtils.getSessionUsername(this)).setCreateTime(new Date()).setUserState("0");
         sysUser.setPassword(HashKit.sha1(Constant.USER_DEFAULT_PASSWORD));
         if(sysUser.save()){
             renderSuccess(Constant.ADD_SUCCESS);

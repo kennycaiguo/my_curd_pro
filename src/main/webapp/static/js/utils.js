@@ -1,5 +1,47 @@
 /*通用小工具*/
 
+/*浏览器全屏*/
+function fullScreen() {
+    var el = document.documentElement,
+        rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen,
+        wscript;
+    if (typeof rfs != "undefined" && rfs) {
+        rfs.call(el);
+        return;
+    }
+    if (typeof window.ActiveXObject != "undefined") {
+        wscript = new ActiveXObject("WScript.Shell");
+        if (wscript) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+/*浏览器退出全屏*/
+function exitFullScreen() {
+    var el = document,
+        cfs = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullScreen,
+        wscript;
+    if (typeof cfs != "undefined" && cfs) {
+        cfs.call(el);
+        return;
+    }
+
+    if (typeof window.ActiveXObject != "undefined") {
+        wscript = new ActiveXObject("WScript.Shell");
+        if (wscript != null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+function fullScreenToggleNew(obj) {
+    if ($(obj).hasClass('full')) {
+        exitFullScreen();
+        $(obj).removeClass('full').attr('title', '点击全屏');
+    } else {
+        fullScreen();
+        $(obj).addClass('full').attr('title', '点击退出全屏');
+    }
+}
 
 function isEmpty(val){
      if(val==null || val == undefined || $.trim(val)==''){

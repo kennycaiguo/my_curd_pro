@@ -2,8 +2,10 @@ package com.mycurdpro.system.model;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysMenu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,5 +54,20 @@ public class SysMenu extends BaseSysMenu<SysMenu> {
         String sql = "SELECT WM_CONCAT(ID) as IDS FROM SYS_MENU WHERE NAME LIKE '%"+name+"%' ";
         Record record = Db.findFirst(sql);
         return record.getStr("IDS");
+    }
+
+    /**
+     * 通过 角色ids (数字数组，逗号分隔字符串) 查询菜单
+     *
+     * @param roleIds
+     * @return
+     */
+    public List<SysMenu> findByRoleIds(String roleIds) {
+        List<SysMenu> result = new ArrayList<SysMenu>();
+        if (StringUtils.notEmpty(roleIds)) {
+           String sql = "select a.* from sys_menu a, sys_role_menu b where a.id = b.sys_menu_id and b.sys_role_id in ('"+roleIds+"')";
+           result = find(sql);
+        }
+        return result;
     }
 }

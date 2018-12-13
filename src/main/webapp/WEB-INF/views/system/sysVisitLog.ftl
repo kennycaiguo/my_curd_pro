@@ -24,7 +24,7 @@
           fit="true" pagination="true"
           ctrlSelect="true"
           striped="true"
-          pageSize="40" pageList="[20,40]">
+          pageSize="40" pageList="[10,20,40,80]">
        <thead>
        <tr>
            <th data-options="field:'ID',checkbox:true"></th>

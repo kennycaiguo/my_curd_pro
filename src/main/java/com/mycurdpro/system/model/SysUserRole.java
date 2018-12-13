@@ -1,5 +1,7 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.system.model.base.BaseSysUserRole;
 
 /**

@@ -16,6 +16,9 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
+import com.mycurdpro.LoginController;
+import com.mycurdpro.MainController;
+import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.utils.UtilsController;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
@@ -54,6 +57,8 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configRoute(Routes me) {
+        me.add("/login", LoginController.class,Constant.VIEW_PATH); // 登录
+        me.add("/dashboard", MainController.class,Constant.VIEW_PATH);   // 控制面板
         me.add("/utils", UtilsController.class,Constant.VIEW_PATH); // 页面工具
 
         me.add(new SystemRoute());
@@ -86,6 +91,7 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
+        me.addGlobalActionInterceptor(new LoginInterceptor());
     }
 
     @Override

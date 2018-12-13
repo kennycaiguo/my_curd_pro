@@ -15,6 +15,29 @@ public class SysUser extends BaseSysUser<SysUser> {
 
 
     /**
+     * 根据用户名和 密码查询
+     * @param username
+     * @param password
+     * @return
+     */
+    public SysUser findByUsernameAndPassword(String username,String password){
+        String sql = "select * from sys_user where username = ? and password = ?";
+        return findFirst(sql,username,password);
+    }
+
+
+    /**
+     * 根据用户名查询
+     * @param username
+     * @return
+     */
+    public SysUser findByUsername(String username){
+        String sql = "select * from sys_user where username= ? ";
+        return  findFirst(sql,username);
+    }
+
+
+    /**
      * 分页查询
      * @param pageNumber
      * @param pageSize

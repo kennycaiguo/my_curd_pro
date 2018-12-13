@@ -29,11 +29,11 @@
             <thead>
             <tr>
                 <th data-options="field:'ID',checkbox:true"></th>
-                <th field="ORG_NAME" width="100">部门</th>
                 <th field="NAME" width="100">姓名</th>
                 <th field="JOB" width="150">职位</th>
                 <th field="GENDER_TEXT" width="50">性别</th>
                 <th field="USERNAME" width="100" formatter="usernameFmt">用户名</th>
+                <th field="ORG_NAME" width="100">部门</th>
             </tr>
             </thead>
         </table>

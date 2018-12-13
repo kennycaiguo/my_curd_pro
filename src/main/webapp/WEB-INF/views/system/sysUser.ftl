@@ -13,7 +13,7 @@
  <thead>
  <tr>
      <th data-options="field:'ID',checkbox:true"></th>
-     <th field="USERNAME" width="100" formatter="usernameFmt">用户名</th>
+     <th field="USERNAME" width="150" formatter="usernameFmt">用户名</th>
      <th field="ORG_NAME" width="200">部门</th>
  <#--<th field="EMAIL" width="100">邮箱</th>-->
  <#--<th field="PHONE" width="100">电话</th>-->
