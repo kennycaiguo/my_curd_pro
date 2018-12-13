@@ -1,7 +1,6 @@
 <#include "/WEB-INF/views/common/common.ftl"/>
 <@layout>
 s<#include "common/popup.ftl"/>
-
 <link rel="stylesheet" href="${ctx!}/res/css/main-page.css">
 <script>
     if(top.location!=self.location){
@@ -19,10 +18,7 @@ s<#include "common/popup.ftl"/>
                 ${(session.auth_user.name)!}
             </a>
             <div id="opeMenuItem" style="width:100px;">
-                <div name="viewNotification">
-                    系统通知
-                    <span id="unreadSpan" class="unreadCount"></span>
-                </div>
+                <div name="viewNotification"> 系统通知<span id="unreadSpan" class="unreadCount"></span></div>
                 <div name="editInfo">修改个人信息</div>
                 <div name="changePwd">修改密码</div>
                 <div name="logout">退出</div>

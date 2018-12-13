@@ -5,6 +5,7 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
 import com.jfinal.ext.handler.ContextPathHandler;
+import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -96,9 +97,10 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configHandler(Handlers me) {
+        // 跳过处理 ws 请求
+        me.add(new UrlSkipHandler("^/ws-server", false));
         // 视图中 添加context路径
         me.add(new ContextPathHandler("ctx"));
-
         // druid 监控 （只允许admin查看)
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druidWeb", new IDruidStatViewAuth() {
             public boolean isPermitted(HttpServletRequest request) {

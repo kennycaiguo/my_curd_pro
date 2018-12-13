@@ -9,7 +9,7 @@ import java.util.*;
 
 public class MainService {
 
-    private String  findRoleIdsByUserId(String userId){
+    public  String  findRoleIdsByUserId(String userId){
         String sql = "select WM_CONCAT(c.ID) as ROLE_IDS" +
                 "  from sys_user a, sys_user_role b,sys_role c " +
                 "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
@@ -26,7 +26,7 @@ public class MainService {
      * @param roleIds 多个role id，以逗号分隔
      * @return
      */
-    private List<SysMenu> findUserMenus(String roleIds) {
+    public  List<SysMenu> findUserMenus(String roleIds) {
         if(StringUtils.isEmpty(roleIds)){
             return new ArrayList<>();
         }
