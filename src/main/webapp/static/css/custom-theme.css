@@ -1,33 +1,35 @@
 /*主题配色等*/
 
+.mainHeader {
+    background-color: #1E9FFF;
+}
 
 /*easyui linkbutton 按钮字体图标*/
 .l-btn-icon.iconfont{
-    font-size: 18px;
-    font-weight: 500;
     color: #1E9FFF;
 }
 
+/*树形菜单*/
 .tree-icon.iconfont{
     color: #1E9FFF;
 }
 
-/*主体按钮样式*/
-.pure-button{
-    border-radius: 0px !important;
+/* main.ftl 中 tab */
+#tabGroup .iconfont{
+    color:#1E9FFF;
 }
 
+
+/*主体按钮样式*/
 .pure-button-primary{
-    /*background-color:red !important;*/
+    background-color: #1E9FFF !important;
 }
 
 
 /*链接颜色设置*/
 a{
     color:#333;
-    text-decoration:none;
 }
 a:hover{
     color:#CC3300;
-    text-decoration:underline;
 }

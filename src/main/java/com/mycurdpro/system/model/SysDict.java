@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Generated model
  * DB: SYS_DICT  码表，枚举值表
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")
@@ -19,12 +20,13 @@ public class SysDict extends BaseSysDict<SysDict> {
 
     /**
      * 数据字典分组 SYS_DICT 分页查询，根据排序号 正序排序
+     *
      * @param pageNumber 第几页
      * @param pageSize   每页条数
      * @param where      查询条件
-     * @return           分页数据
+     * @return 分页数据
      */
-    public Page<SysDict> page(int pageNumber, int pageSize, String where){
+    public Page<SysDict> page(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select * ";
         String sqlExceptSelect = " from sys_dict  ";
         if (StringUtils.notEmpty(where)) {
@@ -36,11 +38,12 @@ public class SysDict extends BaseSysDict<SysDict> {
 
     /**
      * 根据分组编码查询
+     *
      * @param groupCode
      * @return
      */
-    public List<SysDict> findListByGroupCode(String groupCode){
+    public List<SysDict> findListByGroupCode(String groupCode) {
         String sql = "select dict_label as label, dict_value as value from sys_dict where group_code = ? order by dict_sort ";
-        return find(sql,groupCode);
+        return find(sql, groupCode);
     }
 }

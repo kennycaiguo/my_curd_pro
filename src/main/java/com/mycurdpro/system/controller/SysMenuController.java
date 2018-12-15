@@ -20,39 +20,39 @@ import java.util.*;
  */
 public class SysMenuController extends BaseController {
 
-    public void index(){
+    public void index() {
         render("system/sysMenu.ftl");
     }
 
     /**
      * treegrid 查询数据
      */
-    public void query(){
+    public void query() {
         // 初始传递pid 为 0
         String name = getPara("search_LIKE_NAME"); // 根据名曾查询
         List<SysMenu> sysMenus;
-        if(StringUtils.isEmpty(name) ){
+        if (StringUtils.isEmpty(name)) {
             // 查询所有
             sysMenus = SysMenu.dao.findAll();
-        }else{
+        } else {
             // 根据名字查询
             String ids = SysMenu.dao.findIdsByName(name);
-            if(StringUtils.notEmpty(ids)){
-                ids = ids.replaceAll(",","','");
+            if (StringUtils.notEmpty(ids)) {
+                ids = ids.replaceAll(",", "','");
                 sysMenus = SysMenu.dao.findInIds(ids);
-            }else{
+            } else {
                 sysMenus = new ArrayList<>();
             }
-            for(SysMenu sysMenu : sysMenus){
-                if(sysMenu.getInt("IS_LEAF")==0){
-                    sysMenu.put("state","closed");
+            for (SysMenu sysMenu : sysMenus) {
+                if (sysMenu.getInt("IS_LEAF") == 0) {
+                    sysMenu.put("state", "closed");
                 }
             }
         }
 
         // easyui 图标
-        for(SysMenu sysMenu: sysMenus){
-            sysMenu.put("iconCls",sysMenu.getIcon());
+        for (SysMenu sysMenu : sysMenus) {
+            sysMenu.put("iconCls", sysMenu.getIcon());
         }
 
         renderJson(sysMenus);
@@ -61,18 +61,18 @@ public class SysMenuController extends BaseController {
     /**
      * 新增 或 修改 弹窗
      */
-    public void newModel(){
+    public void newModel() {
         String id = getPara("id");
-        if(StringUtils.notEmpty(id)){
+        if (StringUtils.notEmpty(id)) {
             // 编辑
             SysMenu sysMenu = SysMenu.dao.findById(id);
-            setAttr("sysMenu",sysMenu);
-            if(sysMenu!=null){
-                setAttr("pid",sysMenu.getPid());
+            setAttr("sysMenu", sysMenu);
+            if (sysMenu != null) {
+                setAttr("pid", sysMenu.getPid());
             }
-        }else{
+        } else {
             // 新增
-            setAttr("pid",getPara("pid","0"));
+            setAttr("pid", getPara("pid", "0"));
         }
         render("system/sysMenu_form.ftl");
     }
@@ -80,14 +80,14 @@ public class SysMenuController extends BaseController {
     /**
      * 添加 action
      */
-    public void addAction(){
-        SysMenu sysMenu = getBean(SysMenu.class,"");
+    public void addAction() {
+        SysMenu sysMenu = getBean(SysMenu.class, "");
         sysMenu.setId(IdUtils.id())
                 .setCreater(WebUtils.getSessionUsername(this))
                 .setCreateTime(new Date());
-        if(sysMenu.save()){
+        if (sysMenu.save()) {
             renderSuccess(Constant.ADD_SUCCESS);
-        }else{
+        } else {
             renderFail(Constant.ADD_FAIL);
         }
     }
@@ -95,13 +95,13 @@ public class SysMenuController extends BaseController {
     /**
      * 修改 action
      */
-    public void updateAction(){
-        SysMenu sysMenu = getBean(SysMenu.class,"");
+    public void updateAction() {
+        SysMenu sysMenu = getBean(SysMenu.class, "");
         sysMenu.setUpdater(WebUtils.getSessionUsername(this))
-               .setUpdateTime(new Date());
-        if(sysMenu.update()){
+                .setUpdateTime(new Date());
+        if (sysMenu.update()) {
             renderSuccess(Constant.UPDATE_SUCCESS);
-        }else{
+        } else {
             renderFail(Constant.UPDATE_FAIL);
         }
     }
@@ -111,23 +111,23 @@ public class SysMenuController extends BaseController {
      * 删除 action
      */
     @Before(IdRequired.class)
-    public void deleteAction(){
+    public void deleteAction() {
         String id = getPara("id");
         Db.tx(() -> {
             // 本身 子孙id，
             String sql = "select wm_concat(ID) as IDS from SYS_MENU START WITH ID  = ? CONNECT BY PID = PRIOR ID";
-            Record record = Db.findFirst(sql,id);
-            if(record.getStr("IDS")==null){
+            Record record = Db.findFirst(sql, id);
+            if (record.getStr("IDS") == null) {
                 return true;
             }
 
-            String ids = record.getStr("IDS").replaceAll(",","','");
+            String ids = record.getStr("IDS").replaceAll(",", "','");
             // 删除机构
-            sql = "delete from SYS_MENU where ID in ('"+ids+"')";
+            sql = "delete from SYS_MENU where ID in ('" + ids + "')";
             Db.update(sql);
 
             // 删除 角色 菜单中间表数据
-            sql = "delete from SYS_ROLE_MENU where SYS_MENU_ID in ('"+ids+"')";
+            sql = "delete from SYS_ROLE_MENU where SYS_MENU_ID in ('" + ids + "')";
             Db.update(sql);
             return true;
         });
@@ -139,25 +139,25 @@ public class SysMenuController extends BaseController {
      * org comobTree 数据, 完整的数据
      */
     @Clear(PermissionInterceptor.class)
-    public void  menuComboTree(){
+    public void menuComboTree() {
 
         List<SysMenu> sysMenus = SysMenu.dao.findAllForTree();
         List<Map<String, Object>> maps = new ArrayList<>();
 
-        Map<String,Object> root = new HashMap<>();
-        root.put("id","0");
-        root.put("pid","-1");
-        root.put("text","根菜单");
-        root.put("iconCls","iconfont icon-root");
-        root.put("state",sysMenus.size()>0?"closed":"open");
+        Map<String, Object> root = new HashMap<>();
+        root.put("id", "0");
+        root.put("pid", "-1");
+        root.put("text", "根菜单");
+        root.put("iconCls", "iconfont icon-root");
+        root.put("state", sysMenus.size() > 0 ? "closed" : "open");
         maps.add(root);
         for (SysMenu sysMenu : sysMenus) {
             Map<String, Object> map = new HashMap<>();
             map.put("id", sysMenu.getId());
             map.put("text", sysMenu.getName());
             map.put("pid", sysMenu.getPid());
-            map.put("iconCls",sysMenu.getIcon());
-            if (sysMenu.getInt("IS_LEAF")==0) {
+            map.put("iconCls", sysMenu.getIcon());
+            if (sysMenu.getInt("IS_LEAF") == 0) {
                 map.put("state", "closed");
             }
             maps.add(map);

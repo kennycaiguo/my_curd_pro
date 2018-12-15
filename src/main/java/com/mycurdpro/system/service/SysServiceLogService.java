@@ -15,12 +15,13 @@ public class SysServiceLogService {
 
     /**
      * 添加业务日志
+     *
      * @param sysUser   当前登录用户名
      * @param sysUserIp 当前登录用户ip
      * @param url       当前用户访问地址
      * @param content   业务内容
      */
-    public  static void addServiceLog(String sysUser, String sysUserIp, String url, String content) {
+    public static void addServiceLog(String sysUser, String sysUserIp, String url, String content) {
         SysServiceLog serviceLog = new SysServiceLog();
         serviceLog.setId(IdUtils.id())
                 .setCreateTime(new Date())

@@ -16,8 +16,11 @@ import ${(necessaryImport)!};
  * @author ${(author)!'Generator'}
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tableMeta.nameCamelFirstUp)!}<M>> extends Model<M> implements IBean {
-<#-- get set 方法 -->
+public abstract class Base${(tableMeta.nameCamelFirstUp)!}
+<M extends Base${(tableMeta.nameCamelFirstUp)!}
+<M>> extends Model
+    <M> implements IBean {
+    <#-- get set 方法 -->
 <#if (tableMeta.columnMetas)??>
     <#list tableMeta.columnMetas as column>
 
@@ -32,7 +35,8 @@ public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tabl
         return ${(getterOfModel)!}("${(column.name)!}");
      }
 
-     public ${chainSetter?string( 'M','void')} set${(column.nameCamelFirstUp)!}(${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
+     public ${chainSetter?string( 'M','void')} set${(column.nameCamelFirstUp)!}
+        (${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
         set("${(column.name)!}", ${(column.nameCamel)!});
         <#if chainSetter >
         return (M)this;
@@ -40,4 +44,4 @@ public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tabl
      }
     </#list>
 </#if>
-}
+        }

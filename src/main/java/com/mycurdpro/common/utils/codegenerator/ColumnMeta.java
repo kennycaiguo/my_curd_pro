@@ -62,40 +62,52 @@ public class ColumnMeta implements Serializable {
     public String getName() {
         return name;
     }
+
     public String getNameCamel() {
         return nameCamel;
     }
+
     public String getNameCamelFirstUp() {
         return nameCamelFirstUp;
     }
+
     public String getRemark() {
         return remark;
     }
+
     public String getDbType() {
         return dbType;
     }
+
     public Integer getSize() {
         return size;
     }
+
     public Integer getDecimalDigits() {
         return decimalDigits;
     }
+
     public String getJavaType() {
         return javaType;
     }
+
     public void setJavaType(String javaType) {
         this.javaType = javaType;
         this.javaTypeShortName = LongShortMapping.getShortName(javaType);
     }
+
     public String getJavaTypeShortName() {
         return javaTypeShortName;
     }
+
     public Boolean getPrimaryKey() {
         return isPrimaryKey;
     }
+
     public Boolean getNullable() {
         return isNullable;
     }
+
     public String getDefaultValue() {
         return defaultValue;
     }

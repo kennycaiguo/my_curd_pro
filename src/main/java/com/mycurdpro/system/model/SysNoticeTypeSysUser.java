@@ -5,6 +5,7 @@ import com.mycurdpro.system.model.base.BaseSysNoticeTypeSysUser;
 /**
  * Generated model
  * DB: SYS_NOTICE_TYPE_SYS_USER  通知类型系统用户中间表
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")

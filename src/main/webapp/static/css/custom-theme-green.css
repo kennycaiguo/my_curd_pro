@@ -1,0 +1,42 @@
+/*主题配色等*/
+.mainHeader {
+    background-color: #40b370;
+}
+
+/*easyui linkbutton 按钮字体图标*/
+.l-btn-icon.iconfont{
+    color:#40b370;
+}
+
+/*树形菜单*/
+.tree-icon.iconfont{
+    color: #40b370;
+}
+
+/* main.ftl 中 tab */
+#tabGroup .iconfont{
+    color:#40b370;
+}
+
+
+/*主体按钮样式*/
+.pure-button-primary{
+      background-color: #40b370 !important;
+}
+
+/*链接颜色设置*/
+a{
+    color:#333;
+}
+a:hover{
+    color:#CC3300;
+}
+
+/*input focus*/
+.pure-form input:not([type]):focus, .pure-form input[type=password]:focus, .pure-form input[type=email]:focus, .pure-form input[type=url]:focus, .pure-form input[type=date]:focus, .pure-form input[type=month]:focus, .pure-form input[type=time]:focus, .pure-form input[type=datetime]:focus, .pure-form input[type=datetime-local]:focus, .pure-form input[type=week]:focus, .pure-form input[type=tel]:focus, .pure-form input[type=color]:focus, .pure-form input[type=number]:focus, .pure-form input[type=search]:focus, .pure-form input[type=text]:focus, .pure-form select:focus, .pure-form textarea:focus {
+    border-color: #40b370 !important;
+}
+
+.pure-form input[type=file]:focus, .pure-form input[type=checkbox]:focus, .pure-form input[type=radio]:focus {
+    outline: #40b370 auto 1px !important;
+}

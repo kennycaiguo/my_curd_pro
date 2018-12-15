@@ -79,7 +79,8 @@
 <body>
 <div class="demo">
     <p><span>5</span><span>0</span><span>5</span></p>
-    <p>(｀д′) a~xi~ba, 系统错误了 </p>
+    <p>(｀д′) a~xi~ba, 系统错误了<#if errorMsg??>! <br>${(errorMsg)!}</#if></p>
+
 </div>
 </body>
 </html>

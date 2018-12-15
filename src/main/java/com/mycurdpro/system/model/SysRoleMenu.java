@@ -5,6 +5,7 @@ import com.mycurdpro.system.model.base.BaseSysRoleMenu;
 /**
  * Generated model
  * DB: SYS_ROLE_MENU  角色菜单中间表
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")

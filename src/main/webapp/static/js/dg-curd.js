@@ -4,7 +4,8 @@
 * 打开新增弹窗
 * @param url
 * @param width
-* @param height
+* @param height*
+*
 */
 function newModel(url,width,height) {
     popup.openIframe('新建', url, width,height)
@@ -105,10 +106,10 @@ function saveAction(formId,type,dgId){
             }
             if(data.state == 'ok'){
                 // 成功信息
-                parent.popup.msg(data.msg, function () {
+                popup.msg(data.msg, function () {
                     if(type=='reload'){
                         parent.$("#"+dgId).datagrid("reload");
-                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        popup.close(window.name);
                     }
                     if(type=='refresh'){
                         parent.window.location.reload();
@@ -116,10 +117,10 @@ function saveAction(formId,type,dgId){
                 });
             }else if(data.state == 'error'){
                 // 系统异常
-                parent.popup.errMsg('系统异常',data.msg);
+                popup.errMsg('系统异常',data.msg);
             }else{
                 // 非成功信息
-                parent.popup.msg(data.msg);
+                popup.msg(data.msg);
             }
         }
     });

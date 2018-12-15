@@ -28,10 +28,10 @@ public class ModelGenerator {
 
     //生成 baseModel model
     private final static boolean genModel = false;                                                     // 是否生成Model
-    private final static boolean genBaseModel=true;                                                   // 是否生成baseModel
-    private final static boolean chainSetter=true;                                                    // 是否生成链式 setter 方法
+    private final static boolean genBaseModel = true;                                                   // 是否生成baseModel
+    private final static boolean chainSetter = true;                                                    // 是否生成链式 setter 方法
     private final static boolean modelOverwriteIfExist = true;                                        // 是否覆盖Model
-    private final static boolean baseModelOverwriteIfExist=true;                                      // 是否覆盖BaseModel
+    private final static boolean baseModelOverwriteIfExist = true;                                      // 是否覆盖BaseModel
     private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
     private final static String baseModelOutPath = outBasePath + "model/base/";                       // baseModel 渲染文件输出路径
     private final static String modelTplPath = GeneratorConfig.tplBasePath + "model.ftl";             // Model 模板 路径
@@ -49,7 +49,7 @@ public class ModelGenerator {
     private final static boolean dictOverwriteIfExist = true;                                   // 是否覆盖
     private final static boolean genSingleFile = false;                                         // 字典是否单一文件
     private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";          // 字典 模板文件路径
-    private final static String dictOutDirPath = outBasePath+"doc/model/";                      // 字典 渲染文件输出目录
+    private final static String dictOutDirPath = outBasePath + "doc/model/";                      // 字典 渲染文件输出目录
 
 
     /**
@@ -70,7 +70,7 @@ public class ModelGenerator {
             if (dictOverwriteIfExist || !new File(outPath).exists()) {
                 params = new HashMap<>();
                 params.put("tableMetas", tableMetas);
-                params.put("author",GeneratorConfig.author);
+                params.put("author", GeneratorConfig.author);
 
                 renderContent = FreemarkerUtils.renderAsText(tplContent, params);
                 FileUtils.writeFile(renderContent, outPath);
@@ -80,7 +80,7 @@ public class ModelGenerator {
             // 生成多个文件
             List<TableMeta> tableMetasTemp;
             for (TableMeta tableMeta : tableMetas) {
-                outPath = dictOutDirPath +tableMeta.name + ".md";
+                outPath = dictOutDirPath + tableMeta.name + ".md";
                 if (!dictOverwriteIfExist && new File(outPath).exists()) {
                     continue;
                 }
@@ -89,7 +89,7 @@ public class ModelGenerator {
                 tableMetasTemp.add(tableMeta);
                 params = new HashMap<>();
                 params.put("tableMetas", tableMetasTemp);
-                params.put("author",GeneratorConfig.author);
+                params.put("author", GeneratorConfig.author);
 
                 renderContent = FreemarkerUtils.renderAsText(tplContent, params);
                 FileUtils.writeFile(renderContent, outPath);
@@ -106,8 +106,8 @@ public class ModelGenerator {
      * @throws IOException 文件读写异常
      */
     private static void generateModel(List<TableMeta> tableMetas) throws IOException {
-        if(!genBaseModel && genModel){
-            return ;
+        if (!genBaseModel && genModel) {
+            return;
         }
         // 模板文件内容
         String baseModelContent = FileUtils.readFile(baseModelTplPath);
@@ -123,10 +123,10 @@ public class ModelGenerator {
             params = new HashMap<>();
             params.put("basePackageName", GeneratorConfig.basePackageName);
             params.put("moduleName", GeneratorConfig.moduleName);
-            params.put("getterTypeMap",GeneratorConfig.getterTypeMap);
-            params.put("chainSetter",chainSetter);
+            params.put("getterTypeMap", GeneratorConfig.getterTypeMap);
+            params.put("chainSetter", chainSetter);
             params.put("tableMeta", tableMeta);
-            params.put("author",GeneratorConfig.author);
+            params.put("author", GeneratorConfig.author);
 
             // 生成 baseModel
             outPath = baseModelOutPath + "Base" + tableMeta.nameCamelFirstUp + ".java";
@@ -161,7 +161,7 @@ public class ModelGenerator {
             params.put("basePackageName", GeneratorConfig.basePackageName);
             params.put("moduleName", GeneratorConfig.moduleName);
             params.put("tableMetas", tableMetas);
-            params.put("author",GeneratorConfig.author);
+            params.put("author", GeneratorConfig.author);
 
             String renderMappingKitContent = FreemarkerUtils.renderAsText(mappingKitContent, params);
             FileUtils.writeFile(renderMappingKitContent, outPath);

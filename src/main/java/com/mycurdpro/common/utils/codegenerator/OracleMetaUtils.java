@@ -18,12 +18,9 @@ import java.util.*;
  */
 public class OracleMetaUtils {
     private final static Logger LOG = LoggerFactory.getLogger(OracleMetaUtils.class);
-
-
-    static DataSource dataSource;                      //  数据源
     // （Jfinal 特色)
     private static final TypeMapping typeMapping = new TypeMapping();// 数据类型 java类型映射
-
+    static DataSource dataSource;                      //  数据源
 
     /**
      * 获得 数据表信息
@@ -116,19 +113,17 @@ public class OracleMetaUtils {
                         typeStr = "byte[]";
                     } else if (type == Types.CLOB || type == Types.NCLOB) {
                         typeStr = "java.lang.String";
-                    }
-                    else if (type == Types.TIMESTAMP || type == Types.DATE) {
+                    } else if (type == Types.TIMESTAMP || type == Types.DATE) {
                         typeStr = "java.util.Date";
-                    }
-                    else {
+                    } else {
                         typeStr = "java.lang.String";
                     }
                 }
 
                 if ("java.math.BigDecimal".equals(typeStr)) {
-                    int scale = rsmd.getScale(i);			// 小数点右边的位数，值为 0 表示整数
-                    int precision = rsmd.getPrecision(i);	// 最大精度
-                    LOG.debug("typeStr {},scale {}, precision {}",typeStr,scale,precision);
+                    int scale = rsmd.getScale(i);            // 小数点右边的位数，值为 0 表示整数
+                    int precision = rsmd.getPrecision(i);    // 最大精度
+                    LOG.debug("typeStr {},scale {}, precision {}", typeStr, scale, precision);
                     if (scale == 0) {
                         if (precision <= 9) {
                             typeStr = "java.lang.Integer";

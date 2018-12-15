@@ -2,48 +2,48 @@
  *  弹窗组件封装,依赖jquery 和 layer
  */
 
-layer.config({
-    shift: -1, /*0-6的动画形式，-1不开启，开启动画可能导致 dialog 异常情况*/
+top.layer.config({
+    shift: 0, /*0-6的动画形式，-1不开启，开启动画可能导致 dialog 异常情况*/
     shade: 0.1 /*遮罩透明度*/
 });
 
 var layerSkin = {
     default:'',
     lan: 'layui-layer-lan',
-    molv: 'layui-layer-molv'
-}
+    molv: 'layui-layer-molv',
+    green:'layui-layer-green'
+};
+layerSkin.default = layerSkin.green;
 
 var popup = {
     /* 打开 iframe 弹窗*/
     openIframe: function (title, url, width, height, skin) {
-        var index = layer.open({
-            skin: skin || layerSkin.lan,
+        var index = top.layer.open({
+            skin: skin || layerSkin.default,
             type: 2,
             title: title,
             maxmin: true,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
-            offset: top.location==self.location || width=="100%"  ? 'auto':'30px',
             content: [url]
         });
         return index;
     },
     /*iframe 弹窗，不能调整大小*/
     openIframeNoResize:function(title,url,width,height,autoHeight,skin){
-        var index = layer.open({
-            skin: skin || layerSkin.lan,
+        var index = top.layer.open({
+            skin: skin || layerSkin.default,
             type: 2,
             title: title,
             maxmin: false,
             resize:false,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
-            offset: top.location==self.location || width=="100%"  ? 'auto':'30px',
             content: [url],
             success:function(dom,i){
                 // 根据内容高度 自适应
                 if(autoHeight){
-                    layer.iframeAuto(i);
+                    top.layer.iframeAuto(i);
                 }
             }
         });
@@ -51,22 +51,20 @@ var popup = {
     },
     /*页面层*/
     openDOM: function (title, content, width, height, skin) {
-        layer.open({
+        top.layer.open({
             type: 1,
-            skin: skin || layerSkin.lan,
+            skin: skin || layerSkin.default,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
-            offset: top.location==self.location || width=="100%" ? 'auto':'30px',
             title: title,
             closeBtn: 1, /*显示关闭按钮*/
             content: content
         });
     },
     openConfirm:function(skin,icon, title, msg, yesFun, noFun){
-        layer.confirm(msg, {
-            skin: skin || layerSkin.lan,
+        top.layer.confirm(msg, {
+            skin: skin || layerSkin.default,
             icon: icon,
-            offset:top.location==self.location ? 'auto':'30px',
             title: title,
             resize:false,
             btn: ['确定', '取消']
@@ -95,24 +93,26 @@ var popup = {
         }else{
             setting.icon=0; // 感叹号，代表提示框
         }
-        layer.msg(msg, setting, cbk);
+        top.layer.msg(msg, setting, cbk);
     },
     /*错误提示*/
     errMsg: function (title, msg) {
         title = title || '悄悄告诉你';
         msg = msg || '系统发生严重错误了哥们！赶紧联系管理员。';
-        var mlayer;
-        if (top.location != self.location) {
-            mlayer = parent.layer;
-        } else {
-            mlayer = layer;
-        }
-        mlayer.alert(msg, {
+        top.layer.alert(msg, {
             icon: 5,
             title: [title, 'background:#e74b3b; color:white; line-height:30px;height:30px;padding: 0 10px'],
             btn: [],
             shadeClose: true,
             resize: true,
         });
+    },
+    /* 关闭弹窗 */
+    close:function (windowName) {
+        top.layer.close(top.layer.getFrameIndex(windowName));
+    },
+    /*关闭弹窗，父窗口关闭子窗口*/
+    closeByIndex:function(windowIndex){
+        top.layer.close(windowIndex);
     }
 }

@@ -7,6 +7,7 @@ import com.mycurdpro.system.model.base.BaseSysRoleIncode;
 /**
  * Generated model
  * DB: SYS_ROLE_INCODE  代码中硬编码的角色
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")
@@ -15,12 +16,13 @@ public class SysRoleIncode extends BaseSysRoleIncode<SysRoleIncode> {
 
     /**
      * 分页查询
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
      * @return
      */
-    public Page<SysRoleIncode> page(int pageNumber, int pageSize, String where){
+    public Page<SysRoleIncode> page(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select * ";
         String sqlExceptSelect = " from sys_role_incode  ";
         if (StringUtils.notEmpty(where)) {

@@ -11,7 +11,6 @@
     }
 
 </style>
-    <#include "../common/popup.ftl"/>
     <table id="dg" class="easyui-datagrid"
           url="${ctx!}/sysVisitLog/query"
           toolbar="#tb" rownumbers="true" border="false"
@@ -20,7 +19,7 @@
 				return 'background-color:#ffa8a8;font-weight:bold;';
 			}
 		  }"
-          fitColumns="false"
+          fitColumns="true"
           fit="true" pagination="true"
           ctrlSelect="true"
           striped="true"
@@ -45,7 +44,7 @@
 
             <input name="search_LIKE_SYS_USER" prompt="用户名" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_SYS_USER_IP" prompt="IP地址" class="easyui-textbox" style="width:120px; ">
-            <input name="search_LIKE_TYPE" prompt="请求类型" class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=httpMethod'" style="width:120px; " >
+            <input name="search_LIKE_TYPE" prompt="请求类型" class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=httpMethod'" style="width:120px; " >
             <input name="search_GTEDT_CREATE_TIME"  prompt="创建时间起" class="easyui-datetimebox" >
             <input name="search_LTEDT_CREATE_TIME" prompt="创建时间止" class="easyui-datetimebox" >
             <input name="search_ISNOT_ERROR" type="hidden" id="onlyError" >

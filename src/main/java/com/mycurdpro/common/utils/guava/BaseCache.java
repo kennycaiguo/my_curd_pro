@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * google guava 缓存工具
+ *
  * @author chuang
  * @date 2018/9/3
  */
@@ -63,7 +64,7 @@ public abstract class BaseCache<K, V> {
     /**
      * 权重缓存：缓存数据权重和不能超过maxWeight
      *
-     * @param maxWeight 最大权重
+     * @param maxWeight                   最大权重
      * @param weigher：权重函数类，需要实现计算元素权重的函数
      */
     public BaseCache(long maxWeight, Weigher<K, V> weigher) {
@@ -83,7 +84,7 @@ public abstract class BaseCache<K, V> {
      * 缓存数据加载方法
      *
      * @param k 初始加载参数
-     * @return  初始值
+     * @return 初始值
      */
     protected abstract V loadData(K k);
 
@@ -91,7 +92,7 @@ public abstract class BaseCache<K, V> {
      * 从缓存获取数据
      *
      * @param param 缓存key
-     * @return      缓存值
+     * @return 缓存值
      */
     public V getCache(K param) {
         return cache.getUnchecked(param);

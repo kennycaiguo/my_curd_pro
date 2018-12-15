@@ -11,11 +11,12 @@ public class WebUtils {
 
     /**
      * 获取 http请求  ip地址
+     *
      * @param request
      * @return
      */
-    public static  String getRemoteAddress(HttpServletRequest request) {
-        String ip =request.getHeader("x-forwarded-for");
+    public static String getRemoteAddress(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {
             ip = request.getHeader("Proxy-Client-IP");
         }
@@ -30,17 +31,19 @@ public class WebUtils {
 
     /**
      * 获得session 当前用户 用户名
+     *
      * @param controller
      * @return
      */
-    public static String getSessionUsername(Controller controller){
-        SysUser sysUser = (SysUser)controller.getSessionAttr(Constant.SYS_USER);
-        return sysUser==null ? "debug":sysUser.getUsername();
+    public static String getSessionUsername(Controller controller) {
+        SysUser sysUser = (SysUser) controller.getSessionAttr(Constant.SYS_USER);
+        return sysUser == null ? "debug" : sysUser.getUsername();
     }
 
 
     /**
      * 当前登录的系统用户
+     *
      * @return
      */
     public static SysUser getSysUser(Controller controller) {
@@ -50,9 +53,10 @@ public class WebUtils {
 
     /**
      * 获得当前路径
+     *
      * @return
      */
-    public static String getRequestURI(HttpServletRequest request){
+    public static String getRequestURI(HttpServletRequest request) {
         return request.getRequestURI();
     }
 

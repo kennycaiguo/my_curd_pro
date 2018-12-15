@@ -8,7 +8,6 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -58,7 +57,7 @@ public class GeneratorConfig {
     final static String tplBasePath = PathKit.getWebRootPath().replaceAll("\\\\", "/") + "/src/main/java/com/mycurdpro/common/utils/codegenerator/tpl/";
 
     // baseModel 中生成 getter 方法增强
-    final static HashMap<String,String> getterTypeMap = new HashMap<String,String>(){{
+    final static HashMap<String, String> getterTypeMap = new HashMap<String, String>() {{
         put("String", "getStr");
         put("Integer", "getInt");
         put("Long", "getLong");

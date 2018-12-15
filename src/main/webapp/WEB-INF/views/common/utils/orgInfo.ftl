@@ -51,7 +51,7 @@
       </table>
   </div>
     <#else>
-        <div style="text-align: center;">
+        <div style="text-align: center;height: 100px;">
            找不到组织机构信息: ${(orgId)!}
         </div>
     </#if>

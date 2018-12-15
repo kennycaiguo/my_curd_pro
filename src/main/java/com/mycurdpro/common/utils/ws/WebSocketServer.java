@@ -68,7 +68,7 @@ public class WebSocketServer {
         // 系统 用户可以重复登录，但不可 重复连接 WebSocket (新的 webSocket 连接直接被关闭)
         if (OnlineUserContainer.USERID_SESSIONID.containsKey(Long.parseLong(userId))) {
             if (LOG.isInfoEnabled()) {
-                LOG.info("userId:{} 重复连接 WebSocket, 直接关闭...... ",userId);
+                LOG.info("userId:{} 重复连接 WebSocket, 直接关闭...... ", userId);
             }
             closeSession(session);
             return;
@@ -102,6 +102,7 @@ public class WebSocketServer {
     /**
      * 处理文本消息
      * https://docs.oracle.com/javaee/7/api/javax/websocket/OnMessage.html
+     *
      * @param msg     json 格式的数据
      * @param session
      */
@@ -115,6 +116,7 @@ public class WebSocketServer {
 
     /**
      * 发生异常 触发
+     *
      * @param session
      * @param t
      */

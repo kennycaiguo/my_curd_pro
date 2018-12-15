@@ -40,6 +40,30 @@ public class TableMeta implements Serializable {
     // base model 中必须 import 的包
     private Set<String> necessaryImport = new HashSet<>();
 
+    public String getName() {
+        return name;
+    }
+
+    public String getNameCamel() {
+        return nameCamel;
+    }
+
+    public String getNameCamelFirstUp() {
+        return nameCamelFirstUp;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public List<String> getPrimaryKeys() {
+        return primaryKeys;
+    }
+
+    public List<ColumnMeta> getColumnMetas() {
+        return columnMetas;
+    }
+
     public void setColumnMetas(List<ColumnMeta> columnMetas) {
         this.columnMetas = columnMetas;
         final HashSet<String> excludeTypes = new HashSet<String>() {{
@@ -56,24 +80,7 @@ public class TableMeta implements Serializable {
             this.necessaryImport.add(columnMeta.javaType);
         }
     }
-    public String getName() {
-        return name;
-    }
-    public String getNameCamel() {
-        return nameCamel;
-    }
-    public String getNameCamelFirstUp() {
-        return nameCamelFirstUp;
-    }
-    public String getRemark() {
-        return remark;
-    }
-    public List<String> getPrimaryKeys() {
-        return primaryKeys;
-    }
-    public List<ColumnMeta> getColumnMetas() {
-        return columnMetas;
-    }
+
     public Set<String> getNecessaryImport() {
         return necessaryImport;
     }

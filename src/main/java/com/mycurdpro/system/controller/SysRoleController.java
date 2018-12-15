@@ -16,7 +16,8 @@ import java.util.Date;
 
 /**
  * 角色管理
- * @author  zhangchuang
+ *
+ * @author zhangchuang
  */
 public class SysRoleController extends BaseController {
 
@@ -24,7 +25,7 @@ public class SysRoleController extends BaseController {
     /**
      * 首页
      */
-    public void index(){
+    public void index() {
         render("system/sysRole.ftl");
     }
 
@@ -33,11 +34,11 @@ public class SysRoleController extends BaseController {
      * datagrid 数据
      */
     @Before(SearchSql.class)
-    public void query(){
+    public void query() {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysRole> sysRolePage = SysRole.dao.page(pageNumber,pageSize,where);
+        Page<SysRole> sysRolePage = SysRole.dao.page(pageNumber, pageSize, where);
         renderDatagrid(sysRolePage);
     }
 
@@ -45,11 +46,11 @@ public class SysRoleController extends BaseController {
     /**
      * 新增 或 修改弹窗
      */
-    public void  newModel(){
+    public void newModel() {
         String id = getPara("id");
-        if(StringUtils.notEmpty(id)){
+        if (StringUtils.notEmpty(id)) {
             SysRole sysRole = SysRole.dao.findById(id);
-            setAttr("sysRole",sysRole);
+            setAttr("sysRole", sysRole);
         }
         render("system/sysRole_form.ftl");
     }
@@ -58,30 +59,30 @@ public class SysRoleController extends BaseController {
     /**
      * 新增 action
      */
-    public void addAction(){
-         SysRole sysRole = getBean(SysRole.class,"");
-         sysRole.setId(IdUtils.id())
-                 .setCreater(WebUtils.getSessionUsername(this))
-                 .setCreateTime(new Date());
-         if(sysRole.save()){
-             renderSuccess(Constant.ADD_SUCCESS);
-         }else{
-             renderFail(Constant.ADD_FAIL);
-         }
+    public void addAction() {
+        SysRole sysRole = getBean(SysRole.class, "");
+        sysRole.setId(IdUtils.id())
+                .setCreater(WebUtils.getSessionUsername(this))
+                .setCreateTime(new Date());
+        if (sysRole.save()) {
+            renderSuccess(Constant.ADD_SUCCESS);
+        } else {
+            renderFail(Constant.ADD_FAIL);
+        }
     }
 
     /**
      * 修改 action
      */
-    public void updateAction(){
-         SysRole sysRole = getBean(SysRole.class,"");
-         sysRole.setUpdater(WebUtils.getSessionUsername(this))
-                 .setUpdateTime(new Date());
-         if(sysRole.update()){
-             renderSuccess(Constant.UPDATE_SUCCESS);
-         }else{
-             renderFail(Constant.UPDATE_FAIL);
-         }
+    public void updateAction() {
+        SysRole sysRole = getBean(SysRole.class, "");
+        sysRole.setUpdater(WebUtils.getSessionUsername(this))
+                .setUpdateTime(new Date());
+        if (sysRole.update()) {
+            renderSuccess(Constant.UPDATE_SUCCESS);
+        } else {
+            renderFail(Constant.UPDATE_FAIL);
+        }
     }
 
 
@@ -89,14 +90,14 @@ public class SysRoleController extends BaseController {
      * 删除 action
      */
     @Before(IdsRequired.class)
-    public void deleteAction(){
-        String ids = getPara("ids").replaceAll(",","','");
+    public void deleteAction() {
+        String ids = getPara("ids").replaceAll(",", "','");
         Db.tx(() -> {
             // 删除角色数据
-            String sql = "delete from sys_role where id in ('"+ids+"')";
+            String sql = "delete from sys_role where id in ('" + ids + "')";
             Db.update(sql);
             // 删除 角色用户 中间表
-            sql = "delete from sys_user_role where sys_role_id in ('"+ids+"')";
+            sql = "delete from sys_user_role where sys_role_id in ('" + ids + "')";
             Db.update(sql);
             return true;
         });

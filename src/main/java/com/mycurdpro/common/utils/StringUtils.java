@@ -12,30 +12,32 @@ import org.slf4j.LoggerFactory;
  */
 public class StringUtils {
 
-    private final  static Logger LOG = LoggerFactory.getLogger(StringUtils.class);
+    private final static Logger LOG = LoggerFactory.getLogger(StringUtils.class);
+    private final static String AES_KEY = PropKit.use("config.properties").get("aesKey");
 
     /**
      * 判断字符串是 null 或者  空格
+     *
      * @param str 需要验证的字符串
      * @return true 是，false 否
      */
-    public  static  boolean isEmpty(String str){
+    public static boolean isEmpty(String str) {
         return Strings.isNullOrEmpty(str);
     }
 
     /**
      * 字符串 不是 null 且 不是 空格
+     *
      * @param str 需要验证的字符串
      * @return true 是，false 否
      */
-    public static  boolean notEmpty(String str){
-        return  !isEmpty(str);
+    public static boolean notEmpty(String str) {
+        return !isEmpty(str);
     }
-
-
 
     /**
      * 驼峰转下划线
+     *
      * @param camelCaseStr 驼峰格式字符串
      * @return 下划线格式字符串
      */
@@ -56,8 +58,6 @@ public class StringUtils {
         }
         return sb.toString();
     }
-
-
 
     /**
      * byte[] to hex string
@@ -94,9 +94,6 @@ public class StringUtils {
         }
         return bytes;
     }
-
-
-    private final static String AES_KEY = PropKit.use("config.properties").get("aesKey");
 
     /**
      * 字符串先aes 加密为 byte[],再转 hex String

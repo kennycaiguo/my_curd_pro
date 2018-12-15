@@ -19,6 +19,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.mycurdpro.LoginController;
 import com.mycurdpro.MainController;
+import com.mycurdpro.common.interceptor.ExceptionInterceptor;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.utils.UtilsController;
 import com.mycurdpro.system.SystemModelMapping;
@@ -29,9 +30,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 应用配置
+ *
  * @author zhangchuang
  */
-public class AppConfig  extends JFinalConfig {
+public class AppConfig extends JFinalConfig {
     Prop configProp = PropKit.use("config.properties");
 
     @Override
@@ -58,9 +60,9 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configRoute(Routes me) {
-        me.add("/login", LoginController.class,Constant.VIEW_PATH); // 登录
-        me.add("/dashboard", MainController.class,Constant.VIEW_PATH);   // 控制面板
-        me.add("/utils", UtilsController.class,Constant.VIEW_PATH); // 页面工具
+        me.add("/login", LoginController.class, Constant.VIEW_PATH); // 登录
+        me.add("/dashboard", MainController.class, Constant.VIEW_PATH);   // 控制面板
+        me.add("/utils", UtilsController.class, Constant.VIEW_PATH); // 页面工具
 
         me.add(new SystemRoute());
     }
@@ -92,7 +94,8 @@ public class AppConfig  extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
-        me.addGlobalActionInterceptor(new LoginInterceptor());
+        me.addGlobalActionInterceptor(new LoginInterceptor());     // 登录
+        me.addGlobalActionInterceptor(new ExceptionInterceptor()); // 异常，访问日志
     }
 
     @Override

@@ -53,6 +53,7 @@ public class OnlineUserContainer {
 
     /**
      * 获得在线用户信息（即时通讯使用)
+     *
      * @return
      */
     public static List<SysUser> getOnlineUserInfo() {

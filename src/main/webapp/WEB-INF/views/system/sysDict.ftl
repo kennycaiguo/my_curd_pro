@@ -1,9 +1,8 @@
 <#--数据字典 datagrid  -->
 <#include "../common/common.ftl"/>
 <@layout>
-    <#include "../common/popup.ftl"/>
     <div class="easyui-layout" fit="true" border="false">
-        <div data-options="region:'west',split:true" title="字典分组" style="width:40%;" collapsible="false">
+        <div data-options="region:'west',split:true" title="字典分组" style="width:40%;" collapsible="false" headerCls="borderTopNone">
             <table id="dg" class="easyui-datagrid"
                    url="${ctx!}/sysDict/queryGroup?search_EQS_del_flag=0"
                    toolbar="#tb" rownumbers="true" border="false"
@@ -38,7 +37,7 @@
             </div>
         </div>
 
-        <div data-options="region:'center',title:'字典值'">
+        <div data-options="region:'center',title:'字典值'"  headerCls="borderTopNone">
             <table id="dg2" class="easyui-datagrid"
                    url="${ctx!}/sysDict/queryDict?search_EQS_del_flag=0"
                    toolbar="#tb2" rownumbers="true" border="false"

@@ -1,7 +1,6 @@
 <#--菜单 treegrid  -->
 <#include "../common/common.ftl"/>
 <@layout>
-    <#include "../common/popup.ftl"/>
     <table id="tg" border="false"  ></table>
     <div id="tb">
         <a onclick="newModel('tg','${ctx!}/sysMenu/newModel', '700px', '500px')" href="#" class="easyui-linkbutton"  iconCls="iconfont icon-add" plain="true">新增</a>
@@ -25,6 +24,7 @@
             treeField: 'NAME',
             fit: true,
             lines:true,
+            animate:true,
             fitColumns:false,
             rownumbers: true,
             toolbar: '#tb',

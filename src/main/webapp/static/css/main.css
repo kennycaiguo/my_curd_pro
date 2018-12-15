@@ -1,0 +1,57 @@
+/*main.ftl 中使用的 css 样式*/
+
+/* -------- 顶部 导航栏 -------------- */
+.mainHeader {
+    height: 45px;
+    color: #FAFAFA;
+}
+.mainHeader  .header-text {
+    color: #fff;
+    font-weight: bold;
+    padding-left: 20px;
+    font-size: 20px;
+    line-height: 45px;
+}
+.mainHeader .header-menu {
+    position: absolute;
+    right: 10px;
+    line-height: 40px;
+}
+.mainHeader .pure-button {
+    padding: 5px 8px;
+    margin: 5px 2px;
+}
+.mainHeader a.pure-button:hover {
+    text-decoration: none;
+}
+
+.unreadCount{
+    border-radius: 100%;
+    padding: 1px 3px;
+    background-color: #ff2222;
+    color:white;
+}
+.unreadCount.hid{
+    display: none;
+}
+
+
+/*左侧边栏*/
+.sidebar .panel-header,.sidebar .panel-body{
+    background-color: #f5f5f5;
+}
+.sidebar .panel-header{
+    border-top: none;
+}
+
+
+/* -------- 中部 tab 组 -------------- */
+/*tab iframe 两个滚动条问题*/
+#tabGroup .tabs-panels > .panel > .panel-body {
+    overflow: hidden;
+}
+
+#tabGroup .iconfont{
+    line-height:16px;
+    font-size: 16px ;
+}

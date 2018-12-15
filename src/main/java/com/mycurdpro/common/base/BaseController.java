@@ -6,9 +6,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.utils.WebUtils;
-import com.mycurdpro.system.model.SysUser;
 import com.mycurdpro.system.service.SysServiceLogService;
 
 import java.util.HashMap;
@@ -17,12 +15,14 @@ import java.util.Map;
 
 /**
  * controller 基类，封装一些Controller 中使用的公共方法
+ *
  * @author zhangchuang
  */
 public abstract class BaseController extends Controller {
 
     /**
      * 返回datagrid json 数据
+     *
      * @param pageData
      */
     protected void renderDatagrid(Page<?> pageData) {
@@ -34,6 +34,7 @@ public abstract class BaseController extends Controller {
 
     /**
      * 返回datagrid json 数据
+     *
      * @param list
      * @param total
      */
@@ -43,6 +44,7 @@ public abstract class BaseController extends Controller {
 
     /**
      * 返回datagrid json 数据
+     *
      * @param list
      * @param total
      * @param footer
@@ -59,6 +61,7 @@ public abstract class BaseController extends Controller {
 
     /**
      * 返回datagrid json 数据, 无分页
+     *
      * @param list
      */
     protected void renderDatagrid(List<Record> list) {
@@ -66,7 +69,6 @@ public abstract class BaseController extends Controller {
         datagrid.put("rows", list);
         renderJson(datagrid);
     }
-
 
 
     /**
@@ -79,29 +81,32 @@ public abstract class BaseController extends Controller {
 
     /**
      * 成功操作
+     *
      * @param msg
      */
     protected void renderSuccess(String msg) {
-        Ret ret = Ret.create().setOk().set("msg",msg);
+        Ret ret = Ret.create().setOk().set("msg", msg);
         renderJson(ret);
     }
 
     /**
      * 成功操作
+     *
      * @param data
      */
-    protected  void renderSuccess(List<Object> data){
-        Ret ret = Ret.create().setOk().set("data",data);
+    protected void renderSuccess(List<Object> data) {
+        Ret ret = Ret.create().setOk().set("data", data);
         renderJson(ret);
     }
 
     /**
      * 成功操作
+     *
      * @param msg
      * @param data
      */
-    protected void renderSuccess(String msg,List<Object>data){
-        Ret ret = Ret.create().setOk().set("msg",msg).set("data",data);
+    protected void renderSuccess(String msg, List<Object> data) {
+        Ret ret = Ret.create().setOk().set("msg", msg).set("data", data);
         renderJson(ret);
     }
 
@@ -116,36 +121,39 @@ public abstract class BaseController extends Controller {
 
     /**
      * 失败操作
+     *
      * @param msg
      */
     protected void renderFail(String msg) {
-        Ret ret = Ret.create().setFail().set("msg",msg);
+        Ret ret = Ret.create().setFail().set("msg", msg);
         renderJson(ret);
     }
 
     /**
-     *  失败操作
+     * 失败操作
+     *
      * @param data
      */
-    protected void renderFail(List<Object> data){
-        Ret ret = Ret.create().setFail().set("data",data);
+    protected void renderFail(List<Object> data) {
+        Ret ret = Ret.create().setFail().set("data", data);
         renderJson(ret);
     }
 
     /**
-     *  失败操作
+     * 失败操作
+     *
      * @param msg
      * @param data
      */
-    protected void renderFail(String msg,List<Object> data){
-        Ret ret = Ret.create().setFail().set("msg",msg).set("data",data);
+    protected void renderFail(String msg, List<Object> data) {
+        Ret ret = Ret.create().setFail().set("msg", msg).set("data", data);
         renderJson(ret);
     }
 
     /**
      * 获取 http 请求 body json 数据
      */
-    protected JSONObject readRawDataAsJson(){
+    protected JSONObject readRawDataAsJson() {
         String rawData = getRawData();
         return JSON.parseObject(rawData);
     }
@@ -153,12 +161,13 @@ public abstract class BaseController extends Controller {
 
     /**
      * 添加业务日志
+     *
      * @param content
      */
-    public void addServiceLog(String content){
+    public void addServiceLog(String content) {
         SysServiceLogService.addServiceLog(WebUtils.getSessionUsername(this)
-                ,WebUtils.getRemoteAddress(getRequest())
-                ,getRequest().getRequestURI(),content);
+                , WebUtils.getRemoteAddress(getRequest())
+                , getRequest().getRequestURI(), content);
     }
 }
 

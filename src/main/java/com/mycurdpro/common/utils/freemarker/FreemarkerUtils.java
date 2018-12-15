@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * FreeMarker工具类
+ *
  * @author zhangchuang
  */
 public abstract class FreemarkerUtils {
@@ -42,10 +43,10 @@ public abstract class FreemarkerUtils {
     /**
      * 通过模板和数据生成渲染过文件
      *
-     * @param templateDirectory  模板文件目录
-     * @param templateName       模板文件名字
-     * @param paramMap           数据
-     * @param saveFilePath       生成存放路径
+     * @param templateDirectory 模板文件目录
+     * @param templateName      模板文件名字
+     * @param paramMap          数据
+     * @param saveFilePath      生成存放路径
      */
     public static void renderToFile(String templateDirectory, String templateName, Map<String, Object> paramMap, String saveFilePath) {
         FileOutputStream fileOutputStream = null;
@@ -88,21 +89,26 @@ public abstract class FreemarkerUtils {
 
 class StringTemplateLoader implements TemplateLoader {
     private String template;
+
     public StringTemplateLoader(String template) {
         this.template = template;
         if (template == null) {
             this.template = "";
         }
     }
+
     public void closeTemplateSource(Object templateSource) {
         ((StringReader) templateSource).close();
     }
+
     public Object findTemplateSource(String name) {
         return new StringReader(template);
     }
+
     public long getLastModified(Object templateSource) {
         return 0;
     }
+
     public Reader getReader(Object templateSource, String encoding) {
         return (Reader) templateSource;
     }

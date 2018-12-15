@@ -1,9 +1,7 @@
 package com.mycurdpro;
 
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
-import com.jfinal.aop.Inject;
-import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.aop.Duang;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.WebUtils;
@@ -21,34 +19,33 @@ import java.util.Map;
 
 /**
  * 主页面
- * @author  zhangchuang
+ *
+ * @author zhangchuang
  */
 @Clear(PermissionInterceptor.class)
 public class MainController extends BaseController {
 
-    private  final  static Logger LOG = LoggerFactory.getLogger(MainController.class);
+    private final static Logger LOG = LoggerFactory.getLogger(MainController.class);
+    private final static MainService mainService = Duang.duang(MainService.class);
 
-    @Inject
-    MainService mainService;
-
-    @Before(SessionInViewInterceptor.class)
-    public void index(){
+    public void index() {
+        setAttr("username", WebUtils.getSysUser(this).getName());
         SysUser sysUser = WebUtils.getSysUser(this);
         setAttr("aesUserId", UserIdEncryptUtils.encrypt(sysUser.getId(), UserIdEncryptUtils.CURRENT_USER_ID_AESKEY));
-        render("/main.ftl");
+        render("main.ftl");
     }
 
 
     /**
      * 树形菜单
      */
-    public void  menuTree(){
+    public void menuTree() {
         SysUser sysUser = WebUtils.getSysUser(this);
         String roleIds = mainService.findRoleIdsByUserId(sysUser.getId());
-        LOG.debug("{} has role ids {}",sysUser.getUsername(),roleIds);
+        LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
         List<SysMenu> sysMenus = mainService.findUserMenus(roleIds);
-        List<Map<String,Object>> maps = new ArrayList<>();
-        for(SysMenu sysMenu : sysMenus){
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (SysMenu sysMenu : sysMenus) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id", sysMenu.getId());
             map.put("pid", sysMenu.getPid());

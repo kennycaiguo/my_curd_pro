@@ -1,7 +1,6 @@
 <#--数据字典 datagrid  -->
 <#include "../common/common.ftl"/>
 <@layout>
-<#include "../common/popup.ftl"/>
 <table id="dg" class="easyui-datagrid"
      url="${ctx!}/sysRoleIncode/query"
      toolbar="#tb" rownumbers="true" border="false"

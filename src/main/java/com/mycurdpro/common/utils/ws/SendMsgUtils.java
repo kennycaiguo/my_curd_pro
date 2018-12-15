@@ -12,6 +12,7 @@ import java.util.Set;
 
 /**
  * 发送 websocket 消息
+ *
  * @author chuang
  */
 public class SendMsgUtils {
@@ -21,20 +22,21 @@ public class SendMsgUtils {
 
     /**
      * 送 消息给部分用户发
+     *
      * @param userIds sys_user id
-     * @param msg  消息文本
+     * @param msg     消息文本
      */
-    public  static void sendToUsers(Set<String> userIds, String msg) {
+    public static void sendToUsers(Set<String> userIds, String msg) {
         for (String userId : userIds) {
             ExecutorServiceUtils.pool.submit(() -> {
                 String sessionId = OnlineUserContainer.USERID_SESSIONID.get(userId);
                 if (StrKit.isBlank(sessionId)) {
-                    LOG.info("用户：{} websocket 不在线，不使用 WebSocket 推送。",userId);
+                    LOG.info("用户：{} websocket 不在线，不使用 WebSocket 推送。", userId);
                     return;
                 }
                 Session session = OnlineUserContainer.SESSIONID_SESSION.get(sessionId);
                 if (session == null) {
-                    LOG.info("用户：{} 找不到 websocket session，不使用 WebSocket 推送。",userId);
+                    LOG.info("用户：{} 找不到 websocket session，不使用 WebSocket 推送。", userId);
                     return;
                 }
                 try {
@@ -50,10 +52,11 @@ public class SendMsgUtils {
 
     /**
      * 发送消息给部分用户
+     *
      * @param sessionIds
      * @param msg
      */
-    public  static void sendToUsers(List<String> sessionIds, String msg) {
+    public static void sendToUsers(List<String> sessionIds, String msg) {
         Session session;
         for (String sessionId : sessionIds) {
             if (sessionId == null) {
@@ -78,7 +81,7 @@ public class SendMsgUtils {
      * @param message   消息文本
      * @param sessionId 排除的当前session
      */
-    public  static void broadcast(String message, String sessionId) {
+    public static void broadcast(String message, String sessionId) {
         LOG.info("broadcast msg : {}", message);
         ExecutorServiceUtils.pool.submit(() -> {
             Session session;

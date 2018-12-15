@@ -1,9 +1,8 @@
 <#--组织机构 treegrid  -->
 <#include "../common/common.ftl"/>
 <@layout>
-<#include "../common/popup.ftl"/>
 <div class="easyui-layout" fit="true" border="false">
-    <div data-options="region:'west',split:true" style="width:30%;" collapsible="false" >
+    <div data-options="region:'west',split:true" style="width:30%;border-top: none;" collapsible="false" >
         <table id="tg" border="false"  ></table>
         <div id="tb">
             <a onclick="newModel('tg','${ctx!}/sysOrg/newModel', '700px', '500px')" href="#" class="easyui-linkbutton"  iconCls="iconfont icon-add" plain="true">新增</a>
@@ -17,7 +16,7 @@
         </div>
     </div>
 
-    <div data-options="region:'center'">
+    <div data-options="region:'center'" style="border-top: none;">
         <table id="dg2" class="easyui-datagrid"
                url="${ctx!}/sysOrg/queryUser"
                toolbar="#tb2" rownumbers="true" border="false"
@@ -82,6 +81,7 @@
             treeField: 'NAME',
             fit: true,
             lines:true,
+            animate:true,
             fitColumns:true,
             rownumbers: true,
             toolbar: '#tb',

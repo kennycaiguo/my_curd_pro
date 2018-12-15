@@ -114,11 +114,11 @@ function saveAction(formId,type,tgId){
             }
             if(data.state == 'ok'){
                 // 成功信息
-                parent.popup.msg(data.msg, function () {
+                popup.msg(data.msg, function () {
                     if(type=='reload'){
                         // 展开全部节点
                         parent.$("#"+tgId).treegrid("reload");
-                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        popup.close(window.name);
                     }
                     if(type=='refresh'){
                         parent.window.location.reload();
@@ -126,10 +126,10 @@ function saveAction(formId,type,tgId){
                 });
             }else if(data.state == 'error'){
                 // 系统异常
-                parent.popup.errMsg('系统异常',data.msg);
+                popup.errMsg('系统异常',data.msg);
             }else{
                 // 非成功信息
-                parent.popup.msg(data.msg);
+                popup.msg(data.msg);
             }
         }
     });

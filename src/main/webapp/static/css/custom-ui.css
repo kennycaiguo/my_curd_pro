@@ -5,6 +5,13 @@
     background: none;
 }
 
+/*easyui linkbutton 按钮字体图标*/
+.l-btn-icon.iconfont{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
 /* datagrid toolbar 中 输入框 位置*/
 .searchInputArea {
     /*有按钮 有搜索框*/
@@ -56,4 +63,22 @@ table.labelInputTable  tr>td:nth-child(odd){
 }
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(0, 0, 0, 0.1);
+}
+
+/*超链接去掉下划线*/
+a{
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:underline;
+}
+
+.pure-button-primary:hover{
+    color: #fff;
+}
+.pure-button{
+ /*   border-radius: 0px !important;*/
+}
+.borderTopNone{
+    border-top: none;
 }

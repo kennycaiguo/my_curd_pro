@@ -1,11 +1,10 @@
 <#--数据字典 datagrid  -->
 <#include "../common/common.ftl"/>
 <@layout>
-<#include "../common/popup.ftl"/>
 <table id="dg" class="easyui-datagrid"
     url="${ctx!}/sysUser/query"
     toolbar="#tb" rownumbers="true" border="false"
-    fitColumns="false"
+    fitColumns="true"
     fit="true" pagination="true"
     ctrlSelect="true"
     striped="true"
@@ -14,7 +13,7 @@
  <tr>
      <th data-options="field:'ID',checkbox:true"></th>
      <th field="USERNAME" width="150" formatter="usernameFmt">用户名</th>
-     <th field="ORG_NAME" width="200">部门</th>
+     <th field="ORG_NAME" width="200" formatter="orgNameFmt">部门</th>
  <#--<th field="EMAIL" width="100">邮箱</th>-->
  <#--<th field="PHONE" width="100">电话</th>-->
      <th field="JOB" width="150">职位</th>
@@ -32,6 +31,7 @@
     <a onclick="editModel('dg','${ctx!}/sysUser/newModel', '800px', '500px')" href="#" class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','${ctx!}/sysUser/deleteAction')" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-delete" plain="true">删除</a>
     <a onclick="resetPwd()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-resetPwd" plain="true">重置密码</a>
+    <a onclick="newUserRole()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-config" plain="true">配置角色</a>
     <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_a.USERNAME" prompt="用户名" class="easyui-textbox" style="width:120px; ">
             <input id="org" name="search_LIKE_a.ORG_ID" prompt="部门"   >
@@ -72,6 +72,22 @@
 
     function usernameFmt(val,row) {
         return '<a title="点击查看人员信息" href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
+    }
+    function orgNameFmt(val,row) {
+        return '<a href="javascript:orgInfo(\'${ctx!}\',\''+row.ORG_ID+'\')" title="点击查看机构信息" >'+val+'</a>';
+    }
+
+
+    /**
+     * 用户配置角色
+     */
+    function newUserRole(){
+        var rows= $("#dg").datagrid("getSelections");
+        if (rows.length==1) {
+            popup.openIframe('配置角色','${ctx!}/sysUser/newUserRole?id=' + rows[0].ID, '800px', '500px');
+        } else {
+            popup.msg('请选择一行数据配置角色');
+        }
     }
 </script>
 </@layout>

@@ -34,7 +34,7 @@
     </table>
 </form>
 <div  class="formBtnsDiv">
-    <button  class=" pure-button button-small" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));" >
+    <button  class=" pure-button button-small" onclick="popup.close(window.name)" >
         <i class="iconfont icon-cancel"></i> 取消
     </button>
     <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction('modelForm','reload','dg2')" >

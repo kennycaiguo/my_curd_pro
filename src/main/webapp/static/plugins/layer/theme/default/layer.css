@@ -687,6 +687,8 @@ html #layuicss-layer {
     color: #333;
 }
 
+
+
 .layui-layer-molv .layui-layer-title {
     background: #009f95;
     color: #fff;
@@ -698,12 +700,35 @@ html #layuicss-layer {
 
 .layui-layer-molv .layui-layer-btn a {
     background: #009f95;
-    border-color: #009f95
+    border-color: #E9E7E7;
 }
 
 .layui-layer-molv .layui-layer-btn .layui-layer-btn1 {
-    background: #92B8B1
+    background: #fff;
+    color: #333;
 }
+
+
+.layui-layer-green .layui-layer-title {
+    background: #40b370;
+    color: #fff;
+    border: none;
+    line-height:30px;
+    height:30px;
+    padding: 0 10px;
+}
+
+.layui-layer-green .layui-layer-btn a {
+    background: #40b370;
+    border-color: #E9E7E7;
+}
+
+.layui-layer-green .layui-layer-btn .layui-layer-btn1 {
+    background: #fff;
+    color: #333;
+}
+
+
 
 .layui-layer-iconext {
     background: url(icon-ext.png) no-repeat

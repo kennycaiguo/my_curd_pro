@@ -2,6 +2,7 @@ package com.mycurdpro.common.config;
 
 /**
  * 常量
+ *
  * @author zhangchuang
  */
 public class Constant {
@@ -17,7 +18,7 @@ public class Constant {
     public final static String SEARCH_SQL = "search_sql";
 
     // 用户默认密码(添加用户时)
-    public final static String USER_DEFAULT_PASSWORD ="123456";
+    public final static String USER_DEFAULT_PASSWORD = "123456";
 
 
     // views 视图路径
@@ -30,6 +31,6 @@ public class Constant {
     public final static String DELETE_FAIL = "删除失败";
     public final static String UPDATE_SUCCESS = "修改成功";
     public final static String UPDATE_FAIL = "修改失败";
-    public final static String AUDIT_OVER="审批完成";
-    public final static String PARAM_IS_EMPTY="参数为空";
+    public final static String AUDIT_OVER = "审批完成";
+    public final static String PARAM_IS_EMPTY = "参数为空";
 }

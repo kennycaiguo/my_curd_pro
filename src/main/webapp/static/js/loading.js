@@ -1,6 +1,6 @@
 /*页面渲染遮罩*/
 var loadingMask = {
-    loadingImg: "/static/image/loading-blue.gif",
+    loadingImg: "/static/image/loading-green.gif",
     loadingTxt:'加载中...',
     /*创建遮罩*/
     createMask:function(){var

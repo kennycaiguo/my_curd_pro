@@ -19,6 +19,42 @@ public class SearchSql implements Interceptor {
     private final static Logger LOG = LoggerFactory.getLogger(SearchSql.class);
     private SearchFilter n;
 
+    /**
+     * searchParams中key的格式为OPERATOR_FIELDNAME
+     */
+    public static Map<String, SearchFilter> parse(Map<String, Object> searchParams) {
+        Map<String, SearchFilter> filters = new HashMap<>();
+        for (Map.Entry<String, Object> entry : searchParams.entrySet()) {
+            // 过滤掉空值
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (StrKit.isBlank((String) value)) {
+                continue;
+            }
+            // 拆分operator与field
+            String[] names = key.split("_");
+            if (names.length < 2) {
+                throw new IllegalArgumentException(key + " is not a valid search filter name");
+            }
+            // field 中可能有查询条件
+            String filedName;
+            StringBuilder filedNameTemp = new StringBuilder();
+            for (int i = 1; i < names.length; i++) {
+                filedNameTemp.append(names[i]).append("_");
+            }
+            if (filedNameTemp.substring(filedNameTemp.length() - 1).equals("_")) {
+                filedNameTemp = new StringBuilder(filedNameTemp.substring(0, filedNameTemp.length() - 1));
+            }
+            filedName = filedNameTemp.toString();
+            // 查询条件
+            SearchFilter.Operator operator = SearchFilter.Operator.valueOf(names[0]);
+            // 创建searchFilter
+            SearchFilter filter = new SearchFilter(filedName, operator, value);
+            filters.put(key, filter);
+        }
+        return filters;
+    }
+
     public void intercept(Invocation ai) {
         Controller c = ai.getController();
         // 查询字段前缀
@@ -79,42 +115,6 @@ public class SearchSql implements Interceptor {
             }
         }
         return params;
-    }
-
-    /**
-     * searchParams中key的格式为OPERATOR_FIELDNAME
-     */
-    public static Map<String, SearchFilter> parse(Map<String, Object> searchParams) {
-        Map<String, SearchFilter> filters = new HashMap<>();
-        for (Map.Entry<String, Object> entry : searchParams.entrySet()) {
-            // 过滤掉空值
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            if (StrKit.isBlank((String) value)) {
-                continue;
-            }
-            // 拆分operator与field
-            String[] names = key.split("_");
-            if (names.length < 2) {
-                throw new IllegalArgumentException(key + " is not a valid search filter name");
-            }
-            // field 中可能有查询条件
-            String filedName;
-            StringBuilder filedNameTemp = new StringBuilder();
-            for (int i = 1; i < names.length; i++) {
-                filedNameTemp.append(names[i]).append("_");
-            }
-            if (filedNameTemp.substring(filedNameTemp.length() - 1).equals("_")) {
-                filedNameTemp = new StringBuilder(filedNameTemp.substring(0, filedNameTemp.length() - 1));
-            }
-            filedName = filedNameTemp.toString();
-            // 查询条件
-            SearchFilter.Operator operator = SearchFilter.Operator.valueOf(names[0]);
-            // 创建searchFilter
-            SearchFilter filter = new SearchFilter(filedName, operator, value);
-            filters.put(key, filter);
-        }
-        return filters;
     }
 
     /**
@@ -179,7 +179,7 @@ public class SearchSql implements Interceptor {
                         break;
                     case INS:
                         // in 字符串
-                        sb.append(" in ('").append(filter.fieldValue.toString().replaceAll(",","','")).append("')");
+                        sb.append(" in ('").append(filter.fieldValue.toString().replaceAll(",", "','")).append("')");
                         break;
                     case INN:
                         // in 数字
@@ -210,7 +210,7 @@ public class SearchSql implements Interceptor {
                         sb.append("  is not null ");
                         break;
                     default:
-                        LOG.warn("找不到预定义设置,{},请自己扩展。",filter.operator);
+                        LOG.warn("找不到预定义设置,{},请自己扩展。", filter.operator);
                 }
             }
         }
@@ -221,7 +221,7 @@ public class SearchSql implements Interceptor {
 
 class SearchFilter {
     // 查询字段名
-    public final  String fieldName;
+    public final String fieldName;
     // 查询字段值
     public final Object fieldValue;
     // 查询条件
@@ -234,6 +234,6 @@ class SearchFilter {
     }
 
     public enum Operator {
-        EQS,EQN, LIKE, GTN, LTN, GTEN, LTEN,GTD,LTD, GTED, LTED, NEQ, INS,INN,GTDT,LTDT,GTEDT,LTEDT,IS,ISNOT
+        EQS, EQN, LIKE, GTN, LTN, GTEN, LTEN, GTD, LTD, GTED, LTED, NEQ, INS, INN, GTDT, LTDT, GTEDT, LTEDT, IS, ISNOT
     }
 }
