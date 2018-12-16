@@ -19,7 +19,7 @@
 				return 'background-color:#ffa8a8;font-weight:bold;';
 			}
 		  }"
-          fitColumns="true"
+          fitColumns="false"
           fit="true" pagination="true"
           ctrlSelect="true"
           striped="true"
@@ -29,8 +29,8 @@
            <th data-options="field:'ID',checkbox:true"></th>
            <th field="URL" width="300" formatter="urlFmt">请求地址</th>
            <th field="TYPE" width="100">请求类型</th>
-           <th field="SYS_USER" width="100"  formatter="usernameFmt" >用户</th>
-           <th field="SYS_USER_IP" width="150">IP地址</th>
+           <th field="SYS_USER" width="150"  formatter="usernameFmt" >用户</th>
+           <th field="SYS_USER_IP" width="200">IP地址</th>
            <th field="CREATE_TIME" width="200">创建时间</th>
        </tr>
        </thead>

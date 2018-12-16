@@ -25,7 +25,11 @@ var popup = {
             maxmin: true,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
-            content: [url]
+            content: [url],
+            success:function (dom,i) {
+                // 也可通过 iframe 传值
+               sessionStorage.setItem("iframeId",window.name);
+            }
         });
         return index;
     },
@@ -41,6 +45,8 @@ var popup = {
             area: [width || '80%', height || '90%'],
             content: [url],
             success:function(dom,i){
+                // 也可通过 iframe 传值
+                sessionStorage.setItem("iframeId",window.name);
                 // 根据内容高度 自适应
                 if(autoHeight){
                     top.layer.iframeAuto(i);

@@ -65,8 +65,10 @@
             <div data-options="name:1">关闭</div>
             <div data-options="name:2">关闭其它</div>
             <div data-options="name:3">关闭所有</div>
+           <#--
             <div class="menu-sep"></div>
             <div data-options="name:4">打开新页面</div>
+            -->
         </div>
     </div>
 </div>

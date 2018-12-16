@@ -12,7 +12,7 @@
            return;
         }
         /*通过 iframe id  获得 窗口 并调用其方法*/
-        window.parent.frames["${(iframeId)!}"].addRolesAction(ary);
+        window.parent.frames[sessionStorage.getItem("iframeId")].addRolesAction(ary);
     }
 </script>
 <table id="dg" class="easyui-datagrid"

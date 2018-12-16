@@ -89,7 +89,8 @@ var TabTools = {
             that.refreshTab(tabsControl, {tabTitle: title, url: url});
         } else {
             if (url) {
-                var content = '<iframe   frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+                var name  = 'easyui-tab-'+ Math.random();// 重复概率即小
+                var content = '<iframe   frameborder="0" id="'+name+'" name="'+name+'"   src="' + url + '" style="width:100%;height:100%;"></iframe>';
             } else {
                 var content = '未实现';
             }

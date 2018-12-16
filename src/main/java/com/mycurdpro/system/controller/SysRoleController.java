@@ -11,6 +11,7 @@ import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysRole;
+import com.mycurdpro.system.model.SysUserRole;
 
 import java.util.Date;
 
@@ -33,6 +34,7 @@ public class SysRoleController extends BaseController {
     /**
      * datagrid 数据
      */
+    @SuppressWarnings("Duplicates")
     @Before(SearchSql.class)
     public void query() {
         int pageNumber = getAttr("pageNumber");
@@ -102,5 +104,37 @@ public class SysRoleController extends BaseController {
             return true;
         });
         renderSuccess(Constant.DELETE_SUCCESS);
+    }
+
+    /**
+     * 角色相关用户
+     */
+    public void openRoleUser() {
+        setAttr("roleId", getPara("id"));
+        render("system/sysRole_user.ftl");
+    }
+    /**
+     * 角色相关用户数据
+     */
+    @Before(SearchSql.class)
+    public void queryRoleUser() {
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+        Page<SysUserRole> authUserRolePage = SysUserRole.dao.pageWithUserInfo(pageNumber, pageSize, where);
+        renderDatagrid(authUserRolePage);
+    }
+    /**
+     * 角色相关用户 删除
+     */
+    public void deleteUserRole(){
+        String userId = getPara("userId");
+        String roleId = getPara("roleId");
+        if(StringUtils.isEmpty(roleId) || StringUtils.isEmpty(userId)){
+            renderFail("userId roleId 参数不可为空");
+            return;
+        }
+        SysUserRole.dao.deleteById(userId,roleId);
+        renderSuccess("角色用户删除成功");
     }
 }

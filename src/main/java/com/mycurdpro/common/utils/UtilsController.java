@@ -48,8 +48,6 @@ public class UtilsController extends BaseController {
      * 角色选择
      */
     public void role() {
-        // layer iframe id  和 window.name 一致
-        setAttr("iframeId", getPara("iframeId"));
         String singleSelect = getPara("singleSelect", "false");
         setAttr("singleSelect", singleSelect);
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加角色"));

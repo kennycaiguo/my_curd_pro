@@ -108,12 +108,12 @@ function saveAction(formId,type,dgId){
                 // 成功信息
                 popup.msg(data.msg, function () {
                     if(type=='reload'){
-                        parent.$("#"+dgId).datagrid("reload");
-                        popup.close(window.name);
+                        window.parent.frames[sessionStorage.getItem("iframeId")].$("#"+dgId).datagrid("reload");
                     }
                     if(type=='refresh'){
-                        parent.window.location.reload();
+                        window.parent.frames[sessionStorage.getItem("iframeId")].window.location.reload();
                     }
+                    popup.close(window.name);
                 });
             }else if(data.state == 'error'){
                 // 系统异常
