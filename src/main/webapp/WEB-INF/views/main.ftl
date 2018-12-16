@@ -6,7 +6,7 @@
 <body>
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
-        <span class="header-text" onclick="fullScreenToggleNew(this)" title="点击全屏" >my_curd_pro</span>
+        <span class="header-text" onclick="fullScreenToggleNew(this)" title="点击全屏" >xx 综合业务平台</span>
         <span class="header-menu">
             <a id="opeMenu" class="pure-button  button-small pure-button-primary  " > ${(username)!} </a>
             <div id="opeMenuItem" style="width:100px;">

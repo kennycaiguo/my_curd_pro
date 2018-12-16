@@ -1,8 +1,12 @@
 package com.mycurdpro.system.controller;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.jfinal.aop.Before;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
@@ -10,10 +14,12 @@ import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdsRequired;
+import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysRole;
+import com.mycurdpro.system.model.SysRoleMenu;
 import com.mycurdpro.system.model.SysUserRole;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * 角色管理
@@ -136,5 +142,70 @@ public class SysRoleController extends BaseController {
         }
         SysUserRole.dao.deleteById(userId,roleId);
         renderSuccess("角色用户删除成功");
+    }
+
+
+    /**
+     * 角色配置菜单
+     */
+    public void newRoleMenu(){
+        setAttr("roleId", getPara("id"));
+        render("system/sysRole_menu.ftl");
+    }
+    /**
+     * 角色配置菜单 数据
+     */
+    public void menuTreeChecked() {
+        String id = getPara("roleId");
+        // 角色相关菜单
+        List<SysRoleMenu> sysRoleMenus = SysRoleMenu.dao.findByRoleId(id);
+        // 全部菜单
+        List<SysMenu> sysMenus = SysMenu.dao.findAll();
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (SysMenu sysMenu : sysMenus) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("id", sysMenu.getId());
+            map.put("pid", sysMenu.getPid());
+            map.put("text", sysMenu.getName());
+            map.put("iconCls", sysMenu.getIcon());
+            map.put("state", "open");
+            for (SysRoleMenu sysRoleMenu : sysRoleMenus) {
+                // 中间表 有记录，且是 叶子 选中
+                if (Objects.equal(sysRoleMenu.getSysMenuId(),sysMenu.getId())
+                        && Objects.equal(sysMenu.getStr("IS_LEAF"),"1")) {
+                    map.put("checked", true);
+                    break;
+                }
+            }
+            maps.add(map);
+        }
+        renderJson(maps);
+    }
+    /**
+     * 角色配置菜单 更新
+     */
+    @Before(Tx.class)
+    public void menuTreeUpdate() {
+        String roleId = getPara("roleId");
+        String menuIds = getPara("menuIds");
+        if(StringUtils.isEmpty(roleId)){
+            renderFail("roleId 参数不可为空.");
+            return;
+        }
+        // 删除 角色原有菜单
+        String deleteSql = "delete from  sys_role_menu where sys_role_id = ?";
+        Db.update(deleteSql, roleId);
+        // 添加 角色新菜单
+        if (StringUtils.notEmpty(menuIds)) {
+            String[] menuIdAry = menuIds.split(",");
+            for(String menuId:menuIdAry){
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setSysRoleId(roleId).setSysMenuId(menuId)
+                        .setCreater(WebUtils.getSessionUsername(this))
+                        .setCreateTime(new Date())
+                        .save();
+            }
+        }
+        renderSuccess("配置菜单成功");
     }
 }
