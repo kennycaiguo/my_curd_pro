@@ -1,5 +1,7 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.plugin.activerecord.Page;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysServiceLog;
 
 /**
@@ -11,4 +13,22 @@ import com.mycurdpro.system.model.base.BaseSysServiceLog;
 @SuppressWarnings("serial")
 public class SysServiceLog extends BaseSysServiceLog<SysServiceLog> {
     public static final SysServiceLog dao = new SysServiceLog().dao();
+
+    /**
+     * 分页查询
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @param where
+     * @return
+     */
+    public Page<SysServiceLog> page(int pageNumber, int pageSize, String where) {
+        String sqlSelect = " select * ";
+        String sqlExceptSelect = " from sys_service_log  ";
+        if (StringUtils.notEmpty(where)) {
+            sqlExceptSelect += " where " + where;
+        }
+        sqlExceptSelect += " order by create_time desc ";
+        return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
 }

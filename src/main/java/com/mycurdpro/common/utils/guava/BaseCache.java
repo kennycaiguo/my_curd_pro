@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseCache<K, V> {
     private final LoadingCache<K, V> cache;
 
+
     public BaseCache() {
         cache = CacheBuilder.newBuilder()
                 .maximumSize(10000)
@@ -79,6 +80,9 @@ public abstract class BaseCache<K, V> {
                 });
     }
 
+    public LoadingCache<K, V> getCache() {
+        return cache;
+    }
 
     /**
      * 缓存数据加载方法

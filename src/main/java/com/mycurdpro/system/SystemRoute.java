@@ -33,5 +33,11 @@ public class SystemRoute extends Routes {
 
         // 用户管理
         add("/sysUser", SysUserController.class, Constant.VIEW_PATH);
+
+        // 业务日志
+        add("/sysServiceLog",SysServiceLogController.class,Constant.VIEW_PATH);
+
+        // 用户解锁
+        add("/sysUserUnlock",SysUserUnlockController.class,Constant.VIEW_PATH);
     }
 }

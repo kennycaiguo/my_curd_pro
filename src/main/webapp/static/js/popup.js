@@ -13,7 +13,7 @@ var layerSkin = {
     molv: 'layui-layer-molv',
     green:'layui-layer-green'
 };
-layerSkin.default = layerSkin.lan;
+layerSkin.default = layerSkin.green;
 
 var popup = {
     /* 打开 iframe 弹窗*/
