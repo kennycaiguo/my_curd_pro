@@ -39,14 +39,14 @@ function editModel(tgId,url,width,height){
  */
 function deleteModel(tgid,url) {
     var node = $("#"+tgid).treegrid("getSelected");
-    if (node!=0) {
+    if (node.length!==0) {
         popup.openConfirm(null,3, '删除', '您确定要删除选中的记录吗?', function () {
             $.post(url+'?id=' + node.ID, function (data) {
-                if(data.state=='ok'){
+                if(data.state==='ok'){
                     popup.msg(data.msg, function () {
                         $('#'+tgid).treegrid('reload');
                     });
-                }else if(data.state=='error'){
+                }else if(data.state==='error'){
                     // 异常
                     popup.errMsg('系统异常',data.msg);
                 }else{
@@ -75,7 +75,7 @@ function queryModel(tgId,inputsSpanId){
     var val;
     for(var i = 0,len = inputDomAry.length; i < len; i++){
         val = $(inputDomAry[i]).val();
-        if($.trim(val)=='' || val==undefined || val==null){
+        if(isEmpty(val)){
             continue;
         }
         queryParams[$(inputDomAry[i]).attr("name")]=val;
@@ -91,7 +91,7 @@ function queryModel(tgId,inputsSpanId){
 // datagrid 筛选框 enter 监听
 $(".searchInputArea,.searchInputAreaDiv").on("keydown", function (e) {
     var that = this;
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
         $(".searchBtn",that).first().trigger('click');
     }
 });
@@ -109,21 +109,21 @@ function saveAction(formId,type,tgId){
             return $(this).form('validate');
         },
         success: function (data) {
-            if(typeof data =='string'){
+            if(typeof data ==='string'){
                 data = JSON.parse(data);
             }
-            if(data.state == 'ok'){
+            if(data.state === 'ok'){
                 // 成功信息
                 popup.msg(data.msg, function () {
-                    if(type=='reload'){
+                    if(type==='reload'){
                         window.parent.frames[sessionStorage.getItem("iframeId")].$("#"+tgId).treegrid("reload");
                     }
-                    if(type=='refresh'){
+                    if(type==='refresh'){
                         window.parent.frames[sessionStorage.getItem("iframeId")].window.location.reload();
                     }
                     popup.close(window.name);
                 });
-            }else if(data.state == 'error'){
+            }else if(data.state === 'error'){
                 // 系统异常
                 popup.errMsg('系统异常',data.msg);
             }else{

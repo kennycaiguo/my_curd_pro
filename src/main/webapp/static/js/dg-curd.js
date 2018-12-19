@@ -20,7 +20,7 @@ function newModel(url,width,height) {
  */
 function editModel(dgId,url,width,height){
     var rows= $("#"+dgId).datagrid("getSelections");
-    if (rows.length==1) {
+    if (rows.length===1) {
         popup.openIframe('编辑', url+'?id=' + rows[0].ID, width,height);
     } else {
         popup.msg('请选择一行数据进行编辑');
@@ -35,18 +35,18 @@ function editModel(dgId,url,width,height){
  */
 function deleteModel(dgid,url) {
     var rows = $("#"+dgid).datagrid("getSelections");
-    if (rows.length!=0) {
+    if (rows.length!==0) {
         popup.openConfirm(null,3, '删除', '您确定要删除选中的'+rows.length+'条记录吗?', function () {
             var ids = [];
             rows.forEach(function(row){
                 ids.push(row.ID);
             });
             $.post(url+'?ids=' + ids.join(','), function (data) {
-                if(data.state=='ok'){
+                if(data.state==='ok'){
                     popup.msg(data.msg, function () {
                         $('#'+dgid).datagrid('reload');
                     });
-                }else if(data.state=='error'){
+                }else if(data.state==='error'){
                     // 异常
                     popup.errMsg('系统异常',data.msg);
                 }else{
@@ -71,7 +71,7 @@ function queryModel(dgId,inputsSpanId){
     var val;
     for(var i = 0,len = inputDomAry.length; i < len; i++){
         val = $(inputDomAry[i]).val();
-        if($.trim(val)=='' || val==undefined || val==null){
+        if(isEmpty(val)){
             continue;
         }
         queryParams[$(inputDomAry[i]).attr("name")]=val;
@@ -82,7 +82,7 @@ function queryModel(dgId,inputsSpanId){
 // datagrid 筛选框 enter 监听
 $(".searchInputArea,.searchInputAreaDiv").on("keydown", function (e) {
     var that = this;
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
         $(".searchBtn",that).first().trigger('click');
     }
 });
@@ -101,21 +101,21 @@ function saveAction(formId,type,dgId){
             return $(this).form('validate');
         },
         success: function (data) {
-            if(typeof data =='string'){
+            if(typeof data ==='string'){
                 data = JSON.parse(data);
             }
-            if(data.state == 'ok'){
+            if(data.state === 'ok'){
                 // 成功信息
                 popup.msg(data.msg, function () {
-                    if(type=='reload'){
+                    if(type==='reload'){
                         window.parent.frames[sessionStorage.getItem("iframeId")].$("#"+dgId).datagrid("reload");
                     }
-                    if(type=='refresh'){
+                    if(type==='refresh'){
                         window.parent.frames[sessionStorage.getItem("iframeId")].window.location.reload();
                     }
                     popup.close(window.name);
                 });
-            }else if(data.state == 'error'){
+            }else if(data.state === 'error'){
                 // 系统异常
                 popup.errMsg('系统异常',data.msg);
             }else{
@@ -138,7 +138,7 @@ function saveAction(formId,type,dgId){
  */
 function viewModel(title,dgId,url,width,height){
     var rows= $("#"+dgId).datagrid("getSelections");
-    if (rows.length==1) {
+    if (rows.length===1) {
         popup.openIframe(title, url+'?id=' + rows[0].ID, width,height);
     } else {
         popup.msg('请选择一行数据进行'+title);
@@ -155,7 +155,7 @@ function viewModel(title,dgId,url,width,height){
  */
 function viewModels(title,dgId,url,width,height) {
     var rows= $("#"+dgId).datagrid("getSelections");
-    if(rows.length==0){
+    if(rows.length===0){
         popup.msg('请至少选择一条数据');
         return;
     }

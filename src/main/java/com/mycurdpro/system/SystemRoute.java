@@ -39,5 +39,8 @@ public class SystemRoute extends Routes {
 
         // 用户解锁
         add("/sysUserUnlock",SysUserUnlockController.class,Constant.VIEW_PATH);
+
+        // 地区数据
+        add("/sysDataRegion",SysDataRegionController.class,Constant.VIEW_PATH);
     }
 }

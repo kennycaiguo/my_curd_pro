@@ -73,4 +73,4 @@ var EasyTree = function() {
     return {
         treeDataBuild: treeDataBuild
     };
-}
+};

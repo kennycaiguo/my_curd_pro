@@ -23,12 +23,12 @@ function initFormCombotree(selector,selectorValue,excludeNodeId,dataUrl,required
             var t = $(selector).combotree('tree');
             var pNode;
             // 排除 当前 node
-            if(excludeNodeId!=null &&  $.trim(excludeNodeId)!=""){
+            if(notEmpty(excludeNodeId)){
                 /*console.log('remove tree node :'+nodeId);*/
                 var node= t.tree("find",excludeNodeId);
                 pNode = t.tree("getParent",node.target);
                 t.tree("remove",node.target);
-            };
+            }
             // 展开到 当前 node 的 父node
             if(pNode!=null){
                 t.tree("expandTo",pNode.target).tree('select', pNode.target);
