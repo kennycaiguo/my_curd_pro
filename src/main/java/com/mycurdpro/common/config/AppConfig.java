@@ -35,15 +35,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AppConfig extends JFinalConfig {
     Prop configProp = PropKit.use("config.properties");
+    Prop fileProp = PropKit.use("file.properties");
 
     @Override
     public void configConstant(Constants me) {
         // 开发模式
         me.setDevMode(configProp.getBoolean("devMode"));
         // 上传下载
-        me.setBaseUploadPath(configProp.get("upload"));
-        me.setMaxPostSize(configProp.getInt("maxPostSize"));
-        me.setBaseDownloadPath(configProp.get("download"));
+        me.setBaseUploadPath(fileProp.get("upload"));
+        me.setMaxPostSize(fileProp.getInt("maxPostSize"));
+        me.setBaseDownloadPath(fileProp.get("download"));
 
         // 视图
         me.setViewType(ViewType.FREE_MARKER);

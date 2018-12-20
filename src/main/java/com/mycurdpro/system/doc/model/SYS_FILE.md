@@ -9,7 +9,9 @@
 | 6 | ORI_NAME |  VARCHAR2(100) | ✘  |   |   | 文件原名  |
 | 7 | MIME |  VARCHAR2(50) | ✔  |   |   | MIME类型  |
 | 8 | TYPE |  VARCHAR2(20) | ✔  |   |   | 文件类型（文件后缀）  |
-| 9 | SIZE |  NUMBER(22) | ✔  |   |   | 文件大小（单位B字节)  |
+| 9 | LENGTH |  NUMBER(22) | ✔  |   |   | 文件大小（单位B字节)  |
 | 10 | REMARK |  VARCHAR2(500) | ✔  |   |   | 备注  |
+| 11 | UPDATER |  VARCHAR2(30) | ✔  |   |   | 修改人  |
+| 12 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
 
 

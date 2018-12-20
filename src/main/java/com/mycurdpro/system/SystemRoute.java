@@ -42,5 +42,8 @@ public class SystemRoute extends Routes {
 
         // 地区数据
         add("/sysDataRegion",SysDataRegionController.class,Constant.VIEW_PATH);
+
+        // 用户文件
+        add("/sysFile",SysFileController.class,Constant.VIEW_PATH);
     }
 }

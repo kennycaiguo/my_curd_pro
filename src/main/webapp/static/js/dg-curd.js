@@ -104,6 +104,7 @@ function saveAction(formId,type,dgId){
             if(typeof data ==='string'){
                 data = JSON.parse(data);
             }
+
             if(data.state === 'ok'){
                 // 成功信息
                 popup.msg(data.msg, function () {

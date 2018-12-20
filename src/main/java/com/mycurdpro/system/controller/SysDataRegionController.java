@@ -1,8 +1,10 @@
 package com.mycurdpro.system.controller;
 
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
+import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.system.model.SysDataRegion;
@@ -26,6 +28,8 @@ public class SysDataRegionController extends BaseController {
             if (!"3".equals(dataRegion.getLevelType())) {
                 dataRegion.put("state", "closed");
             }
+            // 字体图标
+            dataRegion.put("iconCls","iconfont");
         }
         renderJson(sysDataRegionList);
     }
@@ -78,5 +82,17 @@ public class SysDataRegionController extends BaseController {
         } else {
             renderFail(Constant.DELETE_FAIL);
         }
+    }
+
+
+    /**
+     * 其它业务使用
+     */
+    @Clear(PermissionInterceptor.class)
+    public void  data(){
+        String pid = getPara(0, "100000");
+        String sql = "select ID,NAME,SHORT_NAME,LNG,LAT,SUBSTR(pinyin, 0, 1) as P1 from sys_data_region where parent_id = ? ORDER by ID";
+        List<SysDataRegion> sysDataRegionList = SysDataRegion.dao.find(sql,pid);
+        renderJson(sysDataRegionList);
     }
 }

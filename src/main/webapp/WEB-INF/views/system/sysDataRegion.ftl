@@ -1,9 +1,7 @@
 <#--地区数据-->
 <#include "../common/common.ftl"/>
 <@layout>
-<style>
-    /* TODO 图标*/
-</style>
+<link rel="stylesheet" href="${ctx!}/static/css/tree-icon.css">
 <table id="tg" class="easyui-treegrid"
        url="${ctx!}/sysDataRegion/query"
        data-options="onLoadSuccess:expandChina,lines:true,animate:true"

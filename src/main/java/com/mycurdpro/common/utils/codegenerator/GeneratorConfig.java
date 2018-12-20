@@ -48,10 +48,10 @@ public class GeneratorConfig {
 //        add("SYS_NOTICE_DETAIL");
 //        add("SYS_DICT");
 //        add("SYS_DICT_GROUP");
-//        add("SYS_FILE");
+        add("SYS_FILE");
 //        add("SYS_SERVICE_LOG");
 //        add("SYS_VISIT_LOG");
-          add("SYS_DATA_REGION");
+//          add("SYS_DATA_REGION");
     }};
 
     // 模板文件基础路径

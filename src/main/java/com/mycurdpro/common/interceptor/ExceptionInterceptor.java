@@ -57,13 +57,18 @@ public class ExceptionInterceptor implements Interceptor {
         // 返回异常信息
         if (StringUtils.notEmpty(errMsg)) {
             String requestType = inv.getController().getRequest().getHeader("X-Requested-With");
-            if("XMLHttpRequest".equals(requestType)){
-                Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
-                inv.getController().renderJson(ret);
-            }else{
-                inv.getController().setAttr("errorMsg",errMsg);
-                inv.getController().render(Constant.VIEW_PATH+"/common/500.ftl");
-            }
+
+            // 只能判断 jquery ajax, 原始的 ajax 没有该请求头 例如 easyui form
+//            if("XMLHttpRequest".equals(requestType)){
+//                Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
+//                inv.getController().renderJson(ret);
+//            }else{
+//                inv.getController().setAttr("errorMsg",errMsg);
+//                inv.getController().render(Constant.VIEW_PATH+"/common/500.ftl");
+//            }
+            
+            Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
+            inv.getController().renderJson(ret);
         }
     }
 

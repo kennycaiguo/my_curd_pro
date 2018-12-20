@@ -27,10 +27,10 @@ public class ModelGenerator {
             + "/src/main/java/" + GeneratorConfig.basePackageName.replaceAll("\\.", "/") + "/" + GeneratorConfig.moduleName + "/";
 
     //生成 baseModel model
-    private final static boolean genModel = false;                                                     // 是否生成Model
+    private final static boolean genModel = false;                                                      // 是否生成Model
     private final static boolean genBaseModel = true;                                                   // 是否生成baseModel
     private final static boolean chainSetter = true;                                                    // 是否生成链式 setter 方法
-    private final static boolean modelOverwriteIfExist = true;                                        // 是否覆盖Model
+    private final static boolean modelOverwriteIfExist = true;                                          // 是否覆盖Model
     private final static boolean baseModelOverwriteIfExist = true;                                      // 是否覆盖BaseModel
     private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
     private final static String baseModelOutPath = outBasePath + "model/base/";                       // baseModel 渲染文件输出路径
@@ -38,17 +38,17 @@ public class ModelGenerator {
     private final static String modelOutPath = outBasePath + "model/";                                // Model 渲染文件输出路径
 
     // 生成 MappingKit
-    private final static boolean genMappingKit = false;                                                // 是否生成
-    private final static boolean mappingKitOverwriteIfExist = true;                                   // 是否覆盖代码
+    private final static boolean genMappingKit = false;                                                 // 是否生成
+    private final static boolean mappingKitOverwriteIfExist = true;                                     // 是否覆盖代码
     private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "ModelMapping.ftl";   // 模板文件路径
-    private final static String mappingKitOutPath = outBasePath;                                      // 渲染文件输出路径
+    private final static String mappingKitOutPath = outBasePath;                                        // 渲染文件输出路径
 
 
     // 数据表字典
-    private final static boolean genDict = true;                                                // 是否生成
-    private final static boolean dictOverwriteIfExist = true;                                   // 是否覆盖
-    private final static boolean genSingleFile = false;                                         // 字典是否单一文件
-    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";          // 字典 模板文件路径
+    private final static boolean genDict = true;                                                  // 是否生成
+    private final static boolean dictOverwriteIfExist = true;                                     // 是否覆盖
+    private final static boolean genSingleFile = false;                                           // 字典是否单一文件
+    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";            // 字典 模板文件路径
     private final static String dictOutDirPath = outBasePath + "doc/model/";                      // 字典 渲染文件输出目录
 
 
