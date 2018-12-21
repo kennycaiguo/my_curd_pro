@@ -53,7 +53,6 @@ public class UtilsController extends BaseController {
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加角色"));
         render("common/utils/role.ftl");
     }
-
     /**
      * 角色选择 数据
      */

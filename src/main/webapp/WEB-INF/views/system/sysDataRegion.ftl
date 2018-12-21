@@ -14,7 +14,7 @@
        >
     <thead>
     <tr>
-        <th field="NAME" width="200">名字</th>
+        <th field="NAME" width="250">名字</th>
         <th field="ID" width="100">地区代码</th>
         <th field="PINYIN" width="100">英文名称</th>
         <th field="LNG"  width="100" >经度</th>

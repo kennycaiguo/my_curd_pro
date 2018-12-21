@@ -1,5 +1,7 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.system.model.base.BaseSysNoticeTypeSysUser;
 
 /**
@@ -11,4 +13,22 @@ import com.mycurdpro.system.model.base.BaseSysNoticeTypeSysUser;
 @SuppressWarnings("serial")
 public class SysNoticeTypeSysUser extends BaseSysNoticeTypeSysUser<SysNoticeTypeSysUser> {
     public static final SysNoticeTypeSysUser dao = new SysNoticeTypeSysUser().dao();
+
+
+    /**
+     * 分页查询
+     * @param pageNumber
+     * @param pageSize
+     * @param where
+     * @return
+     */
+    public Page<SysNoticeTypeSysUser> page(int pageNumber, int pageSize, String where) {
+        String sqlSelect = " SELECT  a.*,b.name,b.code,b.remark  ";
+        String sqlExceptSelect = " FROM sys_notice_type_sys_user a " +
+                " LEFT JOIN sys_notice_type b ON a.sys_notice_type_id = b.id  ";
+        if (StrKit.notBlank(where)) {
+            sqlExceptSelect += " where " + where;
+        }
+        return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
 }

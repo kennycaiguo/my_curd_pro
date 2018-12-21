@@ -14,7 +14,7 @@ var layerSkin = {
     green:'layui-layer-green'
 };
 
-layerSkin.default = layerSkin.green;
+layerSkin.default = layerSkin.lan;
 var popup = {
     /* 打开 iframe 弹窗*/
     openIframe: function (title, url, width, height, skin) {

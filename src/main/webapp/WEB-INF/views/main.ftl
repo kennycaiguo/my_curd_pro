@@ -8,7 +8,7 @@
     <div class="mainHeader" data-options="region:'north'" border="false">
         <span class="header-text" onclick="fullScreenToggleNew(this)" title="点击全屏" >综合业务平台</span>
         <span class="header-menu">
-            <a id="opeMenu" class="pure-button  button-small pure-button-primary  " > ${(username)!} </a>
+            <a id="opeMenu" class="pure-button  button-small pure-button-primary" > ${(username)!} </a>
             <div id="opeMenuItem" style="width:100px;">
                 <div name="viewNotification"> 系统通知<span id="unreadSpan" class="unreadCount"></span></div>
                 <div name="editInfo">修改个人信息</div>

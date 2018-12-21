@@ -45,5 +45,15 @@ public class SystemRoute extends Routes {
 
         // 用户文件
         add("/sysFile",SysFileController.class,Constant.VIEW_PATH);
+
+
+        // 通知类型
+        add("/sysNoticeType",SysNoticeTypeController.class,Constant.VIEW_PATH);
+
+        // 通知类型关联 用户
+        add("/sysNTUser",SysNTUserController.class,Constant.VIEW_PATH);
+
+        // 通知类型关联 角色
+        add("/sysNTRole",SysNTRoleController.class,Constant.VIEW_PATH);
     }
 }
