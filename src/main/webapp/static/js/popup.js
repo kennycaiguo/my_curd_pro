@@ -13,8 +13,8 @@ var layerSkin = {
     molv: 'layui-layer-molv',
     green:'layui-layer-green'
 };
-layerSkin.default = layerSkin.green;
 
+layerSkin.default = layerSkin.green;
 var popup = {
     /* 打开 iframe 弹窗*/
     openIframe: function (title, url, width, height, skin) {
@@ -97,7 +97,8 @@ var popup = {
         }else if(msg.indexOf('失败')>=0){
             setting.icon=2;
         }else{
-            setting.icon=0; // 感叹号，代表提示框
+            setting.icon=0; // 感叹号，代表提示信息
+            setting.time = 3000;
         }
         top.layer.msg(msg, setting, cbk);
     },

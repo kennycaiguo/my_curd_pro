@@ -1,13 +1,4 @@
 <#include "../common/common.ftl"/><@layout>
-<style>
-    #error {
-        font-size: 12px;
-        color: red;
-        text-align: center;
-        padding: 10px;
-    }
-</style>
-<div id="error"></div>
 <form id="modelForm" method="POST" <#if !sysFile??>enctype="multipart/form-data"</#if>
       action="<#if sysFile?? >${ctx!}/sysFile/updateAction<#else>${ctx!}/sysFile/addAction</#if>" >
     <table class=" pure-table pure-table-horizontal centerTable labelInputTable">

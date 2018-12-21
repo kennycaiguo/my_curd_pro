@@ -7,7 +7,6 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.PropKit;
 import com.jfinal.kit.Ret;
-import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;

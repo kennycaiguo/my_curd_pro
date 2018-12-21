@@ -2,6 +2,7 @@ package com.mycurdpro.system.model;
 
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysFile;
 
 import java.util.List;
@@ -40,11 +41,13 @@ public class SysFile extends BaseSysFile<SysFile> {
     public Page<SysFile> page(int pageNumber, int pageSize, String sort, String order, String where) {
         String sqlSelect = " SELECT sf.*,su.username as username, su.name as name ";
         String sqlExceptSelect = " FROM sys_file sf LEFT JOIN sys_user su ON sf.creater = su.username   ";
-        if (StrKit.notBlank(where)) {
+        if (StringUtils.notEmpty(where)) {
             sqlExceptSelect += " where " + where;
         }
-        if (StrKit.notBlank(sort) && StrKit.notBlank(order)) {
+        if (StringUtils.notEmpty(sort) && StringUtils.notEmpty(order)) {
             sqlExceptSelect += " order by sf." + sort + " " + order;
+        }else{
+            sqlExceptSelect += "  ORDER BY sf.id ";
         }
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }

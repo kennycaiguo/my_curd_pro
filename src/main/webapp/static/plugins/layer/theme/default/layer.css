@@ -662,7 +662,7 @@ html #layuicss-layer {
 
 .layui-layer-lan .layui-layer-title {
     /*background: #4476A7;*/
-    background:#1E9FFF;
+    background:#447eff;
     color: #fff;
     border: none;
     line-height:30px;
@@ -677,7 +677,7 @@ html #layuicss-layer {
 }
 
 .layui-layer-lan .layui-layer-btn a {
-    background:#1E9FFF;
+    background:#447eff;
     border-color: #E9E7E7;
     color: #fff;
 }

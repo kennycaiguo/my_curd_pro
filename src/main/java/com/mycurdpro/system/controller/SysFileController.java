@@ -18,6 +18,8 @@ import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.FileUtils;
 import com.mycurdpro.common.utils.Id.IdUtils;
+import com.mycurdpro.common.utils.RandomUtils;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.model.SysFile;
 import org.joda.time.DateTime;
@@ -40,6 +42,8 @@ public class SysFileController extends BaseController {
      * 列表页
      */
     public void index() {
+        String username = WebUtils.getSessionUsername(this);
+        setAttr("showUserSearch", "admin".equals(username));
         render("system/sysFile.ftl");
     }
 
@@ -54,6 +58,16 @@ public class SysFileController extends BaseController {
         String sort = getPara("sort");
         String order = getPara("order");
         String where = getAttr(Constant.SEARCH_SQL);
+
+        String username = WebUtils.getSessionUsername(this);
+        if(!"admin".equals(username)){
+            if(StringUtils.isEmpty(where)){
+                where = " su.username = '"+username+"' ";
+            }else{
+                where += " and  su.username = '"+username+"' ";
+            }
+        }
+
         Page<SysFile> sysFilePage = SysFile.dao.page(pageNumber, pageSize, sort, order, where);
         renderDatagrid(sysFilePage);
     }
@@ -110,16 +124,15 @@ public class SysFileController extends BaseController {
         }
 
         // 文件保存
-        String newFileName = new DateTime(new Date()).toString("yyyyMMddHHmmssS") + "." + fileSuf;
-        String pre;
+        String pre = "/"+new DateTime(new Date()).toString("yyyyMMdd");
         if (Arrays.asList(extMap.get("image").split(",")).contains(fileSuf)) {
-            pre = prop.get("imagePath");
+            pre = prop.get("imagePath")+pre;
         } else if (Arrays.asList(extMap.get("media").split(",")).contains(fileSuf)) {
-            pre = prop.get("mediaPath");
+            pre = prop.get("mediaPath")+pre;
         }else if(Arrays.asList(extMap.get("office").split(",")).contains(fileSuf)){
-            pre = prop.get("officePath");
+            pre = prop.get("officePath")+pre;
         }else if (Arrays.asList(extMap.get("file").split(",")).contains(fileSuf)) {
-            pre = prop.get("filePath");
+            pre = prop.get("filePath")+pre;
         } else {
             String errMsg = "只允许后缀为:<br/>" + extMap.get("image")
                     + "<br/>" + extMap.get("media")
@@ -131,9 +144,10 @@ public class SysFileController extends BaseController {
             render(new JsonRender(JSON.toJSONString(ret)).forIE());
             return;
         }
-
+        // 时分秒毫秒+随机数
+        String newFileName = new DateTime(new Date()).toString("HHmmssS")+ RandomUtils.number(10000) + "." + fileSuf;
         String relativePath = pre + "/" + newFileName;
-        File savefile = new File(PathKit.getWebRootPath() + File.separator + relativePath);
+        File savefile = new File(PathKit.getWebRootPath() +"/"  + relativePath);
         if (!savefile.exists()) {
             Files.createParentDirs(savefile);
         }
