@@ -1,9 +1,13 @@
 /*主题配色等*/
 
-.mainHeader {
-   /* background-color: #1E9FFF;*/
+/*导航栏*/
+.mainHeader  ul.headerMenu{
     background-color: #447eff;
 }
+.mainHeader  ul.headerMenu li a.active {
+    background-color: #3178cb;
+}
+
 
 /*easyui linkbutton 按钮字体图标*/
 .l-btn-icon.iconfont{

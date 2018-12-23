@@ -22,7 +22,7 @@
           fitColumns="false"
           fit="true" pagination="true"
           ctrlSelect="true"
-          striped="true"
+          striped="false"
           pageSize="40" pageList="[10,20,40,80]">
        <thead>
        <tr>
@@ -67,7 +67,7 @@
 
         function urlFmt(val,row){
             return '<a title="点击查看请求信息" href="javascript:viewModelsByLink(\'查看\',\'${ctx!}/sysVisitLog/view?id='
-                    +row.ID+'\',\'800px\',\'400px\')"  >'+val+'</a>';
+                    +row.ID+'\',\'700px\',\'400px\')"  >'+val+'</a>';
         }
         function usernameFmt(val,row) {
             return '<a title="点击查看人员信息" href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';

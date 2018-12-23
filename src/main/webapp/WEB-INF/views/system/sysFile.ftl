@@ -3,10 +3,8 @@
        url="${ctx!}/sysFile/query"
        toolbar="#tb" rownumbers="false" border="false"
        fit="true" pagination="true"
-       fitColumns="true"
-       striped="true"
-       ctrlSelect="true"
-       multiSort="false"
+       fitColumns="true"  striped="false"
+       ctrlSelect="true"  multiSort="false"
        pageSize="40" pageList="[20,40]">
     <thead>
     <tr>

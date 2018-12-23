@@ -23,7 +23,12 @@
 <div style="padding: 5px;"></div>
 <div id="avatar" class="avatarWrap" onclick="openSelectImg()">
     <a href="javascript:void(0)"  title="点击修改头像">
-        <img id="avatarImg"  class="pure-img" src="${ctx!}/${(sysUser.avatar)!'static/image/male.jpg'}" alt="${(sysUser.username)!} 头像" >
+          <#if (sysUser.gender)=='M' >
+              <img id="avatarImg" src="${ctx!}/${(sysUser.avatar)!'static/image/male.jpg'}" class="pure-img" alt="${(sysUser.username)!} 头像">
+          </#if>
+          <#if (sysUser.gender)=='F' >
+              <img id="avatarImg" src="${ctx!}/${(sysUser.avatar)!'static/image/female.jpg'}" class="pure-img" alt="${(sysUser.username)!} 头像">
+          </#if>
     </a>
 </div>
 <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="selectImg(this.files)" />

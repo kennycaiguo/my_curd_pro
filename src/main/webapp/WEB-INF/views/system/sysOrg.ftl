@@ -23,7 +23,7 @@
                fit="true" pagination="true"
                fitColumns="true"
                ctrlSelect="true"
-               striped="true"
+               striped="false"
                pageSize="40" pageList="[20,40]">
             <thead>
             <tr>

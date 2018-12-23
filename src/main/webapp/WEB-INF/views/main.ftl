@@ -4,47 +4,57 @@
 <link rel="stylesheet" href="${ctx!}/static/css/main.css">
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
-        <span class="header-text" onclick="fullScreenToggleNew(this)" title="点击全屏" >综合业务平台</span>
-        <span class="header-menu">
-            <a id="opeMenu" class="pure-button  button-small pure-button-primary" > ${(username)!} </a>
-            <div id="opeMenuItem" style="width:100px;">
-                <div name="viewNotification"> 系统通知<span id="unreadSpan" class="unreadCount"></span></div>
-                <div name="editInfo">修改个人信息</div>
-                <div name="changePwd">修改密码</div>
-                <div name="logout">退出</div>
-            </div>
-            <script>
-                (function(){
-                    function openSysNotifiction(){
-                        popup.openIframe('系统通知', '${ctx!}/systemNotification', '700px', '400px');
-                        /* 移除未读消息数小红点，此处并不合理 */
-                        $('#unreadSpan').addClass('hid');
-                    }
-                    function openEditInfoForm() {
-                        popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '560px');
-                    }
-                    function openChangePwdForm(){
-                        popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '380px');
-                    }
-                    function logout(){
-                        var logoutUrl = '${ctx!}/logout';
-                        window.location.href=logoutUrl;
-                    }
+        <ul class="headerMenu">
+            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">综合业务平台</a></li>
+            <li><a href="#" class="active">首页</a></li>
+            <li><a href="#">云笔记</a></li>
+            <span class="right">
+                <li>
+                    <a href="#"   title="点击查看通知">
+                        <i class="iconfont icon-bell"></i> 13
+                    </a>
+                </li>
+                <li>
+                    <span id="opeMenu" class="pure-button pure-button-primary" >${(username)!}</span>
+                    <div id="opeMenuItem" style="width:100px;">
+                        <div name="editInfo">修改个人信息</div>
+                        <div name="changePwd">修改密码</div>
+                        <div name="logout">退出</div>
+                    </div>
+                </li>
+            </span>
+        </ul>
+        <script>
+            (function(){
+                function openSysNotifiction(){
+                    popup.openIframe('系统通知', '${ctx!}/systemNotification', '700px', '400px');
+                    /* 移除未读消息数小红点，此处并不合理 */
+                    $('#unreadSpan').addClass('hid');
+                }
+                function openEditInfoForm() {
+                    popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '560px');
+                }
+                function openChangePwdForm(){
+                    popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '380px');
+                }
+                function logout(){
+                    var logoutUrl = '${ctx!}/logout';
+                    window.location.href=logoutUrl;
+                }
 
-                    var opeMenu = $('#opeMenu').menubutton({ menu: '#opeMenuItem' });
-                    $(opeMenu.menubutton('options').menu).menu({
-                        onClick: function (item) {
-                            switch (item.name){
-                                case 'viewNotification':  openSysNotifiction() ;break;
-                                case 'editInfo':  openEditInfoForm() ;break;
-                                case 'changePwd': openChangePwdForm() ;break;
-                                case 'logout': logout() ;break;
-                            }
+                var opeMenu = $('#opeMenu').menubutton({ menu: '#opeMenuItem' });
+                $(opeMenu.menubutton('options').menu).menu({
+                    onClick: function (item) {
+                        switch (item.name){
+                            case 'viewNotification':  openSysNotifiction() ;break;
+                            case 'editInfo':  openEditInfoForm() ;break;
+                            case 'changePwd': openChangePwdForm() ;break;
+                            case 'logout': logout() ;break;
                         }
-                    })
-                })();
-            </script>
-        </span>
+                    }
+                })
+            })();
+        </script>
     </div>
     <div cls="sidebar" data-options="region:'west',split:false" title="&nbsp;&nbsp;功能导航" style=" width:200px;">
         <div class="pure-form" style="text-align: center;padding: 10px 0px;">

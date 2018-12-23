@@ -16,7 +16,7 @@
           toolbar="#tb" rownumbers="true" border="false"
           fitColumns="false" nowrap="false"
           fit="true" pagination="true"
-          ctrlSelect="true"  striped="true"
+          ctrlSelect="true"  striped="false"
           pageSize="40" pageList="[10,20,40,80]">
        <thead>
        <tr>
@@ -30,7 +30,6 @@
        </thead>
     </table>
     <div id="tb">
-
         <a onclick="deleteModel('dg','${ctx!}/sysServiceLog/deleteAction')" href="#" class="easyui-linkbutton  "
            iconCls="iconfont icon-delete" plain="true">删除</a>
         <span id="searchSpan" class="searchInputArea">

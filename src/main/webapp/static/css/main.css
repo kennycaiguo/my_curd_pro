@@ -2,50 +2,66 @@
 
 /* -------- 顶部 导航栏 -------------- */
 .mainHeader {
-    height: 45px;
-    color: #FAFAFA;
+    height: 50px;
+    overflow: hidden;
 }
-.mainHeader  .header-text {
-    color: #fff;
-    font-weight: bold;
-    padding-left: 20px;
-    font-size: 20px;
-    line-height: 45px;
-}
-.mainHeader .header-menu {
-    position: absolute;
-    right: 10px;
-    line-height: 40px;
-}
+
 .mainHeader .pure-button {
-    padding: 5px 8px;
-    margin: 5px 2px;
+    padding: 8px 8px;
+    margin: 6px 0px 4px 0px;
 }
-.mainHeader a.pure-button:hover {
+.mainHeader .pure-button:hover{
+    border: none !important;
+}
+
+.mainHeader ul.headerMenu {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+}
+
+.mainHeader ul.headerMenu li {
+    float: left;
+}
+
+.mainHeader ul.headerMenu span.right {
+    float: right;
+}
+
+.mainHeader ul.headerMenu li a {
+    display: block;
+    padding: 16px 14px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
     text-decoration: none;
 }
 
-.unreadCount{
-    border-radius: 100%;
-    padding: 1px 3px;
-    background-color: #ff2222;
-    color:white;
+.mainHeader ul.headerMenu li a.title {
+    padding: 12px 0px;
+    font-size:18px;
+    font-weight: bold;
 }
-.unreadCount.hid{
+
+
+.unreadCount.hid {
     display: none;
 }
 
 
+
 /*左侧边栏*/
-.sidebar .panel-header,.sidebar .panel-body{
+.sidebar .panel-header, .sidebar .panel-body {
     /*background-color: #f5f5f5;*/
     /*background-color: #fbfbfb;*/
     background-color: #ffffff;
 }
-.sidebar .panel-header{
-    border-top: none;
-}
 
+.sidebar .panel-header {
+    /*border-top: none;*/
+}
 
 /* -------- 中部 tab 组 -------------- */
 /*tab iframe 两个滚动条问题*/
@@ -53,7 +69,7 @@
     overflow: hidden;
 }
 
-#tabGroup .iconfont{
-    line-height:16px;
-    font-size: 16px ;
+#tabGroup .iconfont {
+    line-height: 16px;
+    font-size: 16px;
 }

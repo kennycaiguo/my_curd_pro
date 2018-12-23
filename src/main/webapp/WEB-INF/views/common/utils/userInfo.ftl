@@ -5,16 +5,17 @@
     .card table{
         width: 100%;
     }
-    .card .avatar {
-        width: 100px;
-        border: 1px solid #eee;
-        border-radius: 100%;
+    .card .avatarWrap {
+        width: 80px;
+        height: 80px;
         margin: 0 auto;
+        overflow: hidden;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
         transition: .3s;
-    }
-    .card .avatar:hover{
-        border:1px solid #fff;
-        box-shadow: 0 0 10px #ffffff;
+        -webkit-transition: .3s;
+        -moz-transition: .3s;
     }
     .card table.lsrm tr > td{
         font-size: 14px;
@@ -26,14 +27,14 @@
           <tbody>
           <tr>
               <td colspan="2" style="background-color: #eee;">
-             <#if (sysUser.gender)=='M' >
-                 <img src="${ctx!}${(sysUser.avatar)!'/static/image/male.jpg'}" class="pure-img avatar"
-                      alt="${(sysUser.username)!} avatar">
-             </#if>
-              <#if (sysUser.gender)=='F' >
-                 <img src="${ctx!}${(sysUser.avatar)!'/static/image/female.jpg'}" class="pure-img avatar"
-                      alt="${(sysUser.username)!} avatar">
-              </#if>
+                  <div class="avatarWrap">
+                       <#if (sysUser.gender)=='M' >
+                             <img src="${ctx!}/${(sysUser.avatar)!'static/image/male.jpg'}" class="pure-img" alt="${(sysUser.username)!} avatar">
+                       </#if>
+                       <#if (sysUser.gender)=='F' >
+                         <img src="${ctx!}/${(sysUser.avatar)!'static/image/female.jpg'}" class="pure-img" alt="${(sysUser.username)!} avatar">
+                       </#if>
+                  </div>
               </td>
           </tr>
           <tr>

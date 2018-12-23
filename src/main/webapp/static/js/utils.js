@@ -33,13 +33,14 @@ function exitFullScreen() {
         }
     }
 }
-function fullScreenToggleNew(obj) {
-    if ($(obj).hasClass('full')) {
+function fullScreenToggleNew() {
+    var btn = $('ul.headerMenu li a.title').first();
+    if (btn.hasClass('full')) {
         exitFullScreen();
-        $(obj).removeClass('full').attr('title', '点击全屏');
+        btn.removeClass('full').attr('title', '点击全屏');
     } else {
         fullScreen();
-        $(obj).addClass('full').attr('title', '点击退出全屏');
+        btn.addClass('full').attr('title', '点击退出全屏');
     }
 }
 

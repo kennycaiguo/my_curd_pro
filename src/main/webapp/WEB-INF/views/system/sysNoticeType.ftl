@@ -5,7 +5,7 @@
        toolbar="#tb" rownumbers="true" border="false"
        fit="true"    fitColumns="true"
        nowrap="false"
-       striped="true"
+       striped="false"
        pagination="true"
        ctrlSelect="true"
        pageSize="40" pageList="[20,40]">
