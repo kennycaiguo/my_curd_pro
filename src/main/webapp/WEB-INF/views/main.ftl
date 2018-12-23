@@ -5,7 +5,7 @@
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
         <ul class="headerMenu">
-            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">综合业务平台</a></li>
+            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">my_curd_pro</a></li>
             <li><a href="#" class="active">首页</a></li>
             <li><a href="#">云笔记</a></li>
             <span class="right">

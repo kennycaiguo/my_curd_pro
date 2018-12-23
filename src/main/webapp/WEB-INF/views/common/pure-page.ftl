@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="${ctx!}/static/image/favicon.ico"/>
     <title>你好！ ${(username)!}</title>
     <link rel="stylesheet" href="${ctx!}/static/plugins/purecss/pure-min.css">
-    <link rel="stylesheet" href="${ctx!}/static/css/custom-theme.css">
+    <link rel="stylesheet" href="${ctx!}/static/css/custom-theme-green.css">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="${ctx!}/static/plugins/purecss/grids-responsive-old-ie-min.css">
     <![endif]-->
