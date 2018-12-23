@@ -89,6 +89,7 @@ public class SysFileController extends BaseController {
     /**
      * 增加
      */
+    @SuppressWarnings("Duplicates")
     @Clear(PermissionInterceptor.class)
     public void addAction() throws IOException {
         HashMap<String, String> extMap = new HashMap<String, String>();

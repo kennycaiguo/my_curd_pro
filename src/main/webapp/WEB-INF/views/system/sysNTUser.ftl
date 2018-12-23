@@ -1,159 +1,158 @@
 <#include "../common/common.ftl"/> <@layout>
-<style>
-    #tb2 .iconfont {
-        color: #229FF2;
-        font-size: 16px;
-        font-weight: 500;
-    }
-</style>
-<script>
-    $(function () {
-        /* 右侧 enter 搜索监听 */
-        $("#enterSpan2").on("keydown", function (e) {
-            if (e.keyCode == 13) {
-                queryModel2();
-            }
-        });
-    });
-
-    /*左侧 datagrid 选中事件*/
-    function dgOnSelect(index,row){
-        console.log(row.id);
-        $("#notificationTypeId").val(row.id);
-        queryModel2();
-    }
-</script>
 <script type="text/javascript">
-    /*左侧 条件查询*/
-    function queryModel() {
-        var queryParams = {};
-        queryParams['search_LIKE_category'] = $("#category").textbox("getValue");
-        queryParams['search_LIKE_txt'] = $("#txt").textbox("getValue");
-        queryParams['search_LIKE_code'] = $("#code").textbox("getValue");
-        queryParams['search_LIKE_remark'] = $("#remark").textbox("getValue");
-        $('#dg').datagrid('load', queryParams);
+    function dgOnSelect(index,row){
+        $("#sysNoticeTypeId").val(row.ID);
+        $("#searchSpan2 .searchBtn").first().trigger('click')
     }
-    /*右侧侧 条件查询*/
-    function queryModel2(){
-        var queryParams = {};
-        queryParams['search_LIKE_b.username'] = $("#username").textbox("getValue");
-        queryParams['search_LIKE_b.name'] = $("#name").textbox("getValue");
-        queryParams['search_LIKE_c.name'] = $("#orgName").textbox("getValue");
-        queryParams['search_LIKE_b.job'] = $("#job").textbox("getValue");
-        queryParams['search_EQ_a.notification_type_id'] = $("#notificationTypeId").val();
-        $('#dg2').datagrid('load', queryParams);
-    }
-
-
     var winIndex;
-    /* 打开选择角色窗口*/
-    function openSelectRoleModel(){
+    /*打开添加角色弹窗*/
+    function openUtilsUser() {
         var row = $("#dg").datagrid("getSelected");
         if(row==null){
-            popup.msg('请选择一个系统通知类型');
+            popup.msg('请选择一个通知类型');
             return;
-        };
-        winIndex = popup.openIframe('选择用户', '${ctx!}/utils/user?singleSelect=false&yesBtnTxt=关联用户', '800px', '500px');
+        }
+        winIndex = popup.openIframe('关联用户','${ctx!}/utils/user?yesBtnTxt=关联用户', '800px', '500px')
     }
-    /* 保存 选中的用户 和 系统通知类型,此处在 utils/role 中调用*/
-    function saveAction(selectedAry){
+
+    /**
+     * 保存选中的用户，被其它窗口调用
+     * @param roles
+     */
+    function addUsersAction(roles){
         var row = $("#dg").datagrid("getSelected");
         if(row==null){
-            popup.msg('请选择一个系统通知类型');
+            popup.msg('请选择一个通知类型');
             return;
-        };
+        }
         var ids = [];
-        selectedAry.forEach(function(aryItem){
-            ids.push(aryItem.id);
+        roles.forEach(function(aryItem){
+            ids.push(aryItem.ID);
         });
-        $.post('${ctx!}/sysNotificationTypeUser/addAction?userIds=' + ids.join(',')+"&sysNotificationTypeId="+row.id, function (data) {
-            popup.msg(data, function () {
-                $('#dg2').datagrid('reload');
-                layer.close(winIndex);
+        $.post('${ctx!}/sysNTUser/addAction?userIds=' + ids.join(',')+"&sysNoticeTypeId="+row.ID, function (data) {
+            if(data.state=='ok'){
+                popup.msg(data.msg, function () {
+                    $('#dg2').datagrid('reload');
+                    popup.closeByIndex(winIndex);
+                });
+            }else if(data.state=='error'){
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        }, "json").error(function(){ popup.errMsg(); });
+    }
+
+
+    /* 删除 多行 */
+    function deleteNTUs() {
+        var rows = $("#dg2").datagrid("getSelections");
+        if(rows.length==0){
+            popup.msg('请至少选择一行进行删除');
+            return;
+        }
+        popup.openConfirm(null,3, '删除', '您确定要删除选中的'+rows.length+'条记录吗?', function () {
+            var idPairs = [];
+            rows.forEach(function(row){
+                idPairs.push(row.SYS_NOTICE_TYPE_ID+","+row.SYS_USER_ID);
             });
-        }, "text").error(function(){ popup.errMsg(); });
+            $.post('${ctx!}/sysNTUser/deleteAction?idPairs='+ idPairs.join(';'), function (data) {
+                if(data.state==='ok'){
+                    popup.msg(data.msg, function () {
+                        $('#dg2').datagrid('reload');
+                    });
+                }else if(data.state==='error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            }, "json").error(function(){ popup.errMsg(); });
+        });
+    }
+    /* 删除 单行 */
+    function delSingleNTU(sysNoticeTypeId,userId) {
+        var idPairs = [];
+        idPairs.push(sysNoticeTypeId+","+userId);
+        $.post('${ctx!}/sysNTUser/deleteAction?idPairs='+idPairs.join(";") , function (data) {
+            if(data.state=='ok'){
+                popup.msg(data.msg, function () {
+                    $('#dg2').datagrid('reload');
+                });
+            }else if(data.state=='error'){
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        }, "json").error(function(){ popup.errMsg(); });
     }
 </script>
 
 <div id="nestLayout" class="easyui-layout" fit="true"   >
-    <div data-options="region:'west' " split="true"   style="width:600px;border-top: none;">
-        <table id="dg" class="easyui-datagrid" title="系统通知类型"
-               url="${ctx!}/sysNotificationType/query"
+    <div data-options="region:'west' " split="true" title="通知类型"   style="width:600px;"  headerCls="borderTopNone">
+        <table id="dg" class="easyui-datagrid"  url="${ctx!}/sysNoticeType/query"
                toolbar="#tb" rownumbers="true" border="false"
                data-options="onSelect:dgOnSelect"
                fit="true"    fitColumns="true"
-               striped="false"
-               singleSelect="true"
-               pagination="true"
-               nowrap="false"
+               striped="false" singleSelect="true"
+               pagination="true"  nowrap="false"
                pageSize="40" pageList="[20,40]">
             <thead>
             <tr>
-                <th field="category" width="200">分类</th>
-                <th field="txt" width="200">名称</th>
-                <th field="code" width="200">编码</th>
-                <th field="remark" width="400">备注</th>
+                <th field="CATE" width="200">分类</th>
+                <th field="NAME" width="200">名称</th>
+                <th field="CODE" width="200">编码</th>
+            <#--<th field="REMARK" width="400">备注</th>-->
             </tr>
             </thead>
         </table>
         <div id="tb" style="text-align: center">
-            <span id="enterSpan" >
-                <input id="category" prompt="分类" class="easyui-textbox" style="width:120px; ">
-                <input id="txt" prompt="名称" class="easyui-textbox" style="width:120px; ">
-                <input id="code" prompt="编码" class="easyui-textbox" style="width:120px; ">
-                <input id="remark" prompt="备注" class="easyui-textbox" style="width:120px; ">
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'iconfont icon-search',plain:true" onclick="queryModel()">搜索</a>
-            </span>
+            <div  id="searchSpan" class="searchInputAreaDiv" style="text-align: center;">
+                <input name="search_LIKE_CATE" prompt="分类" class="easyui-textbox" style="width:120px; ">
+                <input name="search_LIKE_NAME" prompt="名称" class="easyui-textbox" style="width:120px; ">
+                <input name="search_LIKE_CODE" prompt="编码" class="easyui-textbox" style="width:120px; ">
+                <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true"
+                   onclick="queryModel('dg','searchSpan')">搜索</a>
+            </div>
         </div>
     </div>
 
-    <div data-options="region:'center' " split="true"   collapsed="false"  style="border-top: none;">
+    <div data-options="region:'center' " split="true"   collapsed="false"   headerCls="borderTopNone">
         <table id="dg2" class="easyui-datagrid" title="已关联用户"
-               url="${ctx!}/sysNotificationTypeUser/query"
+               url="${ctx!}/sysNTUser/query"
                toolbar="#tb2" rownumbers="true" border="false"
                fit="true"    fitColumns="true"
-               striped="false"
-               singleSelect="true"
-               pagination="true"
-               pageSize="40" pageList="[20,40]">
+               striped="false" ctrlSelect="true"
+               pagination="true"  pageSize="40" pageList="[20,40]">
             <thead>
             <tr>
-                <th field="category" width="100">通知分类</th>
-                <th field="txt" width="100">通知类型</th>
-                <th  field="username" width="100">登录名</th>
-                <th  field="name" width="100">姓名</th>
-                <th field="org_name" width="150">部门</th>
-                <th field="job" width="100">职务</th>
-                <th field="user_id" width="200" formatter="deleteFmt">操作</th>
+                <th data-options="field:'SYS_NOTICE_TYPE_ID',checkbox:true"></th>
+                <th field="CATE" width="100">类型分类</th>
+                <th field="NAME" width="200">类型名</th>
+                <th field="CODE" width="200">类型编码</th>
+                <th field="USERNAME" width="200" formatter="usernameFmt">用户名</th>
+                <th field="SYS_USER_ID" width="200" formatter="deleteFmt">操作</th>
             </tr>
             </thead>
         </table>
         <div id="tb2">
-            <a onclick="openSelectRoleModel()" href="#" class="easyui-linkbutton" iconCls="iconfont icon-add" plain="true">关联用户</a>
-            <span id="enterSpan2" class="searchInputArea">
-                <input id="username" prompt="登录名" class="easyui-textbox" style="width:120px">
-                <input id="name" prompt="姓名" class="easyui-textbox" style="width:120px">
-                <input id="orgName" prompt="部门" class="easyui-textbox" style="width:120px">
-                <input id="job" prompt="职务" class="easyui-textbox" style="width:120px">
-                <input id="notificationTypeId" type="hidden" >
-              <a href="#" class="easyui-linkbutton" data-options="iconCls:'iconfont icon-search',plain:true" onclick="queryModel2()">搜索</a>
+            <a onclick="openUtilsUser()" href="#" class="easyui-linkbutton" iconCls="iconfont icon-add" plain="true">添加</a>
+            <a onclick="deleteNTUs()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-delete" plain="true">删除</a>
+            <span id="searchSpan2" class="searchInputArea">
+                <input name="search_LIKE_c.USERNAME" prompt="用户名" class="easyui-textbox" style="width:120px; ">
+                <input name="search_LIKE_c.NAME" prompt="用户姓名" class="easyui-textbox" style="width:120px; ">
+                <input id="sysNoticeTypeId" name="search_EQS_a.SYS_NOTICE_TYPE_ID" type="hidden" >
+                <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true" onclick="queryModel('dg2','searchSpan2')">搜索</a>
             </span>
         </div>
     </div>
 </div>
+<script src="${ctx!}/static/js/dg-curd.js"></script>
 <script>
-    /* 删除 单行 */
-    function deleteNotificationTypeUser(notification_type_id,userId) {
-        $.get('${ctx!}/sysNotificationTypeUser/deleteAction?sysNotificationTypeId='+notification_type_id+"&userId="+userId , function (data) {
-            popup.msg(data, function () {
-                $('#dg2').datagrid('reload');
-            });
-        }, "text").error(function(){ popup.errMsg(); });
-    };
     function deleteFmt(val,row){
-        var notification_type_id = row.notification_type_id;
-        var userId = row.user_id;
-        return '<a href="javascript:deleteNotificationTypeUser(\''+notification_type_id+'\',\''+userId+'\')">删除</a>'
-    };
+        return '<a href="javascript:delSingleNTU(\''+row.SYS_NOTICE_TYPE_ID+'\',\''+row.SYS_USER_ID+'\')">删除</a>'
+    }
+    function usernameFmt(val,row) {
+        return '<a title="点击查看人员信息" href="javascript:userInfo(\'${ctx!}\',\''+val+'\')" >'+val+'</a>';
+    }
 </script>
 </@layout>

@@ -14,10 +14,9 @@
     <table id="dg" class="easyui-datagrid"
           url="${ctx!}/sysServiceLog/query"
           toolbar="#tb" rownumbers="true" border="false"
-          fitColumns="false"
+          fitColumns="false" nowrap="false"
           fit="true" pagination="true"
-          ctrlSelect="true"
-          striped="true"
+          ctrlSelect="true"  striped="true"
           pageSize="40" pageList="[10,20,40,80]">
        <thead>
        <tr>

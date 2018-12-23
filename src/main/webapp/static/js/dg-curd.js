@@ -109,10 +109,10 @@ function saveAction(formId,type,dgId){
                 // 成功信息
                 popup.msg(data.msg, function () {
                     if(type==='reload'){
-                        window.parent.frames[sessionStorage.getItem("iframeId")].$("#"+dgId).datagrid("reload");
+                        top.frames[sessionStorage.getItem("iframeId")].$("#"+dgId).datagrid("reload");
                     }
                     if(type==='refresh'){
-                        window.parent.frames[sessionStorage.getItem("iframeId")].window.location.reload();
+                        top.frames[sessionStorage.getItem("iframeId")].window.location.reload();
                     }
                     popup.close(window.name);
                 });

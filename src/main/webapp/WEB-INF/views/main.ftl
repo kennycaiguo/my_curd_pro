@@ -2,8 +2,6 @@
 <@layout>
 <#include "common/popup.ftl"/>
 <link rel="stylesheet" href="${ctx!}/static/css/main.css">
-</head>
-<body>
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
         <span class="header-text" onclick="fullScreenToggleNew(this)" title="点击全屏" >综合业务平台</span>
@@ -19,15 +17,14 @@
                 (function(){
                     function openSysNotifiction(){
                         popup.openIframe('系统通知', '${ctx!}/systemNotification', '700px', '400px');
-
                         /* 移除未读消息数小红点，此处并不合理 */
                         $('#unreadSpan').addClass('hid');
                     }
                     function openEditInfoForm() {
-                        popup.openIframe('修改用户信息', '${ctx!}/userInfo', '560px', '600px');
+                        popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '560px');
                     }
                     function openChangePwdForm(){
-                        popup.openIframe('修改密码', '${ctx!}/userPassword', '560px', '400px');
+                        popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '380px');
                     }
                     function logout(){
                         var logoutUrl = '${ctx!}/logout';
@@ -65,10 +62,6 @@
             <div data-options="name:1">关闭</div>
             <div data-options="name:2">关闭其它</div>
             <div data-options="name:3">关闭所有</div>
-           <#--
-            <div class="menu-sep"></div>
-            <div data-options="name:4">打开新页面</div>
-            -->
         </div>
     </div>
 </div>

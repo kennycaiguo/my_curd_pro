@@ -1,11 +1,13 @@
 package com.mycurdpro.system.controller;
 
 import com.jfinal.aop.Before;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.model.SysNoticeTypeSysRole;
 
@@ -64,12 +66,18 @@ public class SysNTRoleController extends BaseController {
      */
     @Before(Tx.class)
     public void deleteAction() {
-        String sysNoticeTypeId = getPara("sysNoticeTypeId");
-        String roleId = getPara("roleId");
-        if (SysNoticeTypeSysRole.dao.deleteById(sysNoticeTypeId, roleId)) {
-            renderSuccess(Constant.DELETE_SUCCESS);
-        } else {
-            renderFail(Constant.DELETE_FAIL);
+        // ,; 格式
+        String idPairs = getPara("idPairs");
+        if(StringUtils.isEmpty( idPairs) ){
+            renderFail("参数不可为空");
+            return;
         }
+        String[] idPairAry = idPairs.split(";");
+        String[] idAry;
+        for(String idPair:idPairAry){
+            idAry = idPair.split(",");
+            SysNoticeTypeSysRole.dao.deleteById(idAry[0],idAry[1]);
+        }
+        renderSuccess(Constant.DELETE_SUCCESS);
     }
 }

@@ -45,10 +45,9 @@ public class LoginController extends BaseController {
         // cookie username password 存在
         if (StringUtils.notEmpty(username) && StringUtils.notEmpty(password)) {
             SysUser sysUser = SysUser.dao.findByUsernameAndPassword(username, password);
-            if (Objects.equal("0", sysUser.getUserState())) {
+            if (sysUser!=null && "0".equals(sysUser.getUserState())) {
                 sysUser.setLastLoginTime(new Date());
                 sysUser.update();
-
                 // session 中放入登录用户信息 TODO 更好的方案
                 setSessionAttr(Constant.SYS_USER, sysUser);
                 setSessionAttr(Constant.SYS_USER_NAME, sysUser.getName());

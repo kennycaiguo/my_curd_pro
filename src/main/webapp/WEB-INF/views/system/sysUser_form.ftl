@@ -32,7 +32,7 @@
             <td>性别：</td>
             <td>
                 <input name="gender" value="${(sysUser.gender)!}" class="easyui-combobox"
-                       data-options="required:true,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=gender'">
+                       data-options="required:false,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=gender'">
             </td>
         </tr>
         <tr>

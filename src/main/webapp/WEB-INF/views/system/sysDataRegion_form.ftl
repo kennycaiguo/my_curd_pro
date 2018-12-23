@@ -14,7 +14,7 @@
                 if(data.state === 'ok'){
                     popup.msg(data.msg, function () {
                         /*只刷新部分*/
-                        window.parent.frames[sessionStorage.getItem("iframeId")].$("#tg").treegrid("reload",$('#parentId').numberbox('getValue'));
+                        top.frames[sessionStorage.getItem("iframeId")].$("#tg").treegrid("reload",$('#parentId').numberbox('getValue'));
                         popup.close(window.name);
                     });
                 }else if(data.state === 'error'){

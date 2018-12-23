@@ -12,7 +12,7 @@
            return;
         }
         /*通过 iframe id  获得 窗口 并调用其方法*/
-        window.parent.frames[sessionStorage.getItem("iframeId")].addRolesAction(ary);
+        top.frames[sessionStorage.getItem("iframeId")].addRolesAction(ary);
     }
 </script>
 <table id="dg" class="easyui-datagrid"
@@ -25,7 +25,7 @@
        fit="true" pagination="true">
     <thead>
     <tr>
-        <#if singleSelect=="false"><th data-options="field:'id',checkbox:true"></th></#if>
+        <#if singleSelect=="false"><th data-options="field:'ID',checkbox:true"></th></#if>
         <th field="NAME" width="100">名称</th>
         <th field="CODE" width="100">编码</th>
         <#--<th field="DESCRIPTION" width="200">角色描述</th>-->

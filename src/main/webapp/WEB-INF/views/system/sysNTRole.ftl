@@ -14,7 +14,6 @@
         }
         winIndex = popup.openIframe('关联角色','${ctx!}/utils/role?yesBtnTxt=关联角色', '500px', '400px')
     }
-
     /**
      * 保存选中的角色，被其它窗口调用
      * @param roles
@@ -42,10 +41,52 @@
             }
         }, "json").error(function(){ popup.errMsg(); });
     }
+
+    /* 删除 多行 */
+    function deleteNTRs() {
+        var rows = $("#dg2").datagrid("getSelections");
+        if(rows.length==0){
+            popup.msg('请至少选择一行进行删除');
+            return;
+        }
+        popup.openConfirm(null,3, '删除', '您确定要删除选中的'+rows.length+'条记录吗?', function () {
+            var idPairs = [];
+            rows.forEach(function(row){
+                idPairs.push(row.SYS_NOTICE_TYPE_ID+","+row.SYS_ROLE_ID);
+            });
+            $.post('${ctx!}/sysNTRole/deleteAction?idPairs='+ idPairs.join(';'), function (data) {
+                if(data.state==='ok'){
+                    popup.msg(data.msg, function () {
+                        $('#dg2').datagrid('reload');
+                    });
+                }else if(data.state==='error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            }, "json").error(function(){ popup.errMsg(); });
+        });
+    }
+    /* 删除 单行 */
+    function delSingleNTR(sysNoticeTypeId,roleId) {
+        var idPairs = [];
+        idPairs.push(sysNoticeTypeId+","+roleId);
+        $.post('${ctx!}/sysNTRole/deleteAction?idPairs='+ idPairs.join(';'), function (data) {
+            if(data.state=='ok'){
+                popup.msg(data.msg, function () {
+                    $('#dg2').datagrid('reload');
+                });
+            }else if(data.state=='error'){
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        },"json").error(function(){ popup.errMsg(); });
+    }
 </script>
 
 <div id="nestLayout" class="easyui-layout" fit="true"   >
-    <div data-options="region:'west' " split="true"   style="width:600px;border-top: none;">
+    <div data-options="region:'west' " split="true" title="通知类型"   style="width:600px;" headerCls="borderTopNone">
         <table id="dg" class="easyui-datagrid"  url="${ctx!}/sysNoticeType/query"
                toolbar="#tb" rownumbers="true" border="false"
                data-options="onSelect:dgOnSelect"
@@ -73,17 +114,16 @@
         </div>
     </div>
 
-    <div data-options="region:'center' " split="true"   collapsed="false"  style="border-top: none;">
+    <div data-options="region:'center' " split="true" title="已关联角色"   collapsed="false"  headerCls="borderTopNone">
         <table id="dg2" class="easyui-datagrid"
                url="${ctx!}/sysNTRole/query"
                toolbar="#tb2" rownumbers="true" border="false"
                fit="true"    fitColumns="true"
-               striped="false"
-               singleSelect="true"
-               pagination="true"
-               pageSize="40" pageList="[20,40]">
+               striped="false"  ctrlSelect="true"
+               pagination="true"  pageSize="40" pageList="[20,40]">
             <thead>
             <tr>
+                <th data-options="field:'SYS_NOTICE_TYPE_ID',checkbox:true"></th>
                 <th field="CATE" width="100">类型分类</th>
                 <th field="NAME" width="200">类型名</th>
                 <th field="CODE" width="200">类型编码</th>
@@ -94,7 +134,8 @@
             </thead>
         </table>
         <div id="tb2">
-            <a onclick="openUtilsRole()" href="#" class="easyui-linkbutton" iconCls="iconfont icon-add" plain="true">关联角色</a>
+            <a onclick="openUtilsRole()" href="#" class="easyui-linkbutton" iconCls="iconfont icon-add" plain="true">添加</a>
+            <a onclick="deleteNTRs()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-delete" plain="true">删除</a>
             <span id="searchSpan2" class="searchInputArea">
                 <input name="search_LIKE_b.NAME" prompt="角色名" class="easyui-textbox" style="width:120px; ">
                 <input name="search_LIKE_b.CODE" prompt="角色编码" class="easyui-textbox" style="width:120px; ">
@@ -107,22 +148,8 @@
 </div>
 <script src="${ctx!}/static/js/dg-curd.js"></script>
 <script>
-    /* 删除 单行 */
-    function deleteNoticeTypeRole(sysNoticeTypeId,roleId) {
-        $.post('${ctx!}/sysNTRole/deleteAction?sysNoticeTypeId='+sysNoticeTypeId+"&roleId="+roleId , function (data) {
-            if(data.state=='ok'){
-                popup.msg(data.msg, function () {
-                    $('#dg2').datagrid('reload');
-                });
-            }else if(data.state=='error'){
-                popup.errMsg('系统异常',data.msg);
-            }else{
-                popup.msg(data.msg);
-            }
-        },"json").error(function(){ popup.errMsg(); });
-    }
     function deleteFmt(val,row){
-        return '<a href="javascript:deleteNoticeTypeRole(\''+row.SYS_NOTICE_TYPE_ID+'\',\''+row.SYS_ROLE_ID+'\')">删除</a>'
+        return '<a href="javascript:delSingleNTR(\''+row.SYS_NOTICE_TYPE_ID+'\',\''+row.SYS_ROLE_ID+'\')">删除</a>'
     }
 </script>
 </@layout>

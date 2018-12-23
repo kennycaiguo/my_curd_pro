@@ -23,9 +23,10 @@ public class SysNoticeTypeSysUser extends BaseSysNoticeTypeSysUser<SysNoticeType
      * @return
      */
     public Page<SysNoticeTypeSysUser> page(int pageNumber, int pageSize, String where) {
-        String sqlSelect = " SELECT  a.*,b.name,b.code,b.remark  ";
+        String sqlSelect = " SELECT  a.*,b.name,b.code,b.cate, c.username   ";
         String sqlExceptSelect = " FROM sys_notice_type_sys_user a " +
-                " LEFT JOIN sys_notice_type b ON a.sys_notice_type_id = b.id  ";
+                " LEFT JOIN sys_notice_type b ON a.sys_notice_type_id = b.id  " +
+                " LEFT JOIN sys_user c ON a.sys_user_id = c.id ";
         if (StrKit.notBlank(where)) {
             sqlExceptSelect += " where " + where;
         }

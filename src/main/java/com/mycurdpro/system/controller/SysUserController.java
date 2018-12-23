@@ -30,6 +30,7 @@ public class SysUserController extends BaseController {
     /**
      * datagrid 数据
      */
+    @SuppressWarnings("Duplicates")
     @Before(SearchSql.class)
     public void query() {
         int pageNumber = getAttr("pageNumber");
