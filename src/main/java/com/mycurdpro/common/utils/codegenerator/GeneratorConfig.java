@@ -33,25 +33,25 @@ public class GeneratorConfig {
     final static String moduleName = "system";
     // 要生成代码的表名
     final static Set<String> tableNames = new LinkedHashSet<String>() {{
-//        add("SYS_USER");
-//        add("SYS_USER_ROLE");
-//        add("SYS_ROLE");
-//        add("SYS_MENU");
-//        add("SYS_ROLE_MENU");
-//        add("SYS_ROLE_INCODE");
-//        add("SYS_USER_ROLEINCODE");
-//        add("SYS_ORG");
+        add("SYS_USER");
+        add("SYS_USER_ROLE");
+        add("SYS_ROLE");
+        add("SYS_MENU");
+        add("SYS_ROLE_MENU");
+        add("SYS_ROLE_INCODE");
+        add("SYS_USER_ROLEINCODE");
+        add("SYS_ORG");
         add("SYS_NOTICE_TYPE");
-//        add("SYS_NOTICE_TYPE_SYS_ROLE");
-//        add("SYS_NOTICE_TYPE_SYS_USER");
-//        add("SYS_NOTICE");
-//        add("SYS_NOTICE_DETAIL");
-//        add("SYS_DICT");
-//        add("SYS_DICT_GROUP");
-//        add("SYS_FILE");
-//        add("SYS_SERVICE_LOG");
-//        add("SYS_VISIT_LOG");
-//          add("SYS_DATA_REGION");
+        add("SYS_NOTICE_TYPE_SYS_ROLE");
+        add("SYS_NOTICE_TYPE_SYS_USER");
+        add("SYS_NOTICE");
+        add("SYS_NOTICE_DETAIL");
+        add("SYS_DICT");
+        add("SYS_DICT_GROUP");
+        add("SYS_FILE");
+        add("SYS_SERVICE_LOG");
+        add("SYS_VISIT_LOG");
+          add("SYS_DATA_REGION");
     }};
 
     // 模板文件基础路径

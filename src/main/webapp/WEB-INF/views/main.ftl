@@ -7,10 +7,10 @@
         <ul class="headerMenu">
             <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">my_curd_pro</a></li>
             <li><a href="#" class="active">首页</a></li>
-            <li><a href="#">云笔记</a></li>
+            <li><a href="#">在线交流</a></li>
             <span class="right">
                 <li>
-                    <a href="#"   title="点击查看通知">
+                    <a href="javascript:openUserNotice()"   title="点击查看通知">
                         <i class="iconfont icon-bell"></i> 13
                     </a>
                 </li>
@@ -25,16 +25,16 @@
             </span>
         </ul>
         <script>
+            function openUserNotice(){
+                popup.openIframeNoResize('用户通知', '${ctx!}/dashboard/userNotice', '900px', '600px');
+                /* 移除未读消息数小红点，此处并不合理 */
+                /* $('#unreadSpan').addClass('hid');*/
+            }
             (function(){
-                function openSysNotifiction(){
-                    popup.openIframe('系统通知', '${ctx!}/systemNotification', '700px', '400px');
-                    /* 移除未读消息数小红点，此处并不合理 */
-                    $('#unreadSpan').addClass('hid');
-                }
-                function openEditInfoForm() {
+                function openUserInfoEdit() {
                     popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '560px');
                 }
-                function openChangePwdForm(){
+                function openUserPwdChange(){
                     popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '380px');
                 }
                 function logout(){
@@ -46,9 +46,8 @@
                 $(opeMenu.menubutton('options').menu).menu({
                     onClick: function (item) {
                         switch (item.name){
-                            case 'viewNotification':  openSysNotifiction() ;break;
-                            case 'editInfo':  openEditInfoForm() ;break;
-                            case 'changePwd': openChangePwdForm() ;break;
+                            case 'editInfo':  openUserInfoEdit() ;break;
+                            case 'changePwd': openUserPwdChange() ;break;
                             case 'logout': logout() ;break;
                         }
                     }

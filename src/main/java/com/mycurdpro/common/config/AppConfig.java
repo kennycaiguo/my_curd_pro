@@ -21,6 +21,7 @@ import com.mycurdpro.LoginController;
 import com.mycurdpro.MainController;
 import com.mycurdpro.common.interceptor.ExceptionInterceptor;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
+import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.UtilsController;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
@@ -95,8 +96,9 @@ public class AppConfig extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
-        me.addGlobalActionInterceptor(new LoginInterceptor());     // 登录
-        me.addGlobalActionInterceptor(new ExceptionInterceptor()); // 异常，访问日志
+        me.addGlobalActionInterceptor(new ExceptionInterceptor());   // 异常，访问日志
+        me.addGlobalActionInterceptor(new LoginInterceptor());       // 登录
+        me.addGlobalActionInterceptor(new PermissionInterceptor());  // 权限菜单
     }
 
     @Override

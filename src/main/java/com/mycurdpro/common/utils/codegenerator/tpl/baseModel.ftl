@@ -16,10 +16,7 @@ import ${(necessaryImport)!};
  * @author ${(author)!'Generator'}
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class Base${(tableMeta.nameCamelFirstUp)!}
-<M extends Base${(tableMeta.nameCamelFirstUp)!}
-<M>> extends Model
-    <M> implements IBean {
+public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tableMeta.nameCamelFirstUp)!}<M>> extends Model<M> implements IBean {
     <#-- get set 方法 -->
 <#if (tableMeta.columnMetas)??>
     <#list tableMeta.columnMetas as column>
@@ -44,4 +41,4 @@ public abstract class Base${(tableMeta.nameCamelFirstUp)!}
      }
     </#list>
 </#if>
-        }
+}

@@ -10,10 +10,7 @@ import com.jfinal.plugin.activerecord.IBean;
  * @author zhangchuang
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class BaseSysDataRegion
-<M extends BaseSysDataRegion
-<M>> extends Model
-    <M> implements IBean {
+public abstract class BaseSysDataRegion<M extends BaseSysDataRegion<M>> extends Model<M> implements IBean {
 
 
      // 
@@ -158,4 +155,4 @@ public abstract class BaseSysDataRegion
         set("HAS_DISABLE", hasDisable);
         return (M)this;
      }
-        }
+}

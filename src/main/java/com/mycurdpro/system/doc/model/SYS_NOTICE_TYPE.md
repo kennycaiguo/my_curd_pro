@@ -2,7 +2,7 @@
 | No.  | Field  | Type  | Nullable  | Key | Default | Remarks |
 | :------------: | ------------ | ------------ | :------------: | ------------ | ------------ | ------------ |
 | 1 | ID |  VARCHAR2(30) | ✘  | PRI  |   | 主键id  |
-| 2 | CATE |  VARCHAR2(50) | ✘  |   |   | 分类编码  |
+| 2 | CATE |  VARCHAR2(50) | ✘  |   |   | 分类  |
 | 3 | NAME |  VARCHAR2(50) | ✘  |   |   | 名称  |
 | 4 | CODE |  VARCHAR2(20) | ✘  |   |   | 消息编码  |
 | 5 | LOGO |  VARCHAR2(200) | ✘  |   |   | LOGO图标  |

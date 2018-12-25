@@ -12,6 +12,11 @@ public class Constant {
     // session 中存储的 SysUser.name 的 KEY名 (用于druid session 监控)
     public final static String SYS_USER_NAME = "SYS_USER_NAME";
 
+    // 用户拥有的菜单
+    public final static String SYS_USER_MENU = "SYS_USER_MENU";
+    // 用户拥有的
+    public final static String SYS_USER_INCODE_ROLE="SYS_USER_INCODE_ROLE";
+
     // 项目默认编码
     public final static String DEFAULT_ENCODEING = "UTF-8";
     // 查询 过滤器 使用

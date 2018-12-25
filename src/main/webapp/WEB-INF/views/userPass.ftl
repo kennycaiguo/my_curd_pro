@@ -12,7 +12,7 @@
                 <input class="pure-input-1" id="newPwd" name="newPwd" type="password" placeholder="新密码">
                 <input class="pure-input-1" id="reNewPwd" name="reNewPwd" type="password" placeholder="重复新密码">
             </fieldset>
-            <button id="subBtn" type="button" class="pure-button pure-input-1 pure-button-primary">修改</button>
+            <button id="subBtn" type="button" class="pure-button button-small pure-input-1 pure-button-primary">修改</button>
         </form>
     </div>
 </div>

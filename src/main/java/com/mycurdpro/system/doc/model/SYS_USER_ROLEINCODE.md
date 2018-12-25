@@ -3,7 +3,7 @@
 | :------------: | ------------ | ------------ | :------------: | ------------ | ------------ | ------------ |
 | 1 | SYS_USER_ID |  VARCHAR2(30) | ✘  | PRI  |   | 用户id  |
 | 2 | SYS_ROLEINCODE_ID |  VARCHAR2(30) | ✘  | PRI  |   | 角色id  |
-| 3 | CREATER |  VARCHAR2(50) | ✔  |   |   | 创建人  |
-| 4 | CREATE_TIME |  DATE(7) | ✔  |   |   | 创建时间  |
+| 3 | CREATER |  VARCHAR2(50) | ✘  |   |   | 创建人  |
+| 4 | CREATE_TIME |  DATE(7) | ✘  |   |   | 创建时间  |
 
 

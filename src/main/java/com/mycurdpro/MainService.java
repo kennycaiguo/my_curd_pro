@@ -9,16 +9,7 @@ import java.util.*;
 
 public class MainService {
 
-    public String findRoleIdsByUserId(String userId) {
-        String sql = "select WM_CONCAT(c.ID) as ROLE_IDS" +
-                "  from sys_user a, sys_user_role b,sys_role c " +
-                "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
-        Record record = Db.findFirst(sql, userId);
-        if (record == null) {
-            return null;
-        }
-        return record.getStr("role_IDS");
-    }
+
 
 
     /**
@@ -54,6 +45,23 @@ public class MainService {
             return 0;
         });
         return userMenuList;
+    }
+
+
+    /**
+     * 通过用户id查询 角色
+     * @param userId
+     * @return
+     */
+    public String findRoleIdsByUserId(String userId) {
+        String sql = "select WM_CONCAT(c.ID) as ROLE_IDS" +
+                "  from sys_user a, sys_user_role b,sys_role c " +
+                "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
+        Record record = Db.findFirst(sql, userId);
+        if (record == null) {
+            return null;
+        }
+        return record.getStr("role_IDS");
     }
 
     /**

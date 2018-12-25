@@ -2,13 +2,13 @@
 
 /* -------- 顶部 导航栏 -------------- */
 .mainHeader {
-    height: 50px;
+    height: 42px;
     overflow: hidden;
 }
 
 .mainHeader .pure-button {
-    padding: 8px 8px;
-    margin: 6px 0px 4px 0px;
+    padding: 7px 8px;
+    /*background-color:red !important;*/
 }
 .mainHeader .pure-button:hover{
     border: none !important;
@@ -32,7 +32,7 @@
 
 .mainHeader ul.headerMenu li a {
     display: block;
-    padding: 16px 14px;
+    padding: 12px 14px;
     font-size: 14px;
     color: #ffffff;
     text-align: center;
@@ -40,7 +40,7 @@
 }
 
 .mainHeader ul.headerMenu li a.title {
-    padding: 12px 0px;
+    padding: 8px 0px;
     font-size:18px;
     font-weight: bold;
 }

@@ -11,10 +11,7 @@ import java.util.Date;
  * @author zhangchuang
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class BaseSysNoticeType
-<M extends BaseSysNoticeType
-<M>> extends Model
-    <M> implements IBean {
+public abstract class BaseSysNoticeType<M extends BaseSysNoticeType<M>> extends Model<M> implements IBean {
 
 
      // 主键id
@@ -29,7 +26,7 @@ public abstract class BaseSysNoticeType
      }
 
 
-     // 分类编码
+     // 分类
      public String getCate() {
         return getStr("CATE");
      }
@@ -171,4 +168,4 @@ public abstract class BaseSysNoticeType
         set("UPDATE_TIME", updateTime);
         return (M)this;
      }
-        }
+}

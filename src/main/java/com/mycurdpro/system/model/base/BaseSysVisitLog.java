@@ -1,104 +1,111 @@
 package com.mycurdpro.system.model.base;
 
-import com.jfinal.plugin.activerecord.IBean;
 import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.IBean;
 
 import java.util.Date;
 
 /**
  * Generated baseModel
  * DB table: SYS_VISIT_LOG  系统访问日志
- *
  * @author zhangchuang
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseSysVisitLog<M extends BaseSysVisitLog<M>> extends Model<M> implements IBean {
 
 
-    // 主键id
-    public String getId() {
+     // 主键id
+     public String getId() {
         return getStr("ID");
-    }
+     }
 
-    public M setId(String id) {
+     public M setId
+        (String id) {
         set("ID", id);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 操作人
-    public String getSysUser() {
+     // 操作人
+     public String getSysUser() {
         return getStr("SYS_USER");
-    }
+     }
 
-    public M setSysUser(String sysUser) {
+     public M setSysUser
+        (String sysUser) {
         set("SYS_USER", sysUser);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 操作人ip
-    public String getSysUserIp() {
+     // 操作人ip
+     public String getSysUserIp() {
         return getStr("SYS_USER_IP");
-    }
+     }
 
-    public M setSysUserIp(String sysUserIp) {
+     public M setSysUserIp
+        (String sysUserIp) {
         set("SYS_USER_IP", sysUserIp);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 访问地址
-    public String getUrl() {
+     // 访问地址
+     public String getUrl() {
         return getStr("URL");
-    }
+     }
 
-    public M setUrl(String url) {
+     public M setUrl
+        (String url) {
         set("URL", url);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 创建时间
-    public Date getCreateTime() {
+     // 创建时间
+     public Date getCreateTime() {
         return get("CREATE_TIME");
-    }
+     }
 
-    public M setCreateTime(Date createTime) {
+     public M setCreateTime
+        (Date createTime) {
         set("CREATE_TIME", createTime);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 访问类型
-    public String getType() {
+     // 访问类型
+     public String getType() {
         return getStr("TYPE");
-    }
+     }
 
-    public M setType(String type) {
+     public M setType
+        (String type) {
         set("TYPE", type);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 参数
-    public String getParam() {
+     // 参数
+     public String getParam() {
         return getStr("PARAM");
-    }
+     }
 
-    public M setParam(String param) {
+     public M setParam
+        (String param) {
         set("PARAM", param);
-        return (M) this;
-    }
+        return (M)this;
+     }
 
 
-    // 异常
-    public String getError() {
+     // 异常
+     public String getError() {
         return getStr("ERROR");
-    }
+     }
 
-    public M setError(String error) {
+     public M setError
+        (String error) {
         set("ERROR", error);
-        return (M) this;
-    }
+        return (M)this;
+     }
 }

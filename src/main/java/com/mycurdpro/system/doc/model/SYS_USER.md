@@ -12,7 +12,7 @@
 | 9 | PHONE |  VARCHAR2(20) | ✘  |   |   | 电话  |
 | 10 | JOB |  VARCHAR2(50) | ✘  |   |   | 职位  |
 | 11 | JOB_LEVEL |  VARCHAR2(50) | ✘  |   |   | 职位级别  |
-| 12 | DISABLE |  VARCHAR2(1) | ✔  |   |   | 是否禁用0未禁用1禁用  |
+| 12 | USER_STATE |  VARCHAR2(1) | ✘  |   |   | 用户状态 0正常1禁用  |
 | 13 | WX |  VARCHAR2(255) | ✔  |   |   | 微信预留  |
 | 14 | DD |  VARCHAR2(255) | ✔  |   |   | 钉钉预留  |
 | 15 | LAST_LOGIN_TIME |  DATE(7) | ✔  |   |   | 最后登录时间  |
@@ -20,5 +20,6 @@
 | 17 | CREATER |  VARCHAR2(50) | ✘  |   |   | 创建人  |
 | 18 | UPDATE_TIME |  DATE(7) | ✔  |   |   | 最后修改时间  |
 | 19 | UPDATER |  VARCHAR2(50) | ✔  |   |   | 最后修改人  |
+| 20 | DEL_FLAG |  VARCHAR2(5) | ✔  |   |   | 删除标志 null 未删除，x 已删除  |
 
 

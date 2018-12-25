@@ -4,15 +4,20 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Duang;
 import com.jfinal.kit.HashKit;
+import com.jfinal.kit.Ret;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
+import com.jfinal.plugin.activerecord.SqlPara;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.mycurdpro.common.base.BaseController;
+import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
+import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.utils.ws.UserIdEncryptUtils;
-import com.mycurdpro.system.model.SysMenu;
-import com.mycurdpro.system.model.SysOrg;
-import com.mycurdpro.system.model.SysUser;
+import com.mycurdpro.system.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,10 +47,16 @@ public class MainController extends BaseController {
      * 树形菜单
      */
     public void menuTree() {
-        SysUser sysUser = WebUtils.getSysUser(this);
-        String roleIds = mainService.findRoleIdsByUserId(sysUser.getId());
-        LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
-        List<SysMenu> sysMenus = mainService.findUserMenus(roleIds);
+        List<SysMenu> sysMenus = getSessionAttr(Constant.SYS_USER_MENU);
+
+        if(sysMenus==null){
+            SysUser sysUser = WebUtils.getSysUser(this);
+            String roleIds = mainService.findRoleIdsByUserId(sysUser.getId());
+            LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
+            sysMenus = mainService.findUserMenus(roleIds);
+            setSessionAttr(Constant.SYS_USER_MENU,sysMenus);
+        }
+
         List<Map<String, Object>> maps = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -176,4 +187,85 @@ public class MainController extends BaseController {
             renderFail("信息修改失败");
         }
     }
+
+
+    /**
+     * 用户通知
+     */
+    public void userNotice(){
+        render("userNotice.ftl");
+    }
+    /**
+     * 用户通知数据
+     */
+    @Before(SearchSql.class)
+    public void noticeData(){
+        String userId = WebUtils.getSysUser(this).getId();
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+
+        if(StringUtils.notEmpty(where)){
+            where += " and receiver = '"+userId+"'";
+        }else{
+            where = " receiver = '"+userId+"'";
+        }
+        Page<SysNotice> sysNoticePage = SysNotice.dao.page(pageNumber,pageSize,where);
+        renderDatagrid(sysNoticePage);
+    }
+    /**
+     * 当前用户 单条系统通知 设置为已读
+     */
+    @Before(Tx.class)
+    public void noticeSetRead() {
+        Map<String, Object> ret = new HashMap<>();
+        String detailId = getPara("detailId");
+        if (StringUtils.isEmpty(detailId)) {
+            renderFail("detailId 参数不可为空");
+            return;
+        }
+        SysNoticeDetail sysNoticeDetail = SysNoticeDetail.dao.findById(detailId);
+        if (sysNoticeDetail == null) {
+            renderFail("数据不存在");
+            return;
+        }
+        String userId = WebUtils.getSysUser(this).getId();
+        if (!userId.equals(sysNoticeDetail.getReceiver())) {
+            renderFail("禁止查看他人数据");
+            return;
+        }
+        if ("N".equals(sysNoticeDetail.getHasRead())) {
+            sysNoticeDetail.setHasRead("Y");
+            sysNoticeDetail.setReadTime(new Date());
+            sysNoticeDetail.update();
+        }
+        renderSuccess("操作成功");
+    }
+    /**
+     * 当前用户通知全部设置为已读
+     */
+    @Before(Tx.class)
+    public void noticeSetAllRead() {
+        Map<String, Object> ret = new HashMap<>();
+        SysUser sysUser = WebUtils.getSysUser(this);
+        SqlPara sqlPara = new SqlPara();
+        String sql = "update sys_notice_detail set has_read = 'Y' , read_time = ? where receiver = ? and has_read = 'N' ";
+        sqlPara.setSql(sql).addPara(new Date()).addPara(sysUser.getId());
+        Db.update(sqlPara);
+        addServiceLog("用户 " + sysUser.getUsername() + " 设置所有系统通知为 已读");
+        ret.put("state", true);
+        ret.put("msg", "设置 全部已读 操作成功");
+        renderJson(ret);
+    }
+    /**
+     * 获得 未读消息数量
+     */
+    public void noticeUnreadCount() {
+        SysUser sysUser =  WebUtils.getSysUser(this);
+        String sql = " select count(1) as unread_count from sys_notice_detail where receiver = ? and has_read !='Y' ";
+        Record record = Db.findFirst(sql, sysUser.getId());
+        Ret ret = Ret.create().setOk().set("unreadCount", record == null ? 0 : record.get("unread_count"));
+        renderJson(ret);
+    }
+
 }

@@ -12,10 +12,7 @@ import java.util.Date;
  * @author zhangchuang
  */
 @SuppressWarnings({"serial", "unchecked"})
-public abstract class BaseSysFile
-<M extends BaseSysFile
-<M>> extends Model
-    <M> implements IBean {
+public abstract class BaseSysFile<M extends BaseSysFile<M>> extends Model<M> implements IBean {
 
 
      // 主键id
@@ -160,4 +157,4 @@ public abstract class BaseSysFile
         set("UPDATE_TIME", updateTime);
         return (M)this;
      }
-        }
+}

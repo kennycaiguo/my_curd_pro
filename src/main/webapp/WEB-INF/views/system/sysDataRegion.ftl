@@ -16,9 +16,9 @@
     <tr>
         <th field="NAME" width="250">名字</th>
         <th field="ID" width="100">地区代码</th>
-        <th field="PINYIN" width="100">英文名称</th>
-        <th field="LNG"  width="100" >经度</th>
-        <th field="LAT"  width="100" >纬度</th>
+        <th field="PINYIN" width="150">英文名称</th>
+        <th field="LNG"  width="150" >经度</th>
+        <th field="LAT"  width="150" >纬度</th>
         <th field="CITY_CODE" width="100">区号</th>
         <th field="ZIP_CODE" width="100">邮编</th>
         <th field="IS_DISABLE" width="100" formatter="disableFmt">状态</th>
