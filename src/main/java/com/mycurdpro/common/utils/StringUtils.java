@@ -7,6 +7,9 @@ import com.jfinal.kit.PropKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 字符串工具
  */
@@ -118,6 +121,46 @@ public class StringUtils {
             LOG.error(e.getMessage(), e);
         }
         return resultStr;
+    }
+
+    /**
+     * 字符串包含
+     * 全部包含 返回true，否则返回false
+     * @param sourceStr
+     * @param string
+     * @return
+     */
+    public static  boolean asListAndContains(String sourceStr,String string){
+        boolean flag = true;
+        String[] strAry = string.split(",");
+        List<String> sourceStrAry = Arrays.asList(sourceStr.split(","));
+        for(String str:strAry){
+            if(!sourceStrAry.contains(str)){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 字符串包含
+     * 任一包含 返回 true, 全部不包含返回 false
+     * @param sourceStr
+     * @param string
+     * @return
+     */
+    public static boolean asListOrContains(String sourceStr,String string){
+          boolean flag = false;
+        String[] strAry = string.split(",");
+          List<String> sourceStrAry = Arrays.asList(sourceStr.split(","));
+          for(String str : strAry){
+              if(sourceStrAry.contains(str)){
+                  flag = true;
+                  break;
+              }
+          }
+          return flag;
     }
 
 }

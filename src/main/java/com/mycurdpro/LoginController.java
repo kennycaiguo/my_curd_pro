@@ -1,7 +1,9 @@
 package com.mycurdpro;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.base.Objects;
 import com.jfinal.aop.Clear;
+import com.jfinal.aop.Duang;
 import com.jfinal.core.ActionKey;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.PropKit;
@@ -11,13 +13,18 @@ import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.StringUtils;
+import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.utils.guava.BaseCache;
 import com.mycurdpro.common.utils.guava.CacheContainer;
+import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysUser;
+import com.mycurdpro.system.model.SysUserRole;
+import com.mycurdpro.system.model.SysUserRoleincode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -27,6 +34,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LoginController extends BaseController {
 
     private final static Logger LOG = LoggerFactory.getLogger(LoginController.class);
+    private final static LoginService loginService = Duang.duang(LoginService.class);
+
     // 输错密码 锁定用户
     private final static int RETRY_TIMES = PropKit.use("config.properties").getInt("loginRetryLimitTime");
     private final static int LOCK_TIME_M = PropKit.use("config.properties").getInt("lockTime");
@@ -48,9 +57,8 @@ public class LoginController extends BaseController {
             if (sysUser!=null && "0".equals(sysUser.getUserState())) {
                 sysUser.setLastLoginTime(new Date());
                 sysUser.update();
-                // session 中放入登录用户信息 TODO 更好的方案
-                setSessionAttr(Constant.SYS_USER, sysUser);
-                setSessionAttr(Constant.SYS_USER_NAME, sysUser.getName());
+
+                afterLogin(sysUser);
 
                 addServiceLog("通过cookie登录");
                 redirect("/dashboard");
@@ -131,14 +139,35 @@ public class LoginController extends BaseController {
         sysUser.setLastLoginTime(new Date());
         sysUser.update();
 
-        // 登录用户信息
-        setSessionAttr(Constant.SYS_USER, sysUser);
-        // druid session 监控用
-        setSessionAttr(Constant.SYS_USER_NAME, sysUser.getName());
+
+        afterLogin(sysUser);
 
         // 登录日志
         addServiceLog("登录");
         redirect("/dashboard");
+    }
+
+
+    /**
+     * 登录后将 用户相关信息放入到 session 中
+     * // TODO 可改
+     * @param sysUser
+     */
+    private void afterLogin(SysUser sysUser){
+        // 登录用户信息
+        setSessionAttr(Constant.SYS_USER, sysUser);
+        // druid session 监控用
+        setSessionAttr(Constant.SYS_USER_NAME, sysUser.getName());
+        // 菜单
+        String roleIds = SysUserRole.dao.findRoleIdsByUserId(sysUser.getId());
+        LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
+        List<SysMenu> sysMenus = loginService.findUserMenus(roleIds);
+        setSessionAttr(Constant.SYS_USER_MENU,sysMenus);
+        LOG.debug("{} has menu {}", sysUser.getUsername(), JSON.toJSONString(sysMenus));
+
+        // 角色编码
+        String rolecodes = SysUserRole.dao.findRoleCodesByUserId(sysUser.getId());
+        setSessionAttr(Constant.SYS_USER_ROLE_CODES,rolecodes);
     }
 
 

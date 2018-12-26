@@ -16,8 +16,8 @@
         <th field="CATE" width="100">分类</th>
         <th field="NAME" width="100">名称</th>
         <th field="CODE" width="100">编码</th>
-        <th field="UNTIL_EXPIRY_DAY" width="100">n天后 过期</th>
-        <th field="UNTIL_DEAD_DAY" width="100">n天后 删除</th>
+        <th field="UNTIL_EXPIRY_DAY" width="100">过期天数</th>
+        <th field="UNTIL_DEAD_DAY" width="100">删除天数</th>
         <#--<th field="TEMPLATE" width="400">消息模板(ftl)</th>-->
         <th field="REMARK" width="400">备注</th>
         <th field="CREATER" width="100" formatter="usernameFmt">创建人</th>

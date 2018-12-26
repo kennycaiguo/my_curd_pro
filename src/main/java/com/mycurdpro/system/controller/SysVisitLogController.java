@@ -4,10 +4,10 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.mycurdpro.common.annotation.RequireRole;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
-import com.mycurdpro.common.interceptor.ExceptionInterceptor;
-import com.mycurdpro.common.interceptor.SearchSql;
+import com.mycurdpro.common.interceptor.*;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysVisitLog;
@@ -18,6 +18,8 @@ import com.mycurdpro.system.model.SysVisitLog;
 @Clear(ExceptionInterceptor.class)
 public class SysVisitLogController extends BaseController {
 
+
+    @Before(ControlDomByRole.class)
     public void index() {
         render("system/sysVisitLog.ftl");
     }
@@ -39,7 +41,9 @@ public class SysVisitLogController extends BaseController {
     /**
      * 批量删除
      */
-    @Before(IdsRequired.class)
+    @Clear(PermissionInterceptor.class)
+    @Before({RoleInterceptor.class,IdsRequired.class})
+    @RequireRole(value = "admin",relation = RequireRole.Relation.AND)
     public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
         String sql = "delete from sys_visit_log where  id in ('" + ids + "')";

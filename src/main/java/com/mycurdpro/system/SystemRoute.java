@@ -28,9 +28,6 @@ public class SystemRoute extends Routes {
         // 菜单管理
         add("/sysMenu", SysMenuController.class, Constant.VIEW_PATH);
 
-        // 代码中的角色，用作按钮权限控制
-        add("/sysRoleIncode", SysRoleIncodeController.class, Constant.VIEW_PATH);
-
         // 用户管理
         add("/sysUser", SysUserController.class, Constant.VIEW_PATH);
 

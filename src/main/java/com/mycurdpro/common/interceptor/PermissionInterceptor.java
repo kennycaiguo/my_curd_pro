@@ -3,7 +3,8 @@ package com.mycurdpro.common.interceptor;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.kit.StrKit;
+import com.jfinal.kit.Ret;
+import com.mycurdpro.common.annotation.RequireRole;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.utils.StringUtils;
@@ -30,17 +31,17 @@ public class PermissionInterceptor implements Interceptor {
         LOG.debug("actionKey: {}",inv.getActionKey());
 
         for(SysMenu sysMenu : sysMenus){
-            if (StringUtils.notEmpty(sysMenu.getUrl()) && !sysMenu.getUrl().equals("/") && sysMenu.getUrl().startsWith(controllerKey)) {
-                LOG.debug("c: {}, a:{} 拥有 {}, 拥有权限. ",controllerKey,inv.getActionKey(),sysMenu.getUrl());
+            // 菜单地址 同
+            if (StringUtils.notEmpty(sysMenu.getUrl()) && !sysMenu.getUrl().equals("/") && sysMenu.getUrl().equals(controllerKey)) {
+                LOG.debug("c: {}, a:{} 拥有 {}, 拥有菜单权限. ",controllerKey,inv.getActionKey(),sysMenu.getUrl());
                 inv.invoke();
                 return;
             }
         }
 
-        // 没有权限
+        // 无菜单权限
         BaseController baseController = (BaseController) inv.getController();
-        baseController.addServiceLog("访问无权限路径[" + inv.getActionKey() + "]");
-
+        baseController.addServiceLog("PermissionInterceptor: 访问无权限路径[" + inv.getActionKey() + "]");
         inv.getController().render("/WEB-INF/views/common/no_permission.ftl");
     }
 }

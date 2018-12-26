@@ -2,7 +2,6 @@ package com.mycurdpro;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
-import com.jfinal.aop.Duang;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
@@ -33,7 +32,6 @@ import java.util.*;
 public class MainController extends BaseController {
 
     private final static Logger LOG = LoggerFactory.getLogger(MainController.class);
-    private final static MainService mainService = Duang.duang(MainService.class);
 
     public void index() {
         setAttr("username", WebUtils.getSysUser(this).getName());
@@ -48,14 +46,6 @@ public class MainController extends BaseController {
      */
     public void menuTree() {
         List<SysMenu> sysMenus = getSessionAttr(Constant.SYS_USER_MENU);
-
-        if(sysMenus==null){
-            SysUser sysUser = WebUtils.getSysUser(this);
-            String roleIds = mainService.findRoleIdsByUserId(sysUser.getId());
-            LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
-            sysMenus = mainService.findUserMenus(roleIds);
-            setSessionAttr(Constant.SYS_USER_MENU,sysMenus);
-        }
 
         List<Map<String, Object>> maps = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {

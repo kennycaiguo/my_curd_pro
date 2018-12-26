@@ -57,7 +57,7 @@ public class ExceptionInterceptor implements Interceptor {
         if (StringUtils.notEmpty(errMsg)) {
             String requestType = inv.getController().getRequest().getHeader("X-Requested-With");
 
-            // 只能判断 jquery ajax, 原始的 ajax 没有该请求头 例如 easyui form
+            // 只能判断 jquery ajax, 原始的 ajax 没有该请求头 例如 easyui form 没, easyui datagrid 有，
 //            if("XMLHttpRequest".equals(requestType)){
 //                Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
 //                inv.getController().renderJson(ret);

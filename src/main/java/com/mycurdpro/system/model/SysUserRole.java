@@ -1,6 +1,8 @@
 package com.mycurdpro.system.model;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysUserRole;
 
@@ -25,6 +27,33 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
     public List<SysUserRole> findUserRolesByUserId(Long userId) {
         String sql = "select * from sys_user_role where sys_user_id = ? ";
         return find(sql, userId);
+    }
+
+    /**
+     * 通过用户id 查询 角色id
+     * @param userId
+     * @return
+     */
+    public String findRoleIdsByUserId(String userId) {
+        String sql = "select WM_CONCAT(c.ID) as ROLE_IDS" +
+                "  from sys_user a, sys_user_role b,sys_role c " +
+                "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
+        Record record = Db.findFirst(sql, userId);
+        return record.getStr("role_IDS");
+    }
+
+
+    /**
+     * 通过用户查询角色编码
+     * @param userId
+     * @return
+     */
+    public String findRoleCodesByUserId(String userId){
+        String sql = "select WM_CONCAT(c.CODE) as ROLE_CODES" +
+                "  from sys_user a, sys_user_role b,sys_role c " +
+                "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
+        Record record = Db.findFirst(sql, userId);
+        return record.getStr("ROLE_CODES");
     }
 
 

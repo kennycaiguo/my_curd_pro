@@ -75,4 +75,15 @@ public class SysMenu extends BaseSysMenu<SysMenu> {
         }
         return result;
     }
+
+
+    /**
+     * 通过地址查询
+     * @param url
+     * @return
+     */
+    public SysMenu findByUrl(String url){
+        String sql = "select * from sys_menu where url = ?";
+        return  findFirst(sql,url);
+    }
 }

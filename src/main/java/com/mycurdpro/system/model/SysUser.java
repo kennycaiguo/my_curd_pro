@@ -79,3 +79,6 @@ public class SysUser extends BaseSysUser<SysUser> {
         return this.findFirst(sqlSelect + sqlExceptSelect, username);
     }
 }
+
+
+

@@ -9,12 +9,10 @@
     .datagrid-cell-rownumber{
         width:50px !important;
     }
-
 </style>
     <table id="dg" class="easyui-datagrid"
-          url="${ctx!}/sysVisitLog/query"
-          toolbar="#tb" rownumbers="true" border="false"
-          data-options="rowStyler:function(index,row){
+           url="${ctx!}/sysVisitLog/query" rownumbers="true" border="false" toolbar="#tb"
+           data-options="rowStyler:function(index,row){
 			if (row.ERROR_FLAG==1){
 				return 'background-color:#ffa8a8;font-weight:bold;';
 			}
@@ -38,10 +36,11 @@
     <div id="tb">
         <#--<a onclick="viewModel('查看','dg','${ctx!}/sysVisitLog/view', '800px', '600px')" href="#"-->
            <#--class="easyui-linkbutton" iconCls="iconfont icon-eye" plain="true">查看</a>-->
-        <a onclick="deleteModel('dg','${ctx!}/sysVisitLog/deleteAction')" href="#" class="easyui-linkbutton  "
+       <#if StringUtils.asListAndContains(rolecodes,'admin')>
+        <a onclick="deleteModel('dg','${ctx!}/sysVisitLog/deleteAction')" href="#" class="easyui-linkbutton"
            iconCls="iconfont icon-delete" plain="true">删除</a>
+       </#if>
         <span id="searchSpan" class="searchInputArea">
-
             <input name="search_LIKE_SYS_USER" prompt="用户名" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_SYS_USER_IP" prompt="IP地址" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_TYPE" prompt="请求类型" class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=httpMethod'" style="width:120px; " >

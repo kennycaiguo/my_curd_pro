@@ -11,12 +11,11 @@ import com.mycurdpro.system.SystemModelMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 public class DbTestBase {
 
     private final static Logger LOG = LoggerFactory.getLogger(DbTestBase.class);
     static final Prop configProp = PropKit.use("jdbc.properties");
+
     public static void  dbInit(){
         DruidPlugin dp = new DruidPlugin(configProp.get("jdbc.url"), configProp.get("jdbc.user"), configProp.get("jdbc.password"),configProp.get("jdbc.driver"));
         ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);

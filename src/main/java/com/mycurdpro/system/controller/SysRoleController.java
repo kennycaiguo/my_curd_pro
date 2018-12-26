@@ -1,9 +1,7 @@
 package com.mycurdpro.system.controller;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.jfinal.aop.Before;
-import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;

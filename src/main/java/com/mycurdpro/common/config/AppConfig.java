@@ -90,6 +90,7 @@ public class AppConfig extends JFinalConfig {
         activeRecordPlugin.setContainerFactory(new CaseInsensitiveContainerFactory()); // 表字段大小写不敏感
         activeRecordPlugin.setShowSql(configProp.getBoolean("devMode"));
         SystemModelMapping.mapping(activeRecordPlugin);                                // system 模块 表映射
+
         me.add(activeRecordPlugin);
 
     }
@@ -98,7 +99,7 @@ public class AppConfig extends JFinalConfig {
     public void configInterceptor(Interceptors me) {
         me.addGlobalActionInterceptor(new ExceptionInterceptor());   // 异常，访问日志
         me.addGlobalActionInterceptor(new LoginInterceptor());       // 登录
-        me.addGlobalActionInterceptor(new PermissionInterceptor());  // 权限菜单
+        me.addGlobalActionInterceptor(new PermissionInterceptor());  // 权限
     }
 
     @Override

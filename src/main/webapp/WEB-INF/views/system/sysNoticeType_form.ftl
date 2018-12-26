@@ -58,14 +58,14 @@
             </tr>
             <tr>
                 <td>
-                    n天后过期:
+                    过期天数:
                 </td>
                 <td>
                     <input name="untilExpiryDay" value="${(sysNoticeType.untilExpiryDay)!}" class="easyui-numberbox"  data-options="required:true,min:0,precision:0">
                 </td>
 
                 <td>
-                    n天后删除:
+                    删除天数:
                 </td>
                 <td>
                     <input name="untilDeadDay" value="${(sysNoticeType.untilDeadDay)!}" class="easyui-numberbox"  data-options="required:true,min:0,precision:0">
