@@ -55,7 +55,6 @@ public class AppConfig extends JFinalConfig {
 
         // json (jfinaljson 和 fastjson 混合)
         me.setJsonFactory(MixedJsonFactory.me());  // toJson 用 JfinalJson , Parse 用 Fastjson, model 转json 使用数据库字段名
-
         //me.setJsonFactory(FastJsonFactory.me()); // 使用 Fastjson ,Model 转 json 使用 驼峰命名， 依赖 getter 方法
         me.setJsonDatePattern("yyyy-MM-dd HH:mm:ss");
     }

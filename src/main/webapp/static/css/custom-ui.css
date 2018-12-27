@@ -89,7 +89,3 @@ a:hover{
 .borderTopNone{
     border-top: none;
 }
-/*datagrid 最小高度*/
-.datagrid-toolbar{
-    min-height: 30px;
-}

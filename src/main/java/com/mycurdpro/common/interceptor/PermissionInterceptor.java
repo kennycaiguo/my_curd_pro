@@ -41,7 +41,7 @@ public class PermissionInterceptor implements Interceptor {
 
         // 无菜单权限
         BaseController baseController = (BaseController) inv.getController();
-        baseController.addServiceLog("PermissionInterceptor: 访问无权限路径[" + inv.getActionKey() + "]");
+        baseController.addServiceLog("PermissionInterceptor: 访问无权限路径");
         inv.getController().render("/WEB-INF/views/common/no_permission.ftl");
     }
 }

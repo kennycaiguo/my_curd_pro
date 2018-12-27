@@ -94,3 +94,22 @@ function orgInfo(ctx,orgId){
     }
     popup.openIframeNoResize("机构信息", ctx+"/utils/orgInfo?id="+orgId, "300px","365px",true);
 }
+
+
+/**
+ * 阻止右键菜单
+ * @param evt
+ */
+function preventContextMenu(evt){
+    var event=evt||window.event;
+    if(event&&event.returnValue){
+        event.preventDefault();
+    }else{
+        event.returnValue=false;
+    }
+}
+function preventDomContextMenu(id){
+    document.getElementById(id).oncontextmenu=function (evt) {
+        preventContextMenu(evt);
+    };
+}

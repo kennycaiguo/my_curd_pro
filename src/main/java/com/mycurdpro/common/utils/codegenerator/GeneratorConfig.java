@@ -52,6 +52,8 @@ public class GeneratorConfig {
 //        add("SYS_SERVICE_LOG");
 //        add("SYS_VISIT_LOG");
 //        add("SYS_DATA_REGION");
+          add("SYS_NOTE_CATE");
+          add("SYS_NOTE");
     }};
 
     // 模板文件基础路径

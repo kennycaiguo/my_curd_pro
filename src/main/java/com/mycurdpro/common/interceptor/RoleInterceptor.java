@@ -40,7 +40,7 @@ public class RoleInterceptor implements Interceptor {
         }
 
         BaseController baseController = (BaseController) inv.getController();
-        baseController.addServiceLog("RoleInterceptor: 访问无权限路径[" + inv.getActionKey() + "]");
+        baseController.addServiceLog("RoleInterceptor: 访问无权限路径");
         // 如此 区分 ajax 并不完全准确, 例如 easyui form
         String requestType = baseController.getHeader("X-Requested-With");
         if(StringUtils.notEmpty(requestType)){

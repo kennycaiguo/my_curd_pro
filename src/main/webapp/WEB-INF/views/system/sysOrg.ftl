@@ -37,7 +37,7 @@
             </thead>
         </table>
         <div id="tb2">
-            <span style="display: inline-block;height: 30px;padding: 4px 10px;">
+            <span style="display: inline-block;height: 20px;padding: 5px 10px;">
                   <input class="easyui-checkbox" id="cascadeSearch" checked="true" value="cascadeOrg" label="级联查询"  data-options="onChange:cascadeOrgChange" >
             </span>
             <span id="searchSpan2" class="searchInputArea"   >

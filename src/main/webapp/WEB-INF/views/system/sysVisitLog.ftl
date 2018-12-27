@@ -10,6 +10,10 @@
     .datagrid-cell-rownumber{
         width:50px !important;
     }
+    /*datagrid 最小高度*/
+    .datagrid-toolbar{
+        min-height: 30px;
+    }
 </style>
     <table id="dg" class="easyui-datagrid"
            url="${ctx!}/sysVisitLog/query" rownumbers="true" border="false" toolbar="#tb"

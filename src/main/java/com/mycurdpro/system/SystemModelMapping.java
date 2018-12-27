@@ -46,6 +46,10 @@ public class SystemModelMapping {
         arp.addMapping("SYS_VISIT_LOG", "ID", SysVisitLog.class);
         // 地区数据
         arp.addMapping("SYS_DATA_REGION","ID",SysDataRegion.class);
+        // 笔记分类
+        arp.addMapping("SYS_NOTE_CATE","ID",SysNoteCate.class);
+        // 笔记
+        arp.addMapping("SYS_NOTE","ID",SysNote.class);
     }
 }
 

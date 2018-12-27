@@ -30,7 +30,7 @@ public class SysMenuController extends BaseController {
      */
     public void query() {
         // 初始传递pid 为 0
-        String name = getPara("search_LIKE_NAME"); // 根据名曾查询
+        String name = getPara("search_LIKE_NAME"); // 根据名查询
         List<SysMenu> sysMenus;
         if (StringUtils.isEmpty(name)) {
             // 查询所有

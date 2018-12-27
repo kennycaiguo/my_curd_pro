@@ -1,17 +1,11 @@
 package com.mycurdpro;
 
-import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.SysMenu;
 
 import java.util.*;
 
 public class LoginService {
-
-
-
-
     /**
      * 用户完整的菜单
      *
