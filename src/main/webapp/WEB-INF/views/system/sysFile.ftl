@@ -19,7 +19,7 @@
         <#--<th align="center" field="TYPE" width="100" >文件类型</th>-->
         <th sortable="true" align="center" field="LENGTH" width="100" formatter="lengthFmt">文件大小(KB)</th>
         <th align="center" field="MIME" width="140">MIME</th>
-        <th field="PATH" width="300"  >文件路径</th>
+        <th field="PATH" width="300" formatter="pathFmt"  >文件路径</th>
     </tr>
     </thead>
 </table>
@@ -58,11 +58,12 @@
         }
     }
     function pathFmt(val) {
-        var curHref = window.document.location.href;
+       /* var curHref = window.document.location.href;
         var curPathname = window.document.location.pathname;
         var firstPos = curHref.indexOf(curPathname);
         curHref = curHref.substring(0, firstPos);
-        return curHref + '/' + val;
+        return curHref + '/' + val;*/
+       return '${ctx!}/'+val;
     }
     function lengthFmt(val) {
         if(val!=null){

@@ -5,7 +5,7 @@
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
         <ul class="headerMenu">
-            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">my_curd_pro</a></li>
+            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">XX 综合管理平台</a></li>
             <li><a href="#" class="active">首页</a></li>
             <li><a href="#">在线交流</a></li>
             <span class="right">
@@ -17,7 +17,7 @@
                 <li>
                     <span id="opeMenu" class="pure-button pure-button-primary" >${(username)!}</span>
                     <div id="opeMenuItem" style="width:100px;">
-                        <div name="editInfo">修改个人信息</div>
+                        <div name="editInfo" >修改个人信息</div>
                         <div name="changePwd">修改密码</div>
                         <div name="logout">退出</div>
                     </div>
@@ -57,7 +57,7 @@
     </div>
     <div cls="sidebar" data-options="region:'west',split:false" title="&nbsp;&nbsp;功能导航" style=" width:200px;">
         <div class="pure-form" style="text-align: center;padding: 10px 0px;">
-            <input id="filterInput"  type="text" placeholder="输入关键字、Enter过滤">
+            <input id="filterInput" type="text" placeholder="输入关键字、Enter过滤">
         </div>
         <ul id="permissionTree" style="margin-left:9px">
         </ul>
@@ -133,6 +133,7 @@
     }
 
     $(function(){
+        preventDomContextMenu("tabsMenu"); /*dom 元素禁用右键菜单*/
         menuTreeInit();
         menuTreeSearchInit();
         TabTools.contextMenuInit();

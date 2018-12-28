@@ -4,7 +4,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
-import com.jfinal.plugin.activerecord.tx.Tx;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;

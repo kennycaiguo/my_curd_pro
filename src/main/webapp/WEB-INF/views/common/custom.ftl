@@ -1,5 +1,5 @@
 <#-- 全局 样式 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_959474_qvw0m0ombxm.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_959474_0a15bm5zsw5l.css">
 <link rel="stylesheet" href="${ctx!}/static/css/custom-ui.css">
 <link rel="stylesheet" href="${ctx!}/static/css/custom-theme-green.css">
 <link rel="stylesheet" href="${ctx!}/static/plugins/purecss/pure-min.css">

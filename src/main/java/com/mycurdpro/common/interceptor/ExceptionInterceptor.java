@@ -36,6 +36,7 @@ public class ExceptionInterceptor implements Interceptor {
             errMsg = ExceptionUtils.getMessage(e);
         }
 
+        // 访问日志
         if (visitLog) {
             Controller controller = inv.getController();
             SysVisitLog sysVisitLog = new SysVisitLog();
