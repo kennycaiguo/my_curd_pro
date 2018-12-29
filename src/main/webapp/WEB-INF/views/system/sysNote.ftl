@@ -20,7 +20,7 @@
         overflow: hidden;
     }
     .datagrid-row{
-        height: 80px;
+        height: 70px;
     }
     .datagrid-btable{
         width: 100%;
@@ -46,6 +46,20 @@
             return;
         }
         popup.openIframe('编辑', '${ctx!}/sysNote/newCateModel?id=' + contextMenuNode.id, '360px', '360px');
+    }
+    function newNote(){
+        if(contextMenuNode==null){
+            return;
+        }
+        $.getJSON('${ctx!}/sysNote/addNoteAction?cateId='+contextMenuNode.id,function (data) {
+            if(data.state==='ok'){
+              $('#dg2').datagrid("reload");
+            }else if(data.state==='error'){
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        })
     }
     function delCate() {
         if(contextMenuNode==null){
@@ -74,7 +88,7 @@
                 <div >
                     <span data-options="iconCls:'iconfont icon-add'">新建</span>
                     <div style="width:150px;">
-                        <div  onclick="expand()"  >笔记</div>
+                        <div onclick="newNote()"  >笔记</div>
                         <div onclick="newCate()"  >文件夹</div>
                     </div>
                 </div>
@@ -89,7 +103,7 @@
             <div data-options="region:'west',split:false" style="width:350px;border-top: none;border-left: none;" collapsible="true"    >
                 <table id="dg2" class="easyui-datagrid"   fit="true"    fitColumns="true"
                        url="${ctx!}/sysNote/queryNote" toolbar="#tb2" border="false"
-                       data-options="view:scrollview,singleSelect:true,pageSize:20">
+                       data-options="singleSelect:true,onLoadSuccess:dgLoadSuccess,onSelect:selectNoteRow">
                     <thead>
                     <tr>
                         <th  field="TITLE" width="100" formatter="noteFmt">我的笔记</th>
@@ -107,7 +121,7 @@
                 </div>
             </div>
             <div data-options="region:'center'" style="border-top: none;"  bodyCls="overHidden" >
-                <iframe id="noteIframe" src="${ctx!}/sysNote/newNoteModel" style="width:100%;height:100%;" frameborder="0"></iframe>
+                <iframe id="noteIframe"  style="width:100%;height:100%;" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -118,9 +132,17 @@
 <script>
     function noteFmt(val,row){
         var html = '<div class="card"><div class="title">'
-                +row.TITLE+'</div><div class="time">'+row.UPDATE_TIME
+                +row.TITLE+'</div><div class="time">'+row.CREATE_TIME
                 +'</div></div>';
         return html;
+    }
+    function dgLoadSuccess(){
+        $('#dg2').datagrid("selectRow",0);
+    }
+
+    function selectNoteRow(index,row){
+        console.log(row.ID);
+        $('#noteIframe').attr('src','${ctx!}/sysNote/editNoteModel?id='+row.ID);
     }
 
     (function () {

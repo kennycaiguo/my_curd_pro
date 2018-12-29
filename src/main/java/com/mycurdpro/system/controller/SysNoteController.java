@@ -55,9 +55,11 @@ public class SysNoteController extends BaseController {
             map.put("id",sysNoteCate.getId());
             map.put("pid",sysNoteCate.getPid());
             map.put("text",sysNoteCate.getCateTitle());
-            if (sysNoteCate.getInt("IS_LEAF") == 0) {
-                map.put("state", "closed");
-            }
+            // 非叶子不展开
+//            if (sysNoteCate.getInt("IS_LEAF") == 0) {
+//                map.put("state", "closed");
+//            }
+
             map.put("iconCls", "iconfont icon-tree-folder");
             map.put("remark",sysNoteCate.getCateRemark());
             map.put("create_time",sysNoteCate.getCreateTime());
@@ -96,6 +98,7 @@ public class SysNoteController extends BaseController {
             renderFail(Constant.UPDATE_FAIL);
             return;
         }
+
         sysNoteCate.setUpdateTime(new Date());
         if(sysNoteCate.update()){
             renderSuccess(Constant.UPDATE_SUCCESS);
@@ -161,31 +164,32 @@ public class SysNoteController extends BaseController {
 
 
     /*----------------笔记管理------------------*/
-    public void newNoteModel(){
+    @Before(IdRequired.class)
+    public void editNoteModel(){
         String id = getPara("id");
-        if(StringUtils.notEmpty(id)){
-            SysNote sysNote = SysNote.dao.findById(id);
-            setAttr("sysNote",sysNote);
-        }
+        SysNote sysNote = SysNote.dao.findById(id);
+        setAttr("sysNote",sysNote);
         render("system/sysNote_form.ftl");
     }
 
+
     @Before(SearchSql.class)
     public void queryNote(){
-        int pageNumber = getAttr("pageNumber");
-        int pageSize = getAttr("pageSize");
+        int pageNumber = getParaToInt("page", 1);
+        int pageSize = getParaToInt("rows", 100);;
         String where = getAttr(Constant.SEARCH_SQL);
         Page<SysNote> sysNotePage = SysNote.dao.page(pageNumber,pageSize,where);
         renderDatagrid(sysNotePage);
     }
 
     public void addNoteAction(){
-        SysUser sysUser = WebUtils.getSysUser(this);
-        SysNote sysNote = getBean(SysNote.class,"");
+        String cateId = getPara("cateId","0");
+        SysNote sysNote = new SysNote();
         sysNote.setId(IdUtils.id())
-                .setUserId(sysUser.getId())
-                .setCreateTime(new Date())
-                .setUpdateTime(new Date());
+                .setTitle("无标题笔记")
+                .setCateId(cateId)
+                .setUserId(WebUtils.getSysUser(this).getId())
+                .setCreateTime(new Date());
         if(sysNote.save()){
             renderSuccess(Constant.ADD_SUCCESS);
         }else{
@@ -193,14 +197,20 @@ public class SysNoteController extends BaseController {
         }
     }
     public void updateNoteAction(){
-        SysUser sysUser = WebUtils.getSysUser(this);
         SysNote sysNote = getBean(SysNote.class,"");
-        if(!sysUser.getId().equals(sysNote.getUserId())){
+        if(!WebUtils.getSysUser(this).getId().equals(sysNote.getUserId())){
             renderFail(Constant.UPDATE_FAIL);
             return;
         }
+        sysNote.setCreateTime(new Date());
 
-        sysNote.setUpdateTime(new Date());
+        // 不适用代码编辑器
+//        if(StringUtils.notEmpty(sysNote.getContent())){
+//            System.err.println(sysNote.getContent().contains("\r"));
+//            sysNote.setContent(sysNote.getContent().replaceAll ("\n", "_NEWLINE_"));
+//
+//        }
+
         if(sysNote.update()){
             renderSuccess(Constant.UPDATE_SUCCESS);
         }else{

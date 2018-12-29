@@ -1,3 +1,4 @@
+<#--404-->
 <@compress single_line=true><!DOCTYPE html>
 <html>
 <head>

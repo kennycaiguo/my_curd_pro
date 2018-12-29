@@ -49,7 +49,11 @@ public class ExceptionInterceptor implements Interceptor {
             Map<String, String[]> params = controller.getRequest().getParameterMap();
             if (params.keySet().size() > 0) {
                 sysVisitLog.setParam(JSON.toJSONString(params));
+                if(sysVisitLog.getParam().length()>100){
+                    sysVisitLog.setParam("超长文本参数");
+                }
             }
+
             sysVisitLog.setError(errMsg);
             sysVisitLog.save();
         }

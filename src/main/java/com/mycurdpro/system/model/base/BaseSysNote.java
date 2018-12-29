@@ -98,7 +98,7 @@ public abstract class BaseSysNote<M extends BaseSysNote<M>> extends Model<M> imp
      }
 
 
-     // 创建时间
+     // 创建时间(更新时间)
      public Date getCreateTime() {
         return get("CREATE_TIME");
      }
@@ -109,15 +109,4 @@ public abstract class BaseSysNote<M extends BaseSysNote<M>> extends Model<M> imp
         return (M)this;
      }
 
-
-     // 最后更新时间
-     public Date getUpdateTime() {
-        return get("UPDATE_TIME");
-     }
-
-     public M setUpdateTime
-        (Date updateTime) {
-        set("UPDATE_TIME", updateTime);
-        return (M)this;
-     }
 }

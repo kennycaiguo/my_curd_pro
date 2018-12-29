@@ -31,7 +31,7 @@
         </tr>
         <#if (sysVisitLog.error)??>
         <tr>
-            <td>异常信息</td>
+            <td style="width: 100px;">异常信息</td>
             <td>${(sysVisitLog.error)!}</td>
         </tr>
         </#if>

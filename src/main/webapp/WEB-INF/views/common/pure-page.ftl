@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="${ctx!}/static/image/favicon.ico"/>
     <title>你好！ ${(username)!}</title>
     <link rel="stylesheet" href="${ctx!}/static/plugins/purecss/pure-min.css">
+    <link rel="stylesheet" href="${ctx!}/static/css/custom-ui.css">
     <link rel="stylesheet" href="${ctx!}/static/css/custom-theme-green.css">
+    <script src="${ctx!}/static/js/loading.js" ></script>
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="${ctx!}/static/plugins/purecss/grids-responsive-old-ie-min.css">
     <![endif]-->
@@ -23,7 +25,7 @@
     <!--[if lt IE 9]>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="${ctx!}/static/plugins/easyui1.6.10/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx!}/static/plugins/simditor-2.3.23/jquery.min.js"></script>
     <#include "popup.ftl"/>
 </head>
 <body>

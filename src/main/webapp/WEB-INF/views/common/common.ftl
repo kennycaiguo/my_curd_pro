@@ -1,3 +1,4 @@
+<#--easyui layer purecss 布局-->
 <#macro layout>
 <@compress single_line=true>
 <!DOCTYPE html>

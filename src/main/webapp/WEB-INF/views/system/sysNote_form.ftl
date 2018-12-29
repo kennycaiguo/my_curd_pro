@@ -1,19 +1,14 @@
-<#include "../common/simeditor.ftl"/>
+<#include "../common/pure-page.ftl"/>
 <@layout>
+<#include "../common/simditor.ftl"/>
 <style>
     body,html{
         background-color: #ffffff;
         width: 100%;
         height: 100%;
     }
-    .simditor{
-        border: none !important;
-    }
-    #form{
-        52px;
-    }
-    .pure-form .title{
-        background-color: #ffffff;
+    .formWraper{
+        height: 48px;
         border-bottom: 1px solid lightgray;
     }
     .pure-form .title input{
@@ -26,21 +21,60 @@
     .pure-form select{
         height: 2.45em;
     }
+    .simditor{
+       border: none !important;
+    }
 </style>
-<body>
-<form id="form" class="pure-form">
-    <div class="title">
-        <input type="text" placeholder="输入笔记标题">
-        <button type="submit" class="pure-button pure-button-primary button-small">保存</button>
-    </div>
-</form>
-<textarea id="editor" placeholder="写笔记"  autofocus></textarea>
 <script>
+    function saveNoteAction() {
+        $.ajax({
+            url:'${ctx!}/sysNote/updateNoteAction',
+            type:'post',
+            dataType:'json',
+            data:{
+                id:'${(sysNote.id)!}',
+                title:$('#titleInput').val(),
+                userId:'${(sysNote.userId)!}',
+                content:editor.getValue()
+            },
+            success:function(data){
+                if(data.state==='ok'){
+                    popup.msg(data.msg,function(){
+                        parent.$('#dg2').datagrid('reload');
+                    });
+                }else if(data.state==='error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            },
+            error:function (x,hr,r) {
+                popup.errMsg();
+            }
+        });
+    }
+</script>
+<div class="formWraper">
+    <form id="form" class="pure-form">
+        <div class="title">
+            <input id="titleInput" type="text" placeholder="输入笔记标题" value="${(sysNote.title)!}">
+            <button id="saveBtn" type="button" class="pure-button  button-small" onclick="saveNoteAction()">保存</button>
+        </div>
+    </form>
+</div>
+<textarea id="editor">
+    ${(sysNote.content?replace("_NEWLINE_","\r\n"))!}
+</textarea>
+<script>
+    /*code 按钮有bug，不使用*/
     var editor = new Simditor({
         textarea: $('#editor'),
-        defaultImage: '${ctx!}/static/image/female.jpg',
-        toolbar:['title','bold','italic','underline','strikethrough','fontScale','color','ol', 'ul','blockquote','code','table','link','image','hr','indent','outdent','alignment']
+        defaultImage: '${ctx!}/static/image/favicon.ico',
+        toolbar:['title','bold','italic','underline','strikethrough','fontScale','color','ol'
+            , 'ul','blockquote' /*,'code'*/,'table','link','image','hr','indent','outdent','alignment','|','mark', 'emoji','html'],
+        emoji:{
+            imagePath: '${ctx!}/static/plugins/simditor-2.3.23/emoji/image/'
+        }
     });
 </script>
-</body>
 </@layout>

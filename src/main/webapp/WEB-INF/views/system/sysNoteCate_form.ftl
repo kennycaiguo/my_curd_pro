@@ -1,6 +1,30 @@
 <#--笔记分类 表单-->
 <#include "../common/common.ftl"/>
 <@layout>
+<script>
+    function saveAction(){
+        $('#modelForm').form('submit', {
+            onSubmit: function () {
+                return $(this).form('validate');
+            },
+            success: function (data) {
+                if(typeof data ==='string'){
+                    data = JSON.parse(data);
+                }
+                if(data.state === 'ok'){
+                    popup.msg(data.msg, function () {
+                        window.parent.frames[sessionStorage.getItem("iframeId")].$("#tt").tree("reload");
+                        popup.close(window.name);
+                    });
+                }else if(data.state === 'error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            }
+        });
+    }
+</script>
 <form id="modelForm" method="POST" action="<#if sysNoteCate?? >${ctx!}/sysNote/updateCateAction<#else>${ctx!}/sysNote/addCateAction</#if>">
     <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysNoteCate.id)!}">
@@ -31,11 +55,10 @@
     <button  class=" pure-button button-small" onclick="popup.close(window.name);" >
         <i class="iconfont icon-cancel"></i> 取消
     </button>
-    <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction('modelForm','reload','tg')" >
+    <button  class=" button-small   pure-button pure-button-primary" onclick="saveAction()" >
         <i class="iconfont icon-save"></i> 确定
     </button>
 </div>
-<script src="${ctx!}/static/js/tg-curd.js"></script>
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script src="${ctx!}/static/js/input2combotree.js"></script>
 <script>

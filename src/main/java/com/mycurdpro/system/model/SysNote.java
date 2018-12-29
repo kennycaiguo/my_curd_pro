@@ -24,12 +24,12 @@ public class SysNote extends BaseSysNote<SysNote> {
      * @return 分页数据
      */
     public Page<SysNote> page(int pageNumber, int pageSize, String where) {
-        String sqlSelect = " select ID,TITLE,TYPE,STATE,CREATE_TIME,UPDATE_TIME ";
+        String sqlSelect = " select ID,TITLE,TYPE,STATE,CREATE_TIME ";
         String sqlExceptSelect = " from sys_note  ";
         if (StringUtils.notEmpty(where)) {
             sqlExceptSelect += " where " + where;
         }
-        sqlExceptSelect += " order by UPDATE_TIME desc,CREATE_TIME asc ";
+        sqlExceptSelect += " order by CREATE_TIME desc ";
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
 }
