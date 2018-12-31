@@ -7,19 +7,11 @@ top.layer.config({
     shade: 0.1 /*遮罩透明度*/
 });
 
-var layerSkin = {
-    default:'',
-    lan: 'layui-layer-lan',
-    molv: 'layui-layer-molv',
-    green:'layui-layer-green'
-};
-
-layerSkin.default = layerSkin.green;
 var popup = {
     /* 打开 iframe 弹窗*/
     openIframe: function (title, url, width, height, skin) {
         var index = top.layer.open({
-            skin: skin || layerSkin.default,
+            skin: skin || 'layui-layer-lan',
             type: 2,
             title: title,
             maxmin: true,
@@ -36,7 +28,7 @@ var popup = {
     /*iframe 弹窗，不能调整大小*/
     openIframeNoResize:function(title,url,width,height,autoHeight,skin){
         var index = top.layer.open({
-            skin: skin || layerSkin.default,
+            skin: skin || 'layui-layer-lan',
             type: 2,
             title: title,
             maxmin: false,
@@ -59,7 +51,7 @@ var popup = {
     openDOM: function (title, content, width, height, skin) {
         top.layer.open({
             type: 1,
-            skin: skin || layerSkin.default,
+            skin: skin || 'layui-layer-lan',
             shadeClose: true,
             area: [width || '80%', height || '90%'],
             title: title,
@@ -69,7 +61,7 @@ var popup = {
     },
     openConfirm:function(skin,icon, title, msg, yesFun, noFun){
         top.layer.confirm(msg, {
-            skin: skin || layerSkin.default,
+            skin: skin || 'layui-layer-lan',
             icon: icon,
             title: title,
             resize:false,

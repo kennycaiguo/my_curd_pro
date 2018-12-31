@@ -32,10 +32,10 @@
             }
             (function(){
                 function openUserInfoEdit() {
-                    popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '560px');
+                    popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '550px');
                 }
                 function openUserPwdChange(){
-                    popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '380px');
+                    popup.openIframeNoResize('修改密码', '${ctx!}/dashboard/userPass', '360px', '350px');
                 }
                 function logout(){
                     var logoutUrl = '${ctx!}/logout';

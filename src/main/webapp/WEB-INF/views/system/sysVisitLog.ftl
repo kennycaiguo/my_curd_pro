@@ -19,7 +19,7 @@
            url="${ctx!}/sysVisitLog/query" rownumbers="true" border="false" toolbar="#tb"
            data-options="rowStyler:function(index,row){
 			if (row.ERROR_FLAG==1){
-				return 'background-color:#ffa8a8;font-weight:bold;';
+				return 'background-color:#f5969659;font-weight:bold;';
 			}
 		  }"
           fitColumns="false"

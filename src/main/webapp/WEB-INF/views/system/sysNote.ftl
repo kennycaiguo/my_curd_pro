@@ -1,4 +1,4 @@
-<#--笔记 treegrid  -->
+<#--笔记   -->
 <#include "../common/common.ftl"/>
 <@layout>
 <style>
@@ -33,7 +33,31 @@
     }
 </style>
 <script>
+    var contextMenuRow;
     var contextMenuNode;
+
+    /*中间 datagrid load success*/
+    function dgLoadSuccess(){
+        $('#dg2').datagrid("selectRow",0);
+    }
+
+    /*中间datagrid 选中*/
+    function selectNoteRow(index,row){
+        $('#noteIframe').attr('src','${ctx!}/sysNote/editNoteModel?id='+row.ID);
+    }
+
+    /*中间datagrid 右键菜单*/
+    function dgContextMenu(e,index,row){
+        e.preventDefault();
+        contextMenuRow = row;
+        console.log(index);
+        $('#mm2').menu('show',{
+            left: e.pageX,
+            top: e.pageY
+        });
+    }
+
+
     function newCate() {
         var url = '${ctx!}/sysNote/newCateModel';
         if(contextMenuNode!=null){
@@ -46,20 +70,6 @@
             return;
         }
         popup.openIframe('编辑', '${ctx!}/sysNote/newCateModel?id=' + contextMenuNode.id, '360px', '360px');
-    }
-    function newNote(){
-        if(contextMenuNode==null){
-            return;
-        }
-        $.getJSON('${ctx!}/sysNote/addNoteAction?cateId='+contextMenuNode.id,function (data) {
-            if(data.state==='ok'){
-              $('#dg2').datagrid("reload");
-            }else if(data.state==='error'){
-                popup.errMsg('系统异常',data.msg);
-            }else{
-                popup.msg(data.msg);
-            }
-        })
     }
     function delCate() {
         if(contextMenuNode==null){
@@ -79,21 +89,33 @@
             }, "json").error(function(){ popup.errMsg(); });
         });
     }
+    function newNote(){
+        if(contextMenuNode==null){
+            return;
+        }
+        $.getJSON('${ctx!}/sysNote/addNoteAction?cateId='+contextMenuNode.id,function (data) {
+            if(data.state==='ok'){
+                $('#dg2').datagrid("reload");
+            }else if(data.state==='error'){
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        })
+    }
+    function delNote(){
+        alert('delNote');
+    }
 </script>
 <div class="easyui-layout" fit="true" border="false">
     <div data-options="region:'west',split:false" style="width:250px;border-top: none;" collapsible="false"    >
         <div style="margin: 10px;" >
             <ul id="tt"></ul>
-            <div id="mm" class="easyui-menu"  style="width:120px;" >
-                <div >
-                    <span data-options="iconCls:'iconfont icon-add'">新建</span>
-                    <div style="width:150px;">
-                        <div onclick="newNote()"  >笔记</div>
-                        <div onclick="newCate()"  >文件夹</div>
-                    </div>
-                </div>
-                <div onclick="editCate()"  >编辑</div>
-                <div onclick="delCate()"  >删除</div>
+            <div id="mm" class="easyui-menu"    >
+                <div onclick="newNote()"  iconCls="iconfont icon-add" >新建笔记</div>
+                <div onclick="newCate()"  iconCls="iconfont icon-add" >新建文件夹</div>
+                <div onclick="editCate()" iconCls="iconfont icon-edit" >编辑文件夹</div>
+                <div onclick="delCate()"  iconCls="iconfont icon-delete" >删除文件夹</div>
             </div>
         </div>
     </div>
@@ -103,7 +125,7 @@
             <div data-options="region:'west',split:false" style="width:350px;border-top: none;border-left: none;" collapsible="true"    >
                 <table id="dg2" class="easyui-datagrid"   fit="true"    fitColumns="true"
                        url="${ctx!}/sysNote/queryNote" toolbar="#tb2" border="false"
-                       data-options="singleSelect:true,onLoadSuccess:dgLoadSuccess,onSelect:selectNoteRow">
+                       data-options="singleSelect:true,onLoadSuccess:dgLoadSuccess,onSelect:selectNoteRow,onRowContextMenu:dgContextMenu">
                     <thead>
                     <tr>
                         <th  field="TITLE" width="100" formatter="noteFmt">我的笔记</th>
@@ -119,6 +141,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="mm2" class="easyui-menu"    >
+                    <div onclick="delNote()"  iconCls="iconfont icon-delete" >删除笔记</div>
+                </div>
             </div>
             <div data-options="region:'center'" style="border-top: none;"  bodyCls="overHidden" >
                 <iframe id="noteIframe"  style="width:100%;height:100%;" frameborder="0"></iframe>
@@ -126,7 +151,7 @@
         </div>
     </div>
 </div>
-<script src="${ctx!}/static/js/tg-curd.js"></script>
+<script src="${ctx!}/static/js/dg-curd.js"></script>
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script src="${ctx!}/static/plugins/easyui1.6.10/datagrid-scrollview.js"></script>
 <script>
@@ -136,16 +161,8 @@
                 +'</div></div>';
         return html;
     }
-    function dgLoadSuccess(){
-        $('#dg2').datagrid("selectRow",0);
-    }
 
-    function selectNoteRow(index,row){
-        console.log(row.ID);
-        $('#noteIframe').attr('src','${ctx!}/sysNote/editNoteModel?id='+row.ID);
-    }
-
-    (function () {
+    $(function () {
         var easyTree = new EasyTree();
         $('#tt').tree({
             url: '${ctx!}/sysNote/queryCate',
@@ -168,10 +185,9 @@
                 $(".searchBtn","#searchSpan2").first().trigger('click');
             }
         });
-    })();
-
-    $(function () {
+        /*屏蔽菜单的右键菜单*/
         preventDomContextMenu("mm");
+        preventDomContextMenu("mm2");
     });
 </script>
 </@layout>

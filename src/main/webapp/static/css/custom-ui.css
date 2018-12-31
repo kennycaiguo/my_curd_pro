@@ -83,9 +83,14 @@ a:hover{
 .pure-button-primary:hover{
     color: #fff;
 }
-.pure-button{
- /*   border-radius: 0px !important;*/
-}
+/*.pure-button{
+   border-radius: 0px !important;
+}*/
 .borderTopNone{
     border-top: none;
+}
+
+/*链接字颜色*/
+a{
+    color:#333;
 }

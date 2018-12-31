@@ -4,9 +4,9 @@
 .mainHeader  ul.headerMenu{
     background-color: #447eff;
 }
-.mainHeader  ul.headerMenu li a.active {
-    background-color: #3178cb;
-}
+/*.mainHeader  ul.headerMenu li a.active {*/
+    /*background-color: #3178cb;*/
+/*}*/
 
 
 /*easyui linkbutton 按钮字体图标*/
@@ -14,12 +14,12 @@
     color: #447eff;
 }
 
-/*树形菜单*/
+/*树图标*/
 .tree-icon.iconfont{
     color: #447eff;
 }
 
-/* main.ftl 中 tab */
+/* main.ftl 中 tab 图标 */
 #tabGroup .iconfont{
     color:#447eff;
 }
@@ -30,11 +30,7 @@
     background-color: #447eff !important;
 }
 
-
 /*链接颜色设置*/
-a{
-    color:#333;
-}
 a:hover{
-    color:#CC3300;
+    color:#447eff;
 }

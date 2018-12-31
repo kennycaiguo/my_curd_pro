@@ -8,10 +8,15 @@
 
 .mainHeader .pure-button {
     padding: 7px 8px;
-    /*background-color:red !important;*/
 }
 .mainHeader .pure-button:hover{
     border: none !important;
+}
+
+.mainHeader  ul.headerMenu li a.active {
+    filter: alpha(opacity=90);
+    background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1))
 }
 
 .mainHeader ul.headerMenu {
