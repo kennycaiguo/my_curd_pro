@@ -31,18 +31,35 @@
     .datagrid-toolbar{
         border-bottom: none;
     }
+    .datagrid-empty{
+        margin-top: 200px;
+        height: 100px;
+        line-height: 100px;
+        font-size: 18px;
+        font-weight: 500;
+    }
 </style>
 <script>
     var contextMenuRow;
     var contextMenuNode;
 
     /*中间 datagrid load success*/
-    function dgLoadSuccess(){
-        $('#dg2').datagrid("selectRow",0);
+    function dgLoadSuccess(data){
+        if(data.total>0){
+            $('#dg2').datagrid("selectRow",0);
+        }else{
+            /*隐藏*/
+            if($('#noteIframe').css('display')=='inline'){
+                $('#noteIframe').css('display',"none");
+            }
+        }
     }
 
     /*中间datagrid 选中*/
     function selectNoteRow(index,row){
+        if($('#noteIframe').css('display')=='none'){
+            $('#noteIframe').css('display',"inline");
+        }
         $('#noteIframe').attr('src','${ctx!}/sysNote/editNoteModel?id='+row.ID);
     }
 
@@ -104,7 +121,28 @@
         })
     }
     function delNote(){
-        alert('delNote');
+        if(contextMenuRow==null){
+            return;
+        }
+        popup.openConfirm(null,3, '删除', '您确定要删除笔记 "'+contextMenuRow.TITLE+'" 吗?', function () {
+            $.getJSON('${ctx!}/sysNote/deleteNoteAction?ids='+contextMenuRow.ID,function (data) {
+                if(data.state==='ok'){
+                    popup.msg(data.msg,function () {
+                        $('#dg2').datagrid("reload");
+                    });
+                }else if(data.state==='error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            })
+        });
+    }
+    function moveNote() {
+        if(contextMenuRow==null){
+            return;
+        }
+        popup.openIframeNoResize('移动位置', '${ctx!}/sysNote/moveNoteModel?id=' + contextMenuRow.ID, '360px', '300px');
     }
 </script>
 <div class="easyui-layout" fit="true" border="false">
@@ -125,7 +163,10 @@
             <div data-options="region:'west',split:false" style="width:350px;border-top: none;border-left: none;" collapsible="true"    >
                 <table id="dg2" class="easyui-datagrid"   fit="true"    fitColumns="true"
                        url="${ctx!}/sysNote/queryNote" toolbar="#tb2" border="false"
-                       data-options="singleSelect:true,onLoadSuccess:dgLoadSuccess,onSelect:selectNoteRow,onRowContextMenu:dgContextMenu">
+                       data-options="singleSelect:true,emptyMsg:'该目录下暂无笔记',
+                       onLoadSuccess:dgLoadSuccess,
+                       onSelect:selectNoteRow,
+                       onRowContextMenu:dgContextMenu">
                     <thead>
                     <tr>
                         <th  field="TITLE" width="100" formatter="noteFmt">我的笔记</th>
@@ -143,6 +184,7 @@
                 </div>
                 <div id="mm2" class="easyui-menu"    >
                     <div onclick="delNote()"  iconCls="iconfont icon-delete" >删除笔记</div>
+                    <div onclick="moveNote()"  iconCls="iconfont icon-move" >移动笔记</div>
                 </div>
             </div>
             <div data-options="region:'center'" style="border-top: none;"  bodyCls="overHidden" >

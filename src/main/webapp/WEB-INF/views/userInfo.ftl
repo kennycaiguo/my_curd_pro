@@ -53,18 +53,20 @@
             crossDomain: true,   /* 如果用到跨域，需要后台开启CORS */
             processData: false,  /* 注意：不要 process data */
             contentType: false,  /* 注意：不设置 contentType */
-            data: form_data
-        }).success(function(data) {
-            if(data.state === 'ok'){
-                $("#avatarImg").attr("src","${ctx!}/"+data.path);
-                $("#avatarInput").val(data.path);
-            }else if(data.state === 'error'){
-                popup.errMsg('系统异常',data.msg);
-            }else{
-                popup.msg(data.msg);
+            data: form_data,
+            success:function(data){
+                if(data.state === 'ok'){
+                    $("#avatarImg").attr("src","${ctx!}/"+data.path);
+                    $("#avatarInput").val(data.path);
+                }else if(data.state === 'error'){
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            },
+            fail:function (x) {
+                popup.errMsg();
             }
-        }).fail(function(x) {
-            popup.errMsg();
         });
     }
 </script>

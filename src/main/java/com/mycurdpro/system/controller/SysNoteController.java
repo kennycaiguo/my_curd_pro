@@ -4,7 +4,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import com.jfinal.plugin.activerecord.tx.Tx;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
@@ -27,7 +26,6 @@ public class SysNoteController extends BaseController {
         render("system/sysNote.ftl");
     }
 
-    /*----------- 分类管理-------------------*/
 
     /**
      * 新增弹窗
@@ -94,7 +92,6 @@ public class SysNoteController extends BaseController {
         SysUser sysUser = WebUtils.getSysUser(this);
         SysNoteCate sysNoteCate = getBean(SysNoteCate.class,"");
         if(!sysUser.getId().equals(sysNoteCate.getSysUserId())){
-            System.err.println("----------------------");
             renderFail(Constant.UPDATE_FAIL);
             return;
         }
@@ -163,7 +160,6 @@ public class SysNoteController extends BaseController {
 
 
 
-    /*----------------笔记管理------------------*/
     @Before(IdRequired.class)
     public void editNoteModel(){
         String id = getPara("id");
@@ -178,6 +174,25 @@ public class SysNoteController extends BaseController {
         int pageNumber = getParaToInt("page", 1);
         int pageSize = getParaToInt("rows", 100);;
         String where = getAttr(Constant.SEARCH_SQL);
+
+        // 用户查询条件
+        String userId = WebUtils.getSysUser(this).getId();
+        if(StringUtils.isEmpty(where)){
+            where += " USER_ID = '"+userId+"' ";
+        }else{
+            where += " and USER_ID = '"+userId+"' ";
+        }
+
+        // 文件夹查询条件
+        String cateId = getPara("extra_cateId");
+        if(StringUtils.notEmpty(cateId)){
+            String ids = SysNoteCate.dao.findIdsByUserAndRoot(userId,cateId);
+            if(StringUtils.notEmpty(ids)){
+                ids = ids.replaceAll(",","','");
+                where += " and CATE_ID in ('"+ids+"+')";
+            }
+        }
+
         Page<SysNote> sysNotePage = SysNote.dao.page(pageNumber,pageSize,where);
         renderDatagrid(sysNotePage);
     }
@@ -225,5 +240,26 @@ public class SysNoteController extends BaseController {
         String sql = "delete from sys_note where id in ('"+ids+"') and user_id = ?";
         Db.update(sql,sysUser.getId());
         renderSuccess(Constant.DELETE_SUCCESS);
+    }
+
+    /**
+     * 移动文件夹弹窗
+     */
+    public void moveNoteModel(){
+        String id = getPara("id");
+        SysNote sysNote = SysNote.dao.findInfoById(id);
+        setAttr("sysNote",sysNote);
+        render("system/sysNote_move.ftl");
+    }
+    public void moveNoteAction(){
+        String id = getPara("id");
+        String cateId=  getPara("cateId");
+        if(StringUtils.isEmpty(id) || StringUtils.isEmpty(cateId)){
+            renderFail("操作失败");
+            return;
+        }
+        String sql = "update SYS_NOTE set CATE_ID = ?, CREATE_TIME = ? where ID = ? ";
+        Db.update(sql,cateId,new Date(),id);
+        renderSuccess("操作成功");
     }
 }

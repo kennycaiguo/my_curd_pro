@@ -33,7 +33,7 @@
         <tr>
             <td>父级：</td>
             <td>
-                <input name="pid"  id="pid" data-options="panelHeight:'auto'">
+                <input name="pid"  id="pid" data-options="panelHeight:'200px'">
             </td>
         </tr>
         <tr>

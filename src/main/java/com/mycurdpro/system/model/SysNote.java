@@ -32,4 +32,10 @@ public class SysNote extends BaseSysNote<SysNote> {
         sqlExceptSelect += " order by CREATE_TIME desc ";
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
+
+
+    public SysNote findInfoById(String id){
+        String sql = "select ID,TITLE,CATE_ID,CREATE_TIME from sys_note where id = ?";
+        return findFirst(sql,id);
+    }
 }
