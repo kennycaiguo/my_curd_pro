@@ -43,7 +43,7 @@ public class SysVisitLogController extends BaseController {
      */
     @Clear(PermissionInterceptor.class)
     @Before({RoleInterceptor.class,IdsRequired.class})
-    @RequireRole(value = "admin",relation = RequireRole.Relation.AND)
+    @RequireRole(value = "admin,GOD",relation = RequireRole.Relation.AND) // 测试无权限
     public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
         String sql = "delete from sys_visit_log where  id in ('" + ids + "')";

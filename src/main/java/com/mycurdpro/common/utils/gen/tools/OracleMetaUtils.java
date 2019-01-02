@@ -1,4 +1,4 @@
-package com.mycurdpro.common.utils.codegenerator;
+package com.mycurdpro.common.utils.gen.tools;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
@@ -18,19 +18,20 @@ import java.util.*;
  */
 public class OracleMetaUtils {
     private final static Logger LOG = LoggerFactory.getLogger(OracleMetaUtils.class);
+    private final static DataSource dataSource = OracleDatasourceUtils.getDataSource();
+
     // （Jfinal 特色)
-    private static final TypeMapping typeMapping = new TypeMapping();// 数据类型 java类型映射
-    static DataSource dataSource;                      //  数据源
+    private static final TypeMapping typeMapping = new TypeMapping();  // 数据类型 java类型映射
 
     /**
      * 获得 数据表信息
      *
      * @param schemaPattern oracle schema 名
      * @param tableNames    获取元数据的表名集合
-     * @param hasColumn     是否包含列信息
+     * @param includeColumn 是否包含列信息
      * @return 表元数据
      */
-    public static List<TableMeta> loadTables(String schemaPattern, Set<String> tableNames, Boolean hasColumn) {
+    public static List<TableMeta> loadTables(String schemaPattern, Set<String> tableNames, Boolean includeColumn) {
         Preconditions.checkNotNull(dataSource, " dataSource 不可为 null");
 
         List<TableMeta> tables = new ArrayList<>();
@@ -38,7 +39,7 @@ public class OracleMetaUtils {
         try {
             conn = dataSource.getConnection();
             for (String tableName : tableNames) {
-                tables.add(loadTable(conn, schemaPattern, tableName, hasColumn));
+                tables.add(loadTable(conn, schemaPattern, tableName, includeColumn));
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -61,15 +62,14 @@ public class OracleMetaUtils {
      * @param conn          数据库连接
      * @param schemaPattern oracle schema 名
      * @param tableName     表名
-     * @param hasColumn     是否查询列信息
+     * @param includeColumn 是否查询列信息
      * @return 表信息
      * @throws Exception 查询异常
      */
-    private static TableMeta loadTable(Connection conn, String schemaPattern, String tableName, Boolean hasColumn) throws Exception {
+    private static TableMeta loadTable(Connection conn, String schemaPattern, String tableName, Boolean includeColumn) throws Exception {
         Preconditions.checkNotNull(conn, "代码生成器 获得 Connection对象 为 null ");
 
         DatabaseMetaData dbMeta = conn.getMetaData();
-
         // 查询表信息
         ResultSet rs = dbMeta.getTables(conn.getCatalog(), schemaPattern, tableName, null);
         TableMeta tableMeta = new TableMeta();
@@ -86,7 +86,7 @@ public class OracleMetaUtils {
         tableMeta.primaryKeys = tablePrimaryKeys;
 
         // 查询列信息
-        if (hasColumn) {
+        if (includeColumn) {
             Map<String, String> nameJavaTypeMap = new HashMap<>();
             String sql = "select * from " + tableMeta.name + " where rownum < 1"; // oracle 特色
             Statement stm = conn.createStatement();
@@ -119,7 +119,6 @@ public class OracleMetaUtils {
                         typeStr = "java.lang.String";
                     }
                 }
-
                 if ("java.math.BigDecimal".equals(typeStr)) {
                     int scale = rsmd.getScale(i);            // 小数点右边的位数，值为 0 表示整数
                     int precision = rsmd.getPrecision(i);    // 最大精度

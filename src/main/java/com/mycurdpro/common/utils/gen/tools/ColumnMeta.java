@@ -1,15 +1,18 @@
-package com.mycurdpro.common.utils.codegenerator;
+package com.mycurdpro.common.utils.gen.tools;
 
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.mycurdpro.common.utils.gen.GeneratorConfig;
 
 import java.io.Serializable;
 
 /**
  * ColumnMeta，, 用于代码生成器
  */
+@SuppressWarnings("unused")
 public class ColumnMeta implements Serializable {
 
+    private static final long serialVersionUID = 5453339961911460940L;
     // 列名 (默认排序为0)
     @JSONField()
     public String name;
@@ -55,8 +58,8 @@ public class ColumnMeta implements Serializable {
     @JSONField(ordinal = 10)
     public String defaultValue;
 
-
     // java 类型短名
+    @JSONField(ordinal = 11)
     private String javaTypeShortName;
 
     public String getName() {
@@ -93,7 +96,7 @@ public class ColumnMeta implements Serializable {
 
     public void setJavaType(String javaType) {
         this.javaType = javaType;
-        this.javaTypeShortName = LongShortMapping.getShortName(javaType);
+        this.javaTypeShortName = GeneratorConfig.longShort.get(javaType);
     }
 
     public String getJavaTypeShortName() {

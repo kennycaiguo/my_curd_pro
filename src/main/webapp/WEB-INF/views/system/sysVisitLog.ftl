@@ -12,7 +12,7 @@
     }
     /*datagrid 最小高度*/
     .datagrid-toolbar{
-        min-height: 30px;
+        min-height: 33px !important;
     }
 </style>
     <table id="dg" class="easyui-datagrid"

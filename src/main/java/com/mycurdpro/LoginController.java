@@ -1,7 +1,6 @@
 package com.mycurdpro;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.base.Objects;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Duang;
 import com.jfinal.core.ActionKey;
@@ -13,13 +12,11 @@ import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.StringUtils;
-import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.utils.guava.BaseCache;
 import com.mycurdpro.common.utils.guava.CacheContainer;
 import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysUser;
 import com.mycurdpro.system.model.SysUserRole;
-import com.mycurdpro.system.model.SysUserRoleincode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,7 +147,7 @@ public class LoginController extends BaseController {
 
     /**
      * 登录后将 用户相关信息放入到 session 中
-     * // TODO 可改
+     * // TODO 更友好的集群方案
      * @param sysUser
      */
     private void afterLogin(SysUser sysUser){

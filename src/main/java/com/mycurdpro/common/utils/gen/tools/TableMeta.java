@@ -1,6 +1,7 @@
-package com.mycurdpro.common.utils.codegenerator;
+package com.mycurdpro.common.utils.gen.tools;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.mycurdpro.common.utils.gen.GeneratorConfig;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,7 +11,10 @@ import java.util.Set;
 /**
  * TableMeta, 用于代码生成器
  */
+@SuppressWarnings("unused")
 public class TableMeta implements Serializable {
+
+    private static final long serialVersionUID = -934868752674285833L;
 
     // 表名
     @JSONField(ordinal = 1)
@@ -36,54 +40,72 @@ public class TableMeta implements Serializable {
     @JSONField(ordinal = 6)
     public List<ColumnMeta> columnMetas;
 
-
     // base model 中必须 import 的包
+    @JSONField(ordinal = 7)
     private Set<String> necessaryImport = new HashSet<>();
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getNameCamel() {
         return nameCamel;
+    }
+
+    public void setNameCamel(String nameCamel) {
+        this.nameCamel = nameCamel;
     }
 
     public String getNameCamelFirstUp() {
         return nameCamelFirstUp;
     }
 
+    public void setNameCamelFirstUp(String nameCamelFirstUp) {
+        this.nameCamelFirstUp = nameCamelFirstUp;
+    }
+
     public String getRemark() {
         return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public List<String> getPrimaryKeys() {
         return primaryKeys;
     }
 
+    public void setPrimaryKeys(List<String> primaryKeys) {
+        this.primaryKeys = primaryKeys;
+    }
+
     public List<ColumnMeta> getColumnMetas() {
         return columnMetas;
     }
 
+    public Set<String> getNecessaryImport() {
+        return necessaryImport;
+    }
+
+    public void setNecessaryImport(Set<String> necessaryImport) {
+        this.necessaryImport = necessaryImport;
+    }
+
     public void setColumnMetas(List<ColumnMeta> columnMetas) {
         this.columnMetas = columnMetas;
-        final HashSet<String> excludeTypes = new HashSet<String>() {{
-            add("String");
-            add("Double");
-            add("Integer");
-            add("Float");
-            add("Long");
-        }};
         for (ColumnMeta columnMeta : columnMetas) {
-            if (columnMeta.getJavaTypeShortName() == null || excludeTypes.contains(columnMeta.getJavaTypeShortName())) {
+            if (columnMeta.getJavaTypeShortName() == null || GeneratorConfig.excludeImportTypes.contains(columnMeta.getJavaTypeShortName())) {
                 continue;
             }
             this.necessaryImport.add(columnMeta.javaType);
         }
     }
 
-    public Set<String> getNecessaryImport() {
-        return necessaryImport;
-    }
 
     @Override
     public String toString() {

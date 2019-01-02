@@ -1,35 +1,34 @@
-package com.mycurdpro.common.utils.codegenerator;
+package com.mycurdpro.common.utils.gen.client;
 
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.activerecord.generator.Generator;
+import com.mycurdpro.common.utils.gen.tools.OracleDatasourceUtils;
 
 /**
  * jfinal官方 Model 代码生成器
- * maven 项目
- * oracle下存在bug，表字段如设置默认值 生成字典文件时报错 java.sql.SQLException: 流已被关闭
+ * maven 项目, oracle下存在bug，表字段如设置默认值 生成字典文件时报错 java.sql.SQLException: 流已被关闭
  */
-public class JfinalModelGenerator {
+public class JfinalModelClient {
 
 
     // base model 包名
-    private static String baseModelPkg = "com.mycurdpro.testModule.model.base";
+    private static final String baseModelPkg = "com.mycurdpro.testModule.model.base";
     // base 路径
-    private static String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/com/mycurdpro/testModule/model/base";
+    private static final String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/com/mycurdpro/testModule/model/base";
     // model 包名
-    private static String modelPkg = "com.mycurdpro.testModule.model";
+    private static final String modelPkg = "com.mycurdpro.testModule.model";
     // model 路径
-    private static String modelDir = baseModelDir + "/..";
+    private static final String modelDir = baseModelDir + "/..";
 
 
     public static void main(String[] args) {
-        Generator generator = new Generator(GeneratorConfig.getDataSource(), baseModelPkg, baseModelDir, modelPkg, modelDir);
+        Generator generator = new Generator(OracleDatasourceUtils.getDataSource(), baseModelPkg, baseModelDir, modelPkg, modelDir);
         generator.setDialect(new OracleDialect());
         // 链式
         generator.setGenerateChainSetter(true);
         // model 中生成 dao 对象
         generator.setGenerateDaoInModel(true);
-
 
         // 数据字典
         generator.setGenerateDataDictionary(true);

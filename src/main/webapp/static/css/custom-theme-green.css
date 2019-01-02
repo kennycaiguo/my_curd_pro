@@ -72,10 +72,7 @@ a:hover{
 .datagrid-row-selected {
     color: #40b370  !important;
 }
-.calendar-selected {
-    color: #40b370;
-    border: 1px solid #40b370  !important;
-}
+
 .progressbar-value,
 .progressbar-value .progressbar-text {
     color: #40b370  !important;
@@ -120,6 +117,11 @@ a:hover{
 }
 .calendar-selected {
     background: #40b370  !important;
+    color: #fff  !important;
+    border-color: transparent  !important;
+}
+.calendar-today {
+    color: #40b370 ;
 }
 .tabs li.tabs-selected a.tabs-inner {
     color: #40b370  !important;

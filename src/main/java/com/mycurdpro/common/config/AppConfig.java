@@ -9,9 +9,9 @@ import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
-import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
-import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
+import com.jfinal.plugin.activerecord.*;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
+import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
@@ -92,6 +92,8 @@ public class AppConfig extends JFinalConfig {
 
         me.add(activeRecordPlugin);
 
+        Cron4jPlugin cron4jPlugin = new Cron4jPlugin();
+        me.add(cron4jPlugin);
     }
 
     @Override
@@ -118,5 +120,17 @@ public class AppConfig extends JFinalConfig {
             }
         });
         me.add(dvh);
+    }
+
+    @Override
+    public void afterJFinalStart() {
+        super.afterJFinalStart();
+        Record record = Db.findFirst("select count(1) c from sys_visit_log");
+        System.out.println("---------------------------------: visitLog count: "+record.get("c"));
+    }
+
+    @Override
+    public void beforeJFinalStop() {
+        super.beforeJFinalStop();
     }
 }

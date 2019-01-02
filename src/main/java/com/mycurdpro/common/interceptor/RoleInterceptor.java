@@ -23,6 +23,7 @@ public class RoleInterceptor implements Interceptor {
         boolean flag = true;
         RequireRole requireRole =  inv.getMethod().getAnnotation(RequireRole.class);
         String roleCodes = inv.getController().getSessionAttr(Constant.SYS_USER_ROLE_CODES);
+
         if( requireRole!=null && roleCodes!=null){
             RequireRole.Relation relation = requireRole.relation();
             if (relation.equals(RequireRole.Relation.OR)){
