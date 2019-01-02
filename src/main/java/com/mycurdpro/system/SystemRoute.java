@@ -55,5 +55,8 @@ public class SystemRoute extends Routes {
 
         // 个人笔记
         add("/sysNote",SysNoteController.class,Constant.VIEW_PATH);
+
+        // 定时任务
+        add("/sysTask",SysTaskController.class,Constant.VIEW_PATH);
     }
 }

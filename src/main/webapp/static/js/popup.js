@@ -113,5 +113,10 @@ var popup = {
     /*关闭弹窗，父窗口关闭子窗口*/
     closeByIndex:function(windowIndex){
         top.layer.close(windowIndex);
+    },
+    loading:function (typeCode) {
+        // typeCode : 0,1,2
+        var index = top.layer.load(typeCode, {shade: 0.1});
+        return index
     }
 }

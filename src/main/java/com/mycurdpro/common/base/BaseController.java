@@ -3,12 +3,14 @@ package com.mycurdpro.common.base;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
+import com.jfinal.core.NotAction;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.service.SysServiceLogService;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,13 @@ public abstract class BaseController extends Controller {
     protected void renderDatagrid(List<Record> list) {
         Map<String, Object> datagrid = new HashMap<String, Object>();
         datagrid.put("rows", list);
+        renderJson(datagrid);
+    }
+
+    public void renderDatagrid(Collection collection, int total){
+        Map<String, Object> datagrid = new HashMap<String, Object>();
+        datagrid.put("rows", collection);
+        datagrid.put("total", total);
         renderJson(datagrid);
     }
 
@@ -164,6 +173,7 @@ public abstract class BaseController extends Controller {
      *
      * @param content
      */
+    @NotAction
     public void addServiceLog(String content) {
         SysServiceLogService.addServiceLog(WebUtils.getSessionUsername(this)
                 , WebUtils.getRemoteAddress(getRequest())

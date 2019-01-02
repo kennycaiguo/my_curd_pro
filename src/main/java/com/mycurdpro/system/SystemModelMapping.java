@@ -50,6 +50,8 @@ public class SystemModelMapping {
         arp.addMapping("SYS_NOTE_CATE","ID",SysNoteCate.class);
         // 笔记
         arp.addMapping("SYS_NOTE","ID",SysNote.class);
+        // 定时任务日志
+        arp.addMapping("SYS_TASK_LOG", "ID", SysTaskLog.class);
     }
 }
 

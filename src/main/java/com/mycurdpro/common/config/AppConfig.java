@@ -26,6 +26,7 @@ import com.mycurdpro.common.utils.UtilsController;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
+import it.sauronsoftware.cron4j.ProcessTask;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -92,7 +93,8 @@ public class AppConfig extends JFinalConfig {
 
         me.add(activeRecordPlugin);
 
-        Cron4jPlugin cron4jPlugin = new Cron4jPlugin();
+        // 定时任务插件
+        Cron4jPlugin cron4jPlugin = new Cron4jPlugin("task.properties");
         me.add(cron4jPlugin);
     }
 
