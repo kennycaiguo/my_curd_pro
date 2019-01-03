@@ -9,10 +9,11 @@
   <thead>
   <tr>
       <th data-options="field:'ID',checkbox:true"></th>
-      <th field="CLASS_NAME" width="250">类名</th>
+      <th field="RESULT" width="100" formatter="resultFmt">运行结果</th>
+  <#--<th field="CLASS_NAME" width="250">类名</th>-->
       <th field="START_TIME" width="150">开始时间</th>
       <th field="END_TIME" width="150">结束时间</th>
-      <th field="RESULT" width="100">运行结果</th>
+      <#--<th field="ERROR" width="200">错误信息</th>-->
   </tr>
   </thead>
 </table>
@@ -28,4 +29,12 @@
     </span>
 </div>
 <script src="${ctx!}/static/js/dg-curd.js"></script>
+<script>
+    function resultFmt(val) {
+        if(val=='success'){
+            return '<font color="#40b370">'+val+'</font>'
+        }
+        return '<font color="red">'+val+'</font>'
+    }
+</script>
 </@layout>

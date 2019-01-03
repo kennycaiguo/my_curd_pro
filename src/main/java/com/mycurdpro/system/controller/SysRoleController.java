@@ -125,8 +125,8 @@ public class SysRoleController extends BaseController {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysUserRole> authUserRolePage = SysUserRole.dao.pageWithUserInfo(pageNumber, pageSize, where);
-        renderDatagrid(authUserRolePage);
+        Page<SysUserRole> sysUserRolePage = SysUserRole.dao.pageWithUserInfo(pageNumber, pageSize, where);
+        renderDatagrid(sysUserRolePage);
     }
     /**
      * 角色相关用户 删除

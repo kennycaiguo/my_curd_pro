@@ -3,8 +3,6 @@ package com.mycurdpro.common.interceptor;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.kit.Ret;
-import com.mycurdpro.common.annotation.RequireRole;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.utils.StringUtils;

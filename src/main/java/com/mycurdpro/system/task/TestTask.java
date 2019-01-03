@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
+/**
+ * 示例 定时任务
+ * @author
+ */
 public class TestTask implements ITask {
 
     private final  static Logger LOG = LoggerFactory.getLogger(TestTask.class);

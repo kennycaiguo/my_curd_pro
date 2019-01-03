@@ -85,7 +85,7 @@
                     消息模板:
                 </td>
                 <td colspan="3">
-                    <input name="template" value="${(sysNoticeType.template?js_string)!}" class="easyui-textbox" style="width: 100%;height: 80px;"
+                    <input name="template" value="${(sysNoticeType.template?js_string)!}" class="easyui-textbox"   style="width: 100%;height: 80px;"
                            data-options="required:true,multiline:true">
                 </td>
             </tr>

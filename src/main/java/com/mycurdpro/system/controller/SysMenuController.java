@@ -3,15 +3,19 @@ package com.mycurdpro.system.controller;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
+import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.system.model.SysMenu;
+import com.mycurdpro.system.model.SysRoleMenu;
+import com.mycurdpro.system.model.SysUserRole;
 
 import java.util.*;
 
@@ -174,5 +178,39 @@ public class SysMenuController extends BaseController {
             maps.add(map);
         }
         renderJson(maps);
+    }
+
+
+    /**
+     * 查看 菜单相关 角色
+     */
+    public void openMenuRole(){
+        setAttr("menuId", getPara("id"));
+        render("system/sysMenu_role.ftl");
+    }
+    /**
+     * 菜单相关角色数据
+     */
+    @Before(SearchSql.class)
+    public void queryMenuRole() {
+        int pageNumber = getAttr("pageNumber");
+        int pageSize = getAttr("pageSize");
+        String where = getAttr(Constant.SEARCH_SQL);
+
+        Page<SysRoleMenu> sysRoleMenuPage = SysRoleMenu.dao.pageWithRoleInfo(pageNumber, pageSize, where);
+        renderDatagrid(sysRoleMenuPage);
+    }
+    /**
+     * 菜单相关角色删除
+     */
+    public void deleteMenuRole(){
+        String menuId = getPara("menuId");
+        String roleId = getPara("roleId");
+        if(StringUtils.isEmpty(roleId) || StringUtils.isEmpty(menuId)){
+            renderFail("menuId roleId 参数不可为空");
+            return;
+        }
+        SysRoleMenu.dao.deleteById(roleId,menuId);
+        renderSuccess("菜单角色删除成功");
     }
 }

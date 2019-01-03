@@ -21,7 +21,7 @@ public class SystemModelMapping {
         // 系统菜单
         arp.addMapping("SYS_MENU", "ID", SysMenu.class);
         // 角色菜单中间表
-        arp.addMapping("SYS_ROLE_MENU", "SYS_MENU_ID,SYS_ROLE_ID", SysRoleMenu.class);
+        arp.addMapping("SYS_ROLE_MENU", "SYS_ROLE_ID,SYS_MENU_ID", SysRoleMenu.class);
         // 组织机构表
         arp.addMapping("SYS_ORG", "ID", SysOrg.class);
         // 通知分类
