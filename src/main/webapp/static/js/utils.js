@@ -113,3 +113,31 @@ function preventDomContextMenu(id){
         preventContextMenu(evt);
     };
 }
+
+
+
+/**
+ * 在页面中创建一个隐藏的 post form 并提交表单
+ * 用例： 通过 post 方式打开新页面，参数中文等
+ * @param url     表单提交地址
+ * @param target  表单提交方式 _self 、_blank
+ * @param params  post 参数, { name: "param1", value: "param1"} 数组
+ */
+function postForm(url,target, params) {
+    var temp_form = document.createElement("form");
+    temp_form.action = url;
+    temp_form.target = target;
+    temp_form.method = "post";
+    temp_form.style.display = "none";
+
+    for (var item in params) {
+        var opt = document.createElement("textarea");
+        opt.name = params[item].name;
+        opt.value = params[item].value;
+        temp_form.appendChild(opt);
+    }
+
+    document.body.appendChild(temp_form);
+    temp_form.submit();
+    document.body.removeChild(temp_form);
+}

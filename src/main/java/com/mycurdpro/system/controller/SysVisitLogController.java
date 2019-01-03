@@ -1,5 +1,7 @@
 package com.mycurdpro.system.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
@@ -8,9 +10,17 @@ import com.mycurdpro.common.annotation.RequireRole;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.*;
+import com.mycurdpro.common.render.ExcelRender;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysVisitLog;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 访问日志
@@ -18,6 +28,7 @@ import com.mycurdpro.system.model.SysVisitLog;
 @Clear(ExceptionInterceptor.class)
 public class SysVisitLogController extends BaseController {
 
+    private final static Logger LOG = LoggerFactory.getLogger(SysVisitLogController.class);
 
     @Before(ControlDomByRole.class)
     public void index() {
@@ -62,5 +73,24 @@ public class SysVisitLogController extends BaseController {
             setAttr("sysVisitLog", sysVisitLog);
         }
         render("system/sysVisitLog_view.ftl");
+    }
+
+    /**
+     * 导出excel
+     */
+    @Before(SearchSql.class)
+    public  void exportExcel(){
+        String where = getAttr(Constant.SEARCH_SQL);
+        if(SysVisitLog.dao.findCountByWhere(where)>50000){
+            renderHtml("<h1 style='text-align:center;margin-top:200px'>一次导出数据不可大于 5W 条，请修改查询条件。</h1>");
+            return;
+        }
+
+        LOG.info("d1: {}",new DateTime(new Date()).toString("yyyy-MM-dd HH:mm:ss"));
+        List<SysVisitLog> list = SysVisitLog.dao.findByWhere(where);
+
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("访问日志","访问日志"),
+                SysVisitLog.class, list);
+        render(ExcelRender.me(workbook).fileName("访问日志.xls"));
     }
 }

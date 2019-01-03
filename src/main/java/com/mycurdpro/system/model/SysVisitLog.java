@@ -4,6 +4,8 @@ import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysVisitLog;
 
+import java.util.List;
+
 /**
  * Generated model
  * DB: SYS_VISIT_LOG  系统访问日志
@@ -13,7 +15,6 @@ import com.mycurdpro.system.model.base.BaseSysVisitLog;
 @SuppressWarnings("serial")
 public class SysVisitLog extends BaseSysVisitLog<SysVisitLog> {
     public static final SysVisitLog dao = new SysVisitLog().dao();
-
 
     /**
      * 分页查询
@@ -31,5 +32,27 @@ public class SysVisitLog extends BaseSysVisitLog<SysVisitLog> {
         }
         sqlExceptSelect += " order by create_time desc ";
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
+
+
+    public Long findCountByWhere(String where){
+        String sql = " select count(1) as c from sys_visit_log ";
+        if(StringUtils.notEmpty(where)){
+            sql += " where "+where;
+        }
+        return findFirst(sql).getLong("c");
+    }
+
+    /**
+     * 根据 where 条件查询
+     * @param where
+     * @return
+     */
+    public List<SysVisitLog> findByWhere(String where){
+        String sql = " select * from sys_visit_log ";
+        if(StringUtils.notEmpty(where)){
+            sql += " where "+where;
+        }
+        return find(sql);
     }
 }

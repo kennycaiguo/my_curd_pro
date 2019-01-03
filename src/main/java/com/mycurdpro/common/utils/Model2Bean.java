@@ -99,6 +99,10 @@ public class Model2Bean<M, B> {
         String fieldName;
 
         for (Field field : fields) {
+            if(field.getName().equals("serialVersionUID")){
+                continue;
+            }
+
             field.setAccessible(true);
             fieldName = modelKeyUpper ? StringUtils.toUnderline(field.getName()).toUpperCase() : StringUtils.toUnderline(field.getName());
             try {

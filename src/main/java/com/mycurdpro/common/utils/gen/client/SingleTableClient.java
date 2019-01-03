@@ -11,15 +11,22 @@ import java.util.List;
  * @author zhangchuang
  */
 public class SingleTableClient {
-    // 生成 controlle r
-    private final static boolean genController = false;         // 是否生成
+
+    // 生成 controller  （默认 增删改查)
     private final static String controllerTplPath = "";         // controller 模板文件路径
     private final static String controllerOutPath = "";         // controller 渲染文件输出路径
 
     // 生成前台页面
-    private final static boolean genPage = false;                           // 是否生成
-    private final static String[] pageTplsPath = new String[]{"", "", ""};  // 页面 模板文件路径
-    private final static String pageOutDirPath = "";                        // 页面 输出文件输出目录
+    private final static String indexTplPath = "";              // 主页面模板路径
+    private final static String formTplPath = "";               // 表单页模板路径
+    private final static String viewTplPath = "";               // 查看页模板路径
+    private final static String pageOutDirPath = "";            // 页面 输出文件输出目录
+
+
+    // 额外方法
+    private final static boolean genImport = false;   // 通过 excel 导入
+    private final static boolean genExport = false;   // excel 导出
+    private final static boolean genView = false;     // 生成查看方法
 
     public static  void generate(List<TableMeta> tableMetas)throws IOException {
 

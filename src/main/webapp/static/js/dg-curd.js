@@ -87,6 +87,30 @@ $(".searchInputArea,.searchInputAreaDiv").on("keydown", function (e) {
     }
 });
 
+/**
+ * excel 导出
+ * @param inputsSpanId 搜索框id
+ */
+function exportExcel(url,inputsSpanId){
+    var params = [];
+    var inputDomAry = $("#"+inputsSpanId+" input[name*=search_],#"+inputsSpanId+" input[name*=extra_]");
+    console.log(inputDomAry.length);
+
+    var val;
+    for(var i = 0,len = inputDomAry.length; i < len; i++){
+        val = $(inputDomAry[i]).val();
+        if(isEmpty(val)){
+            continue;
+        }
+        var param = {};
+        param.name = $(inputDomAry[i]).attr('name');
+        param.value = val;
+        params.push(param);
+    }
+    // util.js 中
+    postForm(url,'_blank',params);
+}
+
 
 
 /**

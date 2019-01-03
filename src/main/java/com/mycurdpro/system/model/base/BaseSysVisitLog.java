@@ -1,5 +1,6 @@
 package com.mycurdpro.system.model.base;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
 
@@ -12,6 +13,21 @@ import java.util.Date;
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseSysVisitLog<M extends BaseSysVisitLog<M>> extends Model<M> implements IBean {
+
+
+    //----------- 导出 excel 需要， 依赖 get 方法，也可考虑 model 转 bean
+    @Excel(name = "访问人",mergeVertical = false, height = 10, width = 30)
+    private String sysUser;
+    @Excel(name = "访问时间", height = 10, width =40, databaseFormat = "yyyy-MM-dd HH:mm:ss",  format = "yyyy年MM月dd日 HH时mm分ss秒")
+    private Date createTime;
+    @Excel(name = "ip地址", height = 10, width = 30)
+    private  String sysUserIp;
+    @Excel(name = "请求地址", height = 10, width = 30)
+    private String url;
+    @Excel(name = "请求类型", height = 10, width = 30)
+    private String type;
+    // 非本表中字段 get 方法
+    //------------ 导出excel 必须
 
 
      // 主键id
