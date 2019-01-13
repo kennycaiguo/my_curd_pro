@@ -22,22 +22,22 @@ public class SysUserUnlockController extends BaseController {
 
     // 密码错误尝试次数
 
-    public void index(){
+    public void index() {
         render("system/sysUserUnlock.ftl");
     }
 
-    public void  query(){
+    public void query() {
         Map<String, AtomicInteger> cacheAsMap = CacheContainer.getLoginRetryLimitCache().getCache().asMap();
         Set<String> userNameSet = new LinkedHashSet<>();
-        cacheAsMap.forEach((K,V)->{
+        cacheAsMap.forEach((K, V) -> {
             System.err.println(K);
-            if(V.get()>= LoginRetryLimitCache.RETRY_LIMIT){
+            if (V.get() >= LoginRetryLimitCache.RETRY_LIMIT) {
                 userNameSet.add(K);
             }
         });
         List<SysUser> sysUsers = new ArrayList<>();
-        String ids  = "'"+ Joiner.on("','").join(userNameSet)+"'";
-        List<Record> records = Db.find("select * from sys_user where username in ("+ids+")");
+        String ids = "'" + Joiner.on("','").join(userNameSet) + "'";
+        List<Record> records = Db.find("select * from sys_user where username in (" + ids + ")");
         renderDatagrid(records);
     }
 
@@ -46,20 +46,20 @@ public class SysUserUnlockController extends BaseController {
      * 解锁
      */
     @Before(Tx.class)
-    public void unlockAction(){
+    public void unlockAction() {
         String usernames = getPara("usernames");
-        if(StringUtils.isEmpty(usernames)){
+        if (StringUtils.isEmpty(usernames)) {
             renderFail("参数不可为空");
             return;
         }
 
         String[] usernameAry = usernames.split(",");
-        BaseCache<String,AtomicInteger> baseCache = CacheContainer.getLoginRetryLimitCache();
-        for(String username:usernameAry){
-             baseCache.put(username,new AtomicInteger());
+        BaseCache<String, AtomicInteger> baseCache = CacheContainer.getLoginRetryLimitCache();
+        for (String username : usernameAry) {
+            baseCache.put(username, new AtomicInteger());
         }
 
-        addServiceLog(usernames+" 账号解锁");
+        addServiceLog(usernames + " 账号解锁");
 
         renderSuccess("解锁成功");
     }

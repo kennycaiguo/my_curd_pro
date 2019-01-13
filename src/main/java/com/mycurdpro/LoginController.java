@@ -48,7 +48,7 @@ public class LoginController extends BaseController {
         // cookie username password 存在
         if (StringUtils.notEmpty(username) && StringUtils.notEmpty(password)) {
             SysUser sysUser = SysUser.dao.findByUsernameAndPassword(username, password);
-            if (sysUser!=null && "0".equals(sysUser.getUserState())) {
+            if (sysUser != null && "0".equals(sysUser.getUserState())) {
                 sysUser.setLastLoginTime(new Date());
                 sysUser.update();
 
@@ -143,9 +143,10 @@ public class LoginController extends BaseController {
 
     /**
      * 登录后将 用户相关信息放入到 session 中
+     *
      * @param sysUser
      */
-    private void afterLogin(SysUser sysUser){
+    private void afterLogin(SysUser sysUser) {
         // 登录用户信息
         setSessionAttr(Constant.SYS_USER, sysUser);
         // druid session 监控用
@@ -154,12 +155,12 @@ public class LoginController extends BaseController {
         String roleIds = SysUserRole.dao.findRoleIdsByUserId(sysUser.getId());
         LOG.debug("{} has role ids {}", sysUser.getUsername(), roleIds);
         List<SysMenu> sysMenus = loginService.findUserMenus(roleIds);
-        setSessionAttr(Constant.SYS_USER_MENU,sysMenus);
+        setSessionAttr(Constant.SYS_USER_MENU, sysMenus);
         LOG.debug("{} has menu {}", sysUser.getUsername(), JSON.toJSONString(sysMenus));
 
         // 角色编码
         String rolecodes = SysUserRole.dao.findRoleCodesByUserId(sysUser.getId());
-        setSessionAttr(Constant.SYS_USER_ROLE_CODES,rolecodes);
+        setSessionAttr(Constant.SYS_USER_ROLE_CODES, rolecodes);
     }
 
 

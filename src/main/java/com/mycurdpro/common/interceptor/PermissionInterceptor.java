@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 权限菜单 拦截器,菜单拦截器
+ *
  * @author zhangchuang
  */
 public class PermissionInterceptor implements Interceptor {
@@ -25,14 +26,14 @@ public class PermissionInterceptor implements Interceptor {
         List<SysMenu> sysMenus = inv.getController().getSessionAttr(Constant.SYS_USER_MENU);
 
         LOG.debug("permission menu: {}", JsonKit.toJson(sysMenus));
-        LOG.debug("controllerKey: {}",controllerKey);
-        LOG.debug("actionKey: {}",inv.getActionKey());
+        LOG.debug("controllerKey: {}", controllerKey);
+        LOG.debug("actionKey: {}", inv.getActionKey());
 
         // 菜单只可配置 到 actionKey, 不可配置到 controller key
-        for(SysMenu sysMenu : sysMenus){
+        for (SysMenu sysMenu : sysMenus) {
             // 菜单地址 同
             if (StringUtils.notEmpty(sysMenu.getUrl()) && !sysMenu.getUrl().equals("/") && sysMenu.getUrl().equals(controllerKey)) {
-                LOG.debug("c: {}, a:{} 拥有 {}, 拥有菜单权限. ",controllerKey,inv.getActionKey(),sysMenu.getUrl());
+                LOG.debug("c: {}, a:{} 拥有 {}, 拥有菜单权限. ", controllerKey, inv.getActionKey(), sysMenu.getUrl());
                 inv.invoke();
                 return;
             }

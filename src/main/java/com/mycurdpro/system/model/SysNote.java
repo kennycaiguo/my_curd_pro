@@ -4,11 +4,10 @@ import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysNote;
 
-import java.util.List;
-
 /**
  * Generated model
- * DB: SYS_NOTE  
+ * DB: SYS_NOTE
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")
@@ -34,8 +33,8 @@ public class SysNote extends BaseSysNote<SysNote> {
     }
 
 
-    public SysNote findInfoById(String id){
+    public SysNote findInfoById(String id) {
         String sql = "select ID,TITLE,CATE_ID,CREATE_TIME from sys_note where id = ?";
-        return findFirst(sql,id);
+        return findFirst(sql, id);
     }
 }

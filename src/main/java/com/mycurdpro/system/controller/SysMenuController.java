@@ -86,9 +86,9 @@ public class SysMenuController extends BaseController {
     public void addAction() {
         SysMenu sysMenu = getBean(SysMenu.class, "");
         // 地址不重复
-        if(!sysMenu.getUrl().equals("/")){
+        if (!sysMenu.getUrl().equals("/")) {
             SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
-            if(sysMenuOld!=null){
+            if (sysMenuOld != null) {
                 renderFail("菜单地址已存在.");
                 return;
             }
@@ -110,7 +110,7 @@ public class SysMenuController extends BaseController {
         SysMenu sysMenu = getBean(SysMenu.class, "");
 
         // 地址不重复
-        if(!sysMenu.getUrl().equals("/")) {
+        if (!sysMenu.getUrl().equals("/")) {
             SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
             if (sysMenuOld != null && !sysMenu.getId().equals(sysMenuOld.getId())) {
                 renderFail("菜单地址已存在.");
@@ -189,10 +189,11 @@ public class SysMenuController extends BaseController {
     /**
      * 查看 菜单相关 角色
      */
-    public void openMenuRole(){
+    public void openMenuRole() {
         setAttr("menuId", getPara("id"));
         render("system/sysMenu_role.ftl");
     }
+
     /**
      * 菜单相关角色数据
      */
@@ -205,17 +206,18 @@ public class SysMenuController extends BaseController {
         Page<SysRoleMenu> sysRoleMenuPage = SysRoleMenu.dao.pageWithRoleInfo(pageNumber, pageSize, where);
         renderDatagrid(sysRoleMenuPage);
     }
+
     /**
      * 菜单相关角色删除
      */
-    public void deleteMenuRole(){
+    public void deleteMenuRole() {
         String menuId = getPara("menuId");
         String roleId = getPara("roleId");
-        if(StringUtils.isEmpty(roleId) || StringUtils.isEmpty(menuId)){
+        if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(menuId)) {
             renderFail("menuId roleId 参数不可为空");
             return;
         }
-        SysRoleMenu.dao.deleteById(roleId,menuId);
+        SysRoleMenu.dao.deleteById(roleId, menuId);
         renderSuccess("菜单角色删除成功");
     }
 }

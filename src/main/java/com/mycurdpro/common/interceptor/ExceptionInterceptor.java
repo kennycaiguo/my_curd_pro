@@ -1,6 +1,5 @@
 package com.mycurdpro.common.interceptor;
 
-
 import com.alibaba.fastjson.JSON;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
@@ -20,6 +19,7 @@ import java.util.Map;
 
 /**
  * 全局异常 json, 附带 记录访问日志
+ *
  * @author zhangchuang
  */
 public class ExceptionInterceptor implements Interceptor {
@@ -49,7 +49,7 @@ public class ExceptionInterceptor implements Interceptor {
             Map<String, String[]> params = controller.getRequest().getParameterMap();
             if (params.keySet().size() > 0) {
                 sysVisitLog.setParam(JSON.toJSONString(params));
-                if(sysVisitLog.getParam().length()>100){
+                if (sysVisitLog.getParam().length() > 100) {
                     sysVisitLog.setParam("超长文本参数");
                 }
             }
@@ -71,7 +71,7 @@ public class ExceptionInterceptor implements Interceptor {
 //                inv.getController().setAttr("errorMsg",errMsg);
 //                inv.getController().render(Constant.VIEW_PATH+"/common/500.ftl");
 //            }
-            
+
             Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
             inv.getController().renderJson(ret);
         }

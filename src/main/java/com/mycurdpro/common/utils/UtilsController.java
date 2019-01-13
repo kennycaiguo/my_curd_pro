@@ -35,6 +35,11 @@ import java.util.HashMap;
 @Clear(PermissionInterceptor.class)
 public class UtilsController extends BaseController {
     /**
+     * 上传文件
+     */
+    private final static Prop prop = PropKit.use("file.properties");
+
+    /**
      * 生成 图像验证码
      */
     public void captcha() {
@@ -51,20 +56,19 @@ public class UtilsController extends BaseController {
         renderQrCode(content, width, height);
     }
 
-
     /**
      * 跳转到上传文件页面
      */
-    public void goUploadFilePage(){
+    public void goUploadFilePage() {
         String uploadUrl = getPara("uploadUrl");
         String label = getPara("label");
-        if(StringUtils.isEmpty(uploadUrl)){
-            setAttr("msg","uploadUrl参数不可为空");
+        if (StringUtils.isEmpty(uploadUrl)) {
+            setAttr("msg", "uploadUrl参数不可为空");
             render("common/card.ftl");
             return;
         }
-        setAttr("uploadUrl",uploadUrl);
-        setAttr("label",label);
+        setAttr("uploadUrl", uploadUrl);
+        setAttr("label", label);
         render("common/utils/uploadFile.ftl");
     }
 
@@ -104,6 +108,7 @@ public class UtilsController extends BaseController {
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加角色"));
         render("common/utils/role.ftl");
     }
+
     /**
      * 角色选择 数据
      */
@@ -120,12 +125,13 @@ public class UtilsController extends BaseController {
     /**
      * 用户选择
      */
-    public void user(){
+    public void user() {
         String singleSelect = getPara("singleSelect", "false");
         setAttr("singleSelect", singleSelect);
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加用户"));
         render("common/utils/user.ftl");
     }
+
     /**
      * 用户选择 数据
      */
@@ -139,11 +145,6 @@ public class UtilsController extends BaseController {
         renderDatagrid(sysUserPage);
     }
 
-
-    /**
-     * 上传文件
-     */
-    private final static Prop prop = PropKit.use("file.properties");
     @SuppressWarnings("Duplicates")
     public void uploadFile() throws IOException {
         HashMap<String, String> extMap = new HashMap<String, String>();
@@ -151,10 +152,10 @@ public class UtilsController extends BaseController {
         extMap.put("media", prop.get("mediaType"));
         extMap.put("office", prop.get("officeType"));
         extMap.put("file", prop.get("fileType"));
-        String limitFileTypes = extMap.get("image") + "," + extMap.get("media")+ "," + extMap.get("office") + "," + extMap.get("file");
+        String limitFileTypes = extMap.get("image") + "," + extMap.get("media") + "," + extMap.get("office") + "," + extMap.get("file");
         // 文件为空
         UploadFile uploadFile = getFile("file");
-        if(uploadFile==null){
+        if (uploadFile == null) {
             Ret ret = Ret.create().setFail().set("msg", "请选择文件");
             render(new JsonRender(JSON.toJSONString(ret)).forIE());
             return;
@@ -165,7 +166,7 @@ public class UtilsController extends BaseController {
         // 文件类型非法
         if (!Arrays.asList(limitFileTypes.split(",")).contains(fileSuf)) {
             uploadFile.getFile().delete();
-            String errMsg =  "只允许后缀为:<br/>" + extMap.get("image")
+            String errMsg = "只允许后缀为:<br/>" + extMap.get("image")
                     + "<br/>" + extMap.get("media")
                     + "<br/>" + extMap.get("office")
                     + "<br/>" + extMap.get("file")
@@ -176,15 +177,15 @@ public class UtilsController extends BaseController {
         }
 
         // 文件保存
-        String pre = "/"+new DateTime(new Date()).toString("yyyyMMdd");
+        String pre = "/" + new DateTime(new Date()).toString("yyyyMMdd");
         if (Arrays.asList(extMap.get("image").split(",")).contains(fileSuf)) {
-            pre = prop.get("imagePath")+pre;
+            pre = prop.get("imagePath") + pre;
         } else if (Arrays.asList(extMap.get("media").split(",")).contains(fileSuf)) {
-            pre = prop.get("mediaPath")+pre;
-        }else if(Arrays.asList(extMap.get("office").split(",")).contains(fileSuf)){
-            pre = prop.get("officePath")+pre;
-        }else if (Arrays.asList(extMap.get("file").split(",")).contains(fileSuf)) {
-            pre = prop.get("filePath")+pre;
+            pre = prop.get("mediaPath") + pre;
+        } else if (Arrays.asList(extMap.get("office").split(",")).contains(fileSuf)) {
+            pre = prop.get("officePath") + pre;
+        } else if (Arrays.asList(extMap.get("file").split(",")).contains(fileSuf)) {
+            pre = prop.get("filePath") + pre;
         } else {
             String errMsg = "只允许后缀为:<br/>" + extMap.get("image")
                     + "<br/>" + extMap.get("media")
@@ -197,9 +198,9 @@ public class UtilsController extends BaseController {
             return;
         }
         // 时分秒毫秒+随机数
-        String newFileName = new DateTime(new Date()).toString("HHmmssS")+ RandomUtils.number(10000) + "." + fileSuf;
+        String newFileName = new DateTime(new Date()).toString("HHmmssS") + RandomUtils.number(10000) + "." + fileSuf;
         String relativePath = pre + "/" + newFileName;
-        File savefile = new File(PathKit.getWebRootPath() +"/"  + relativePath);
+        File savefile = new File(PathKit.getWebRootPath() + "/" + relativePath);
         if (!savefile.exists()) {
             Files.createParentDirs(savefile);
         }
@@ -228,8 +229,8 @@ public class UtilsController extends BaseController {
         } else {
             Ret ret = Ret.create().setOk()
                     .set("msg", "上传成功")
-                    .set("path",sysFile.getPath())
-                    .set("id",sysFile.getId());
+                    .set("path", sysFile.getPath())
+                    .set("id", sysFile.getId());
             render(new JsonRender(JSON.toJSONString(ret)).forIE());
         }
     }

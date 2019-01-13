@@ -50,11 +50,11 @@ public class GeneratorConfig {
 //        add("SYS_NOTE_CATE");
 //        add("SYS_NOTE");
 //          add("SYS_TASK_LOG");
-          add("EX_SINGLE_TABLE"); // 例子 单表
+        add("EX_SINGLE_TABLE"); // 例子 单表
     }};
 
     // 生成 代码文件基础路径
-    public final static String outputBasePath = "E:/mycurdpro/gencode/"+ GeneratorConfig.moduleName + "/";
+    public final static String outputBasePath = "E:/mycurdpro/gencode/" + GeneratorConfig.moduleName + "/";
     /*（生成代码在项目路径下，轻易不要这么干，可能导致代码覆盖)
          public final static String outputBasePath = PathKit.getWebRootPath().replaceAll("\\\\", "/")
         + "/src/main/java/" + GeneratorConfig.basePackageName.replaceAll("\\.", "/") + "/" + GeneratorConfig.moduleName + "/";

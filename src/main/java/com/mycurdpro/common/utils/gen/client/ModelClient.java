@@ -60,7 +60,7 @@ public class ModelClient {
             params.put("chainSetter", chainSetter);
             params.put("tableMeta", tableMeta);
             params.put("author", GeneratorConfig.author);
-            params.put("hasExcel",hasExcel);
+            params.put("hasExcel", hasExcel);
 
             // 生成 baseModel
             outPath = baseModelOutPath + "Base" + tableMeta.nameCamelFirstUp + ".java";

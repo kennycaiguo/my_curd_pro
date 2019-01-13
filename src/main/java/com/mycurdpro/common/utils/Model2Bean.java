@@ -99,7 +99,7 @@ public class Model2Bean<M, B> {
         String fieldName;
 
         for (Field field : fields) {
-            if(field.getName().equals("serialVersionUID")){
+            if (field.getName().equals("serialVersionUID")) {
                 continue;
             }
 

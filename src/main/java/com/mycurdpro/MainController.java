@@ -68,21 +68,22 @@ public class MainController extends BaseController {
         setAttr("sysUser", sysUser);
         render("userPass.ftl");
     }
+
     @Before(Tx.class)
     public void changePwd() {
         String oldPwd = getPara("oldPwd");
         String newPwd = getPara("newPwd");
         String reNewPwd = getPara("reNewPwd");
-        
-        if(StringUtils.isEmpty(oldPwd)){
+
+        if (StringUtils.isEmpty(oldPwd)) {
             renderFail("请输入原密码");
             return;
         }
-        if(StringUtils.isEmpty(newPwd)){
+        if (StringUtils.isEmpty(newPwd)) {
             renderFail("请输入新密码");
             return;
         }
-        if(!Objects.equals(newPwd,reNewPwd)){
+        if (!Objects.equals(newPwd, reNewPwd)) {
             renderFail("两次新密码不一致");
             return;
         }
@@ -115,15 +116,16 @@ public class MainController extends BaseController {
     /**
      * 修改用户信息
      */
-    public void userInfo(){
+    public void userInfo() {
         SysUser sysUser = WebUtils.getSysUser(this);
         setAttr("sysUser", sysUser);
         SysOrg sysOrg = SysOrg.dao.findById(sysUser.getOrgId());
-        if (sysOrg!=null){
-            setAttr("orgName",sysOrg.getName());
+        if (sysOrg != null) {
+            setAttr("orgName", sysOrg.getName());
         }
         render("userInfo.ftl");
     }
+
     public void changeUserInfo() {
         String id = getPara("userId");
         if (StringUtils.isEmpty(id)) {
@@ -137,32 +139,32 @@ public class MainController extends BaseController {
         }
 
         String avatar = getPara("avatar");
-        if(StringUtils.notEmpty(avatar)){
+        if (StringUtils.notEmpty(avatar)) {
             sysUser.setAvatar(avatar);
         }
 
         String phone = getPara("phone");
-        if(StringUtils.notEmpty(phone)){
+        if (StringUtils.notEmpty(phone)) {
             sysUser.setPhone(phone);
         }
 
         String email = getPara("email");
-        if(StringUtils.notEmpty(email)){
+        if (StringUtils.notEmpty(email)) {
             sysUser.setEmail(email);
         }
 
         String name = getPara("name");
-        if(StringUtils.notEmpty(name)){
+        if (StringUtils.notEmpty(name)) {
             sysUser.setName(name);
         }
 
         String job = getPara("job");
-        if(StringUtils.notEmpty(job)){
+        if (StringUtils.notEmpty(job)) {
             sysUser.setJob(job);
         }
 
         String gender = getPara("gender");
-        if(StringUtils.notEmpty(gender)){
+        if (StringUtils.notEmpty(gender)) {
             sysUser.setGender(gender);
         }
 
@@ -182,27 +184,29 @@ public class MainController extends BaseController {
     /**
      * 用户通知
      */
-    public void userNotice(){
+    public void userNotice() {
         render("userNotice.ftl");
     }
+
     /**
      * 用户通知数据
      */
     @Before(SearchSql.class)
-    public void noticeData(){
+    public void noticeData() {
         String userId = WebUtils.getSysUser(this).getId();
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
 
-        if(StringUtils.notEmpty(where)){
-            where += " and receiver = '"+userId+"'";
-        }else{
-            where = " receiver = '"+userId+"'";
+        if (StringUtils.notEmpty(where)) {
+            where += " and receiver = '" + userId + "'";
+        } else {
+            where = " receiver = '" + userId + "'";
         }
-        Page<SysNotice> sysNoticePage = SysNotice.dao.page(pageNumber,pageSize,where);
+        Page<SysNotice> sysNoticePage = SysNotice.dao.page(pageNumber, pageSize, where);
         renderDatagrid(sysNoticePage);
     }
+
     /**
      * 当前用户 单条系统通知 设置为已读
      */
@@ -231,6 +235,7 @@ public class MainController extends BaseController {
         }
         renderSuccess("操作成功");
     }
+
     /**
      * 当前用户通知全部设置为已读
      */
@@ -247,11 +252,12 @@ public class MainController extends BaseController {
         ret.put("msg", "设置 全部已读 操作成功");
         renderJson(ret);
     }
+
     /**
      * 获得 未读消息数量
      */
     public void noticeUnreadCount() {
-        SysUser sysUser =  WebUtils.getSysUser(this);
+        SysUser sysUser = WebUtils.getSysUser(this);
         String sql = " select count(1) as unread_count from sys_notice_detail where receiver = ? and has_read !='Y' ";
         Record record = Db.findFirst(sql, sysUser.getId());
         Ret ret = Ret.create().setOk().set("unreadCount", record == null ? 0 : record.get("unread_count"));

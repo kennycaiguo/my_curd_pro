@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  *
  * @author zhangchuang
  */
-@SuppressWarnings({"WeakerAccess","unchecked", "unused"})
+@SuppressWarnings({"WeakerAccess", "unchecked", "unused"})
 public class ReflectionUtils {
 
     private final static Logger LOG = Logger.getLogger(ReflectionUtils.class);

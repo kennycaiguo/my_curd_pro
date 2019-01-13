@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * zip render
  * 通过字符串数据 和 文件名 集合 下载 数据压缩文件
+ *
  * @author chuang
  */
 @SuppressWarnings("unused")
@@ -37,11 +38,12 @@ public class ZipRender extends Render {
         return this;
     }
 
-    public ZipRender datas( List<String> datas) {
+    public ZipRender datas(List<String> datas) {
         this.datas = datas;
         return this;
     }
-    public ZipRender filenames( List<String> filenames) {
+
+    public ZipRender filenames(List<String> filenames) {
         this.filenames = filenames;
         return this;
     }
@@ -56,7 +58,7 @@ public class ZipRender extends Render {
         OutputStream os = null;
         try {
             os = response.getOutputStream();
-            ZipUtils.toZip(datas,filenames,os);
+            ZipUtils.toZip(datas, filenames, os);
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new RenderException(e);

@@ -19,13 +19,13 @@ import java.util.List;
  * 业务日志
  */
 public class SysServiceLogController extends BaseController {
-    public void index(){
+    public void index() {
         render("system/sysServiceLog.ftl");
     }
 
 
     @Before(SearchSql.class)
-    public void query(){
+    public void query() {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
@@ -35,7 +35,7 @@ public class SysServiceLogController extends BaseController {
 
 
     @Before(IdsRequired.class)
-    public void deleteAction(){
+    public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
         String sql = "delete from sys_service_log where  id in ('" + ids + "')";
         Db.update(sql);
@@ -46,15 +46,15 @@ public class SysServiceLogController extends BaseController {
      * 导出excel
      */
     @Before(SearchSql.class)
-    public  void exportExcel(){
+    public void exportExcel() {
         String where = getAttr(Constant.SEARCH_SQL);
-        if(SysServiceLog.dao.findCountByWhere(where)>5000){
-            setAttr("msg","导出数据不要大于 5k，请修改查询条件。");
+        if (SysServiceLog.dao.findCountByWhere(where) > 5000) {
+            setAttr("msg", "导出数据不要大于 5k，请修改查询条件。");
             render("common/card.ftl");
             return;
         }
         List<SysServiceLog> list = SysServiceLog.dao.findByWhere(where);
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("业务日志","业务日志"),SysServiceLog.class, list);
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("业务日志", "业务日志"), SysServiceLog.class, list);
         render(ExcelRender.me(workbook).fileName("业务日志.xls"));
     }
 }

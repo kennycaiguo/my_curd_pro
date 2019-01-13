@@ -88,14 +88,6 @@ public class TableMeta implements Serializable {
         return columnMetas;
     }
 
-    public Set<String> getNecessaryImport() {
-        return necessaryImport;
-    }
-
-    public void setNecessaryImport(Set<String> necessaryImport) {
-        this.necessaryImport = necessaryImport;
-    }
-
     public void setColumnMetas(List<ColumnMeta> columnMetas) {
         this.columnMetas = columnMetas;
         for (ColumnMeta columnMeta : columnMetas) {
@@ -106,6 +98,13 @@ public class TableMeta implements Serializable {
         }
     }
 
+    public Set<String> getNecessaryImport() {
+        return necessaryImport;
+    }
+
+    public void setNecessaryImport(Set<String> necessaryImport) {
+        this.necessaryImport = necessaryImport;
+    }
 
     @Override
     public String toString() {

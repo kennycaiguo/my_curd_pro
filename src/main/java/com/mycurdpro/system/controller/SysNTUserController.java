@@ -8,7 +8,6 @@ import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.SearchSql;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
-import com.mycurdpro.system.model.SysNoticeTypeSysRole;
 import com.mycurdpro.system.model.SysNoticeTypeSysUser;
 
 import java.util.Date;
@@ -68,15 +67,15 @@ public class SysNTUserController extends BaseController {
     public void deleteAction() {
         // ,; 格式
         String idPairs = getPara("idPairs");
-        if(StringUtils.isEmpty( idPairs) ){
+        if (StringUtils.isEmpty(idPairs)) {
             renderFail("参数不可为空");
             return;
         }
         String[] idPairAry = idPairs.split(";");
         String[] idAry;
-        for(String idPair:idPairAry){
+        for (String idPair : idPairAry) {
             idAry = idPair.split(",");
-            SysNoticeTypeSysUser.dao.deleteById(idAry[0],idAry[1]);
+            SysNoticeTypeSysUser.dao.deleteById(idAry[0], idAry[1]);
         }
         renderSuccess(Constant.DELETE_SUCCESS);
     }

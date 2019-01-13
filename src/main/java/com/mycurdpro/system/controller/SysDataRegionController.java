@@ -15,11 +15,11 @@ import java.util.List;
  * 地区数据
  */
 public class SysDataRegionController extends BaseController {
-    public void index(){
+    public void index() {
         render("system/sysDataRegion.ftl");
     }
 
-    public void query(){
+    public void query() {
         // 初始传递pid 为 0
         String pid = getPara("id", "0");
         List<SysDataRegion> sysDataRegionList = SysDataRegion.dao.findByPid(pid);
@@ -29,12 +29,12 @@ public class SysDataRegionController extends BaseController {
                 dataRegion.put("state", "closed");
             }
             // 字体图标
-            dataRegion.put("iconCls","iconfont");
+            dataRegion.put("iconCls", "iconfont");
         }
         renderJson(sysDataRegionList);
     }
 
-    public void newModel(){
+    public void newModel() {
         String id = getPara("id");
         if (StringUtils.notEmpty(id)) {
             SysDataRegion sysDataRegion = SysDataRegion.dao.findById(id);
@@ -46,7 +46,7 @@ public class SysDataRegionController extends BaseController {
         render("system/sysDataRegion_form.ftl");
     }
 
-    public void addOrUpdateAction(){
+    public void addOrUpdateAction() {
         SysDataRegion sysDataRegion = getBean(SysDataRegion.class, "");
         SysDataRegion sysDataRegionOld = SysDataRegion.dao.findById(sysDataRegion.getId());
         if (sysDataRegionOld == null) {
@@ -68,7 +68,7 @@ public class SysDataRegionController extends BaseController {
     }
 
     @Before(IdRequired.class)
-    public void deleteAction(){
+    public void deleteAction() {
         String id = getPara("id");
         SysDataRegion sysDataRegion = SysDataRegion.dao.findById(id);
         if (sysDataRegion == null) {
@@ -89,10 +89,10 @@ public class SysDataRegionController extends BaseController {
      * 其它业务使用
      */
     @Clear(PermissionInterceptor.class)
-    public void  data(){
+    public void data() {
         String pid = getPara(0, "100000");
         String sql = "select ID,NAME,SHORT_NAME,LNG,LAT,SUBSTR(pinyin, 0, 1) as P1 from sys_data_region where parent_id = ? ORDER by ID";
-        List<SysDataRegion> sysDataRegionList = SysDataRegion.dao.find(sql,pid);
+        List<SysDataRegion> sysDataRegionList = SysDataRegion.dao.find(sql, pid);
         renderJson(sysDataRegionList);
     }
 }

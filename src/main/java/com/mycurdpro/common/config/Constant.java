@@ -15,7 +15,7 @@ public class Constant {
     // 用户拥有的菜单
     public final static String SYS_USER_MENU = "SYS_USER_MENU";
     // 用户拥有的
-    public final static String SYS_USER_ROLE_CODES="SYS_USER_ROLE_CODES";
+    public final static String SYS_USER_ROLE_CODES = "SYS_USER_ROLE_CODES";
 
     // 项目默认编码
     public final static String DEFAULT_ENCODEING = "UTF-8";
@@ -36,8 +36,8 @@ public class Constant {
     public final static String DELETE_FAIL = "删除失败";
     public final static String UPDATE_SUCCESS = "修改成功";
     public final static String UPDATE_FAIL = "修改失败";
-    public final static String IMPORT_SUCCESS="导入成功";
-    public final static String IMPORT_FAIL="导入失败";
+    public final static String IMPORT_SUCCESS = "导入成功";
+    public final static String IMPORT_FAIL = "导入失败";
     public final static String AUDIT_OVER = "审批完成";
     public final static String PARAM_IS_EMPTY = "参数为空";
 }

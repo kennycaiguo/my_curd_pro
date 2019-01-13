@@ -1,8 +1,10 @@
 package com.mycurdpro.common.annotation;
+
 import java.lang.annotation.*;
 
 /**
  * 通知类型编码
+ *
  * @author zhangchuang
  */
 @Documented

@@ -45,11 +45,11 @@ public class SystemModelMapping {
         // 系统访问日志
         arp.addMapping("SYS_VISIT_LOG", "ID", SysVisitLog.class);
         // 地区数据
-        arp.addMapping("SYS_DATA_REGION","ID",SysDataRegion.class);
+        arp.addMapping("SYS_DATA_REGION", "ID", SysDataRegion.class);
         // 笔记分类
-        arp.addMapping("SYS_NOTE_CATE","ID",SysNoteCate.class);
+        arp.addMapping("SYS_NOTE_CATE", "ID", SysNoteCate.class);
         // 笔记
-        arp.addMapping("SYS_NOTE","ID",SysNote.class);
+        arp.addMapping("SYS_NOTE", "ID", SysNote.class);
         // 定时任务日志
         arp.addMapping("SYS_TASK_LOG", "ID", SysTaskLog.class);
     }

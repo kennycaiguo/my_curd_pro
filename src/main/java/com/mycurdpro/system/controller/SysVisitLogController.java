@@ -51,8 +51,8 @@ public class SysVisitLogController extends BaseController {
      * 批量删除
      */
     @Clear(PermissionInterceptor.class)
-    @Before({RoleInterceptor.class,IdsRequired.class})
-    @RequireRole(value = "admin,GOD",relation = RequireRole.Relation.AND) // 测试无权限
+    @Before({RoleInterceptor.class, IdsRequired.class})
+    @RequireRole(value = "admin,GOD", relation = RequireRole.Relation.AND) // 测试无权限
     public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
         String sql = "delete from sys_visit_log where  id in ('" + ids + "')";
@@ -77,10 +77,10 @@ public class SysVisitLogController extends BaseController {
      * 导出excel
      */
     @Before(SearchSql.class)
-    public  void exportExcel(){
+    public void exportExcel() {
         String where = getAttr(Constant.SEARCH_SQL);
-        if(SysVisitLog.dao.findCountByWhere(where)>50000){
-            setAttr("msg","一次导出数据不可大于 5W 条，请修改查询条件。");
+        if (SysVisitLog.dao.findCountByWhere(where) > 50000) {
+            setAttr("msg", "一次导出数据不可大于 5W 条，请修改查询条件。");
             render("common/card.ftl");
             return;
         }
@@ -88,7 +88,7 @@ public class SysVisitLogController extends BaseController {
         // 测试大数据量导出
         List<SysVisitLog> list = SysVisitLog.dao.findByWhere(where);
 
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("访问日志","访问日志"),
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("访问日志", "访问日志"),
                 SysVisitLog.class, list);
         render(ExcelRender.me(workbook).fileName("访问日志.xls"));
     }

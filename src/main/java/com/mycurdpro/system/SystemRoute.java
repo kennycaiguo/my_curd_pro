@@ -32,31 +32,31 @@ public class SystemRoute extends Routes {
         add("/sysUser", SysUserController.class, Constant.VIEW_PATH);
 
         // 业务日志
-        add("/sysServiceLog",SysServiceLogController.class,Constant.VIEW_PATH);
+        add("/sysServiceLog", SysServiceLogController.class, Constant.VIEW_PATH);
 
         // 用户解锁
-        add("/sysUserUnlock",SysUserUnlockController.class,Constant.VIEW_PATH);
+        add("/sysUserUnlock", SysUserUnlockController.class, Constant.VIEW_PATH);
 
         // 地区数据
-        add("/sysDataRegion",SysDataRegionController.class,Constant.VIEW_PATH);
+        add("/sysDataRegion", SysDataRegionController.class, Constant.VIEW_PATH);
 
         // 用户文件
-        add("/sysFile",SysFileController.class,Constant.VIEW_PATH);
+        add("/sysFile", SysFileController.class, Constant.VIEW_PATH);
 
 
         // 通知类型
-        add("/sysNoticeType",SysNoticeTypeController.class,Constant.VIEW_PATH);
+        add("/sysNoticeType", SysNoticeTypeController.class, Constant.VIEW_PATH);
 
         // 通知类型关联 用户
-        add("/sysNTUser",SysNTUserController.class,Constant.VIEW_PATH);
+        add("/sysNTUser", SysNTUserController.class, Constant.VIEW_PATH);
 
         // 通知类型关联 角色
-        add("/sysNTRole",SysNTRoleController.class,Constant.VIEW_PATH);
+        add("/sysNTRole", SysNTRoleController.class, Constant.VIEW_PATH);
 
         // 个人笔记
-        add("/sysNote",SysNoteController.class,Constant.VIEW_PATH);
+        add("/sysNote", SysNoteController.class, Constant.VIEW_PATH);
 
         // 定时任务
-        add("/sysTask",SysTaskController.class,Constant.VIEW_PATH);
+        add("/sysTask", SysTaskController.class, Constant.VIEW_PATH);
     }
 }

@@ -11,11 +11,12 @@ import java.util.Date;
 
 /**
  * 示例 定时任务
+ *
  * @author
  */
 public class TestTask implements ITask {
 
-    private final  static Logger LOG = LoggerFactory.getLogger(TestTask.class);
+    private final static Logger LOG = LoggerFactory.getLogger(TestTask.class);
 
     @Override
     public void stop() {
@@ -32,7 +33,7 @@ public class TestTask implements ITask {
         String errMsg = null;
 
         // 业务代码
-        try{
+        try {
             LOG.info("task start");
             try {
                 Thread.sleep(5000);
@@ -40,16 +41,16 @@ public class TestTask implements ITask {
                 e.printStackTrace();
             }
             LOG.info("task end");
-        }catch (Exception e){
-            LOG.error(e.getMessage(),e);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
             errMsg = e.getMessage();
         }
 
         // 样板式 代码
         sysTaskLog.setEndTime(new Date());
-        if(StringUtils.isEmpty(errMsg)){
+        if (StringUtils.isEmpty(errMsg)) {
             sysTaskLog.setResult("success");
-        }else{
+        } else {
             sysTaskLog.setResult("fail");
             sysTaskLog.setError(errMsg);
         }

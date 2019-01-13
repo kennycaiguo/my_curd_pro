@@ -17,6 +17,7 @@ public class SysNoticeType extends BaseSysNoticeType<SysNoticeType> {
 
     /**
      * 分页查询
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
@@ -34,6 +35,7 @@ public class SysNoticeType extends BaseSysNoticeType<SysNoticeType> {
 
     /**
      * 根据编码查询
+     *
      * @param code
      * @return
      */

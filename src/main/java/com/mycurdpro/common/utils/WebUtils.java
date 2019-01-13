@@ -6,7 +6,6 @@ import com.mycurdpro.system.model.SysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -14,7 +13,8 @@ import java.nio.charset.StandardCharsets;
 
 public class WebUtils {
 
-    private  final static Logger LOG = LoggerFactory.getLogger(WebUtils.class);
+    private final static Logger LOG = LoggerFactory.getLogger(WebUtils.class);
+
     /**
      * 获取 http请求  ip地址
      *
@@ -69,6 +69,7 @@ public class WebUtils {
 
     /**
      * 中文文件 下载编码，多浏览器适配
+     *
      * @param request
      * @param fileName
      * @return

@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Generated model
  * DB: SYS_DATA_REGION  地区数据
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")

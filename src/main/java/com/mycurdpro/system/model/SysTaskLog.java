@@ -7,6 +7,7 @@ import com.mycurdpro.system.model.base.BaseSysTaskLog;
 /**
  * Generated model
  * DB: SYS_TASK_LOG  定时任务日志
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("serial")
@@ -16,6 +17,7 @@ public class SysTaskLog extends BaseSysTaskLog<SysTaskLog> {
 
     /**
      * 分页查询
+     *
      * @param pageNumber
      * @param pageSize
      * @param where

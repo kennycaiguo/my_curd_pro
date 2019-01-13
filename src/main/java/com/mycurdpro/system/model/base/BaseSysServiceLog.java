@@ -20,7 +20,7 @@ public abstract class BaseSysServiceLog<M extends BaseSysServiceLog<M>> extends 
     private String sysUser;
     @Excel(name = "操作人ip", mergeVertical = false, height = 10, width = 30)
     private String sysUserIp;
-    @Excel(name = "操作时间", height = 10, width =40, databaseFormat = "yyyy-MM-dd HH:mm:ss",  format = "yyyy年MM月dd日 HH时mm分ss秒")
+    @Excel(name = "操作时间", height = 10, width = 40, databaseFormat = "yyyy-MM-dd HH:mm:ss", format = "yyyy年MM月dd日 HH时mm分ss秒")
     private Date createTime;
     @Excel(name = "访问url", mergeVertical = false, height = 10, width = 30)
     private String url;

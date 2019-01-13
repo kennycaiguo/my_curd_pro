@@ -1,6 +1,5 @@
 package com.mycurdpro.system.model;
 
-import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysFile;
@@ -31,6 +30,7 @@ public class SysFile extends BaseSysFile<SysFile> {
 
     /**
      * 分页查询 可排序
+     *
      * @param pageNumber
      * @param pageSize
      * @param sort       排序字段
@@ -46,7 +46,7 @@ public class SysFile extends BaseSysFile<SysFile> {
         }
         if (StringUtils.notEmpty(sort) && StringUtils.notEmpty(order)) {
             sqlExceptSelect += " order by sf." + sort + " " + order;
-        }else{
+        } else {
             sqlExceptSelect += "  ORDER BY sf.id ";
         }
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);

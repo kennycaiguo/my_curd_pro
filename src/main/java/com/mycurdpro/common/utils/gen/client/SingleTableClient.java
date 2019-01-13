@@ -35,7 +35,7 @@ public class SingleTableClient {
     private final static String pageOutDirPath = GeneratorConfig.outputBasePath + "views/" + GeneratorConfig.moduleName + "/"; // 页面 输出文件输出目录
 
     // 生成 导入导出 excel 方法
-    private final static boolean hasExcel=true;
+    private final static boolean hasExcel = true;
 
     public static void generate(List<TableMeta> tableMetas) throws IOException {
         LOG.info("(*^▽^*) start generate singletable ");
@@ -54,7 +54,7 @@ public class SingleTableClient {
             params.put("excludeFields", excludeFields);
             params.put("author", GeneratorConfig.author);
             params.put("generateDate", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
-            params.put("hasExcel",hasExcel);
+            params.put("hasExcel", hasExcel);
 
             // controller
             outPath = controllerOutPath + tableMeta.nameCamelFirstUp + "Controller.java";

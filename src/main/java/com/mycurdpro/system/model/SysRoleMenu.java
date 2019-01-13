@@ -18,22 +18,24 @@ public class SysRoleMenu extends BaseSysRoleMenu<SysRoleMenu> {
 
     /**
      * 根据角色id查询
+     *
      * @param roleId
      * @return
      */
-    public List<SysRoleMenu> findByRoleId(String roleId){
+    public List<SysRoleMenu> findByRoleId(String roleId) {
         String sql = "select sys_menu_id from sys_role_menu where sys_role_id = ?";
-        return find(sql,roleId);
+        return find(sql, roleId);
     }
 
     /**
      * 分页查询, 角色数据
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
      * @return
      */
-    public Page<SysRoleMenu> pageWithRoleInfo(int pageNumber, int pageSize, String where){
+    public Page<SysRoleMenu> pageWithRoleInfo(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select a.SYS_ROLE_ID,a.SYS_MENU_ID,a.CREATER,a.CREATE_TIME, b.NAME,b.CODE ";
         String sqlExceptSelect = " from sys_role_menu a, sys_role b  where a.sys_role_id = b.id ";
         if (StringUtils.notEmpty(where)) {

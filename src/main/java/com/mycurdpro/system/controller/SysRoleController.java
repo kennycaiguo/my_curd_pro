@@ -117,6 +117,7 @@ public class SysRoleController extends BaseController {
         setAttr("roleId", getPara("id"));
         render("system/sysRole_user.ftl");
     }
+
     /**
      * 角色相关用户数据
      */
@@ -128,17 +129,18 @@ public class SysRoleController extends BaseController {
         Page<SysUserRole> sysUserRolePage = SysUserRole.dao.pageWithUserInfo(pageNumber, pageSize, where);
         renderDatagrid(sysUserRolePage);
     }
+
     /**
      * 角色相关用户 删除
      */
-    public void deleteUserRole(){
+    public void deleteUserRole() {
         String userId = getPara("userId");
         String roleId = getPara("roleId");
-        if(StringUtils.isEmpty(roleId) || StringUtils.isEmpty(userId)){
+        if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(userId)) {
             renderFail("userId roleId 参数不可为空");
             return;
         }
-        SysUserRole.dao.deleteById(userId,roleId);
+        SysUserRole.dao.deleteById(userId, roleId);
         renderSuccess("角色用户删除成功");
     }
 
@@ -146,10 +148,11 @@ public class SysRoleController extends BaseController {
     /**
      * 角色配置菜单
      */
-    public void newRoleMenu(){
+    public void newRoleMenu() {
         setAttr("roleId", getPara("id"));
         render("system/sysRole_menu.ftl");
     }
+
     /**
      * 角色配置菜单 数据
      */
@@ -169,8 +172,8 @@ public class SysRoleController extends BaseController {
             map.put("state", "open");
             for (SysRoleMenu sysRoleMenu : sysRoleMenus) {
                 // 中间表 有记录，且是 叶子 选中
-                if (Objects.equal(sysRoleMenu.getSysMenuId(),sysMenu.getId())
-                        && Objects.equal(sysMenu.getStr("IS_LEAF"),"1")) {
+                if (Objects.equal(sysRoleMenu.getSysMenuId(), sysMenu.getId())
+                        && Objects.equal(sysMenu.getStr("IS_LEAF"), "1")) {
                     map.put("checked", true);
                     break;
                 }
@@ -179,6 +182,7 @@ public class SysRoleController extends BaseController {
         }
         renderJson(maps);
     }
+
     /**
      * 角色配置菜单 更新
      */
@@ -186,7 +190,7 @@ public class SysRoleController extends BaseController {
     public void menuTreeUpdate() {
         String roleId = getPara("roleId");
         String menuIds = getPara("menuIds");
-        if(StringUtils.isEmpty(roleId)){
+        if (StringUtils.isEmpty(roleId)) {
             renderFail("roleId 参数不可为空.");
             return;
         }
@@ -196,7 +200,7 @@ public class SysRoleController extends BaseController {
         // 添加 角色新菜单
         if (StringUtils.notEmpty(menuIds)) {
             String[] menuIdAry = menuIds.split(",");
-            for(String menuId:menuIdAry){
+            for (String menuId : menuIdAry) {
                 SysRoleMenu sysRoleMenu = new SysRoleMenu();
                 sysRoleMenu.setSysRoleId(roleId).setSysMenuId(menuId)
                         .setCreater(WebUtils.getSessionUsername(this))

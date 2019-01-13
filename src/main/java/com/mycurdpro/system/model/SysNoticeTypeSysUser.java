@@ -21,6 +21,7 @@ public class SysNoticeTypeSysUser extends BaseSysNoticeTypeSysUser<SysNoticeType
 
     /**
      * 分页查询
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
@@ -40,6 +41,7 @@ public class SysNoticeTypeSysUser extends BaseSysNoticeTypeSysUser<SysNoticeType
 
     /**
      * 通过通知类型id查询用户
+     *
      * @param noticeTypeId
      * @return
      */

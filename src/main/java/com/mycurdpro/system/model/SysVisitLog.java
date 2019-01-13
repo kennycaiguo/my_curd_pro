@@ -35,23 +35,24 @@ public class SysVisitLog extends BaseSysVisitLog<SysVisitLog> {
     }
 
 
-    public Long findCountByWhere(String where){
+    public Long findCountByWhere(String where) {
         String sql = " select count(1) as c from sys_visit_log ";
-        if(StringUtils.notEmpty(where)){
-            sql += " where "+where;
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
         }
         return findFirst(sql).getLong("c");
     }
 
     /**
      * 根据 where 条件查询
+     *
      * @param where
      * @return
      */
-    public List<SysVisitLog> findByWhere(String where){
+    public List<SysVisitLog> findByWhere(String where) {
         String sql = " select * from sys_visit_log ";
-        if(StringUtils.notEmpty(where)){
-            sql += " where "+where;
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
         }
         return find(sql);
     }

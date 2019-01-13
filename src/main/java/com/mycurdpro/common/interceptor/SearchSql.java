@@ -14,6 +14,7 @@ import java.util.*;
 /**
  * sql 查询条件拼装, 适用于 oracle, 如果 其它数据库，请自行扩展
  * 查询过滤器，将前端传递  固定格式字符串参数 解析为查询条件
+ *
  * @author zhangchuang
  */
 public class SearchSql implements Interceptor {

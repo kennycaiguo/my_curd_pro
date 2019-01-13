@@ -14,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * 文件压缩方法
+ *
  * @author chuang
  */
 @SuppressWarnings("unused")
@@ -75,14 +76,15 @@ public class ZipUtils {
 
     /**
      * 字符串输出 到 压缩文件中， datas 和 filenames size 相同 且 不为 0、不为 null
+     *
      * @param datas     文本数据集合
      * @param filenames 文件名集合 （多级目录之间 / 隔开)
-     * @param out   压缩文件输出
+     * @param out       压缩文件输出
      * @throws IllegalArgumentException 参数非法
      */
     public static void toZip(List<String> datas, List<String> filenames, OutputStream out) {
-        if (datas==null || filenames==null || filenames.size()!=datas.size() || filenames.size()==0 || out==null){
-            throw  new IllegalArgumentException();
+        if (datas == null || filenames == null || filenames.size() != datas.size() || filenames.size() == 0 || out == null) {
+            throw new IllegalArgumentException();
         }
 
         ZipOutputStream zos = null;

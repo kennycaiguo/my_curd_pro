@@ -27,7 +27,7 @@
        iconCls="iconfont icon-delete" plain="true">删除</a>
 
 <#if hasExcel>
-   <a onclick="goUploadPage('<#noparse>${ctx!}</#noparse>/utils/goUploadFilePage','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/importExcel','上传excel','上传excel')"
+   <a onclick="goUploadPage('<#noparse>${ctx!}</#noparse>/utils/goUploadFilePage','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/importExcel','上传excel','导入excel')"
       href="#" class="easyui-linkbutton"   iconCls="iconfont icon-import" plain="true">导入</a>
    <a onclick="exportExcel('<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
      iconCls="iconfont icon-export" plain="true">导出</a>

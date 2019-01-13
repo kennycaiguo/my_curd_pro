@@ -17,6 +17,7 @@ import java.util.*;
 
 /**
  * 消息通知工具
+ *
  * @author zhangchuang
  */
 public class SysNoticeService {
@@ -26,22 +27,22 @@ public class SysNoticeService {
     /**
      * 发送系统通知
      *
-     * @param noticeCode 系统通知类型编码
-     * @param templateParams   系统通知模板参数 (模板基于freemarker)
+     * @param noticeCode     系统通知类型编码
+     * @param templateParams 系统通知模板参数 (模板基于freemarker)
      * @return
      */
     @Before(Tx.class)
     public boolean sendNotice(String noticeCode, Map<String, Object> templateParams) {
         SysNoticeType sysNoticeType = SysNoticeType.dao.findByCode(noticeCode);
         if (sysNoticeType == null) {
-            LOG.debug("{}, 未找到消息通知类型",noticeCode);
+            LOG.debug("{}, 未找到消息通知类型", noticeCode);
             return false;
         }
 
         // 查s询通知接收人
         Set<String> receivers = getNotificationReceivers(sysNoticeType.getId());
         if (receivers.size() == 0) {
-            LOG.debug("{}, 未找到消息接收人",noticeCode);
+            LOG.debug("{}, 未找到消息接收人", noticeCode);
             return false;
         }
 
@@ -51,10 +52,10 @@ public class SysNoticeService {
         // 保存通知数据
         boolean flag = saveNotificationData(sysNoticeType, msgTitle, msgContent, receivers);
         if (!flag) {
-            LOG.debug("{}, 系统通知 数据保存数据库失败",noticeCode);
+            LOG.debug("{}, 系统通知 数据保存数据库失败", noticeCode);
         }
 
-        LOG.info("{}, 系统通知 执行成功",noticeCode);
+        LOG.info("{}, 系统通知 执行成功", noticeCode);
 
         // 服务器消息推送
         // 此处可以根据 sysNotificationType 的分类 使用服务器消息推送方式
@@ -93,19 +94,19 @@ public class SysNoticeService {
      *
      * @param sysNoticeType 从数据库中查询到系统通知类型对象
      * @param msgTitle
-     * @param msgConent           系统通知模板内容
-     * @param receivers           系统通知接收人集合，不可为null，且size 大于0
+     * @param msgConent     系统通知模板内容
+     * @param receivers     系统通知接收人集合，不可为null，且size 大于0
      * @return
      */
     private boolean saveNotificationData(SysNoticeType sysNoticeType, String msgTitle, String msgConent, Set<String> receivers) {
         SysNotice sysNotice = new SysNotice();
         sysNotice.setTypeCode(sysNoticeType.getCode())
-              .setTitle(msgTitle)
-              .setContent(msgConent)
-              .setCreateTime(new Date())
-              .setExpiryTime( new DateTime().plusDays(sysNoticeType.getUntilExpiryDay()).toDate())
-              .setDeadTime(new DateTime().plusDays(sysNoticeType.getUntilDeadDay()).toDate())
-              .setId(IdUtils.id());
+                .setTitle(msgTitle)
+                .setContent(msgConent)
+                .setCreateTime(new Date())
+                .setExpiryTime(new DateTime().plusDays(sysNoticeType.getUntilExpiryDay()).toDate())
+                .setDeadTime(new DateTime().plusDays(sysNoticeType.getUntilDeadDay()).toDate())
+                .setId(IdUtils.id());
         boolean flag = sysNotice.save();
         if (!flag) {
             return false;

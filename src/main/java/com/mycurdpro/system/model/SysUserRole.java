@@ -31,6 +31,7 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
 
     /**
      * 通过用户id 查询 角色id
+     *
      * @param userId
      * @return
      */
@@ -45,10 +46,11 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
 
     /**
      * 通过用户查询角色编码
+     *
      * @param userId
      * @return
      */
-    public String findRoleCodesByUserId(String userId){
+    public String findRoleCodesByUserId(String userId) {
         String sql = "select WM_CONCAT(c.CODE) as ROLE_CODES" +
                 "  from sys_user a, sys_user_role b,sys_role c " +
                 "  where a.id = b.sys_user_id and b.sys_role_id = c.id  and a.id = ? ";
@@ -59,6 +61,7 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
 
     /**
      * 分页查询, 角色数据
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
@@ -76,12 +79,13 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
 
     /**
      * 分页查询, 用户数据
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
      * @return
      */
-    public Page<SysUserRole> pageWithUserInfo(int pageNumber,int pageSize,String where){
+    public Page<SysUserRole> pageWithUserInfo(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select a.SYS_ROLE_ID,a.SYS_USER_ID,a.CREATER,a.CREATE_TIME, b.USERNAME,b.NAME,b.JOB ";
         String sqlExceptSelect = " from sys_user_role a, sys_user b  where a.sys_user_id = b.id ";
         if (StringUtils.notEmpty(where)) {

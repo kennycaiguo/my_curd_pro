@@ -34,23 +34,24 @@ public class SysServiceLog extends BaseSysServiceLog<SysServiceLog> {
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
 
-    public Long findCountByWhere(String where){
+    public Long findCountByWhere(String where) {
         String sql = " select count(1) as c from SYS_SERVICE_LOG ";
-        if(StringUtils.notEmpty(where)){
-            sql += " where "+where;
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
         }
         return findFirst(sql).getLong("c");
     }
 
     /**
      * 根据 where 条件查询
+     *
      * @param where
      * @return
      */
-    public List<SysServiceLog> findByWhere(String where){
+    public List<SysServiceLog> findByWhere(String where) {
         String sql = " select * from SYS_SERVICE_LOG ";
-        if(StringUtils.notEmpty(where)){
-            sql += " where "+where;
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
         }
         return find(sql);
     }

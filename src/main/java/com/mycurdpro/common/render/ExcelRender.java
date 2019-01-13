@@ -12,6 +12,7 @@ import java.io.OutputStream;
 
 /**
  * excel 导出, 通过 POI 工具
+ *
  * @author zhangchuang
  */
 @SuppressWarnings("unused")
@@ -23,12 +24,12 @@ public class ExcelRender extends Render {
     private String fileName;
     private Workbook workbook;
 
-    public static ExcelRender me(Workbook workbook) {
-        return new ExcelRender(workbook);
-    }
-
     private ExcelRender(Workbook workbook) {
         this.workbook = workbook;
+    }
+
+    public static ExcelRender me(Workbook workbook) {
+        return new ExcelRender(workbook);
     }
 
     public ExcelRender fileName(String fileName) {

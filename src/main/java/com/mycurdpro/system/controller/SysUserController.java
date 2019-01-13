@@ -130,6 +130,7 @@ public class SysUserController extends BaseController {
         Page<SysUserRole> sysUserRolePage = SysUserRole.dao.page(pageNumber, pageSize, where);
         renderDatagrid(sysUserRolePage);
     }
+
     /**
      * 用户改角色保存
      */
@@ -154,14 +155,15 @@ public class SysUserController extends BaseController {
         }
         renderSuccess("添加用户角色成功.");
     }
+
     /**
      * 用户角色 删除
      */
     @Before(Tx.class)
-    public void deleteUserRoleAction(){
+    public void deleteUserRoleAction() {
         String userId = getPara("userId");
         String roleIds = getPara("roleIds");
-        if(StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)){
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
             renderFail("userId roleIds 参数不可为空.");
             return;
         }
@@ -171,8 +173,6 @@ public class SysUserController extends BaseController {
         }
         renderSuccess("删除用户角色成功.");
     }
-
-
 
 
 }

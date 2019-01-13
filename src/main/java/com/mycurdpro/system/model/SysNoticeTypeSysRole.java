@@ -21,6 +21,7 @@ public class SysNoticeTypeSysRole extends BaseSysNoticeTypeSysRole<SysNoticeType
 
     /**
      * 分页查询
+     *
      * @param pageNumber
      * @param pageSize
      * @param where
@@ -41,10 +42,11 @@ public class SysNoticeTypeSysRole extends BaseSysNoticeTypeSysRole<SysNoticeType
 
     /**
      * 通过通知类型id 查询关联角色 再查询到相关联的用户
+     *
      * @param noticeTypeId
      * @return
      */
-    public List<Record> findUserIdsByNoticeType(String noticeTypeId){
+    public List<Record> findUserIdsByNoticeType(String noticeTypeId) {
         List<Record> userIds = Db.find(" SELECT d.SYS_USER_ID " +
                 "FROM " +
                 "( SELECT a.SYS_ROLE_ID FROM SYS_NOTICE_TYPE_SYS_ROLE a, SYS_ROLE b  WHERE a.SYS_ROLE_ID = b.ID  and a.SYS_NOTICE_TYPE_ID = ? ) aa " +

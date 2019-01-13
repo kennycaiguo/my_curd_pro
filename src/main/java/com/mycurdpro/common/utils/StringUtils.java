@@ -126,16 +126,17 @@ public class StringUtils {
     /**
      * 字符串包含
      * 全部包含 返回true，否则返回false
+     *
      * @param sourceStr
      * @param string
      * @return
      */
-    public static  boolean asListAndContains(String sourceStr,String string){
+    public static boolean asListAndContains(String sourceStr, String string) {
         boolean flag = true;
         String[] strAry = string.split(",");
         List<String> sourceStrAry = Arrays.asList(sourceStr.split(","));
-        for(String str:strAry){
-            if(!sourceStrAry.contains(str)){
+        for (String str : strAry) {
+            if (!sourceStrAry.contains(str)) {
                 flag = false;
                 break;
             }
@@ -146,21 +147,22 @@ public class StringUtils {
     /**
      * 字符串包含
      * 任一包含 返回 true, 全部不包含返回 false
+     *
      * @param sourceStr
      * @param string
      * @return
      */
-    public static boolean asListOrContains(String sourceStr,String string){
-          boolean flag = false;
+    public static boolean asListOrContains(String sourceStr, String string) {
+        boolean flag = false;
         String[] strAry = string.split(",");
-          List<String> sourceStrAry = Arrays.asList(sourceStr.split(","));
-          for(String str : strAry){
-              if(sourceStrAry.contains(str)){
-                  flag = true;
-                  break;
-              }
-          }
-          return flag;
+        List<String> sourceStrAry = Arrays.asList(sourceStr.split(","));
+        for (String str : strAry) {
+            if (sourceStrAry.contains(str)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
     }
 
 }

@@ -72,7 +72,7 @@ public abstract class BaseController extends Controller {
         renderJson(datagrid);
     }
 
-    public void renderDatagrid(Collection collection, int total){
+    public void renderDatagrid(Collection collection, int total) {
         Map<String, Object> datagrid = new HashMap<String, Object>();
         datagrid.put("rows", collection);
         datagrid.put("total", total);
