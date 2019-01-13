@@ -30,4 +30,15 @@ public class SysNoticeType extends BaseSysNoticeType<SysNoticeType> {
         }
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
+
+
+    /**
+     * 根据编码查询
+     * @param code
+     * @return
+     */
+    public SysNoticeType findByCode(String code) {
+        return findFirst("select * from sys_notice_type where code = ? ", code);
+    }
+
 }

@@ -19,7 +19,7 @@ public class GeneratorConfig {
     // 基础包名
     public final static String basePackageName = "com.mycurdpro";
     // 模块名
-    public final static String moduleName = "system";
+    public final static String moduleName = "example";
     // 代码中 @author
     public final static String author = "zhangchuang";
     // 模式名（oracle)
@@ -49,7 +49,8 @@ public class GeneratorConfig {
 //        add("SYS_DATA_REGION");
 //        add("SYS_NOTE_CATE");
 //        add("SYS_NOTE");
-          add("SYS_TASK_LOG");
+//          add("SYS_TASK_LOG");
+          add("EX_SINGLE_TABLE"); // 例子 单表
     }};
 
     // 生成 代码文件基础路径

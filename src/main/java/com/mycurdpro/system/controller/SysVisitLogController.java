@@ -15,11 +15,9 @@ import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.validator.IdsRequired;
 import com.mycurdpro.system.model.SysVisitLog;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,11 +80,12 @@ public class SysVisitLogController extends BaseController {
     public  void exportExcel(){
         String where = getAttr(Constant.SEARCH_SQL);
         if(SysVisitLog.dao.findCountByWhere(where)>50000){
-            renderHtml("<h1 style='text-align:center;margin-top:200px'>一次导出数据不可大于 5W 条，请修改查询条件。</h1>");
+            setAttr("msg","一次导出数据不可大于 5W 条，请修改查询条件。");
+            render("common/card.ftl");
             return;
         }
 
-        LOG.info("d1: {}",new DateTime(new Date()).toString("yyyy-MM-dd HH:mm:ss"));
+        // 测试大数据量导出
         List<SysVisitLog> list = SysVisitLog.dao.findByWhere(where);
 
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("访问日志","访问日志"),

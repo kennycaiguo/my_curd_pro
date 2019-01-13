@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 登录拦截器
- *
  * @author chuang
  */
 public class LoginInterceptor implements Interceptor {

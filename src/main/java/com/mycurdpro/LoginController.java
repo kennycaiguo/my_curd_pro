@@ -5,7 +5,6 @@ import com.jfinal.aop.Clear;
 import com.jfinal.aop.Duang;
 import com.jfinal.core.ActionKey;
 import com.jfinal.kit.HashKit;
-import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
@@ -14,6 +13,7 @@ import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.guava.BaseCache;
 import com.mycurdpro.common.utils.guava.CacheContainer;
+import com.mycurdpro.common.utils.guava.LoginRetryLimitCache;
 import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysUser;
 import com.mycurdpro.system.model.SysUserRole;
@@ -33,12 +33,9 @@ public class LoginController extends BaseController {
     private final static Logger LOG = LoggerFactory.getLogger(LoginController.class);
     private final static LoginService loginService = Duang.duang(LoginService.class);
 
-    // 输错密码 锁定用户
-    private final static int RETRY_TIMES = PropKit.use("config.properties").getInt("loginRetryLimitTime");
-    private final static int LOCK_TIME_M = PropKit.use("config.properties").getInt("lockTime");
     // 登录用户名密码cookie key
-    private final static String usernameKey = PropKit.use("config.properties").get("cookie_username_key");
-    private final static String passwordKey = PropKit.use("config.properties").get("cookie_password_key");
+    private final static String usernameKey = "mycurdpro_username";
+    private final static String passwordKey = "mycurdpro_password";
 
     /**
      * 登录页面
@@ -97,9 +94,9 @@ public class LoginController extends BaseController {
         // 密码错误 n 次 锁定 m 分钟
         BaseCache<String, AtomicInteger> retryCache = CacheContainer.getLoginRetryLimitCache();
         AtomicInteger retryTimes = retryCache.getCache(username);
-        if (retryTimes.get() >= RETRY_TIMES) {
+        if (retryTimes.get() >= LoginRetryLimitCache.RETRY_LIMIT) {
             setAttr("username", username);
-            setAttr("errMsg", " 账号已被锁定, " + LOCK_TIME_M + "分钟后可自动解锁。 ");
+            setAttr("errMsg", " 账号已被锁定, " + LoginRetryLimitCache.LOCK_TIME + "分钟后可自动解锁。 ");
             render("login.ftl");
             return;
         }
@@ -107,11 +104,11 @@ public class LoginController extends BaseController {
         if (!sysUser.getPassword().equals(password)) {
             int nowRetryTimes = retryTimes.incrementAndGet();  // 错误次数 加 1
             setAttr("username", username);
-            if ((RETRY_TIMES - nowRetryTimes) == 0) {
-                setAttr("errMsg", " 账号已被锁定, " + LOCK_TIME_M + "分钟后可自动解锁。 ");
+            if ((LoginRetryLimitCache.RETRY_LIMIT - nowRetryTimes) == 0) {
+                setAttr("errMsg", " 账号已被锁定, " + LoginRetryLimitCache.LOCK_TIME + "分钟后可自动解锁。 ");
             } else {
                 setAttr("errMsg", " 密码错误, 再错误 "
-                        + (RETRY_TIMES - nowRetryTimes) + " 次账号将被锁定" + LOCK_TIME_M + "分钟。");
+                        + (LoginRetryLimitCache.RETRY_LIMIT - nowRetryTimes) + " 次账号将被锁定" + LoginRetryLimitCache.LOCK_TIME + "分钟。");
             }
             render("login.ftl");
             return;
@@ -136,7 +133,6 @@ public class LoginController extends BaseController {
         sysUser.setLastLoginTime(new Date());
         sysUser.update();
 
-
         afterLogin(sysUser);
 
         // 登录日志
@@ -147,7 +143,6 @@ public class LoginController extends BaseController {
 
     /**
      * 登录后将 用户相关信息放入到 session 中
-     * // TODO 更友好的集群方案
      * @param sysUser
      */
     private void afterLogin(SysUser sysUser){

@@ -46,7 +46,8 @@
           <tr>
               <td>性别：</td>
               <td>
-                  ${(sysUser.GENDER_TEXT)!}
+                  <#if sysUser.gender=='M'>男</#if>
+                  <#if sysUser.gender=='F'>女</#if>
               </td>
           </tr>
           <tr >

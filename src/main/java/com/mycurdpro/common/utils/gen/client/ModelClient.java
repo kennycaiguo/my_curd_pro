@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * model 代码生成器
+ * model 代码生成器.md
  *
  * @author zhangchuang
  */
@@ -25,9 +25,9 @@ public class ModelClient {
     private final static boolean genBaseModel = true;                                                   // 是否生成baseModel
     private final static boolean chainSetter = true;                                                    // 是否生成链式 setter 方法
 
-    private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "baseModel.ftl";     // baseModel 模板文件路径
+    private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "model/baseModel.ftl"; // baseModel 模板文件路径
     private final static String baseModelOutPath = GeneratorConfig.outputBasePath + "model/base/";    // baseModel 文件输出路径
-    private final static String modelTplPath = GeneratorConfig.tplBasePath + "model.ftl";             // Model 模板 路径
+    private final static String modelTplPath = GeneratorConfig.tplBasePath + "model/model.ftl";       // Model 模板 路径
     private final static String modelOutPath = GeneratorConfig.outputBasePath + "model/";             // Model 文件输出路径
 
     /**

@@ -7,7 +7,7 @@
         <ul class="headerMenu">
             <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">XX 综合管理平台</a></li>
             <li><a href="#" class="active">首页</a></li>
-            <li><a href="#">在线交流</a></li>
+            <li><a href="#">OA 协同</a></li>
             <span class="right">
                 <li>
                     <a href="javascript:openUserNotice()"   title="点击查看通知">

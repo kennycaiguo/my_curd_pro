@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * mappingkit 代码生成器
+ * mappingkit 代码生成器.md
  */
 public class ModelMappingClient {
     private final static Logger LOG = LoggerFactory.getLogger(ModelMappingClient.class);
 
     // 生成 MappingKit
-    private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "ModelMapping.ftl";   // 模板文件路径
+    private final static String mappingKitTplPath = GeneratorConfig.tplBasePath + "model/ModelMapping.ftl";   // 模板文件路径
     private final static String mappingKitOutPath = GeneratorConfig.outputBasePath;                     // 渲染文件输出路径
 
     /**

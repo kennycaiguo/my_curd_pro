@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * 权限拦截器,菜单拦截器
+ * 权限菜单 拦截器,菜单拦截器
  * @author zhangchuang
  */
 public class PermissionInterceptor implements Interceptor {
@@ -28,6 +28,7 @@ public class PermissionInterceptor implements Interceptor {
         LOG.debug("controllerKey: {}",controllerKey);
         LOG.debug("actionKey: {}",inv.getActionKey());
 
+        // 菜单只可配置 到 actionKey, 不可配置到 controller key
         for(SysMenu sysMenu : sysMenus){
             // 菜单地址 同
             if (StringUtils.notEmpty(sysMenu.getUrl()) && !sysMenu.getUrl().equals("/") && sysMenu.getUrl().equals(controllerKey)) {

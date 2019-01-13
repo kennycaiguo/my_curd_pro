@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * 后台 访问路径 log 拦截器, 在 模块 route 中配置
- * 全局异常 json
+ * 全局异常 json, 附带 记录访问日志
+ * @author zhangchuang
  */
 public class ExceptionInterceptor implements Interceptor {
     private final static Logger LOG = LoggerFactory.getLogger(ExceptionInterceptor.class);
@@ -63,6 +63,7 @@ public class ExceptionInterceptor implements Interceptor {
             String requestType = inv.getController().getRequest().getHeader("X-Requested-With");
 
             // 只能判断 jquery ajax, 原始的 ajax 没有该请求头 例如 easyui form 没, easyui datagrid 有，
+            // 故此处注掉 以免 easyui form 提交发生异常无法正常 提示异常信息
 //            if("XMLHttpRequest".equals(requestType)){
 //                Ret ret = Ret.create().set("state", "error").set("msg", errMsg);
 //                inv.getController().renderJson(ret);

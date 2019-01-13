@@ -1,7 +1,5 @@
 package com.mycurdpro.common.utils.guava;
 
-import com.jfinal.kit.PropKit;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,7 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class LoginRetryLimitCache extends BaseCache<String, AtomicInteger> {
 
-    private final static Long LOCK_TIME = PropKit.use("config.properties").getLong("lockTime");
+    public final static Long LOCK_TIME = 30L; // 30 分钟
+    public final static int  RETRY_LIMIT=3;   // 尝试次数
+
 
     public LoginRetryLimitCache() {
         super(LOCK_TIME, TimeUnit.MINUTES);

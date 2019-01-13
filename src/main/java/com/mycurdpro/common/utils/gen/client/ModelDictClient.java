@@ -23,7 +23,7 @@ public class ModelDictClient {
 
     // 数据表字典
     private final static boolean genSingleFile = false;                                           // 字典是否单一文件
-    private final static String dictTplPath = GeneratorConfig.tplBasePath + "dict.md";            // 模板文件路径
+    private final static String dictTplPath = GeneratorConfig.tplBasePath + "model/dict.md";            // 模板文件路径
     private final static String dictOutDirPath = GeneratorConfig.outputBasePath + "doc/model/";   // 文件输出目录
 
 

@@ -34,6 +34,21 @@ import java.util.HashMap;
  */
 @Clear(PermissionInterceptor.class)
 public class UtilsController extends BaseController {
+    /**
+     * 生成 图像验证码
+     */
+    public void captcha() {
+        renderCaptcha();
+    }
+    /**
+     * 生成 二维码
+     */
+    public void qrcode() {
+        String content = getPara("txt", "my_curd_pro very great");
+        Integer width = getParaToInt("width", 200);
+        Integer height = getParaToInt("height", 200);
+        renderQrCode(content, width, height);
+    }
 
     /**
      * 系统用户信息

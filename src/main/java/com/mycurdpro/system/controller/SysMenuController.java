@@ -15,7 +15,6 @@ import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.validator.IdRequired;
 import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysRoleMenu;
-import com.mycurdpro.system.model.SysUserRole;
 
 import java.util.*;
 
@@ -86,10 +85,13 @@ public class SysMenuController extends BaseController {
      */
     public void addAction() {
         SysMenu sysMenu = getBean(SysMenu.class, "");
-        SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
-        if(sysMenuOld!=null){
-            renderFail("菜单地址已存在.");
-            return;
+        // 地址不重复
+        if(!sysMenu.getUrl().equals("/")){
+            SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
+            if(sysMenuOld!=null){
+                renderFail("菜单地址已存在.");
+                return;
+            }
         }
         sysMenu.setId(IdUtils.id())
                 .setCreater(WebUtils.getSessionUsername(this))
@@ -107,10 +109,13 @@ public class SysMenuController extends BaseController {
     public void updateAction() {
         SysMenu sysMenu = getBean(SysMenu.class, "");
 
-        SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
-        if(sysMenuOld!=null && !sysMenu.getId().equals(sysMenuOld.getId())){
-            renderFail("菜单地址已存在.");
-            return;
+        // 地址不重复
+        if(!sysMenu.getUrl().equals("/")) {
+            SysMenu sysMenuOld = SysMenu.dao.findByUrl(sysMenu.getUrl());
+            if (sysMenuOld != null && !sysMenu.getId().equals(sysMenuOld.getId())) {
+                renderFail("菜单地址已存在.");
+                return;
+            }
         }
         sysMenu.setUpdater(WebUtils.getSessionUsername(this))
                 .setUpdateTime(new Date());

@@ -2,7 +2,6 @@ package com.mycurdpro.system.controller;
 
 import com.google.common.base.Joiner;
 import com.jfinal.aop.Before;
-import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
@@ -10,7 +9,7 @@ import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.guava.BaseCache;
 import com.mycurdpro.common.utils.guava.CacheContainer;
-import com.mycurdpro.common.validator.IdsRequired;
+import com.mycurdpro.common.utils.guava.LoginRetryLimitCache;
 import com.mycurdpro.system.model.SysUser;
 
 import java.util.*;
@@ -22,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SysUserUnlockController extends BaseController {
 
     // 密码错误尝试次数
-    private final  static int loginRetryLimitTime = PropKit.use("config.properties").getInt("loginRetryLimitTime");
 
     public void index(){
         render("system/sysUserUnlock.ftl");
@@ -33,7 +31,7 @@ public class SysUserUnlockController extends BaseController {
         Set<String> userNameSet = new LinkedHashSet<>();
         cacheAsMap.forEach((K,V)->{
             System.err.println(K);
-            if(V.get()>=loginRetryLimitTime){
+            if(V.get()>= LoginRetryLimitCache.RETRY_LIMIT){
                 userNameSet.add(K);
             }
         });

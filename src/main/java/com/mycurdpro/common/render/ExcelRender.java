@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * excel 导出
+ * excel 导出, 通过 POI 工具
+ * @author zhangchuang
  */
+@SuppressWarnings("unused")
 public class ExcelRender extends Render {
 
     private final static String CONTENT_TYPE = "application/msexcel;charset=" + getEncoding();
@@ -34,6 +36,8 @@ public class ExcelRender extends Render {
         return this;
     }
 
+
+    @SuppressWarnings("Duplicates")
     @Override
     public void render() {
         response.reset();
@@ -56,7 +60,6 @@ public class ExcelRender extends Render {
             } catch (IOException e) {
                 LOG.error(e.getMessage(), e);
             }
-
         }
     }
 

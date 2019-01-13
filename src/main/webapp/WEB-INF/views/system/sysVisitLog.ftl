@@ -53,7 +53,9 @@
         <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_SYS_USER" prompt="用户名" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_SYS_USER_IP" prompt="IP地址" class="easyui-textbox" style="width:120px; ">
-            <input name="search_LIKE_TYPE" prompt="请求类型" class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=httpMethod'" style="width:120px; " >
+            <input name="search_LIKE_TYPE" prompt="请求类型" class="easyui-combobox"  style="width:120px; "
+                   data-options="data: [ {value:'GET',text:'GET'} ,{value:'POST',text:'POST'},{value:'PUT',text:'PUT'},{value:'DELETE',text:'DELETE'}],
+                             editable: false, panelHeight:'auto'" >
             <input name="search_GTEDT_CREATE_TIME"  prompt="创建时间起" class="easyui-datetimebox" >
             <input name="search_LTEDT_CREATE_TIME" prompt="创建时间止" class="easyui-datetimebox" >
             <input name="search_ISNOT_ERROR" type="hidden" id="onlyError" >

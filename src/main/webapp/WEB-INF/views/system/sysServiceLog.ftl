@@ -32,6 +32,8 @@
     <div id="tb">
         <a onclick="deleteModel('dg','${ctx!}/sysServiceLog/deleteAction')" href="#" class="easyui-linkbutton  "
            iconCls="iconfont icon-delete" plain="true">删除</a>
+        <a onclick="exportExcel('${ctx!}/sysServiceLog/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
+           iconCls="iconfont icon-export" plain="true">导出excel</a>
         <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_SYS_USER" prompt="用户名" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_SYS_USER_IP" prompt="IP地址" class="easyui-textbox" style="width:120px; ">

@@ -9,7 +9,8 @@ import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
-import com.jfinal.plugin.activerecord.*;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -23,10 +24,11 @@ import com.mycurdpro.common.interceptor.ExceptionInterceptor;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.utils.UtilsController;
+import com.mycurdpro.example.ExampleModelMapping;
+import com.mycurdpro.example.ExampleRoute;
 import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
-import it.sauronsoftware.cron4j.ProcessTask;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,7 +68,8 @@ public class AppConfig extends JFinalConfig {
         me.add("/dashboard", MainController.class, Constant.VIEW_PATH);   // 控制面板
         me.add("/utils", UtilsController.class, Constant.VIEW_PATH); // 页面工具
 
-        me.add(new SystemRoute());
+        me.add(new SystemRoute());  // 系统模块
+        me.add(new ExampleRoute()); // 例子模块
     }
 
     @Override
@@ -90,12 +93,19 @@ public class AppConfig extends JFinalConfig {
         activeRecordPlugin.setContainerFactory(new CaseInsensitiveContainerFactory()); // 表字段大小写不敏感
         activeRecordPlugin.setShowSql(configProp.getBoolean("devMode"));
         SystemModelMapping.mapping(activeRecordPlugin);                                // system 模块 表映射
-
+        ExampleModelMapping.mapping(activeRecordPlugin);                               // 例子模块表映射
         me.add(activeRecordPlugin);
 
         // 定时任务插件
         Cron4jPlugin cron4jPlugin = new Cron4jPlugin("task.properties");
         me.add(cron4jPlugin);
+
+        // redis 插件
+//        Prop redisProp = PropKit.use("redis.properties");
+//        RedisPlugin userRedis = new RedisPlugin("user", redisProp.get("host"),redisProp.getInt("port")
+//                ,redisProp.getInt("timeout"),redisProp.get("password"),redisProp.getInt("database"));
+//        me.add(userRedis);
+
     }
 
     @Override
@@ -127,8 +137,6 @@ public class AppConfig extends JFinalConfig {
     @Override
     public void afterJFinalStart() {
         super.afterJFinalStart();
-        Record record = Db.findFirst("select count(1) c from sys_visit_log");
-        System.out.println("---------------------------------: visitLog count: "+record.get("c"));
     }
 
     @Override

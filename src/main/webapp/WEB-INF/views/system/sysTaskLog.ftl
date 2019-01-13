@@ -23,6 +23,8 @@
     <span id="searchSpan" class="searchInputArea">
             <input name="search_GTEDT_START_TIME" prompt="开始时间" class="easyui-datetimebox"  >
             <input name="search_LTEDT_END_TIME" prompt="结束时间" class="easyui-datetimebox"  >
+            <input name="search_EQS_RESULT" prompt="运行结果"   style="width:120px; "  class="easyui-combobox"
+                  data-options="data: [ {value:'success',text:'success'} ,{value:'fail',text:'fail'}], editable: false, panelHeight:'auto'">
             <a href="#" class="easyui-linkbutton searchBtn"
                data-options="iconCls:'iconfont icon-search',plain:true"
                onclick="queryModel('dg','searchSpan')">搜索</a>

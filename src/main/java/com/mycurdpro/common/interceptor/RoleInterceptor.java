@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * 角色拦截器
+ * 角色拦截器, 通过角色编码限制 用户操作
  * @author zhangchuang
  */
 public class RoleInterceptor implements Interceptor {

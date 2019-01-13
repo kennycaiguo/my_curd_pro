@@ -1,8 +1,12 @@
 package com.mycurdpro.system.model;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.system.model.base.BaseSysNoticeTypeSysUser;
+
+import java.util.List;
 
 /**
  * Generated model
@@ -31,5 +35,16 @@ public class SysNoticeTypeSysUser extends BaseSysNoticeTypeSysUser<SysNoticeType
             sqlExceptSelect += " where " + where;
         }
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
+
+
+    /**
+     * 通过通知类型id查询用户
+     * @param noticeTypeId
+     * @return
+     */
+    public List<Record> findUserIdByNoticeType(String noticeTypeId) {
+        List<Record> list = Db.find("select SYS_USER_ID from SYS_NOTICE_TYPE_SYS_USER where SYS_NOTICE_TYPE_ID = ? ", noticeTypeId);
+        return list;
     }
 }

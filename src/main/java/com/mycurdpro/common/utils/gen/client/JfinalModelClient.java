@@ -6,7 +6,7 @@ import com.jfinal.plugin.activerecord.generator.Generator;
 import com.mycurdpro.common.utils.gen.tools.OracleDatasourceUtils;
 
 /**
- * jfinal官方 Model 代码生成器
+ * jfinal官方 Model 代码生成器.md
  * maven 项目, oracle下存在bug，表字段如设置默认值 生成字典文件时报错 java.sql.SQLException: 流已被关闭
  */
 public class JfinalModelClient {

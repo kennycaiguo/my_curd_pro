@@ -88,16 +88,12 @@
             <fieldset class="pure-group">
                 <select id="gender" name="gender" class="pure-input-1" style="height: 2.45em;">
                     <option disabled selected>选择性别</option>
+                    <option value="M">男</option>
+                    <option value="F">女</option>
                 </select>
                 <script>
                     (function () {
-                        $.getJSON("${ctx!}/sysDict/combobox?groupCode=gender",function (data) {
-                            var genderSelect = $('#gender');
-                            data.forEach(function(item){
-                               genderSelect.append('<option value="'+item.VALUE+'">'+item.LABEL +"</option>");
-                            });
-                            genderSelect.val('${(sysUser.gender)!}');
-                        })
+                        $('#gender').val('${(sysUser.gender)!}');
                     })();
                 </script>
             </fieldset>

@@ -19,6 +19,7 @@
         <jfinal-cos.version>2017.5</jfinal-cos.version>
         <freemarker.version>2.3.28</freemarker.version>
         <fastjson.version>1.2.43</fastjson.version>
+        <!--<jedis.version>2.7.2</jedis.version>-->
         <slf4j.version>1.7.25</slf4j.version>
         <cron4j.version>2.2.5</cron4j.version>
         <google-guava.version>27.0.1-jre</google-guava.version>
@@ -92,6 +93,17 @@
             <artifactId>cron4j</artifactId>
             <version>${cron4j.version}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>redis.clients</groupId>-->
+            <!--<artifactId>jedis</artifactId>-->
+            <!--<version>${jedis.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.slf4j</groupId>-->
+                    <!--<artifactId>slf4j-api</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

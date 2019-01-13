@@ -67,7 +67,7 @@ public class OracleMetaUtils {
      * @throws Exception 查询异常
      */
     private static TableMeta loadTable(Connection conn, String schemaPattern, String tableName, Boolean includeColumn) throws Exception {
-        Preconditions.checkNotNull(conn, "代码生成器 获得 Connection对象 为 null ");
+        Preconditions.checkNotNull(conn, "代码生成器.md 获得 Connection对象 为 null ");
 
         DatabaseMetaData dbMeta = conn.getMetaData();
         // 查询表信息

@@ -69,10 +69,9 @@ public class SysUser extends BaseSysUser<SysUser> {
      * @return
      */
     public SysUser findInfoByUsername(String username) {
-        String sqlSelect = " select a.*, b.name as ORG_NAME, c.dict_label as GENDER_TEXT,d.dict_label as JOB_LEVEL_TEXT, e.dict_label as USER_STATE_TEXT ";
+        String sqlSelect = " select a.*, b.name as ORG_NAME,d.dict_label as JOB_LEVEL_TEXT, e.dict_label as USER_STATE_TEXT ";
         String sqlExceptSelect = " from sys_user a " +
                 " left join sys_org b on a.org_id = b.id  " +
-                " left join sys_dict c on c.group_code='gender' and a.gender = c.dict_value" +
                 " left join sys_dict d on d.group_code='jobLevel' and a.job_level = d.dict_value " +
                 " left join sys_dict e on e.group_code='userState' and a.user_state= e.dict_value";
         sqlExceptSelect += " where a.username = ? ";

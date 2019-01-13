@@ -39,8 +39,8 @@
             <input name="search_EQS_a.JOB_LEVEL" prompt="职位级别"   style="width:120px; "
                    class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=jobLevel'" >
             <input name="search_LIKE_a.NAME" prompt="姓名" class="easyui-textbox" style="width:120px; ">
-            <input name="search_EQS_a.GENDER" prompt="性别"   style="width:120px; "
-                   class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=gender'" >
+            <input name="search_EQS_a.GENDER" prompt="性别"   style="width:120px; "  class="easyui-combobox"
+                   data-options="data: [ {value:'M',text:'男'} ,{value:'F',text:'女'}], editable: false, panelHeight:'auto'">
             <input name="search_EQS_a.USER_STATE" prompt="是否禁用"  style="width:120px;"
                    class="easyui-combobox" data-options="valueField:'VALUE',textField:'LABEL',panelHeight:'auto',url:'${ctx!}/sysDict/combobox?groupCode=userState'" >
             <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true"  onclick="queryModel('dg','searchSpan')">搜索</a>

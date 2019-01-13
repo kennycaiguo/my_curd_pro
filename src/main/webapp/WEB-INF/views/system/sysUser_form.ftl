@@ -31,8 +31,8 @@
             </td>
             <td>性别：</td>
             <td>
-                <input name="gender" value="${(sysUser.gender)!}" class="easyui-combobox"
-                       data-options="required:false,panelHeight:'auto',valueField:'VALUE',textField:'LABEL',url:'${ctx!}/sysDict/combobox?groupCode=gender'">
+                <input name="gender"  class="easyui-combobox"  data-options=" data:[{value:'M',text:'男'} ,{value:'F',text:'女'}],
+                             editable: false,  required:true, panelHeight:'auto',  value:'${(sysUser.gender)!}'">
             </td>
         </tr>
         <tr>
