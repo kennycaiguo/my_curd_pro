@@ -1,10 +1,9 @@
-<#-- zhangchuang  2019-01-13 11:13:24 -->
+<#-- zhangchuang  2019-01-13 21:26:12 -->
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="<#if exSingleTable?? >${ctx!}/exSingleTable/updateAction<#else>${ctx!}/exSingleTable/addAction</#if>">
     <table class=" pure-table pure-table-horizontal centerTable labelInputTable" >
-        <input id="id" name="id"
-               type="hidden" value="${(exSingleTable.id)!}">
+        <input id="id" name="id"  type="hidden" value="${(exSingleTable.id)!}">
         <tbody>
         <tr>
             <td>

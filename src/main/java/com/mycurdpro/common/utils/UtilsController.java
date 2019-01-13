@@ -40,6 +40,7 @@ public class UtilsController extends BaseController {
     public void captcha() {
         renderCaptcha();
     }
+
     /**
      * 生成 二维码
      */
@@ -48,6 +49,23 @@ public class UtilsController extends BaseController {
         Integer width = getParaToInt("width", 200);
         Integer height = getParaToInt("height", 200);
         renderQrCode(content, width, height);
+    }
+
+
+    /**
+     * 跳转到上传文件页面
+     */
+    public void goUploadFilePage(){
+        String uploadUrl = getPara("uploadUrl");
+        String label = getPara("label");
+        if(StringUtils.isEmpty(uploadUrl)){
+            setAttr("msg","uploadUrl参数不可为空");
+            render("common/card.ftl");
+            return;
+        }
+        setAttr("uploadUrl",uploadUrl);
+        setAttr("label",label);
+        render("common/utils/uploadFile.ftl");
     }
 
     /**

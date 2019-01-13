@@ -4,6 +4,8 @@ import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.example.model.base.BaseExSingleTable;
 
+import java.util.List;
+
 /**
  * Generated model
  * DB: EX_SINGLE_TABLE  例子 单表结构
@@ -29,5 +31,34 @@ public class ExSingleTable extends BaseExSingleTable<ExSingleTable> {
             sqlExceptSelect += " where " + where;
         }
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
+    }
+
+    /**
+     * 根据 where 条件查询
+     *
+     * @param where
+     * @return
+     */
+    public List<ExSingleTable> findByWhere(String where) {
+        String sql = " select * from EX_SINGLE_TABLE ";
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
+        }
+        return find(sql);
+    }
+
+
+    /**
+     * 数量查询
+     *
+     * @param where
+     * @return
+     */
+    public Long findCountByWhere(String where) {
+        String sql = " select count(1) as c from EX_SINGLE_TABLE ";
+        if (StringUtils.notEmpty(where)) {
+            sql += " where " + where;
+        }
+        return findFirst(sql).getLong("c");
     }
 }

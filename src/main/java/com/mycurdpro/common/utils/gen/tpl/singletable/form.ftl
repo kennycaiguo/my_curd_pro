@@ -3,8 +3,7 @@
 <@layout></#noparse>
 <form id="modelForm" method="POST" action="<#noparse><#if</#noparse> ${(tableMeta.nameCamel)!}<#noparse>?? >${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/updateAction<#noparse><#else>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/addAction<#noparse></#if></#noparse>">
     <table class=" pure-table pure-table-horizontal centerTable labelInputTable" >
-        <input id="id" name="id"
-               type="hidden" value="<#noparse>${(</#noparse>${(tableMeta.nameCamel)!}.id<#noparse>)!}</#noparse>">
+        <input id="id" name="id"  type="hidden" value="<#noparse>${(</#noparse>${(tableMeta.nameCamel)!}.id<#noparse>)!}</#noparse>">
         <tbody>
 <#list tableMeta.columnMetas as col>
    <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name) >

@@ -3,6 +3,9 @@ package ${(basePackageName)!}.${(moduleName)!}.model;
 import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import ${(basePackageName)!}.${(moduleName)!}.model.base.Base${(tableMeta.nameCamelFirstUp)!};
+<#if hasExcel>
+import java.util.List;
+</#if>
 
 /**
  * Generated model
@@ -28,4 +31,33 @@ public class ${(tableMeta.nameCamelFirstUp)!} extends Base${(tableMeta.nameCamel
         }
         return this.paginate(pageNumber,pageSize,sqlSelect,sqlExceptSelect);
     }
+
+    <#if hasExcel>
+    /**
+     * 根据 where 条件查询
+     * @param where
+     * @return
+     */
+    public List<${(tableMeta.nameCamelFirstUp)!}> findByWhere(String where){
+        String sql = " select * from ${(tableMeta.name)!} ";
+        if(StringUtils.notEmpty(where)){
+            sql += " where "+where;
+        }
+        return find(sql);
+    }
+
+
+    /**
+     * 数量查询
+     * @param where
+     * @return
+     */
+    public Long findCountByWhere(String where){
+        String sql = " select count(1) as c from ${(tableMeta.name)!} ";
+        if(StringUtils.notEmpty(where)){
+            sql += " where "+where;
+        }
+        return findFirst(sql).getLong("c");
+    }
+    </#if>
 }

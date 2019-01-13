@@ -111,7 +111,17 @@ function exportExcel(url,inputsSpanId){
     postForm(url,'_blank',params);
 }
 
-
+/**
+ * 跳转到 上传文件页面
+ * @param uploadPageUrl
+ * @param uploadUrl
+ * @param label
+ * @param windowName
+ */
+function goUploadPage(uploadPageUrl,uploadUrl,label,windowName){
+    var url = uploadPageUrl+"?uploadUrl="+uploadUrl+"&label="+label;
+    popup.openIframe(windowName||'上传文件', url, "400px","300px");
+}
 
 /**
  * 提交保存或者修改表单

@@ -12,7 +12,7 @@
         <th data-options="field:'ID',checkbox:true"></th>
         <#list tableMeta.columnMetas as col>
             <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name) >
-        <th field="${(col.name)!}" width="100"><#if (col.remark)?? && col.remark != "">${(col.remark)!}<#else>${(col.name)!}</#if></th>
+        <th field="${(col.name)!}" width="150"><#if (col.remark)?? && col.remark != "">${(col.remark)!}<#else>${(col.name)!}</#if></th>
             </#if>
         </#list>
     </tr>
@@ -25,6 +25,14 @@
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/deleteAction')" href="#" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
+
+<#if hasExcel>
+   <a onclick="goUploadPage('<#noparse>${ctx!}</#noparse>/utils/goUploadFilePage','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/importExcel','上传excel','上传excel')"
+      href="#" class="easyui-linkbutton"   iconCls="iconfont icon-import" plain="true">导入</a>
+   <a onclick="exportExcel('<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
+     iconCls="iconfont icon-export" plain="true">导出</a>
+</#if>
+
     <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_test" prompt="测试" class="easyui-textbox" style="width:120px; ">
             <a href="#" class="easyui-linkbutton searchBtn"  data-options="iconCls:'iconfont icon-search',plain:true"

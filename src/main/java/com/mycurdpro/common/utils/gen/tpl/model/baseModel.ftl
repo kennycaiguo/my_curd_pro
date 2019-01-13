@@ -2,6 +2,7 @@ package ${(basePackageName)!}.${(moduleName)!}.model.base;
 
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
+<#if hasExcel>import cn.afterturn.easypoi.excel.annotation.Excel;</#if>
 
 <#-- 必须引入的包 -->
 <#if (tableMeta.necessaryImport)??>
@@ -17,6 +18,20 @@ import ${(necessaryImport)!};
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tableMeta.nameCamelFirstUp)!}<M>> extends Model<M> implements IBean {
+
+    // --- 导出导出excel 所需-----
+<#if (tableMeta.columnMetas)??>
+    <#list tableMeta.columnMetas as column>
+        <#if !(column.primaryKey) >
+    @Excel(name = "<#if (column.remark)?? && column.remark != "">${(column.remark)!}<#else>${(column.name)!}</#if>", height = 10, width = 30)
+    private ${(column.javaTypeShortName)!} ${(column.nameCamel)!};
+
+        </#if>
+    </#list>
+</#if>
+    //--- 导出导出excel 所需-----
+
+
     <#-- get set 方法 -->
 <#if (tableMeta.columnMetas)??>
     <#list tableMeta.columnMetas as column>

@@ -1,9 +1,9 @@
 package com.mycurdpro.example.model.base;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.jfinal.plugin.activerecord.IBean;
 import com.jfinal.plugin.activerecord.Model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -14,6 +14,30 @@ import java.util.Date;
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseExSingleTable<M extends BaseExSingleTable<M>> extends Model<M> implements IBean {
+
+    // --- 导出导出excel 所需-----
+    @Excel(name = "姓名", height = 10, width = 30)
+    private String name;
+
+    @Excel(name = "年龄", height = 10, width = 30)
+    private Integer age;
+
+    @Excel(name = "性别", height = 10, width = 30)
+    private String gender;
+
+    @Excel(name = "添加时间", height = 10, width = 30)
+    private Date createTime;
+
+    @Excel(name = "添加人", height = 10, width = 30)
+    private String creater;
+
+    @Excel(name = "最后修改时间", height = 10, width = 30)
+    private Date updateTime;
+
+    @Excel(name = "最后修改人", height = 10, width = 30)
+    private String updater;
+
+    //--- 导出导出excel 所需-----
 
 
     // 主键
@@ -41,12 +65,12 @@ public abstract class BaseExSingleTable<M extends BaseExSingleTable<M>> extends 
 
 
     // 年龄
-    public BigDecimal getAge() {
-        return get("AGE");
+    public Integer getAge() {
+        return getInt("AGE");
     }
 
     public M setAge
-            (BigDecimal age) {
+            (Integer age) {
         set("AGE", age);
         return (M) this;
     }

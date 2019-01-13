@@ -1,6 +1,15 @@
-<#--  zhangchuang 2019-01-13 11:13:24 -->
+<#--  zhangchuang 2019-01-13 21:26:12 -->
 <#include "../common/common.ftl"/>
 <@layout>
+<style>
+    /*datagrid 行号大时调整*/
+    .datagrid-header-rownumber{
+        width:50px !important;
+    }
+    .datagrid-cell-rownumber{
+        width:50px !important;
+    }
+</style>
 <table id="dg" class="easyui-datagrid"
        url="${ctx!}/exSingleTable/query"
        toolbar="#tb" rownumbers="true" border="false"
@@ -10,9 +19,9 @@
     <thead>
     <tr>
         <th data-options="field:'ID',checkbox:true"></th>
-        <th field="NAME" width="100">姓名</th>
-        <th field="AGE" width="100">年龄</th>
-        <th field="GENDER" width="100">性别</th>
+        <th field="NAME" width="150">姓名</th>
+        <th field="AGE" width="150">年龄</th>
+        <th field="GENDER" width="150">性别</th>
     </tr>
     </thead>
 </table>
@@ -23,6 +32,12 @@
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','${ctx!}/exSingleTable/deleteAction')" href="#" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
+
+   <a onclick="goUploadPage('${ctx!}/utils/goUploadFilePage','${ctx!}/exSingleTable/importExcel','上传excel','上传excel')"
+      href="#" class="easyui-linkbutton"   iconCls="iconfont icon-import" plain="true">导入</a>
+   <a onclick="exportExcel('${ctx!}/exSingleTable/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
+     iconCls="iconfont icon-export" plain="true">导出</a>
+
     <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_test" prompt="测试" class="easyui-textbox" style="width:120px; ">
             <a href="#" class="easyui-linkbutton searchBtn"  data-options="iconCls:'iconfont icon-search',plain:true"
