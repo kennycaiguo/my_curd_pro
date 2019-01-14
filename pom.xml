@@ -147,6 +147,14 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+
+
         <!--日志-->
         <dependency>
             <groupId>org.slf4j</groupId>

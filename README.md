@@ -1,10 +1,35 @@
 # my_curd_pro
 
 #### 项目介绍
-基于 jfinal oracle easyui 开发 后台脚手架
+基于 jfinal oracle easyui 开发 后台脚手架。
+ 
+包含如下功能: 
+##### 权限管理
+1. 菜单管理
+2. 角色管理
+3. 用户管理
+4. 机构管理
+##### 系统通知
+1. 通知类型
+2. 类型角色
+3. 类型用户
+##### 系统运维
+1. 数据字典
+2. 地区数据
+3. druid 监控
+4. 业务日志
+5. 访问日志
+6. 账号解锁
+7. 定时任务
+##### 用户工具
+1. 个人文件
+2. 个人笔记
 
-#### 软件架构
-软件架构说明
+#### 预览
+![菜单管理](preview/menu.png)
+![机构管理](preview/org.png)
+![个人笔记](preview/note.png)
+![地区数据](preview/region.png)
 
 
 #### 安装教程
@@ -25,13 +50,3 @@
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

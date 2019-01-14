@@ -39,7 +39,7 @@ function editModel(tgId,url,width,height){
  */
 function deleteModel(tgid,url) {
     var node = $("#"+tgid).treegrid("getSelected");
-    if (node.length!==0) {
+    if (node!=null) {
         popup.openConfirm(null,3, '删除', '您确定要删除选中的记录吗?', function () {
             $.post(url+'?id=' + node.ID, function (data) {
                 if(data.state==='ok'){
