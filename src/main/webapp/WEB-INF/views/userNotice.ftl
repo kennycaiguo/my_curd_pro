@@ -3,7 +3,7 @@
     .noRead{
         color:#ff0000;
     }
-    .logo{
+    .noticeLogo{
         width: 25px;
         margin-top: 2px;
         border-radius: 100%;
@@ -45,11 +45,15 @@
         <table id="dg" class="easyui-datagrid"
                url="${ctx!}/dashboard/noticeData"
                toolbar="#tb" rownumbers="true" border="false"
-               data-options="onDblClickRow:setRead"
+               data-options="onDblClickRow:setRead,rowStyler:function(index,row){
+			      if (row.HAS_READ=='N'){
+				      return 'background-color:#f5969659;';
+			      }
+		       }"
                fit="true" pagination="true"
                fitColumns="true" nowrap="false"
                singleSelect="true"  striped="false"
-               pageSize="10" pageList="[10,20]">
+               pageSize="20" pageList="[10,20]">
             <thead>
             <tr>
                 <th field="LOGO" align="center" width="60" formatter="logoFmt"></th>

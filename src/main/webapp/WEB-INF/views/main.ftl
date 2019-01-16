@@ -11,7 +11,7 @@
             <span class="right">
                 <li>
                     <a href="javascript:openUserNotice()"   title="点击查看通知">
-                        <i class="iconfont icon-bell"></i> 13
+                        <i class="iconfont icon-bell"></i> <span id="unreadCount"></span>
                     </a>
                 </li>
                 <li>
@@ -28,7 +28,7 @@
             function openUserNotice(){
                 popup.openIframeNoResize('用户通知', '${ctx!}/dashboard/userNotice', '900px', '600px');
                 /* 移除未读消息数小红点，此处并不合理 */
-                /* $('#unreadSpan').addClass('hid');*/
+                $('#unreadCount').addClass('hidCss');
             }
             (function(){
                 function openUserInfoEdit() {
@@ -132,11 +132,72 @@
         })
     }
 
+
+    /* 刷新 导航栏 显示的 未读消息条数*/
+    function refreshCount(){
+        $.get('${ctx!}/dashboard/noticeUnreadCount', function (data) {
+            if(data.unreadCount==0){
+                $('#unreadCount').addClass('hidCss');
+            }else{
+                $('#unreadCount').removeClass('hidCss');
+                $('#unreadCount').html(data.unreadCount);
+            }
+        }, "json").error(function(){ popup.errMsg(); });
+    }
+
+    function websocketInit(){
+        refreshCount();
+        if ('WebSocket' in window) {
+            var ws = new WebSocket("ws://localhost/ws-server?userId=${(aesUserId)!}");
+            ws.onerror = function () {
+                console.error("WebSocket连接发生错误");
+                ws.close();
+            };
+            ws.onopen = function () {
+                console.log("WebSocket连接成功");
+            };
+            ws.onclose = function () {
+                console.log("WebSocket连接关闭");
+            };
+            /* 浏览器关闭 页面刷新跳转 主动断开ws连接 */
+            window.onbeforeunload = function () {
+                ws.close();
+            };
+            ws.onmessage = function (event) {
+                console.log(event.data);
+                refreshCount();
+                if(event.data){
+                    var msg = JSON.parse(event.data);
+                    new dToast({
+                        title: msg.title,
+                        body:msg.content,
+                        icon:'${ctx!}/'+msg.logo,
+                        inner:true,   /* 不用底层通知，默认为false */
+                        timeout:10000 /* 10 秒 自动消失 */
+                    });
+                }
+            };
+        } else {
+            console.log('当前浏览器 不支持 websocket')
+        }
+    }
+
+
+
     $(function(){
-        preventDomContextMenu("tabsMenu"); /*dom 元素禁用右键菜单*/
+        /*菜单树*/
         menuTreeInit();
+        /*菜单树 搜索*/
         menuTreeSearchInit();
+
+        /*tab 右键菜单*/
         TabTools.contextMenuInit();
+        /*最值dom 元素 浏览器默认 右键菜单*/
+        preventDomContextMenu("tabsMenu");
+
+        /* websocket 通知 */
+        websocketInit();
+
     });
 </script>
 </@layout>

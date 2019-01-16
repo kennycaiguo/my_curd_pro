@@ -66,9 +66,9 @@ public class WebSocketServer {
 
         // SendMsgUtils.broadcast(authUser.getName() + " online now ...", session.getId());
         // 系统 用户可以重复登录，但不可 重复连接 WebSocket (新的 webSocket 连接直接被关闭)
-        if (OnlineUserContainer.USERID_SESSIONID.containsKey(Long.parseLong(userId))) {
+        if (OnlineUserContainer.USERID_SESSIONID.containsKey(userId)) {
             if (LOG.isInfoEnabled()) {
-                LOG.info("userId:{} 重复连接 WebSocket, 直接关闭...... ", userId);
+                LOG.info("userId:{} 不同浏览器 重复连接 WebSocket, 直接关闭...... ", userId);
             }
             closeSession(session);
             return;

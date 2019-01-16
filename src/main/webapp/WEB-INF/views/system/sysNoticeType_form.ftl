@@ -73,19 +73,19 @@
             </tr>
             <tr>
                 <td>
-                    备注:
+                    消息模板:
                 </td>
                 <td colspan="3">
-                    <input name="remark" value="${(sysNoticeType.remark)!}" class="easyui-textbox" style="width: 100%;height: 70px;"
+                    <input name="template" value="${(sysNoticeType.template?js_string)!}" class="easyui-textbox"   style="width: 100%;height: 80px;"
                            data-options="required:true,multiline:true">
                 </td>
             </tr>
             <tr>
                 <td>
-                    消息模板:
+                    备注:
                 </td>
                 <td colspan="3">
-                    <input name="template" value="${(sysNoticeType.template?js_string)!}" class="easyui-textbox"   style="width: 100%;height: 80px;"
+                    <input name="remark" value="${(sysNoticeType.remark)!}" class="easyui-textbox" style="width: 100%;height: 70px;"
                            data-options="required:true,multiline:true">
                 </td>
             </tr>

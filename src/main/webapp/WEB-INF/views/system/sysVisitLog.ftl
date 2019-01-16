@@ -42,7 +42,7 @@
         <#--<a onclick="viewModel('查看','dg','${ctx!}/sysVisitLog/view', '800px', '600px')" href="#"-->
            <#--class="easyui-linkbutton" iconCls="iconfont icon-eye" plain="true">查看</a>-->
 
-       <#if StringUtils.asListAndContains(rolecodes,'admin')>
+       <#if StringUtils.asListOrContains(rolecodes,'admin,GOD')>
         <a onclick="deleteModel('dg','${ctx!}/sysVisitLog/deleteAction')" href="#" class="easyui-linkbutton"
            iconCls="iconfont icon-delete" plain="true">删除</a>
        </#if>

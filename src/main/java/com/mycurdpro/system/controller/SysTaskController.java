@@ -113,8 +113,11 @@ public class SysTaskController extends BaseController {
                 if (instance instanceof ITask) {
                     ReflectionUtils.runMethod(instance, "run");
                     ReflectionUtils.runMethod(instance, "stop");
-                } else {
+                } else if (instance instanceof  Runnable){
                     ReflectionUtils.runMethod(instance, "run");
+                }else{
+                   renderFail("定时任务只支持 ITask 和 Runable");
+                   return;
                 }
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);

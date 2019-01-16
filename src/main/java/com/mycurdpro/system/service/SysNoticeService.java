@@ -23,7 +23,6 @@ import java.util.*;
 public class SysNoticeService {
     private final static Logger LOG = LoggerFactory.getLogger(SysNoticeService.class);
 
-
     /**
      * 发送系统通知
      *
@@ -33,20 +32,23 @@ public class SysNoticeService {
      */
     @Before(Tx.class)
     public boolean sendNotice(String noticeCode, Map<String, Object> templateParams) {
+        // 查询通知模板
         SysNoticeType sysNoticeType = SysNoticeType.dao.findByCode(noticeCode);
         if (sysNoticeType == null) {
             LOG.debug("{}, 未找到消息通知类型", noticeCode);
             return false;
         }
 
-        // 查s询通知接收人
+        // 查询通知接收人
         Set<String> receivers = getNotificationReceivers(sysNoticeType.getId());
         if (receivers.size() == 0) {
             LOG.debug("{}, 未找到消息接收人", noticeCode);
             return false;
         }
 
+        // 通知标题
         String msgTitle = sysNoticeType.getName();
+        // 通知内容
         String msgContent = FreemarkerUtils.renderAsText(sysNoticeType.getTemplate().replaceAll("FTL", "\\$"), templateParams);
 
         // 保存通知数据
@@ -58,7 +60,6 @@ public class SysNoticeService {
         LOG.info("{}, 系统通知 执行成功", noticeCode);
 
         // 服务器消息推送
-        // 此处可以根据 sysNotificationType 的分类 使用服务器消息推送方式
         Map<String, Object> msg = new HashMap<>();
         msg.put("cate", sysNoticeType.getCate());
         msg.put("code", sysNoticeType.getCode());
@@ -66,6 +67,7 @@ public class SysNoticeService {
         msg.put("title", msgTitle);
         msg.put("content", msgContent);
 
+        // websocket 消息推送
         SendMsgUtils.sendToUsers(receivers, JSON.toJSONString(msg));
         return flag;
     }
@@ -85,6 +87,8 @@ public class SysNoticeService {
         // 通知类型关联的用户
         userIds = SysNoticeTypeSysUser.dao.findUserIdByNoticeType(noticeTypeId);
         userIds.forEach(record -> userIdSet.add(record.get("SYS_USER_ID")));
+
+        System.err.println(userIdSet.size());
         return userIdSet;
     }
 
@@ -118,6 +122,7 @@ public class SysNoticeService {
                 detail.setId(IdUtils.id());
                 detail.setSysNoticeId(sysNotice.getId());
                 detail.setReceiver(receiverId);
+                detail.setHasRead("N");  // 未阅读
                 detail.save();
             });
         }

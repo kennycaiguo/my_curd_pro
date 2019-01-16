@@ -94,3 +94,8 @@ a:hover{
 a{
     color:#333;
 }
+
+/*隐藏元素*/
+.hidCss{
+    display: none;
+}

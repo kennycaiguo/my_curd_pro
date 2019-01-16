@@ -248,9 +248,7 @@ public class MainController extends BaseController {
         sqlPara.setSql(sql).addPara(new Date()).addPara(sysUser.getId());
         Db.update(sqlPara);
         addServiceLog("用户 " + sysUser.getUsername() + " 设置所有系统通知为 已读");
-        ret.put("state", true);
-        ret.put("msg", "设置 全部已读 操作成功");
-        renderJson(ret);
+        renderSuccess("设置 全部已读 操作成功");
     }
 
     /**
