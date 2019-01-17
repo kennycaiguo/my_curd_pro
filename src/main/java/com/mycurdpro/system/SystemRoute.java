@@ -42,8 +42,7 @@ public class SystemRoute extends Routes {
 
         // 用户文件
         add("/sysFile", SysFileController.class, Constant.VIEW_PATH);
-
-
+        
         // 通知类型
         add("/sysNoticeType", SysNoticeTypeController.class, Constant.VIEW_PATH);
 

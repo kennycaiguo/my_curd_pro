@@ -7,11 +7,11 @@
         <ul class="headerMenu">
             <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">XX 综合管理平台</a></li>
             <li><a href="#" class="active">首页</a></li>
-            <li><a href="#">OA 协同</a></li>
+            <li><a href="#">其它菜单</a></li>
             <span class="right">
                 <li>
-                    <a href="javascript:openUserNotice()"   title="点击查看通知">
-                        <i class="iconfont icon-bell"></i> <span id="unreadCount"></span>
+                    <a href="javascript:openUserNotice()"   title="点击查看通知" style="font-weight: bold">
+                        <i class="iconfont icon-bell"></i> <span id="unreadCount" ></span>
                     </a>
                 </li>
                 <li>
@@ -76,7 +76,7 @@
 </div>
 <script src="${ctx!}/static/js/easyui-tree-tools.js"></script>
 <script src="${ctx!}/static/js/tab-tools.js"></script>
-<script src="${ctx!}/static/js/d-toast.min.js"></script>
+<#--<script src="${ctx!}/static/js/d-toast.min.js"></script>-->
 <script>
     if(top.location!=self.location){
         top.location = "${ctx!}/login";
@@ -166,16 +166,16 @@
             ws.onmessage = function (event) {
                 console.log(event.data);
                 refreshCount();
-                if(event.data){
-                    var msg = JSON.parse(event.data);
-                    new dToast({
-                        title: msg.title,
-                        body:msg.content,
-                        icon:'${ctx!}/'+msg.logo,
-                        inner:true,   /* 不用底层通知，默认为false */
-                        timeout:10000 /* 10 秒 自动消失 */
-                    });
-                }
+                <#--if(event.data){-->
+                    <#--var msg = JSON.parse(event.data);-->
+                    <#--new dToast({-->
+                        <#--title: msg.title,-->
+                        <#--body:msg.content,-->
+                        <#--icon:'${ctx!}/'+msg.logo,-->
+                        <#--inner:true,   /* 不用底层通知，默认为false */-->
+                        <#--timeout:10000 /* 10 秒 自动消失 */-->
+                    <#--});-->
+                <#--}-->
             };
         } else {
             console.log('当前浏览器 不支持 websocket')
