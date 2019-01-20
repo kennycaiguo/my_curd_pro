@@ -49,8 +49,11 @@ public class GeneratorConfig {
 //        add("SYS_DATA_REGION");
 //        add("SYS_NOTE_CATE");
 //        add("SYS_NOTE");
-//          add("SYS_TASK_LOG");
-        add("EX_SINGLE_TABLE"); // 例子 单表
+//        add("SYS_TASK_LOG");
+//        add("EX_SINGLE_TABLE"); // 例子 单表
+        add("EX_MAIN_TABLE");
+        add("EX_SON_TABLE1");
+        add("EX_SON_TABLE2");
     }};
 
     // 生成 代码文件基础路径

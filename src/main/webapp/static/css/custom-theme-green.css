@@ -49,7 +49,7 @@ a:hover{
 
 
 
-/*easyui */
+/*easyui 其实最好 是用 easyui 官方主题builder，分开引用css*/
 .accordion .accordion-header-selected .panel-title {
     color: #40b370 !important;
 }

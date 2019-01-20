@@ -18,19 +18,16 @@ import ${(necessaryImport)!};
  */
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tableMeta.nameCamelFirstUp)!}<M>> extends Model<M> implements IBean {
-
-    // --- 导出导出excel 所需-----
+ <#if hasExcel>// --- 导出导出excel 所需-----
 <#if (tableMeta.columnMetas)??>
     <#list tableMeta.columnMetas as column>
         <#if !(column.primaryKey) >
     @Excel(name = "<#if (column.remark)?? && column.remark != "">${(column.remark)!}<#else>${(column.name)!}</#if>", height = 10, width = 30)
     private ${(column.javaTypeShortName)!} ${(column.nameCamel)!};
-
         </#if>
     </#list>
 </#if>
-    //--- 导出导出excel 所需-----
-
+    //--- 导出导出excel 所需-----</#if>
 
     <#-- get set 方法 -->
 <#if (tableMeta.columnMetas)??>

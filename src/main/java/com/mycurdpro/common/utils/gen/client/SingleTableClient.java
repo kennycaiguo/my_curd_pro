@@ -35,7 +35,7 @@ public class SingleTableClient {
     private final static String pageOutDirPath = GeneratorConfig.outputBasePath + "views/" + GeneratorConfig.moduleName + "/"; // 页面 输出文件输出目录
 
     // 生成 导入导出 excel 方法
-    private final static boolean hasExcel = true;
+    private final static boolean hasExcel = false;
 
     public static void generate(List<TableMeta> tableMetas) throws IOException {
         LOG.info("(*^▽^*) start generate singletable ");

@@ -24,7 +24,7 @@ public class ModelClient {
     private final static boolean genModel = true;                                                       // 是否生成Model
     private final static boolean genBaseModel = true;                                                   // 是否生成baseModel
     private final static boolean chainSetter = true;                                                    // 是否生成链式 setter 方法
-    private final static boolean hasExcel = true;                                                       // 是否生成 导出导出excel 所需要的注解
+    private final static boolean hasExcel = false;                                                       // 是否生成 导出导出excel 所需要的注解
 
     private final static String baseModelTplPath = GeneratorConfig.tplBasePath + "model/baseModel.ftl"; // baseModel 模板文件路径
     private final static String baseModelOutPath = GeneratorConfig.outputBasePath + "model/base/";    // baseModel 文件输出路径

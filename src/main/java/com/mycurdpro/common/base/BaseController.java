@@ -3,17 +3,16 @@ package com.mycurdpro.common.base;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
+import com.jfinal.core.Injector;
 import com.jfinal.core.NotAction;
 import com.jfinal.kit.Ret;
+import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.system.service.SysServiceLogService;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * controller 基类，封装一些Controller 中使用的公共方法
@@ -178,6 +177,46 @@ public abstract class BaseController extends Controller {
         SysServiceLogService.addServiceLog(WebUtils.getSessionUsername(this)
                 , WebUtils.getRemoteAddress(getRequest())
                 , getRequest().getRequestURI(), content);
+    }
+
+
+    /**
+     * 接收 bean list
+     * @param modelClass
+     * @param prefix
+     * @param <T>
+     * @return
+     */
+    public  <T> List<T> getBeans( Class<? extends Model> modelClass, String prefix) {
+        List<T> beanList = new ArrayList<T>();
+        int size = getArrayKeys(prefix).size();
+        for (int i = 0; i < size; i++) {
+            beanList.add((T) Injector.injectBean(modelClass, prefix + "[" + i  + "]", getRequest(), false));
+        }
+        return beanList;
+    }
+
+    /**
+     * 获得 bean[index] 的 所有 key
+     * @param prefix
+     * @return
+     */
+    private  Set<String> getArrayKeys(String prefix) {
+        Set<String> keys = new HashSet<String>();
+        String arrayPrefix = prefix + "[";
+        String key = null;
+        Enumeration<String> names = getRequest().getParameterNames();
+        while (names.hasMoreElements()) {
+            key = names.nextElement();
+            if (!key.startsWith(arrayPrefix)) {
+                continue;
+            }
+            if (key.indexOf("]") == -1) {
+                continue;
+            }
+            keys.add(key.substring(0, key.indexOf("]") + 1));
+        }
+        return keys;
     }
 }
 
