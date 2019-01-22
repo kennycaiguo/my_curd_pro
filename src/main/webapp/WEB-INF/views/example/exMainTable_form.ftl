@@ -98,7 +98,7 @@
     </table>
     <div class="easyui-tabs" style="width:800px; height: auto;margin: 20px auto;"   >
         <div  title="子表1"  class="sonTablePanel">
-            <button type="button"  class="pure-button button-small addRowBtn" onclick="addRow(this)"><i class="iconfont icon-add"></i> 增行</button>
+            <a onclick="addRow(this)"   class="easyui-linkbutton addRowBtn" title="增行"  iconCls="iconfont icon-add" plain="true">增行</a>
             <div class="tpl">
                 <tpltr>
                     <myinput name="exSonTable1[number].id"  type="hidden" >
@@ -106,7 +106,7 @@
                     <tpltd class="number">1</tpltd>
                     <tpltd><myinput style="width: 157px;" name="exSonTable1[number].name"  class="myui-textbox"  data-options="required:true"></tpltd>
                     <tpltd><myinput style="width: 157px;" name="exSonTable1[number].xlevel" class="myui-textbox"  data-options="required:true"></tpltd>
-                    <tpltd><button type="button"  class=" pure-button button-small" title="删行"  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable1Action')"><i class="iconfont icon-delete"></i></button> </tpltd>
+                    <tpltd><a  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable1Action')" title="删行"  class="myui-linkbutton"  iconCls="iconfont icon-delete" plain="true"></a></tpltd>
                 </tpltr>
             </div>
             <table  class="pure-table  pure-table-bordered" >
@@ -127,7 +127,7 @@
                          <td class="number">${item_index+1}</td>
                          <td><input style="width: 157px;" name="exSonTable1[${item_index}].name" value="${(item.name)!}" class="easyui-textbox"  data-options="required:true"></td>
                          <td><input style="width: 157px;" name="exSonTable1[${item_index}].xlevel" value="${(item.xlevel)!}" class="easyui-textbox"  data-options="required:true"></td>
-                         <td><button type="button"  class=" pure-button button-small" title="删行" onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable1Action')">  <i class="iconfont icon-delete"></i></button></td>
+                         <td> <a  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable1Action')"  title="删行"   class="easyui-linkbutton"  iconCls="iconfont icon-delete" plain="true"></a></td>
                      </tr>
                  </#list>
              </#if>
@@ -135,7 +135,7 @@
             </table>
         </div>
         <div  title="子表2"  class="sonTablePanel">
-            <button type="button"  class="pure-button button-small addRowBtn" onclick="addRow(this)"><i class="iconfont icon-add"></i> 增行</button>
+            <a onclick="addRow(this)"   class="easyui-linkbutton addRowBtn"  iconCls="iconfont icon-add" plain="true">增行</a>
             <div class="tpl">
                 <tpltr>
                     <myinput name="exSonTable2[number].id"  type="hidden" >
@@ -143,7 +143,7 @@
                     <tpltd class="number">1</tpltd>
                     <tpltd><myinput style="width: 157px;" name="exSonTable2[number].name"  class="myui-textbox"  data-options="required:true"></tpltd>
                     <tpltd><myinput style="width: 157px;" name="exSonTable2[number].xlevel" class="myui-textbox"  data-options="required:true"></tpltd>
-                    <tpltd><button type="button"  class=" pure-button button-small" title="删行"  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable2Action')"><i class="iconfont icon-delete"></i></button> </tpltd>
+                    <tpltd><a  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable2Action')"   title="删行"  class="myui-linkbutton"  iconCls="iconfont icon-delete" plain="true"></a></tpltd>
                 </tpltr>
             </div>
             <table  class="pure-table  pure-table-bordered" >
@@ -164,7 +164,7 @@
                          <td class="number">${item_index+1}</td>
                          <td><input style="width: 157px;" name="exSonTable2[${item_index}].name" value="${(item.name)!}" class="easyui-textbox"  data-options="required:true"></td>
                          <td><input style="width: 157px;" name="exSonTable2[${item_index}].xlevel" value="${(item.xlevel)!}" class="easyui-textbox"  data-options="required:true"></td>
-                         <td><button type="button"  class=" pure-button button-small" title="删行" onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable2Action')">  <i class="iconfont icon-delete"></i></button></td>
+                         <td><a  onclick="delRow(this,'${ctx!}/exMainTable/deleteExSonTable2Action')"  title="删行"  class="easyui-linkbutton"  iconCls="iconfont icon-delete" plain="true">删行</a></td>
                      </tr>
                  </#list>
              </#if>

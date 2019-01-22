@@ -25,10 +25,9 @@ import java.util.List;
  * EX_MAIN_TABLE 控制器
  *
  * @author zhangchuang
- * @date 2019-01-17 19:04:42
+ * @date 2019-01-22 22:45:24
  */
 public class ExMainTableController extends BaseController {
-
     private final static Logger LOG = LoggerFactory.getLogger(ExMainTableController.class);
 
     /**
@@ -59,11 +58,10 @@ public class ExMainTableController extends BaseController {
         if (StringUtils.notEmpty(id)) {
             ExMainTable exMainTable = ExMainTable.dao.findById(id);
             setAttr("exMainTable", exMainTable);
-
-            List<ExSonTable1> exSonTable1s = ExSonTable1.dao.find("select * from EX_SON_TABLE1 where MAIN_ID = ? order by ID ", id);
-            setAttr("exSonTable1s", exSonTable1s);
             List<ExSonTable2> exSonTable2s = ExSonTable2.dao.find("select * from EX_SON_TABLE2 where MAIN_ID = ? order by ID ", id);
             setAttr("exSonTable2s", exSonTable2s);
+            List<ExSonTable1> exSonTable1s = ExSonTable1.dao.find("select * from EX_SON_TABLE1 where MAIN_ID = ? order by ID ", id);
+            setAttr("exSonTable1s", exSonTable1s);
         }
         render("example/exMainTable_form.ftl");
     }
@@ -74,26 +72,27 @@ public class ExMainTableController extends BaseController {
      */
     @Before(Tx.class)
     public void addAction() {
+        // 新增主表
         ExMainTable exMainTable = getBean(ExMainTable.class, "exMainTable");
         exMainTable.setId(IdUtils.id())
                 .setCreater(WebUtils.getSessionUsername(this))
-                .setCreateTime(new Date());
-        exMainTable.save();
+                .setCreateTime(new Date())
+                .save();
 
-        // 保存子表
-        List<ExSonTable1> exSonTable1s = getBeans(ExSonTable1.class, "exSonTable1");
-        exSonTable1s.forEach(item ->
-                item.setId(IdUtils.id()).setMainId(exMainTable.getId())
-                        .setCreateTime(new Date())
-                        .setCreater(WebUtils.getSessionUsername(this)));
-        Db.batchSave(exSonTable1s, exSonTable1s.size());
-
+        // 新增 子表
         List<ExSonTable2> exSonTable2s = getBeans(ExSonTable2.class, "exSonTable2");
         exSonTable2s.forEach(item ->
                 item.setId(IdUtils.id()).setMainId(exMainTable.getId())
                         .setCreateTime(new Date())
                         .setCreater(WebUtils.getSessionUsername(this)));
         Db.batchSave(exSonTable2s, exSonTable2s.size());
+
+        List<ExSonTable1> exSonTable1s = getBeans(ExSonTable1.class, "exSonTable1");
+        exSonTable1s.forEach(item ->
+                item.setId(IdUtils.id()).setMainId(exMainTable.getId())
+                        .setCreateTime(new Date())
+                        .setCreater(WebUtils.getSessionUsername(this)));
+        Db.batchSave(exSonTable1s, exSonTable1s.size());
 
         renderSuccess(Constant.ADD_SUCCESS);
     }
@@ -104,12 +103,25 @@ public class ExMainTableController extends BaseController {
     @SuppressWarnings("Duplicates")
     @Before(Tx.class)
     public void updateAction() {
+        // 修改 主表
         ExMainTable exMainTable = getBean(ExMainTable.class, "exMainTable");
         exMainTable.setUpdater(WebUtils.getSessionUsername(this))
-                .setUpdateTime(new Date());
-        exMainTable.update();
+                .setUpdateTime(new Date())
+                .update();
 
-        // 保存子表
+        // 新增或修改 子表
+        List<ExSonTable2> exSonTable2s = getBeans(ExSonTable2.class, "exSonTable2");
+        exSonTable2s.forEach(item -> {
+            item.setMainId(exMainTable.getId());
+            if (StringUtils.isEmpty(item.getId())) {
+                item.setId(IdUtils.id()).setCreateTime(new Date())
+                        .setCreater(WebUtils.getSessionUsername(this)).save();
+            } else {
+                item.setUpdateTime(new Date())
+                        .setUpdater(WebUtils.getSessionUsername(this)).update();
+            }
+        });
+
         List<ExSonTable1> exSonTable1s = getBeans(ExSonTable1.class, "exSonTable1");
         exSonTable1s.forEach(item -> {
             item.setMainId(exMainTable.getId());
@@ -122,20 +134,8 @@ public class ExMainTableController extends BaseController {
             }
         });
 
-        List<ExSonTable2> exSonTable2s = getBeans(ExSonTable2.class, "exSonTable2");
-        exSonTable2s.forEach(item -> {
-            item.setMainId(exMainTable.getId());
-            if (StringUtils.isEmpty(item.getId())) {
-                item.setId(IdUtils.id()).setCreateTime(new Date())
-                        .setCreater(WebUtils.getSessionUsername(this)).save();
-            } else {
-                item.setUpdateTime(new Date())
-                        .setUpdater(WebUtils.getSessionUsername(this)).update();
-            }
-        });
         renderSuccess(Constant.UPDATE_SUCCESS);
     }
-
 
     /**
      * 删除 action
@@ -143,14 +143,13 @@ public class ExMainTableController extends BaseController {
     @Before({IdsRequired.class, Tx.class})
     public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
-
         String deleteSql;
-        // 删从表
-        deleteSql = "delete from EX_SON_TABLE1 where MAIN_ID in ('" + ids + "')";
-        Db.update(deleteSql);
-        deleteSql = "delete from EX_SON_TABLE1 where MAIN_ID in ('" + ids + "')";
-        Db.update(deleteSql);
 
+        // 删从表
+        deleteSql = "delete from EX_SON_TABLE2 where MAIN_ID in ('" + ids + "')";
+        Db.update(deleteSql);
+        deleteSql = "delete from EX_SON_TABLE1 where MAIN_ID in ('" + ids + "')";
+        Db.update(deleteSql);
         // 删主表
         deleteSql = "delete from EX_MAIN_TABLE where id in ( '" + ids + "' ) ";
         Db.update(deleteSql);
@@ -160,24 +159,22 @@ public class ExMainTableController extends BaseController {
 
 
     /**
-     * 删子表1 数据
-     */
-    @Before(IdRequired.class)
-    public void deleteExSonTable1Action() {
-        String id = getPara("id");
-        ExSonTable1.dao.deleteById(id);
-        renderSuccess(Constant.DELETE_SUCCESS);
-    }
-
-
-    /**
-     * 删子表2 数据
+     * 删子表 EX_SON_TABLE2 测试字表2  数据
      */
     @Before(IdRequired.class)
     public void deleteExSonTable2Action() {
         String id = getPara("id");
         ExSonTable2.dao.deleteById(id);
+        renderSuccess(Constant.DELETE_SUCCESS);
+    }
 
+    /**
+     * 删子表 EX_SON_TABLE1 测试子表1  数据
+     */
+    @Before(IdRequired.class)
+    public void deleteExSonTable1Action() {
+        String id = getPara("id");
+        ExSonTable1.dao.deleteById(id);
         renderSuccess(Constant.DELETE_SUCCESS);
     }
 

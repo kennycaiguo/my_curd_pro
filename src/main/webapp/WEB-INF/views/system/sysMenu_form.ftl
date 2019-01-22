@@ -6,7 +6,7 @@
         <input id="id" name="id" type="hidden" value="${(sysMenu.id)!}">
         <tbody>
         <tr>
-            <td>父机构：</td>
+            <td>父菜单：</td>
             <td>
                 <input name="pid"  id="pid">
             </td>

@@ -23,7 +23,8 @@ import java.util.Map;
 public class SingleTableClient {
     private final static Logger LOG = LoggerFactory.getLogger(SingleTableClient.class);
 
-    private final static String[] excludeFields = new String[]{"CREATE_TIME", "CREATER", "UPDATE_TIME", "UPDATER"};  // 页面中 排除掉的字段
+    // 表单页面中 排除掉的 字段 (非业务性字段)
+    private final static String[] excludeFields = new String[]{"CREATE_TIME", "CREATER", "UPDATE_TIME", "UPDATER"};
 
     // 生成 controller
     private final static String controllerTplPath = GeneratorConfig.tplBasePath + "singletable/controller.ftl";// controller 模板文件路径

@@ -1,4 +1,4 @@
-<#--  zhangchuang 2019-01-17 19:04:42 -->
+<#--  zhangchuang 2019-01-22 22:55:24 -->
 <#include "../common/common.ftl"/>
 <@layout>
 <table id="dg" class="easyui-datagrid"
@@ -16,9 +16,9 @@
     </thead>
 </table>
 <div id="tb">
-    <a onclick="newModel('${ctx!}/exMainTable/newModel', '800px', '500px')" href="#" class="easyui-linkbutton"
+    <a onclick="newModel('${ctx!}/exMainTable/newModel','800px', '500px')" href="#" class="easyui-linkbutton"
        iconCls="iconfont icon-add" plain="true">新增</a>
-    <a onclick="editModel('dg','${ctx!}/exMainTable/newModel', '800px', '500px')" href="#"
+    <a onclick="editModel('dg','${ctx!}/exMainTable/newModel','800px', '500px')" href="#"
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','${ctx!}/exMainTable/deleteAction')" href="#" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
