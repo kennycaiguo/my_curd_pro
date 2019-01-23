@@ -11,6 +11,7 @@ import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
+import com.jfinal.plugin.activerecord.SqlReporter;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -20,6 +21,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.mycurdpro.LoginController;
 import com.mycurdpro.MainController;
+import com.mycurdpro.common.activiti.ActivitiPlugin;
 import com.mycurdpro.common.interceptor.ExceptionInterceptor;
 import com.mycurdpro.common.interceptor.LoginInterceptor;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
@@ -99,6 +101,10 @@ public class AppConfig extends JFinalConfig {
         // 定时任务插件
         Cron4jPlugin cron4jPlugin = new Cron4jPlugin("task.properties");
         me.add(cron4jPlugin);
+
+        ActivitiPlugin ap = new ActivitiPlugin();
+        me.add(ap);
+        SqlReporter.setLog(true);
 
         // redis 插件
 //        Prop redisProp = PropKit.use("redis.properties");

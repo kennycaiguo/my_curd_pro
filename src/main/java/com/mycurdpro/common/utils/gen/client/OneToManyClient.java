@@ -25,12 +25,12 @@ public class OneToManyClient {
     private final static  String mainTable = "EX_MAIN_TABLE";
 
     // 子表
-    private final static Set<String> sonTables = new HashSet<String>(){{
+    private final static Set<String> sonTables = new LinkedHashSet<String>(){{
         add("EX_SON_TABLE1");
         add("EX_SON_TABLE2");
     }};
 
-    // 从表中 依赖字段名, 如果 被依赖非 主表ID, 需要自行 修改相关代码
+    // 从表中 依赖字段名, 如果 被依赖非 主表ID, 需要自行 修改 生成的相关代码
     private final static String MAIN_ID = "MAIN_ID";
 
 
@@ -79,11 +79,11 @@ public class OneToManyClient {
         LOG.info(outPath);
 
         // form.ftl
-//        String formTplContent = FileUtils.readFile(formTplPath);
-//        outPath = pageOutDirPath +  mainTableMeta.nameCamel+"_form.ftl";
-//        renderContent = FreemarkerUtils.renderAsText(formTplContent, params);
-//        FileUtils.writeFile(renderContent, outPath);
-//        LOG.info(outPath);
+        String formTplContent = FileUtils.readFile(formTplPath);
+        outPath = pageOutDirPath +  mainTableMeta.nameCamel+"_form.ftl";
+        renderContent = FreemarkerUtils.renderAsText(formTplContent, params);
+        FileUtils.writeFile(renderContent, outPath);
+        LOG.info(outPath);
 
         LOG.info("(*^▽^*)  generate oneToMany over ");
     }

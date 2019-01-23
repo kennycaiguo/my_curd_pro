@@ -47,7 +47,6 @@ public class DbTestBase {
             e.printStackTrace();
         }
         System.out.println("flag: "+flag);
-
     }
 
 }
