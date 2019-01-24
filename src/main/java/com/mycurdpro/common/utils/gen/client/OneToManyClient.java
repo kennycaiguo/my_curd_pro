@@ -22,16 +22,17 @@ public class OneToManyClient {
     private  final static Logger LOG = LoggerFactory.getLogger(OneToManyClient.class);
 
     // 主表
-    private final static  String mainTable = "EX_MAIN_TABLE";
+    private final static  String mainTable = "EX_STAFF";
 
     // 子表
     private final static Set<String> sonTables = new LinkedHashSet<String>(){{
-        add("EX_SON_TABLE1");
-        add("EX_SON_TABLE2");
+        add("EX_STAFF_EDUCATION");
+        add("EX_STAFF_EXPERIENCE");
+        add("EX_STAFF_FAMILY");
     }};
 
     // 从表中 依赖字段名, 如果 被依赖非 主表ID, 需要自行 修改 生成的相关代码
-    private final static String MAIN_ID = "MAIN_ID";
+    private final static String MAIN_ID = "EX_STAFF_ID";
 
 
     // 表单页面中 排除掉的 字段 (非业务性字段)

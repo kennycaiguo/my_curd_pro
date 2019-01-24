@@ -3,8 +3,8 @@
 <@layout></#noparse>
 <link rel="stylesheet" href="${ctx!}/static/css/one-to-many.css">
 <form id="modelForm" method="POST" action="<#noparse><#if</#noparse> ${(mainTableMeta.nameCamel)!}<#noparse>?? >${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/updateAction<#noparse><#else>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/addAction<#noparse></#if></#noparse>">
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable" >
-        <input id="id" name="id"  type="hidden" value="<#noparse>${(</#noparse>${(mainTableMeta.nameCamel)!}.id<#noparse>)!}</#noparse>">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable" >
+        <input id="id" name="${(mainTableMeta.nameCamel)!}.id"  type="hidden" value="<#noparse>${(</#noparse>${(mainTableMeta.nameCamel)!}.id<#noparse>)!}</#noparse>">
         <tbody>
 <#list mainTableMeta.columnMetas as col>
    <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name)   >
@@ -13,7 +13,7 @@
                 <#if (col.remark)?? && col.remark != "" >${(col.remark)!}<#else>${(col.name)!}</#if>:
             </td>
             <td>
-                <input name="${(col.nameCamel)!}" value="<#noparse>${(</#noparse>${(mainTableMeta.nameCamel)!}.${(col.nameCamel)!}<#noparse>)!}</#noparse>" class="easyui-textbox"  data-options="required:true">
+                <input name="${(mainTableMeta.nameCamel)!}.${(col.nameCamel)!}" value="<#noparse>${(</#noparse>${(mainTableMeta.nameCamel)!}.${(col.nameCamel)!}<#noparse>)!}</#noparse>" class="easyui-textbox"  data-options="required:true">
             </td>
         </tr>
    </#if>
@@ -22,7 +22,7 @@
     </table>
 
 <#if sonTableMetas??>
-      <div class="easyui-tabs" style="width:800px; height: auto;margin: 20px auto;"   >
+      <div class="easyui-tabs" style="width:100%; height: auto;margin-top: 2px;"   >
           <#list sonTableMetas as sonTableMeta>
           <div  title="<#if (sonTableMeta.remark)?? && sonTableMeta.remark != "" >${(sonTableMeta.remark)!}<#else>${(sonTableMeta.name)!}</#if>"  class="sonTablePanel">
               <a onclick="addRow(this)"   class="easyui-linkbutton addRowBtn" title="增行"  iconCls="iconfont icon-add" plain="true">增行</a>
@@ -45,7 +45,7 @@
                         <th>序号</th>
             <#list sonTableMeta.columnMetas as col>
                 <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name) && col.name!= mainId >
-                        <th><#if (col.remark)?? && col.remark != "" >${(col.remark)!}<#else>${(col.name)!}</#if>:</th>
+                        <th><#if (col.remark)?? && col.remark != "" >${(col.remark)!}<#else>${(col.name)!}</#if></th>
                 </#if>
             </#list>
                         <th>操作</th>
@@ -56,11 +56,11 @@
                  <#noparse><#list </#noparse> ${(sonTableMeta.nameCamel)!}s <#noparse>as item></#noparse>
                              <tr>
                                  <input name="${(sonTableMeta.nameCamel)!}[<#noparse>${item_index}</#noparse>].id"  type="hidden" value="<#noparse>${(item.id)!}</#noparse>">
-                                 <input name="${(sonTableMeta.nameCamel)!}[<#noparse>${item_index}</#noparse>].${mainIdCamel}" type="hidden" value="<#noparse>${(item.mainId)!}</#noparse>" >
+                                 <input name="${(sonTableMeta.nameCamel)!}[<#noparse>${item_index}</#noparse>].${mainIdCamel!}" type="hidden" value="<#noparse>${(item.</#noparse>${mainIdCamel!}<#noparse>)!}</#noparse>" >
                                  <td class="number"><#noparse>${item_index+1}</#noparse></td>
                             <#list sonTableMeta.columnMetas as col>
                                 <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name) && col.name!= mainId >
-                                 <td><input style="width: 157px;" name="exSonTable1[<#noparse>${item_index}</#noparse>].${(col.nameCamel)!}" value="<#noparse>${(item.</#noparse>${(col.nameCamel)!}<#noparse>)!}</#noparse>" class="easyui-textbox"  data-options="required:true"></td>
+                                 <td><input style="width: 157px;" name="${(sonTableMeta.nameCamel)!}[<#noparse>${item_index}</#noparse>].${(col.nameCamel)!}" value="<#noparse>${(item.</#noparse>${(col.nameCamel)!}<#noparse>)!}</#noparse>" class="easyui-textbox"  data-options="required:true"></td>
                                 </#if>
                             </#list>
                                  <td> <a  onclick="delRow(this,'<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/delete${(sonTableMeta.nameCamelFirstUp)!}Action')"  title="删行"   class="easyui-linkbutton"  iconCls="iconfont icon-delete" plain="true"></a></td>

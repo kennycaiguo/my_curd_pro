@@ -51,9 +51,13 @@ public class GeneratorConfig {
 //        add("SYS_NOTE");
 //        add("SYS_TASK_LOG");
 //        add("EX_SINGLE_TABLE"); // 例子 单表
-        add("EX_MAIN_TABLE");
-        add("EX_SON_TABLE1");
-        add("EX_SON_TABLE2");
+//        add("EX_MAIN_TABLE");
+//        add("EX_SON_TABLE1");
+//        add("EX_SON_TABLE2");
+         add("EX_STAFF");
+         add("EX_STAFF_EDUCATION");
+         add("EX_STAFF_EXPERIENCE");
+         add("EX_STAFF_FAMILY");
     }};
 
     // 生成 代码文件基础路径

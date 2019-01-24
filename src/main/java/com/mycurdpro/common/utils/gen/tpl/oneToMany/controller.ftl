@@ -88,7 +88,7 @@ public class ${(mainTableMeta.nameCamelFirstUp)!}Controller extends BaseControll
     <#list sonTableMetas as sonTableMeta>
         List<${(sonTableMeta.nameCamelFirstUp)!}> ${(sonTableMeta.nameCamel)!}s = getBeans(${(sonTableMeta.nameCamelFirstUp)!}.class, "${(sonTableMeta.nameCamel)!}");
         ${(sonTableMeta.nameCamel)!}s.forEach(item ->
-                item.setId(IdUtils.id()).setMainId(exMainTable.getId())
+                item.setId(IdUtils.id()).set${(mainIdCamel?cap_first)!}(${(mainTableMeta.nameCamel)!}.getId())
                         .setCreateTime(new Date())
                         .setCreater(WebUtils.getSessionUsername(this)));
         Db.batchSave(${(sonTableMeta.nameCamel)!}s, ${(sonTableMeta.nameCamel)!}s.size());

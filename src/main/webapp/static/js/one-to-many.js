@@ -31,7 +31,7 @@ function addRow(o){
     var tpl = $(o).parent().find(".tpl").html();
     tpl = tpl.replace(/tpltr/g,'tr').replace(/tpltd/g,'td').replace(/myinput/g,"input").replace(/myui/g,'easyui');
     tbody.append(tpl);
-    $.parser.parse(tbody);
+    $.parser.parse(tbody.find("tr:last"));
     buildRowNumber(tbody);
 }
 

@@ -1,10 +1,7 @@
 package com.mycurdpro.example;
 
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
-import com.mycurdpro.example.model.ExMainTable;
-import com.mycurdpro.example.model.ExSingleTable;
-import com.mycurdpro.example.model.ExSonTable1;
-import com.mycurdpro.example.model.ExSonTable2;
+import com.mycurdpro.example.model.*;
 
 /**
  * Generated MappingKit
@@ -23,6 +20,15 @@ public class ExampleModelMapping {
         arp.addMapping("EX_SON_TABLE1", "ID", ExSonTable1.class);
         // 测试字表2
         arp.addMapping("EX_SON_TABLE2", "ID", ExSonTable2.class);
+
+        // 一线员工
+        arp.addMapping("EX_STAFF", "ID", ExStaff.class);
+        // 员工教育经历
+        arp.addMapping("EX_STAFF_EDUCATION", "ID", ExStaffEducation.class);
+        // 员工工作经历
+        arp.addMapping("EX_STAFF_EXPERIENCE", "ID", ExStaffExperience.class);
+        // 员工家人
+        arp.addMapping("EX_STAFF_FAMILY", "ID", ExStaffFamily.class);
     }
 }
 
