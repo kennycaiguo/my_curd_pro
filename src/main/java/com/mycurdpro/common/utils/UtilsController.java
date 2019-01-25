@@ -46,6 +46,8 @@ public class UtilsController extends BaseController {
         renderCaptcha();
     }
 
+
+
     /**
      * 生成 二维码
      */

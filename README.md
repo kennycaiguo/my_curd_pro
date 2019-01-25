@@ -35,6 +35,11 @@
 2. 文档 详见 wiki, 如 wiki 中没有，请看代码。 :smirk: 
 3. 本项目仅交流学习，也可商用 :grin:
 
+#### 开发环境 推荐
+1. IDEA + JRebel + Tomcat     (业务多且杂的应用)
+2. Eclipse + jfinal-undertow  (数据接口微服务类)
+
+
 #### 参与贡献
 
 1. Fork 本项目

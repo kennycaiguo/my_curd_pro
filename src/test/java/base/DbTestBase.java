@@ -4,7 +4,6 @@ import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
-import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.mycurdpro.example.ExampleModelMapping;
@@ -28,25 +27,4 @@ public class DbTestBase {
         dp.start();
         arp.start();
     }
-
-    public static void main(String[] args) {
-        dbInit();
-        boolean flag = false;
-
-        try{
-            flag = Db.tx(()->{
-                String sql = "delete from EX_SINGLE_TABLE where NAME='ggg'";
-                Db.update(sql);
-                int x = 1/0;
-                sql = "delete from EX_SINGLE_TABLE where NAME='hello'";
-                Db.update(sql);
-
-                return true;
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("flag: "+flag);
-    }
-
 }

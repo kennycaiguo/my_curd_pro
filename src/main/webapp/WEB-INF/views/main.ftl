@@ -148,7 +148,10 @@
     function websocketInit(){
         refreshCount();
         if ('WebSocket' in window) {
-            var ws = new WebSocket("ws://localhost/ws-server?userId=${(aesUserId)!}");
+            var host =window.location.hostname;
+            var port = window.location.port;
+            var wsUrl = host+':'+port+'${ctx!}';
+            var ws = new WebSocket("ws://"+wsUrl+"/ws-server?userId=${(aesUserId)!}");
             ws.onerror = function () {
                 console.error("WebSocket连接发生错误");
                 ws.close();

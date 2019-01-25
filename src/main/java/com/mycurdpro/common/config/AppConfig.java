@@ -15,7 +15,6 @@ import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
-import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.mycurdpro.LoginController;
@@ -30,7 +29,6 @@ import com.mycurdpro.system.SystemModelMapping;
 import com.mycurdpro.system.SystemRoute;
 import com.mycurdpro.system.model.SysUser;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 应用配置
@@ -38,8 +36,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhangchuang
  */
 public class AppConfig extends JFinalConfig {
-    Prop configProp = PropKit.use("config.properties");
-    Prop fileProp = PropKit.use("file.properties");
+    private Prop configProp = PropKit.use("config.properties");
+    private Prop fileProp = PropKit.use("file.properties");
 
     @Override
     public void configConstant(Constants me) {
@@ -122,14 +120,12 @@ public class AppConfig extends JFinalConfig {
         // 视图中 添加context路径
         me.add(new ContextPathHandler("ctx"));
         // druid 监控 （只允许admin查看)
-        DruidStatViewHandler dvh = new DruidStatViewHandler("/druidWeb", new IDruidStatViewAuth() {
-            public boolean isPermitted(HttpServletRequest request) {
-                SysUser sysUser = (SysUser) request.getSession().getAttribute(Constant.SYS_USER);
-                if (sysUser == null) {
-                    return false;
-                }
-                return "admin".equals(sysUser.getUsername());
+        DruidStatViewHandler dvh = new DruidStatViewHandler("/druidWeb", request -> {
+            SysUser sysUser = (SysUser) request.getSession().getAttribute(Constant.SYS_USER);
+            if (sysUser == null) {
+                return false;
             }
+            return "admin".equals(sysUser.getUsername());
         });
         me.add(dvh);
     }

@@ -27,7 +27,7 @@ public abstract class BaseController extends Controller {
      * @param pageData
      */
     protected void renderDatagrid(Page<?> pageData) {
-        Map<String, Object> datagrid = new HashMap<String, Object>();
+        Map<String, Object> datagrid = new HashMap<>();
         datagrid.put("rows", pageData.getList());
         datagrid.put("total", pageData.getTotalRow());
         renderJson(datagrid);
@@ -50,8 +50,9 @@ public abstract class BaseController extends Controller {
      * @param total
      * @param footer
      */
+    @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
     protected void renderDatagrid(List<?> list, int total, List<Map<String, Object>> footer) {
-        Map<String, Object> datagrid = new HashMap<String, Object>();
+        Map<String, Object> datagrid = new HashMap<>();
         datagrid.put("rows", list);
         datagrid.put("total", total);
         if (footer != null && footer.size() > 0) {
@@ -66,13 +67,13 @@ public abstract class BaseController extends Controller {
      * @param list
      */
     protected void renderDatagrid(List<Record> list) {
-        Map<String, Object> datagrid = new HashMap<String, Object>();
+        Map<String, Object> datagrid = new HashMap<>();
         datagrid.put("rows", list);
         renderJson(datagrid);
     }
 
     public void renderDatagrid(Collection collection, int total) {
-        Map<String, Object> datagrid = new HashMap<String, Object>();
+        Map<String, Object> datagrid = new HashMap<>();
         datagrid.put("rows", collection);
         datagrid.put("total", total);
         renderJson(datagrid);
@@ -187,8 +188,9 @@ public abstract class BaseController extends Controller {
      * @param <T>
      * @return
      */
-    public  <T> List<T> getBeans( Class<? extends Model> modelClass, String prefix) {
-        List<T> beanList = new ArrayList<T>();
+    @SuppressWarnings("unchecked")
+    public  <T> List<T> getBeans(Class<? extends Model> modelClass, String prefix) {
+        List<T> beanList = new ArrayList<>();
         int size = getArrayKeys(prefix).size();
         for (int i = 0; i < size; i++) {
             beanList.add((T) Injector.injectBean(modelClass, prefix + "[" + i  + "]", getRequest(), false));
@@ -202,16 +204,16 @@ public abstract class BaseController extends Controller {
      * @return
      */
     private  Set<String> getArrayKeys(String prefix) {
-        Set<String> keys = new HashSet<String>();
+        Set<String> keys = new HashSet<>();
         String arrayPrefix = prefix + "[";
-        String key = null;
+        String key;
         Enumeration<String> names = getRequest().getParameterNames();
         while (names.hasMoreElements()) {
             key = names.nextElement();
             if (!key.startsWith(arrayPrefix)) {
                 continue;
             }
-            if (key.indexOf("]") == -1) {
+            if (!key.contains("]")) {
                 continue;
             }
             keys.add(key.substring(0, key.indexOf("]") + 1));
