@@ -1,4 +1,3 @@
-# my_curd_pro  
 #### **代码量少，简单美观。** :smirk:
 
 #### 项目介绍
@@ -44,8 +43,8 @@
 3. 提交代码
 4. 新建 Pull Request
 
-![菜单管理](https://images.gitee.com/uploads/images/2019/0114/155308_b03ae78a_608004.png "menu.png")
-![机构管理](https://images.gitee.com/uploads/images/2019/0114/155318_425ab708_608004.png "org.png")
-![个人笔记](https://images.gitee.com/uploads/images/2019/0114/155346_0d524b46_608004.png "note.png")
-![地区数据](https://images.gitee.com/uploads/images/2019/0114/155214_6caee02d_608004.png "pro.png")
 ![地区数据](https://images.gitee.com/uploads/images/2019/0114/155356_0f52929d_608004.png "region.png")
+![地区数据](https://images.gitee.com/uploads/images/2019/0114/155214_6caee02d_608004.png "pro.png")
+![个人笔记](https://images.gitee.com/uploads/images/2019/0114/155346_0d524b46_608004.png "note.png")
+
+
