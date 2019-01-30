@@ -1,107 +1,107 @@
 /*主题配色等*/
 .mainHeader  ul.headerMenu{
-    background-color: #dd4b39;
+    background-color: #21759b;
 }
 
 /*easyui linkbutton 按钮字体图标*/
 .l-btn-icon.iconfont{
-    color:#dd4b39;
+    color:#21759b;
 }
 
 /*树形菜单*/
 .tree-icon.iconfont{
-    color: #dd4b39;
+    color: #21759b;
 }
 
 /* main.ftl 中 tab */
 #tabGroup .iconfont{
-    color:#dd4b39;
+    color:#21759b;
 }
 
 
 /*主体按钮样式*/
 .pure-button-primary{
-      background-color: #dd4b39 !important;
+      background-color: #21759b !important;
 }
 
 a:hover{
-    color:#dd4b39;
+    color:#21759b;
 }
 
 /*input focus*/
 .pure-form input:not([type]):focus, .pure-form input[type=password]:focus, .pure-form input[type=email]:focus, .pure-form input[type=url]:focus, .pure-form input[type=date]:focus, .pure-form input[type=month]:focus, .pure-form input[type=time]:focus, .pure-form input[type=datetime]:focus, .pure-form input[type=datetime-local]:focus, .pure-form input[type=week]:focus, .pure-form input[type=tel]:focus, .pure-form input[type=color]:focus, .pure-form input[type=number]:focus, .pure-form input[type=search]:focus, .pure-form input[type=text]:focus, .pure-form select:focus, .pure-form textarea:focus {
-    border-color: #dd4b39 !important;
+    border-color: #21759b !important;
 }
 
 .pure-form input[type=file]:focus, .pure-form input[type=checkbox]:focus, .pure-form input[type=radio]:focus {
-    outline: #dd4b39 auto 1px !important;
+    outline: #21759b auto 1px !important;
 }
 
 
 /*layer 弹窗*/
 .layui-layer-lan .layui-layer-title {
-    background: #dd4b39 !important;
+    background: #21759b !important;
 }
 
 .layui-layer-lan .layui-layer-btn0 {
-    background: #dd4b39 !important;
+    background: #21759b !important;
 }
 
 
 
 /*easyui */
 .accordion .accordion-header-selected .panel-title {
-    color: #dd4b39 !important;
+    color: #21759b !important;
 }
 .l-btn-selected,
 .l-btn-selected:hover {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
 }
 .l-btn-plain-selected,
 .l-btn-plain-selected:hover {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
 }
 
 .combobox-item-selected {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 .datagrid-row-selected {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 
 .progressbar-value,
 .progressbar-value .progressbar-text {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 .switchbutton-on {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 .tree-node-selected {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 .radiobutton {
-    border: 2px solid #dd4b39  !important;
+    border: 2px solid #21759b  !important;
 }
 .radiobutton-inner {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
 }
 
 .checkbox {
-    border: 2px solid #dd4b39  !important;
+    border: 2px solid #21759b  !important;
 }
 .checkbox-checked {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
 }
 .sidemenu .tree-node-selected {
-    border-right: 2px solid #dd4b39  !important;
-    color: #dd4b39  !important;
+    border-right: 2px solid #21759b  !important;
+    color: #21759b  !important;
 }
 .textbox-focused {
-    border-color: #dd4b39  !important;
+    border-color: #21759b  !important;
     border-top-color: transparent  !important;
     border-left-color: transparent  !important;
     border-right-color: transparent  !important;
@@ -110,35 +110,35 @@ a:hover{
     box-shadow: 0 0 3px 0 transparent  !important;
 }
 .datagrid-row-selected .datagrid-cell-rownumber {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
 .tree-node-selected {
-    border-left: 2px solid #dd4b39  !important;
+    border-left: 2px solid #21759b  !important;
 }
 .calendar-selected {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
     color: #fff  !important;
     border-color: transparent  !important;
 }
 .calendar-today {
-    color: #dd4b39 ;
+    color: #21759b ;
 }
 .tabs li.tabs-selected a.tabs-inner {
-    color: #dd4b39  !important;
-    border-bottom: 2px solid #dd4b39  !important;
+    color: #21759b  !important;
+    border-bottom: 2px solid #21759b  !important;
 }
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner {
-    border-top: 2px solid #dd4b39  !important;
+    border-top: 2px solid #21759b  !important;
 }
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner {
-    border-right: 2px solid #dd4b39  !important;
+    border-right: 2px solid #21759b  !important;
 }
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
-    border-left: 2px solid #dd4b39  !important;
+    border-left: 2px solid #21759b  !important;
 }
 .slider-handle {
-    background: #dd4b39  !important;
+    background: #21759b  !important;
 }
 .menu-active {
-    color: #dd4b39  !important;
+    color: #21759b  !important;
 }
