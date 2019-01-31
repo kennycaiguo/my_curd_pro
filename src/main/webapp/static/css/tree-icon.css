@@ -8,6 +8,6 @@
 .tree-file{
     background: none;
 }
-.tree-folder:before { content: "\efdb"; }
-.tree-folder.tree-folder-open:before { content: "\eada"; }
+.tree-folder:before {  content: "\e601";}
+.tree-folder.tree-folder-open:before {  content: "\e701"; }
 .tree-file:before { content: "\e791"; }

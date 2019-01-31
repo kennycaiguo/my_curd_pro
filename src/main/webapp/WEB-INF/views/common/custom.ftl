@@ -1,5 +1,5 @@
 <#-- 全局 样式 -->
-<link rel="stylesheet" href="//at.alicdn.com/t/font_959474_fd0ejembbj4.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_959474_889zu9yr5u4.css">
 <link rel="stylesheet" href="${ctx!}/static/css/custom-ui.css">
 
 <#-- 主题 -->
