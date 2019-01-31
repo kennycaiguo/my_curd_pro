@@ -27,7 +27,7 @@
  -- 用户分配表空间
  alert user MYCURD default tablespace MYCURD ;
  -- 用户授权
- grant create session,create table,unlimited tablespace to username;
+ grant create session,create table,unlimited tablespace to MYCURD;
 ``` 
 3. 使用 IDE clone 本项目，等 maven 构建完成后，将database 目录下的 MYCURD.sql 导入 数据库
 2. 修改 resources 下 jdbc.properties 数据库连接信息，IDE 配置 server，运行项目。
