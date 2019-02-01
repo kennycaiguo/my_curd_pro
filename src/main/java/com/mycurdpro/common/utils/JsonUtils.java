@@ -32,7 +32,6 @@ public class JsonUtils {
             if (null != value) {
                 map.put(key, value);
             }
-
         }
         return map;
     }

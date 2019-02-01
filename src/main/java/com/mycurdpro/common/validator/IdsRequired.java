@@ -17,6 +17,5 @@ public class IdsRequired extends Validator {
     protected void handleError(Controller c) {
         Ret ret = Ret.create().setFail().set("msg", "ids 参数为空");
         c.renderJson(ret);
-        return;
     }
 }

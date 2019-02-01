@@ -189,7 +189,7 @@ public abstract class BaseController extends Controller {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public  <T> List<T> getBeans(Class<? extends Model> modelClass, String prefix) {
+    protected <T> List<T> getBeans(Class<? extends Model> modelClass, String prefix) {
         List<T> beanList = new ArrayList<>();
         int size = getArrayKeys(prefix).size();
         for (int i = 0; i < size; i++) {

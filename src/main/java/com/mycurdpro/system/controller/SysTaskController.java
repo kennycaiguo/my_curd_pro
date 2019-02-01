@@ -73,6 +73,8 @@ public class SysTaskController extends BaseController {
         String enable = getPara("extra_enable");
 
         Collection<Cron4jTaskIntro> result = null;
+
+        // Cron4jTaskIntro 字段 均不为 null
         if (StringUtils.notEmpty(name)) {
             result = Collections2.filter(data, x -> x.getName().contains(name));
         }

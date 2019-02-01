@@ -174,7 +174,7 @@ public class SysNoteController extends BaseController {
     public void queryNote() {
         int pageNumber = getParaToInt("page", 1);
         int pageSize = getParaToInt("rows", 100);
-        ;
+
         String where = getAttr(Constant.SEARCH_SQL);
 
         // 用户查询条件

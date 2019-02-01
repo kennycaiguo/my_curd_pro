@@ -36,9 +36,9 @@ public class DelSysNoticeTask implements Runnable {
                 Record record = Db.findFirst(selectSql, today);
                 if (StringUtils.notEmpty(record.getStr("IDS"))) {
                     String ids = record.getStr("IDS").replaceAll(",", "','");
-                    deleteSql = " delete from  SYS_NOTICE where ID in ('+ids+')";
+                    deleteSql = " delete from  SYS_NOTICE where ID in ('"+ids+"')";
                     Db.update(deleteSql);
-                    deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('+ids+')";
+                    deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('"+ids+"')";
                     Db.update(deleteSql);
                 }
 
@@ -47,7 +47,7 @@ public class DelSysNoticeTask implements Runnable {
                 record = Db.findFirst(selectSql, today);
                 if (StringUtils.notEmpty(record.getStr("IDS"))) {
                     String ids = record.getStr("IDS").replaceAll(",", "','");
-                    deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('+ids+') and HAS_READ='N' ";
+                    deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('"+ids+"') and HAS_READ='N' ";
                     Db.update(deleteSql);
                 }
                 return true;

@@ -126,8 +126,8 @@ public class LoginController extends BaseController {
         // 如果选中了记住密码且cookie信息不存在，生成新的cookie 信息
         String remember = getPara("remember");
         if ("on".equals(remember) && getCookie(usernameKey) == null) {
-            setCookie(usernameKey, username, 60 * 60 * 24 * 1);  // 1天
-            setCookie(passwordKey, password, 60 * 60 * 24 * 1);
+            setCookie(usernameKey, username, 60 * 60 * 24);  // 1天
+            setCookie(passwordKey, password, 60 * 60 * 24);
         }
 
         sysUser.setLastLoginTime(new Date());

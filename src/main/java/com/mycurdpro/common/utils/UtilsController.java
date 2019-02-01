@@ -149,7 +149,7 @@ public class UtilsController extends BaseController {
 
     @SuppressWarnings("Duplicates")
     public void uploadFile() throws IOException {
-        HashMap<String, String> extMap = new HashMap<String, String>();
+        HashMap<String, String> extMap = new HashMap<>();
         extMap.put("image", prop.get("imageType"));
         extMap.put("media", prop.get("mediaType"));
         extMap.put("office", prop.get("officeType"));

@@ -190,7 +190,7 @@ public class SysOrgController extends BaseController {
         if (StringUtils.notEmpty(orgId)) {
             // 机构查询
             Boolean cascadeOrg = getParaToBoolean("extra_cascadeOrg", false);
-            String whereSeg = "";
+            String whereSeg;
             if (cascadeOrg) {
                 // 级联查询
                 String ids = SysOrg.dao.findSonIdsById(orgId);

@@ -1,6 +1,8 @@
 package com.mycurdpro.common.utils.guava;
 
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 缓存实例容器
  *
@@ -8,7 +10,7 @@ package com.mycurdpro.common.utils.guava;
  * @date 2018/9/3
  */
 public class CacheContainer {
-    private static BaseCache loginRetryLimitCache = null;
+    private static BaseCache<String, AtomicInteger> loginRetryLimitCache = null;
 
     private CacheContainer() {
     }
@@ -19,7 +21,7 @@ public class CacheContainer {
      *
      * @return 登录错误缓存
      */
-    public static BaseCache getLoginRetryLimitCache() {
+    public static BaseCache<String, AtomicInteger> getLoginRetryLimitCache() {
         if (loginRetryLimitCache == null) {
             synchronized (LoginRetryLimitCache.class) {
                 if (loginRetryLimitCache == null) {

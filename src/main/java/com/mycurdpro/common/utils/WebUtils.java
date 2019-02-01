@@ -42,7 +42,7 @@ public class WebUtils {
      * @return
      */
     public static String getSessionUsername(Controller controller) {
-        SysUser sysUser = (SysUser) controller.getSessionAttr(Constant.SYS_USER);
+        SysUser sysUser =   controller.getSessionAttr(Constant.SYS_USER);
         return sysUser == null ? "debug" : sysUser.getUsername();
     }
 
@@ -82,12 +82,12 @@ public class WebUtils {
                 return "filename=\"" + encodedFileName + "\"";
             } else {
                 userAgent = userAgent.toLowerCase();
-                if (userAgent.indexOf("msie") != -1) {
+                if (userAgent.contains("msie")) {
                     return "filename=\"" + encodedFileName + "\"";
-                } else if (userAgent.indexOf("opera") != -1) {
+                } else if (userAgent.contains("opera")) {
                     return "filename*=UTF-8''" + encodedFileName;
-                } else if (userAgent.indexOf("safari") == -1 && userAgent.indexOf("applewebkit") == -1 && userAgent.indexOf("chrome") == -1) {
-                    return userAgent.indexOf("mozilla") != -1 ? "filename*=UTF-8''" + encodedFileName : "filename=\"" + encodedFileName + "\"";
+                } else if (!userAgent.contains("safari") && !userAgent.contains("applewebkit") && !userAgent.contains("chrome")) {
+                    return userAgent.contains("mozilla") ? "filename*=UTF-8''" + encodedFileName : "filename=\"" + encodedFileName + "\"";
                 } else {
                     return "filename=\"" + new String(fileName.getBytes(StandardCharsets.UTF_8), "ISO8859-1") + "\"";
                 }

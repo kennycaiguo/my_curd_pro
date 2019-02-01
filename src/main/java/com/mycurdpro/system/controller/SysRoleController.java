@@ -164,7 +164,7 @@ public class SysRoleController extends BaseController {
         List<SysMenu> sysMenus = SysMenu.dao.findAll();
         List<Map<String, Object>> maps = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("id", sysMenu.getId());
             map.put("pid", sysMenu.getPid());
             map.put("text", sysMenu.getName());

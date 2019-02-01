@@ -37,6 +37,7 @@ public class Constant {
     public final static String UPDATE_SUCCESS = "修改成功";
     public final static String UPDATE_FAIL = "修改失败";
     public final static String IMPORT_SUCCESS = "导入成功";
+
     public final static String IMPORT_FAIL = "导入失败";
     public final static String AUDIT_OVER = "审批完成";
     public final static String PARAM_IS_EMPTY = "参数为空";

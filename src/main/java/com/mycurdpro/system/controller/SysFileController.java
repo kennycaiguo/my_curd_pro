@@ -92,7 +92,7 @@ public class SysFileController extends BaseController {
     @SuppressWarnings("Duplicates")
     @Clear(PermissionInterceptor.class)
     public void addAction() throws IOException {
-        HashMap<String, String> extMap = new HashMap<String, String>();
+        HashMap<String, String> extMap = new HashMap<>();
 
         extMap.put("image", prop.get("imageType"));
         extMap.put("media", prop.get("mediaType"));
@@ -186,7 +186,7 @@ public class SysFileController extends BaseController {
      */
     @Before(Tx.class)
     public void deleteAction() {
-        boolean opFlag = true;
+        boolean opFlag;
         String ids = getPara("ids");
         List<SysFile> sysFiles;
         if (ids.contains(",")) {
@@ -224,7 +224,6 @@ public class SysFileController extends BaseController {
      */
     public void updateAction() {
         SysFile sysFile = getBean(SysFile.class, "");
-        // TODO
         boolean updateFlag = sysFile.update();
         if (updateFlag) {
             renderSuccess(Constant.UPDATE_SUCCESS);
@@ -243,9 +242,9 @@ public class SysFileController extends BaseController {
         String officeType = prop.get("officeType");
         String fileTypes = prop.get("fileType");
         String[] types = (imageTypes + "," + mediaTypes + "," + officeType + "," + fileTypes).split(",");
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> data = new ArrayList<>();
         for (String type : types) {
-            Map<String, String> dataItem = new HashMap<String, String>();
+            Map<String, String> dataItem = new HashMap<>();
             dataItem.put("label", type);
             dataItem.put("value", type);
             data.add(dataItem);

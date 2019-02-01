@@ -17,8 +17,6 @@ import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.utils.ws.UserIdEncryptUtils;
 import com.mycurdpro.system.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -30,8 +28,6 @@ import java.util.*;
  */
 @Clear(PermissionInterceptor.class)
 public class MainController extends BaseController {
-
-    private final static Logger LOG = LoggerFactory.getLogger(MainController.class);
 
     public void index() {
         setAttr("username", WebUtils.getSysUser(this).getName());
@@ -49,7 +45,7 @@ public class MainController extends BaseController {
 
         List<Map<String, Object>> maps = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("id", sysMenu.getId());
             map.put("pid", sysMenu.getPid());
             map.put("iconCls", sysMenu.getIcon());
@@ -212,7 +208,6 @@ public class MainController extends BaseController {
      */
     @Before(Tx.class)
     public void noticeSetRead() {
-        Map<String, Object> ret = new HashMap<>();
         String detailId = getPara("detailId");
         if (StringUtils.isEmpty(detailId)) {
             renderFail("detailId 参数不可为空");
@@ -241,7 +236,6 @@ public class MainController extends BaseController {
      */
     @Before(Tx.class)
     public void noticeSetAllRead() {
-        Map<String, Object> ret = new HashMap<>();
         SysUser sysUser = WebUtils.getSysUser(this);
         SqlPara sqlPara = new SqlPara();
         String sql = "update sys_notice_detail set has_read = 'Y' , read_time = ? where receiver = ? and has_read = 'N' ";

@@ -5,14 +5,14 @@ import com.mycurdpro.system.model.SysMenu;
 
 import java.util.*;
 
-public class LoginService {
+class LoginService {
     /**
      * 用户完整的菜单
      *
      * @param roleIds 多个role id，以逗号分隔
      * @return
      */
-    public List<SysMenu> findUserMenus(String roleIds) {
+    List<SysMenu> findUserMenus(String roleIds) {
         if (StringUtils.isEmpty(roleIds)) {
             return new ArrayList<>();
         }
@@ -25,14 +25,14 @@ public class LoginService {
         // 用户菜单
         List<SysMenu> userMenuList = SysMenu.dao.findByRoleIds(roleIds);
         // 完整的用户菜单
-        Set<SysMenu> chainSet = new HashSet<SysMenu>();
+        Set<SysMenu> chainSet = new HashSet<>();
         for (SysMenu menu : userMenuList) {
             chainSet.add(menu);
             getPChain(allMenuList, menu, chainSet);
         }
         //排序
         userMenuList = new ArrayList<>(chainSet);
-        Collections.sort(userMenuList, (o1, o2) -> {
+        userMenuList.sort((o1, o2) -> {
             if (o1.getSort() == null || o2.getSort() == null || o1.getSort() < o2.getSort()) {
                 return -1;
             }

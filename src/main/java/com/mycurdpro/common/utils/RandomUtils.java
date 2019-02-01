@@ -8,12 +8,12 @@ import java.util.UUID;
  */
 public abstract class RandomUtils {
     // 定义验证码字符.去除了O、I、l、、等容易混淆的字母
-    public static final char leterAry[] = {
+    private static final char leterAry[] = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'a', 'c', 'd', 'e', 'f', 'g', 'h', 'k', 'm', 'n', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
             '3', '4', '5', '7', '8'};
     // 定义验证码数字
-    public static final char numberAry[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    private static final char numberAry[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     /**
      * 生成验证码
