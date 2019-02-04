@@ -59,7 +59,7 @@ public class SysNoteController extends BaseController {
 //                map.put("state", "closed");
 //            }
 
-            map.put("iconCls", "iconfont icon-tree-folder");
+            map.put("iconCls", "iconfont icon-folder");
             map.put("remark", sysNoteCate.getCateRemark());
             map.put("create_time", sysNoteCate.getCreateTime());
             map.put("update_time", sysNoteCate.getUpdateTime());
@@ -71,7 +71,7 @@ public class SysNoteController extends BaseController {
         root.put("pid", "-1");
         root.put("text", "我的文件夹");
         root.put("state", "open");
-        root.put("iconCls", "iconfont icon-tree-folder");
+        root.put("iconCls", "iconfont icon-folder");
         list.add(root);
 
         renderJson(list);

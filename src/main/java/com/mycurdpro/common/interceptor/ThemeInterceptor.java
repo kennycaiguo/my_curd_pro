@@ -37,8 +37,8 @@ public class ThemeInterceptor  implements Interceptor {
         put(17,"green");
         put(18,"wordpress");
         put(19,"wordpress");
-        put(20,"tumblr");
-        put(21,"tumblr");
+        put(20,"wordpress");
+        put(21,"wordpress");
         put(22,"tumblr");
         put(23,"tumblr");
         put(24,"tumblr");
