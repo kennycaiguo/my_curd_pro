@@ -143,7 +143,7 @@ public class SysNoteController extends BaseController {
             root.put("pid", "-1");
             root.put("text", "我的文件夹");
             root.put("state", sysNoteCates.size() > 0 ? "closed" : "open");
-            root.put("iconCls", "iconfont icon-tree-folder");
+            root.put("iconCls", "iconfont icon-folder");
             maps.add(root);
         }
         for (SysNoteCate sysNoteCate : sysNoteCates) {
@@ -151,7 +151,7 @@ public class SysNoteController extends BaseController {
             map.put("id", sysNoteCate.getId());
             map.put("pid", sysNoteCate.getPid());
             map.put("text", sysNoteCate.getCateTitle());
-            map.put("iconCls", "iconfont icon-tree-folder");
+            map.put("iconCls", "iconfont icon-folder");
             if (sysNoteCate.getInt("IS_LEAF") == 0) {
                 map.put("state", "closed");
             }

@@ -22,7 +22,7 @@
  <#--<th field="AVATAR" width="100">头像</th>-->
      <th field="GENDER_TEXT" width="50">性别</th>
      <th field="USER_STATE_TEXT" width="100">是否禁用</th>
-     <th field="LAST_LOGIN_TIME" width="200">上次登录时间</th>
+     <th   field="LAST_LOGIN_TIME" width="200">上次登录时间</th>
  </tr>
  </thead>
 </table>
