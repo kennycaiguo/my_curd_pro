@@ -68,6 +68,7 @@ public class AppConfig extends JFinalConfig {
 
         me.add(new SystemRoute());  // 系统模块
         me.add(new ExampleRoute()); // 例子模块
+
     }
 
     @Override

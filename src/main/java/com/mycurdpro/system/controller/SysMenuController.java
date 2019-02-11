@@ -93,6 +93,9 @@ public class SysMenuController extends BaseController {
                 return;
             }
         }
+
+        // 是否合法 controller key 验证
+
         sysMenu.setId(IdUtils.id())
                 .setCreater(WebUtils.getSessionUsername(this))
                 .setCreateTime(new Date());
@@ -117,6 +120,9 @@ public class SysMenuController extends BaseController {
                 return;
             }
         }
+
+        // 是否合法 controller key 验证
+
         sysMenu.setUpdater(WebUtils.getSessionUsername(this))
                 .setUpdateTime(new Date());
         if (sysMenu.update()) {
