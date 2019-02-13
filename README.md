@@ -29,7 +29,7 @@
  -- 用户授权
  grant create session,create table,unlimited tablespace to MYCURD;
 ``` 
-3. 使用 IDE clone 本项目，等 maven 构建完成后，将 git仓库附件中的 MYCURD.sql 导入 数据库
+3. 使用 IDE clone 本项目，等 maven 构建完成后，将 db目录下 MYCURD.sql 导入 数据库
 2. 修改 resources 下 jdbc.properties 数据库连接信息，IDE 配置 server，运行项目。
 3. 账号 admin, 密码 111111
 
