@@ -38,7 +38,7 @@ public class SysOrgController extends BaseController {
         List<SysOrg> sysOrgs;
         if (StringUtils.isEmpty(name)) {
             // 查所有
-            sysOrgs = SysOrg.dao.findAll();
+            sysOrgs = SysOrg.dao.findAllWithLeafFlag();
         } else {
             // 根据名字查询
             String ids = SysOrg.dao.findIdsByName(name);

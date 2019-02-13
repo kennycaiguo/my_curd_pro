@@ -6,8 +6,7 @@ import com.mycurdpro.system.model.base.BaseSysTaskLog;
 
 /**
  * Generated model
- * DB: SYS_TASK_LOG  定时任务日志
- *
+ * DB: SYS_TASK_LOG 定时任务日志
  * @author zhangchuang
  */
 @SuppressWarnings("serial")

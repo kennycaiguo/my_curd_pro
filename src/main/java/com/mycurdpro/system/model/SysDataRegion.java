@@ -25,8 +25,4 @@ public class SysDataRegion extends BaseSysDataRegion<SysDataRegion> {
         return find(sql, pid);
     }
 
-    public List<SysDataRegion> findAll() {
-        String sql = " select * from sys_data_region ";
-        return find(sql);
-    }
 }

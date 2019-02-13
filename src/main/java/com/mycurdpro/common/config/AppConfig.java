@@ -133,12 +133,12 @@ public class AppConfig extends JFinalConfig {
     }
 
     @Override
-    public void afterJFinalStart() {
-        super.afterJFinalStart();
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
-    public void beforeJFinalStop() {
-        super.beforeJFinalStop();
+    public void onStop() {
+        super.onStop();
     }
 }

@@ -21,7 +21,7 @@ public class SysOrg extends BaseSysOrg<SysOrg> {
      *
      * @return
      */
-    public List<SysOrg> findAll() {
+    public List<SysOrg> findAllWithLeafFlag() {
         String sql = "SELECT ID,PID,NAME,ADDRESS,CODE,SORT,MARK, connect_by_isleaf AS IS_LEAF  FROM SYS_ORG   START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY SORT,IS_LEAF";
         return find(sql);
     }

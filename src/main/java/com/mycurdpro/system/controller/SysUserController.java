@@ -144,7 +144,7 @@ public class SysUserController extends BaseController {
         }
         String[] roleIdAry = roleIds.split(",");
         for (String roleId : roleIdAry) {
-            SysUserRole sysUserRoleOld = SysUserRole.dao.findById(userId, roleId);
+            SysUserRole sysUserRoleOld = SysUserRole.dao.findByIds(userId, roleId);
             if (sysUserRoleOld == null) {
                 SysUserRole sysUserRole = new SysUserRole();
                 sysUserRole.setSysUserId(userId).setSysRoleId(roleId)
@@ -169,7 +169,7 @@ public class SysUserController extends BaseController {
         }
         String[] roleIdAry = roleIds.split(",");
         for (String roleId : roleIdAry) {
-            SysUserRole.dao.deleteById(userId, roleId);
+            SysUserRole.dao.deleteByIds(userId, roleId);
         }
         renderSuccess("删除用户角色成功.");
     }

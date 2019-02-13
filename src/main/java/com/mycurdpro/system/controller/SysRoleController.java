@@ -140,7 +140,7 @@ public class SysRoleController extends BaseController {
             renderFail("userId roleId 参数不可为空");
             return;
         }
-        SysUserRole.dao.deleteById(userId, roleId);
+        SysUserRole.dao.deleteByIds(userId, roleId);
         renderSuccess("角色用户删除成功");
     }
 
@@ -161,7 +161,7 @@ public class SysRoleController extends BaseController {
         // 角色相关菜单
         List<SysRoleMenu> sysRoleMenus = SysRoleMenu.dao.findByRoleId(id);
         // 全部菜单
-        List<SysMenu> sysMenus = SysMenu.dao.findAll();
+        List<SysMenu> sysMenus = SysMenu.dao.findAllWithLeafFlag();
         List<Map<String, Object>> maps = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {
             Map<String, Object> map = new HashMap<>();

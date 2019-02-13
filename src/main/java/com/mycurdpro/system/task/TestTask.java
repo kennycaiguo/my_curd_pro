@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
- * 示例 定时任务
- *
- * @author
+ * 示例 定时任务, 非业务需要
+ * 需要 5s 执行时间 的定时任务
+ * @author zhangchuang
  */
 public class TestTask implements ITask {
 

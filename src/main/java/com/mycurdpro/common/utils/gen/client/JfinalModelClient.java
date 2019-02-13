@@ -1,6 +1,5 @@
 package com.mycurdpro.common.utils.gen.client;
 
-import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.activerecord.generator.Generator;
 import com.mycurdpro.common.utils.gen.tools.OracleDatasourceUtils;
@@ -15,7 +14,9 @@ public class JfinalModelClient {
     // base model 包名
     private static final String baseModelPkg = "com.mycurdpro.testModule.model.base";
     // base 路径
-    private static final String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/com/mycurdpro/testModule/model/base";
+    //private static final String baseModelDir = PathKit.getWebRootPath() + "/src/main/java/com/mycurdpro/testModule/model/base";
+    private static final String baseModelDir = "E:/codegen/src/main/java/com/mycurdpro/testModule/model/base";
+
     // model 包名
     private static final String modelPkg = "com.mycurdpro.testModule.model";
     // model 路径
@@ -34,6 +35,7 @@ public class JfinalModelClient {
         generator.setGenerateDataDictionary(true);
         generator.setDataDictionaryFileName("dict.txt");
         generator.setDataDictionaryOutputDir(baseModelDir); // base 包下
+        generator.setGenerateRemarks(true); // baseModel 字段是否生成注释
 
         // 添加不需要生成的表名
         // generator.addExcludedTable("adv");

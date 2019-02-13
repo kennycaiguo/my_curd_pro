@@ -46,7 +46,7 @@ public class SysNTUserController extends BaseController {
         String sysNoticeTypeId = getPara("sysNoticeTypeId");
         SysNoticeTypeSysUser sysNTUserOld;
         for (String userId : userIds.split(",")) {
-            sysNTUserOld = SysNoticeTypeSysUser.dao.findById(sysNoticeTypeId, userId);
+            sysNTUserOld = SysNoticeTypeSysUser.dao.findByIds(sysNoticeTypeId, userId);
             if (sysNTUserOld != null) {
                 continue;
             }
@@ -75,7 +75,7 @@ public class SysNTUserController extends BaseController {
         String[] idAry;
         for (String idPair : idPairAry) {
             idAry = idPair.split(",");
-            SysNoticeTypeSysUser.dao.deleteById(idAry[0], idAry[1]);
+            SysNoticeTypeSysUser.dao.deleteByIds(idAry[0], idAry[1]);
         }
         renderSuccess(Constant.DELETE_SUCCESS);
     }

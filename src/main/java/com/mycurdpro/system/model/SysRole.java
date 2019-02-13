@@ -4,8 +4,6 @@ import com.jfinal.plugin.activerecord.Page;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysRole;
 
-import java.util.List;
-
 /**
  * Generated model
  * DB: SYS_ROLE  角色
@@ -33,17 +31,4 @@ public class SysRole extends BaseSysRole<SysRole> {
         sqlExceptSelect += " order by sort asc ";
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
-
-
-    /**
-     * 查询所有
-     *
-     * @return
-     */
-    public List<SysRole> findAll() {
-        String sql = "select * from sys_role ";
-        return find(sql);
-    }
-
-
 }

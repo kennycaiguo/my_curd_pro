@@ -21,7 +21,7 @@ class LoginService {
             roleIds = roleIds.replaceAll(",", "','");
         }
         // 所有菜单
-        List<SysMenu> allMenuList = SysMenu.dao.findAll();
+        List<SysMenu> allMenuList = SysMenu.dao.findAllWithLeafFlag();
         // 用户菜单
         List<SysMenu> userMenuList = SysMenu.dao.findByRoleIds(roleIds);
         // 完整的用户菜单

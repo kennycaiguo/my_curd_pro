@@ -2,6 +2,7 @@ package com.mycurdpro.system.controller;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
+import com.jfinal.config.Routes;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
@@ -36,7 +37,7 @@ public class SysMenuController extends BaseController {
         List<SysMenu> sysMenus;
         if (StringUtils.isEmpty(name)) {
             // 查询所有
-            sysMenus = SysMenu.dao.findAll();
+            sysMenus = SysMenu.dao.findAllWithLeafFlag();
         } else {
             // 根据名字查询
             String ids = SysMenu.dao.findIdsByName(name);
@@ -92,9 +93,14 @@ public class SysMenuController extends BaseController {
                 renderFail("菜单地址已存在.");
                 return;
             }
-        }
 
-        // 是否合法 controller key 验证
+            // 是否合法 controller key 验证
+            Set<String> controllerKeySet = Routes.getControllerKeySet();
+            if(!controllerKeySet.contains(sysMenu.getUrl())){
+                renderFail("菜单地址 必须是 已存在 Controller 的 Controller Key.");
+                return;
+            }
+        }
 
         sysMenu.setId(IdUtils.id())
                 .setCreater(WebUtils.getSessionUsername(this))
@@ -119,9 +125,14 @@ public class SysMenuController extends BaseController {
                 renderFail("菜单地址已存在.");
                 return;
             }
-        }
 
-        // 是否合法 controller key 验证
+            // 是否合法 controller key 验证
+            Set<String> controllerKeySet = Routes.getControllerKeySet();
+            if(!controllerKeySet.contains(sysMenu.getUrl())){
+                renderFail("菜单地址 必须是 已存在 Controller 的 Controller Key.");
+                return;
+            }
+        }
 
         sysMenu.setUpdater(WebUtils.getSessionUsername(this))
                 .setUpdateTime(new Date());
@@ -223,7 +234,7 @@ public class SysMenuController extends BaseController {
             renderFail("menuId roleId 参数不可为空");
             return;
         }
-        SysRoleMenu.dao.deleteById(roleId, menuId);
+        SysRoleMenu.dao.deleteByIds(roleId, menuId);
         renderSuccess("菜单角色删除成功");
     }
 }

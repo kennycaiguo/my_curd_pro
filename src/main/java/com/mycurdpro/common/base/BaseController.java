@@ -16,7 +16,6 @@ import java.util.*;
 
 /**
  * controller 基类，封装一些Controller 中使用的公共方法
- *
  * @author zhangchuang
  */
 public abstract class BaseController extends Controller {
@@ -94,7 +93,7 @@ public abstract class BaseController extends Controller {
      * @param msg
      */
     protected void renderSuccess(String msg) {
-        Ret ret = Ret.create().setOk().set("msg", msg);
+        Ret ret = Ret.create().setOk().setIfNotNull("msg", msg);
         renderJson(ret);
     }
 
@@ -104,7 +103,7 @@ public abstract class BaseController extends Controller {
      * @param data
      */
     protected void renderSuccess(List<Object> data) {
-        Ret ret = Ret.create().setOk().set("data", data);
+        Ret ret = Ret.create().setOk().setIfNotNull("data", data);
         renderJson(ret);
     }
 
@@ -115,7 +114,7 @@ public abstract class BaseController extends Controller {
      * @param data
      */
     protected void renderSuccess(String msg, List<Object> data) {
-        Ret ret = Ret.create().setOk().set("msg", msg).set("data", data);
+        Ret ret = Ret.create().setOk().setIfNotNull("msg", msg).setIfNotNull("data", data);
         renderJson(ret);
     }
 
@@ -134,7 +133,7 @@ public abstract class BaseController extends Controller {
      * @param msg
      */
     protected void renderFail(String msg) {
-        Ret ret = Ret.create().setFail().set("msg", msg);
+        Ret ret = Ret.create().setFail().setIfNotNull("msg", msg);
         renderJson(ret);
     }
 
@@ -144,7 +143,7 @@ public abstract class BaseController extends Controller {
      * @param data
      */
     protected void renderFail(List<Object> data) {
-        Ret ret = Ret.create().setFail().set("data", data);
+        Ret ret = Ret.create().setFail().setIfNotNull("data", data);
         renderJson(ret);
     }
 
@@ -155,7 +154,7 @@ public abstract class BaseController extends Controller {
      * @param data
      */
     protected void renderFail(String msg, List<Object> data) {
-        Ret ret = Ret.create().setFail().set("msg", msg).set("data", data);
+        Ret ret = Ret.create().setFail().setIfNotNull("msg", msg).setIfNotNull("data", data);
         renderJson(ret);
     }
 

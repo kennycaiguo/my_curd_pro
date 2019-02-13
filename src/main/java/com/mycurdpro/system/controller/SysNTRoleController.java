@@ -46,7 +46,7 @@ public class SysNTRoleController extends BaseController {
         String sysNoticeTypeId = getPara("sysNoticeTypeId");
         SysNoticeTypeSysRole sysNTRoleOld;
         for (String roleId : roleIds.split(",")) {
-            sysNTRoleOld = SysNoticeTypeSysRole.dao.findById(sysNoticeTypeId, roleId);
+            sysNTRoleOld = SysNoticeTypeSysRole.dao.findByIds(sysNoticeTypeId, roleId);
             if (sysNTRoleOld != null) {
                 continue;
             }
@@ -75,7 +75,7 @@ public class SysNTRoleController extends BaseController {
         String[] idAry;
         for (String idPair : idPairAry) {
             idAry = idPair.split(",");
-            SysNoticeTypeSysRole.dao.deleteById(idAry[0], idAry[1]);
+            SysNoticeTypeSysRole.dao.deleteByIds(idAry[0], idAry[1]);
         }
         renderSuccess(Constant.DELETE_SUCCESS);
     }

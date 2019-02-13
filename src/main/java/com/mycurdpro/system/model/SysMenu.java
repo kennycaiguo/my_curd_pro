@@ -19,11 +19,11 @@ public class SysMenu extends BaseSysMenu<SysMenu> {
     public static final SysMenu dao = new SysMenu().dao();
 
     /**
-     * 查询完整子孙的 Menu
+     * 查询全部 Menu, 包含是否叶子标志
      *
      * @return
      */
-    public List<SysMenu> findAll() {
+    public List<SysMenu> findAllWithLeafFlag() {
         String sql = "SELECT ID,PID,NAME,URL,ICON,SORT, connect_by_isleaf AS IS_LEAF  FROM SYS_MENU   START WITH PID = '0' CONNECT BY PID = PRIOR ID ORDER BY SORT,IS_LEAF";
         return find(sql);
     }
