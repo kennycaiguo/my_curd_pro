@@ -1,5 +1,6 @@
 
 <p align="center">
+    <img src="https://images.gitee.com/uploads/images/2019/0213/221706_3326cf26_608004.png" width="150">
     <h3 align="center">my_curd_pro</h3>
     <p align="center">
        后台权限管理系统，内置代码生成器，代码量少，简单美观。
@@ -10,6 +11,7 @@
     </p>    
 </p>
 
+***
 
 #### 项目介绍
 基于 jfinal oracle easyui 快速开发 后台脚手架。 
