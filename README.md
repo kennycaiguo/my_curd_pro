@@ -1,7 +1,8 @@
 
-<p align="center">
-    <img src="https://images.gitee.com/uploads/images/2019/0213/221706_3326cf26_608004.png" width="150">
-    <h3 align="center">my_curd_pro</h3>
+<p align="center" style='font-weight:bold'>
+    <img src="https://images.gitee.com/uploads/images/2019/0213/221706_3326cf26_608004.png" width="120">
+    <br/>
+    my_curd_pro
     <p align="center">
        后台权限管理系统，内置代码生成器，代码量少，简单美观。
         <br>
