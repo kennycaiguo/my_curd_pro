@@ -5,10 +5,6 @@
     my_curd_pro
     <p align="center">
        后台权限管理系统，内置代码生成器，代码量少，简单美观。
-        <br>
-        <a href="http://www.gnu.org/licenses/gpl-3.0.html">
-            <img src="https://img.shields.io/badge/license-GPLv3-blue.svg" >
-        </a>
     </p>    
 </p>
 
