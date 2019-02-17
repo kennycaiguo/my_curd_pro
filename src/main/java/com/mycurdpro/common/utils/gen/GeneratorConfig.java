@@ -19,7 +19,7 @@ public class GeneratorConfig {
     // 基础包名
     public final static String basePackageName = "com.mycurdpro";
     // 模块名
-    public final static String moduleName = "example";
+    public final static String moduleName = "system";
     // 代码中 @author
     public final static String author = "zhangchuang";
     // 模式名（oracle)
@@ -54,10 +54,11 @@ public class GeneratorConfig {
 //        add("EX_MAIN_TABLE");
 //        add("EX_SON_TABLE1");
 //        add("EX_SON_TABLE2");
-         add("EX_STAFF");
-         add("EX_STAFF_EDUCATION");
-         add("EX_STAFF_EXPERIENCE");
-         add("EX_STAFF_FAMILY");
+//         add("EX_STAFF");
+//         add("EX_STAFF_EDUCATION");
+//         add("EX_STAFF_EXPERIENCE");
+//         add("EX_STAFF_FAMILY");
+          add("SYS_USER_SETTING");
     }};
 
     // 生成 代码文件基础路径

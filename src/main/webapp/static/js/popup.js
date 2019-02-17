@@ -26,11 +26,12 @@ var popup = {
         return index;
     },
     /*iframe 弹窗，不能调整大小*/
-    openIframeNoResize:function(title,url,width,height,autoHeight,skin){
+    openIframeNoResize:function(title,url,width,height,autoHeight,noTitle,skin){
         var index = top.layer.open({
             skin: skin || 'layui-layer-lan',
             type: 2,
-            title: title,
+            title: noTitle?false:title,
+            closeBtn:noTitle?0:1,
             maxmin: false,
             resize:false,
             shadeClose: true,

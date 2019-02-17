@@ -13,6 +13,7 @@ import com.mycurdpro.common.base.BaseController;
 import com.mycurdpro.common.config.Constant;
 import com.mycurdpro.common.interceptor.PermissionInterceptor;
 import com.mycurdpro.common.interceptor.SearchSql;
+import com.mycurdpro.common.utils.Id.IdUtils;
 import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.common.utils.WebUtils;
 import com.mycurdpro.common.utils.ws.UserIdEncryptUtils;
@@ -254,6 +255,47 @@ public class MainController extends BaseController {
         Record record = Db.findFirst(sql, sysUser.getId());
         Ret ret = Ret.create().setOk().set("unreadCount", record == null ? 0 : record.get("unread_count"));
         renderJson(ret);
+    }
+
+
+    /**
+     * 主题列表
+     */
+    public void  themeList(){
+        List<SysDict> themeList = SysDict.dao.findListByGroupCode("theme");
+        themeList.forEach(item ->{
+            String[] aryTemp = item.getStr("VALUE").split(" ");
+            item.put("COLOR",aryTemp[1]);
+            item.put("VALUE",aryTemp[0]);
+        });
+        setAttr("colorList",themeList);
+        render("themeList.ftl");
+    }
+
+    /**
+     * 主题设置
+     */
+    public void themeSet(){
+        String username = WebUtils.getSessionUsername(this);
+        SysUserSetting sysUserSetting = SysUserSetting.dao.findBySysUser(username);
+
+        String color = get("color");
+        String colorName = get("colorName");
+        if(sysUserSetting == null){
+            sysUserSetting = new SysUserSetting();
+            sysUserSetting.setId(IdUtils.id());
+            sysUserSetting.setSysUser(username);
+            sysUserSetting.setTheme(colorName);
+            sysUserSetting.setThemeColor(color);
+            sysUserSetting.save();
+        }else{
+            sysUserSetting.setTheme(colorName);
+            sysUserSetting.setThemeColor(color);
+            sysUserSetting.update();
+        }
+        setSessionAttr(Constant.SYS_USER_THEME,colorName);
+
+        renderSuccess("设置成功");
     }
 
 }

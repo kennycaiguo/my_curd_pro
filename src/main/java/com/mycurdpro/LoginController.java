@@ -17,6 +17,7 @@ import com.mycurdpro.common.utils.guava.LoginRetryLimitCache;
 import com.mycurdpro.system.model.SysMenu;
 import com.mycurdpro.system.model.SysUser;
 import com.mycurdpro.system.model.SysUserRole;
+import com.mycurdpro.system.model.SysUserSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -161,6 +162,14 @@ public class LoginController extends BaseController {
         // 角色编码
         String rolecodes = SysUserRole.dao.findRoleCodesByUserId(sysUser.getId());
         setSessionAttr(Constant.SYS_USER_ROLE_CODES, rolecodes);
+
+        // 用户配置
+        SysUserSetting sysUserSetting = SysUserSetting.dao.findBySysUser(sysUser.getUsername());
+        if(sysUserSetting==null){
+          setSessionAttr(Constant.SYS_USER_THEME,"default");
+        }else{
+          setSessionAttr(Constant.SYS_USER_THEME,sysUserSetting.getTheme());
+        }
     }
 
 

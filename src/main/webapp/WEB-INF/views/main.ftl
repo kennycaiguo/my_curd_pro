@@ -5,13 +5,18 @@
 <div id="mainLayout" class="easyui-layout" fit="true" border="false">
     <div class="mainHeader" data-options="region:'north'" border="false">
         <ul class="headerMenu">
-            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">XX 综合管理平台</a></li>
+            <li><a href="javascript:fullScreenToggleNew()" title="点击全屏" style="width: 199px;" class="title">my curd pro</a></li>
             <li><a href="#" class="active">首页</a></li>
             <#--<li><a href="#">OA协同</a></li>-->
             <span class="right">
                 <li>
                     <a href="javascript:openUserNotice()"   title="点击查看通知" style="font-weight: bold">
                         <i class="iconfont icon-bell"></i> <span id="unreadCount" ></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:openThemeSetting()"   title="点击设置主题"  >
+                        <i class="iconfont icon-theme"></i>
                     </a>
                 </li>
                 <li>
@@ -30,6 +35,10 @@
                 /* 移除未读消息数小红点，此处并不合理 */
                 $('#unreadCount').addClass('hidCss');
             }
+            function openThemeSetting() {
+                popup.openIframeNoResize('主题设置', '${ctx!}/dashboard/themeList', '300px', '120px',true,true);
+            }
+
             (function(){
                 function openUserInfoEdit() {
                     popup.openIframeNoResize('修改用户信息', '${ctx!}/dashboard/userInfo', '360px', '550px');

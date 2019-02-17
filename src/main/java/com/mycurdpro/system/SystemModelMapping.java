@@ -14,6 +14,8 @@ public class SystemModelMapping {
     public static void mapping(ActiveRecordPlugin arp) {
         // 系统用户表
         arp.addMapping("SYS_USER", "ID", SysUser.class);
+        // 用户设置项
+        arp.addMapping("SYS_USER_SETTING", "ID", SysUserSetting.class);
         // 用户角色中间表
         arp.addMapping("SYS_USER_ROLE", "SYS_USER_ID,SYS_ROLE_ID", SysUserRole.class);
         // 角色

@@ -12,6 +12,9 @@ public class Constant {
     // session 中存储的 SysUser.name 的 KEY名 (用于druid session 监控)
     public final static String SYS_USER_NAME = "SYS_USER_NAME";
 
+    // 前台主题配置
+    public final static String SYS_USER_THEME = "SYS_USER_THEME";
+
     // 用户拥有的菜单
     public final static String SYS_USER_MENU = "SYS_USER_MENU";
     // 用户拥有的

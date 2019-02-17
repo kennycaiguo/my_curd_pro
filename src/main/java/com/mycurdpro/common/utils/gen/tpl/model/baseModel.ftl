@@ -3,14 +3,12 @@ package ${(basePackageName)!}.${(moduleName)!}.model.base;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
 <#if hasExcel>import cn.afterturn.easypoi.excel.annotation.Excel;</#if>
-
 <#-- 必须引入的包 -->
 <#if (tableMeta.necessaryImport)??>
     <#list tableMeta.necessaryImport as necessaryImport>
 import ${(necessaryImport)!};
     </#list>
 </#if>
-
 /**
  * Generated baseModel
  * DB table: ${(tableMeta.name)!}  ${(tableMeta.remark)!}
