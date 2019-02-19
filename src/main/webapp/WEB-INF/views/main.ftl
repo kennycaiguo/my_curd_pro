@@ -10,7 +10,7 @@
             <#--<li><a href="#">OA协同</a></li>-->
             <span class="right">
                 <li>
-                    <a href="javascript:openUserNotice()"   title="点击查看通知" style="font-weight: bold">
+                    <a href="javascript:openUserNotice()"   title="点击查看通知"  >
                         <i class="iconfont icon-bell"></i> <span id="unreadCount" ></span>
                     </a>
                 </li>
@@ -36,7 +36,7 @@
                 $('#unreadCount').addClass('hidCss');
             }
             function openThemeSetting() {
-                popup.openIframeNoResize('主题设置', '${ctx!}/dashboard/themeList', '300px', '120px',true,true);
+                popup.openIframeNoResize('主题设置', '${ctx!}/dashboard/themeList', '200px', '120px',true,true);
             }
 
             (function(){
