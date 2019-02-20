@@ -13,6 +13,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
         <jfinal.version>3.6</jfinal.version>
         <druid.version>1.0.29</druid.version>
         <jfinal-cos.version>2017.5</jfinal-cos.version>

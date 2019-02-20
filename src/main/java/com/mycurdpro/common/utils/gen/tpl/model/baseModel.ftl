@@ -42,8 +42,7 @@ public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tabl
         return ${(getterOfModel)!}("${(column.name)!}");
      }
 
-     public ${chainSetter?string( 'M','void')} set${(column.nameCamelFirstUp)!}
-        (${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
+     public ${chainSetter?string( 'M','void')} set${(column.nameCamelFirstUp)!}(${(column.javaTypeShortName)!} ${(column.nameCamel)!}) {
         set("${(column.name)!}", ${(column.nameCamel)!});
         <#if chainSetter >
         return (M)this;
