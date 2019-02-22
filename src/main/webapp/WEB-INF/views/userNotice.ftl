@@ -57,9 +57,9 @@
             <thead>
             <tr>
                 <th field="LOGO" align="center" width="60" formatter="logoFmt"></th>
-                <th field="CREATE_TIME" width="120" formatter="redFmt">时间</th>
-                <th field="TITLE" width="80" formatter="redFmt">标题</th>
-                <th field="CONTENT" width="220" formatter="redFmt">通知内容</th>
+                <th field="CREATE_TIME" width="120"  >时间</th>
+                <th field="TITLE" width="80"  >标题</th>
+                <th field="CONTENT" width="220"  >通知内容</th>
             </tr>
             </thead>
         </table>
@@ -86,13 +86,6 @@
             return '';
         }
         return '<img  class="noticeLogo" src="${ctx!}/' + val + '" alt="logo"/>'
-    }
-    function redFmt(val,row){
-        if(row.has_read=="0"){
-            return '<span  class="noRead">'+val+"</span>";
-        }else{
-            return val;
-        }
     }
 </script>
 </@layout>

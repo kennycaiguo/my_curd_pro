@@ -192,7 +192,7 @@ public class SysFileController extends BaseController {
         if (ids.contains(",")) {
             ids = ids.replaceAll(",", "','");
             ids = "'" + ids + "'";
-            sysFiles = SysFile.dao.findByIds(ids);
+            sysFiles = SysFile.dao.findInIds(ids);
         } else {
             SysFile sysFile = SysFile.dao.findById(ids);
             sysFiles = new ArrayList<>();

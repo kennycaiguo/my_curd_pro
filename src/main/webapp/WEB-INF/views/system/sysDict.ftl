@@ -61,6 +61,7 @@
                 <a onclick="editModel('dg2','${ctx!}/sysDict/newDictModel', '500px', '320px')" href="#" class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
                 <a onclick="deleteModel('dg2','${ctx!}/sysDict/deleteDictAction')" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-delete" plain="true">删除</a>
                 <span id="searchSpan2" class="searchInputArea">
+                      <input id="groupCodeHid" name="search_EQS_GROUP_CODE" type="hidden"  >
                     <input name="search_LIKE_dict_label" prompt="名称" class="easyui-textbox" style="width:120px; ">
                     <input name="search_LIKE_dict_value" prompt="编码" class="easyui-textbox" style="width:120px; ">
                     <a href="#" class="easyui-linkbutton searchBtn" data-options="iconCls:'iconfont icon-search',plain:true"
@@ -83,9 +84,8 @@
 
         /*左侧分组选中*/
         function groupSelect(index,row){
-            var queryParams = {};
-            queryParams.search_EQS_group_code = row.GROUP_CODE;
-            $('#dg2').datagrid('load', queryParams);
+            $('#groupCodeHid').val(row.groupCode);
+            $('#searchSpan2 a').first().trigger('click');
         };
     </script>
 </@layout>

@@ -22,7 +22,7 @@
         <a onclick="deleteRolesAction()" href="#" class="easyui-linkbutton" iconCls="iconfont icon-add" plain="true">删除</a>
         <span id="searchSpan" class="searchInputArea">
              <input name="search_LIKE_b.NAME" prompt="名称" class="easyui-textbox" style="width:120px; ">
-             <input name="search_LIKE_b.NAME" prompt="编码" class="easyui-textbox" style="width:120px; ">
+             <input name="search_LIKE_b.CODE" prompt="编码" class="easyui-textbox" style="width:120px; ">
              <input name="search_LIKE_a.CREATER" prompt="添加人" class="easyui-textbox" style="width:120px; ">
              <a href="#" class="easyui-linkbutton searchBtn"
                 data-options="iconCls:'iconfont icon-search',plain:true" onclick="queryModel('dg','searchSpan')">搜索

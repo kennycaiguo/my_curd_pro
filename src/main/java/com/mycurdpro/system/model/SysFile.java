@@ -23,7 +23,7 @@ public class SysFile extends BaseSysFile<SysFile> {
      * @param ids
      * @return
      */
-    public List<SysFile> findByIds(String ids) {
+    public List<SysFile> findInIds(String ids) {
         String sql = "select * from sys_file where id in (" + ids + ")";
         return find(sql);
     }

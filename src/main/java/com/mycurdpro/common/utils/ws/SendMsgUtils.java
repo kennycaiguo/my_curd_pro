@@ -31,12 +31,12 @@ public class SendMsgUtils {
             ExecutorServiceUtils.pool.submit(() -> {
                 String sessionId = OnlineUserContainer.USERID_SESSIONID.get(userId);
                 if (StrKit.isBlank(sessionId)) {
-                    LOG.info("用户：{} websocket 不在线，不使用 WebSocket 推送。", userId);
+                    LOG.debug("用户：{} websocket 不在线，不使用 WebSocket 推送。", userId);
                     return;
                 }
                 Session session = OnlineUserContainer.SESSIONID_SESSION.get(sessionId);
                 if (session == null) {
-                    LOG.info("用户：{} 找不到 websocket session，不使用 WebSocket 推送。", userId);
+                    LOG.debug("用户：{} 找不到 websocket session，不使用 WebSocket 推送。", userId);
                     return;
                 }
                 try {

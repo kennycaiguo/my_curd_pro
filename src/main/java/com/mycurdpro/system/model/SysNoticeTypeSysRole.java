@@ -1,9 +1,9 @@
 package com.mycurdpro.system.model;
 
-import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import com.mycurdpro.common.utils.StringUtils;
 import com.mycurdpro.system.model.base.BaseSysNoticeTypeSysRole;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class SysNoticeTypeSysRole extends BaseSysNoticeTypeSysRole<SysNoticeType
         String sqlExceptSelect = " from sys_notice_type_sys_role a " +
                 " left join sys_role b on a.sys_role_id = b.id " +
                 " left join sys_notice_type c on a.sys_notice_type_id = c.id ";
-        if (StrKit.notBlank(where)) {
+        if (StringUtils.notEmpty(where)) {
             sqlExceptSelect += " where " + where;
         }
         sqlExceptSelect += " order by b.sort ";

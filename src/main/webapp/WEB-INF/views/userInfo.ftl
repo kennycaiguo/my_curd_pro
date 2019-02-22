@@ -81,7 +81,7 @@
             </fieldset>
             <fieldset class="pure-group">
                 <input class="pure-input-1" id="name" name="name" type="text" placeholder="姓名" value="${(sysUser.name)!}"  >
-                <input class="pure-input-1" id="job" name="name" type="text" placeholder="职位" value="${(sysUser.job)!}"  >
+                <input class="pure-input-1" id="job" name="job" type="text" placeholder="职位" value="${(sysUser.job)!}"  >
                 <input class="pure-input-1" id="phone" name="phone" type="text" placeholder="手机号" value="${(sysUser.phone)!}">
                 <input class="pure-input-1" id="email" name="email" type="text" placeholder="邮箱" value="${(sysUser.email)!}">
             </fieldset>

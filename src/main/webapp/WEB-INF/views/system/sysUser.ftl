@@ -20,7 +20,7 @@
      <th field="JOB_LEVEL_TEXT" width="150">职位级别</th>
      <th field="NAME" width="100">姓名</th>
  <#--<th field="AVATAR" width="100">头像</th>-->
-     <th field="GENDER_TEXT" width="50">性别</th>
+     <th field="GENDER" width="50" formatter="genderFmt">性别</th>
      <th field="USER_STATE_TEXT" width="100">是否禁用</th>
      <th   field="LAST_LOGIN_TIME" width="200">上次登录时间</th>
  </tr>
@@ -68,6 +68,16 @@
         } else {
             popup.msg('请至少选择一条数据');
         }
+    }
+
+    function genderFmt(val,row) {
+        var gender = '';
+        if(val==='M'){
+            gender = '男';
+        }else if(val==='F'){
+            gender = '女';
+        }
+        return gender;
     }
 
     function usernameFmt(val,row) {

@@ -37,7 +37,7 @@ public class SysUserUnlockController extends BaseController {
         });
         List<SysUser> sysUsers = new ArrayList<>();
         String ids = "'" + Joiner.on("','").join(userNameSet) + "'";
-        List<Record> records = Db.find("select * from sys_user where username in (" + ids + ")");
+        List<Record> records = Db.find("select id,username,name,job from sys_user where username in (" + ids + ")");
         renderDatagrid(records);
     }
 

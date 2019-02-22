@@ -68,7 +68,7 @@ public class SysMenu extends BaseSysMenu<SysMenu> {
      * @return
      */
     public List<SysMenu> findByRoleIds(String roleIds) {
-        List<SysMenu> result = new ArrayList<SysMenu>();
+        List<SysMenu> result = new ArrayList<>();
         if (StringUtils.notEmpty(roleIds)) {
             String sql = "select a.* from sys_menu a, sys_role_menu b where a.id = b.sys_menu_id and b.sys_role_id in ('" + roleIds + "')";
             result = find(sql);

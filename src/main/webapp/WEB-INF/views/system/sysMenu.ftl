@@ -48,7 +48,7 @@
                 return data;
             },
             columns: [[
-                {field: 'NAME', title: '机构名', width: 300},
+                {field: 'NAME', title: '菜单名', width: 300},
                 {field: 'URL', title: '地址', width: 300},
                 {field: 'ICON', title: '图标', width: 300},
                 {field: 'SORT', title: '排序', width: 80}

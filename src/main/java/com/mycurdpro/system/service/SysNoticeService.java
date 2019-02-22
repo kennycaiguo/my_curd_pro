@@ -54,7 +54,8 @@ public class SysNoticeService {
         // 保存通知数据
         boolean flag = saveNotificationData(sysNoticeType, msgTitle, msgContent, receivers);
         if (!flag) {
-            LOG.debug("{}, 系统通知 数据保存数据库失败", noticeCode);
+            LOG.info("{}, 系统通知 数据保存数据库失败", noticeCode);
+            return false;
         }
 
         LOG.info("{}, 系统通知 执行成功", noticeCode);

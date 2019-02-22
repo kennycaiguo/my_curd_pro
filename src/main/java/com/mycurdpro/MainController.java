@@ -168,6 +168,8 @@ public class MainController extends BaseController {
         if (sysUser.update()) {
             SysUser curUser = WebUtils.getSysUser(this);
             curUser.setName(sysUser.getName());
+            curUser.setJob(sysUser.getJob());
+            curUser.setGender(sysUser.getGender());
             curUser.setEmail(sysUser.getEmail());
             curUser.setPhone(sysUser.getPhone());
             curUser.setAvatar(sysUser.getAvatar());
