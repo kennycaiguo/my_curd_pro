@@ -107,7 +107,7 @@ public class ${(tableMeta.nameCamelFirstUp)!}Controller extends BaseController{
     @Before(IdsRequired.class)
     public void deleteAction(){
         String ids = getPara("ids").replaceAll(",","','");
-        String deleteSql = "delete from ${(tableMeta.name)!} where id in ( '" + ids + "' ) ";
+        String deleteSql = "delete from ${(tableMeta.name)!} where ID in ( '" + ids + "' ) ";
         Db.update(deleteSql);
         renderSuccess(Constant.DELETE_SUCCESS);
     }

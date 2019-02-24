@@ -28,8 +28,8 @@
               <a onclick="addRow(this)"   class="easyui-linkbutton addRowBtn" title="增行"  iconCls="iconfont icon-add" plain="true">增行</a>
               <div class="tpl">
                   <tpltr>
-                      <myinput name="${(sonTableMeta.nameCamel)!}[number].id"  type="hidden">
-                      <myinput name="${(sonTableMeta.nameCamel)!}[number].${mainIdCamel}" type="hidden">
+                      <myinput name="${(sonTableMeta.nameCamel)!}[number].id"  type="hidden" />
+                      <myinput name="${(sonTableMeta.nameCamel)!}[number].${mainIdCamel}" type="hidden" />
                       <tpltd class="number"></tpltd>
               <#list sonTableMeta.columnMetas as col>
                   <#if !(col.primaryKey) && !excludeFields?seq_contains(col.name) && col.name!= mainId >

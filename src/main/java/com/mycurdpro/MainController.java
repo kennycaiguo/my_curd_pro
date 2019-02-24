@@ -264,7 +264,7 @@ public class MainController extends BaseController {
      * 主题列表
      */
     public void  themeList(){
-        List<SysDict> themeList = SysDict.dao.findListByGroupCode("theme");
+        List<SysDict> themeList = SysDict.dao.findListByGroupCode("theme",true);
         themeList.forEach(item ->{
             String[] aryTemp = item.getStr("VALUE").split(" ");
             item.put("COLOR",aryTemp[1]);

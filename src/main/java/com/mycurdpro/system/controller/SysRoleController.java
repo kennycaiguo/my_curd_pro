@@ -105,6 +105,12 @@ public class SysRoleController extends BaseController {
             // 删除 角色用户 中间表
             sql = "delete from sys_user_role where sys_role_id in ('" + ids + "')";
             Db.update(sql);
+            // 删除 角色菜单中间表
+            sql = "delete from sys_role_menu where sys_role_id in ('"+ids+"')";
+            Db.update(sql);
+            // 通知类型 角色 中间表
+            sql = "delete from sys_notice_type_sys_role where sys_role_id in ('" + ids + "')";
+            Db.update(sql);
             return true;
         });
         renderSuccess(Constant.DELETE_SUCCESS);

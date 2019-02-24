@@ -71,6 +71,12 @@ public class SysNoticeTypeController extends BaseController {
             Db.update(sql);
             sql = "delete from sys_notice_type_sys_user where sys_notice_type_id in ('" + ids + "')";
             Db.update(sql);
+            // 删除通知消息表
+            sql = "delete from sys_notice_detail where sys_notice_id in (select id from sys_notice where type_code in (select code from sys_notice_type where id in ('"+ids+"')))";
+            Db.update(sql);
+            sql = "delete from sys_notice where type_code in (select code from sys_notice_type where id in ('"+ids+"'))";
+            Db.update(sql);
+
             return true;
         });
         renderSuccess(Constant.DELETE_SUCCESS);

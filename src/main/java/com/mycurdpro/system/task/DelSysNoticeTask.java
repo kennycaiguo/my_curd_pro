@@ -33,9 +33,10 @@ public class DelSysNoticeTask implements Runnable {
                 // 删除 必死期 的 主从表记录
                 String selectSql = "select WM_CONCAT(ID) as IDS from SYS_NOTICE  where DEAD_TIME <= ? ";
                 String deleteSql;
+                String ids;
                 Record record = Db.findFirst(selectSql, today);
                 if (StringUtils.notEmpty(record.getStr("IDS"))) {
-                    String ids = record.getStr("IDS").replaceAll(",", "','");
+                    ids = record.getStr("IDS").replaceAll(",", "','");
                     deleteSql = " delete from  SYS_NOTICE where ID in ('"+ids+"')";
                     Db.update(deleteSql);
                     deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('"+ids+"')";
@@ -46,7 +47,7 @@ public class DelSysNoticeTask implements Runnable {
                 selectSql = " select WM_CONCAT(ID) as IDS from SYS_NOTICE where EXPIRY_TIME <= ? ";
                 record = Db.findFirst(selectSql, today);
                 if (StringUtils.notEmpty(record.getStr("IDS"))) {
-                    String ids = record.getStr("IDS").replaceAll(",", "','");
+                    ids = record.getStr("IDS").replaceAll(",", "','");
                     deleteSql = " delete from  SYS_NOTICE_DETAIL where SYS_NOTICE_ID in ('"+ids+"') and HAS_READ='N' ";
                     Db.update(deleteSql);
                 }

@@ -100,7 +100,7 @@ public class SysDictController extends BaseController {
 
         if (!Objects.equal(sysDictGroup.getGroupCode(), sysDictGroupOld.getGroupCode())) {
             // 编码不一致
-            List<SysDict> sysDictList = SysDict.dao.findListByGroupCode(sysDictGroupOld.getGroupCode());
+            List<SysDict> sysDictList = SysDict.dao.findListByGroupCode(sysDictGroupOld.getGroupCode(),false);
             if (sysDictList.size() > 0) {
                 // 子表存在记录
                 Db.tx(() -> {
@@ -223,7 +223,7 @@ public class SysDictController extends BaseController {
     @Clear({PermissionInterceptor.class, ExceptionInterceptor.class})
     public void combobox() {
         String groupCode = getPara("groupCode", "");
-        renderJson(SysDict.dao.findListByGroupCode(groupCode));
+        renderJson(SysDict.dao.findListByGroupCode(groupCode,true));
     }
 }
 

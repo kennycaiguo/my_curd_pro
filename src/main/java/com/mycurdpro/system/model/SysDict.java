@@ -42,8 +42,14 @@ public class SysDict extends BaseSysDict<SysDict> {
      * @param groupCode
      * @return
      */
-    public List<SysDict> findListByGroupCode(String groupCode) {
-        String sql = "select dict_label as label, dict_value as value from sys_dict where group_code = ? order by dict_sort ";
+    public List<SysDict> findListByGroupCode(String groupCode,boolean hidDel) {
+        String sql;
+        if(hidDel){
+            sql = "select dict_label as label, dict_value as value from sys_dict where group_code = ? and  del_flag != '1' order by dict_sort ";
+        }else{
+            sql = "select dict_label as label, dict_value as value from sys_dict where group_code = ? order by dict_sort ";
+        }
+
         return find(sql, groupCode);
     }
 }
